@@ -86,13 +86,15 @@ a {
   text-transform: uppercase;
   font-weight: bold;
   line-height: 1;
-  padding: .7rem;
+  padding: .5rem;
 }
 
-.padding0 {padding: 0;}
+.padding0 {}
 
 .food__item__weight {
   color:$shady-lady;
+  font-size:0.6em;
+  padding-top:2em;
 }
 
 .food__item__size {
