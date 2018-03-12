@@ -1,0 +1,33 @@
+#mainnavbar{
+  background:#ffffff;
+}
+#mainnavbar nav {}
+#mainnavbar nav ul {
+  padding:0;
+  margin:0;
+}
+
+#mainnavbar nav ul li {
+  display: inline-block;
+
+}
+#mainnavbar nav ul li a {
+  display: inline-block;
+  font-size:1.625em;
+  font-family: $gilroy;
+  font-weight: bold;
+  padding-top:1rem;
+  padding-bottom:1rem;
+  color:$shady-lady;
+  padding-right:7px;
+  padding-left:7px;
+}
+#mainnavbar nav ul li:last-child a {padding-right:0;}
+#mainnavbar nav ul li:first-child a {padding-left:0;}
+#mainnavbar nav ul li.active a,#mainnavbar nav ul li a:hover {
+  color:#000;
+  border-bottom:3px solid #4cd964;
+
+}
+
+.filter {display: none;}

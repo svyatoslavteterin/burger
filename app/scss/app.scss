@@ -1,0 +1,159 @@
+// Переопределение дефолтных значений переменных Bootstrap 4 и определение своих
+
+@import "../../node_modules/bootstrap/scss/bootstrap";
+@import "variables";
+
+
+a:hover{ text-decoration:none;}
+
+
+$bg-color:#f8f8f8;
+
+$link-color:#000;
+
+$gilroy:'Gilroy',sans-serif;
+
+body {
+  background: $bg-color;
+  font-family:$gilroy;
+}
+
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+a {
+  color:$link-color;
+}
+
+.v-middle {
+  align-items: center;
+  justify-content: center;
+}
+
+.btn {
+  padding: 0.8em 1.25em;
+  max-width: 100%;
+}
+
+.btn-white {
+  background:#fff;
+}
+
+.btn-shadow{
+  box-shadow: rgba(0,0,0,0.5) 3px 3px 10px;
+}
+
+#main {
+  padding-top:1.5rem;
+}
+
+.food__item__wrapper {
+  background:#fff;
+  border-radius: 6px;
+  box-shadow: rgba(89,89,89,0.3) 3px 3px 10px;
+  padding:1.875rem;
+}
+.food__item__title {
+  font-size:1.875em;
+  font-weight:700;
+
+}
+
+.food__item__ingredients {
+  font-weight:400;
+  color:$shady-lady;
+  margin-bottom:1.473em;
+}
+
+.food__item__price {
+  font-weight:500;
+  font-size:2.71em;
+}
+
+.food__item {
+  margin-bottom:1.8em;
+
+}
+
+.btn-add-to-cart {
+  border:2px solid #ffd60f;
+  text-transform: uppercase;
+  font-weight: bold;
+  line-height: 1;
+  padding: .7rem;
+}
+
+.padding0 {padding: 0;}
+
+.food__item__weight {
+  color:$shady-lady;
+}
+
+.food__item__size {
+  margin-bottom:0.8125em;
+  border:1px solid #c8ced4;
+  border-radius:6px;
+}
+.food__item__size ul{
+  width: 100%;
+  padding:0;
+  margin:0;
+  list-style:none;
+  overflow:hidden;
+}
+
+.food__item__size ul li {
+  width:33.333333333%;
+  margin-right:-5px;
+  display:inline-block;
+  text-align: center;
+}
+
+
+
+.food__item__size ul li a {
+    font-size:1em;
+    padding:0.35em;
+  display:inline-block;
+  width:100%;
+  color:$shady-lady;
+}
+
+.food__item__size ul li.active a, .food__item__size ul li a:hover{
+  background:#eff1f5;
+  color:#000;
+  font-weight:bold;
+}
+
+.food__item__size ul li:first-child {text-align: left;}
+.food__item__size ul li:last-child {text-align: right;}
+
+.food__item__controls>div:first-child{padding-right:7px;}
+.food__item__controls>div:last-child{padding-left:7px;text-align: right;}
+
+.food__item__controls{
+  margin-bottom:13px;
+}
+.food__item__controls .btn {
+  padding:.4rem .25rem .4rem 1rem;
+  border:1px solid #c8ced4;
+  border-radius:6px;
+  line-height: 1;
+  font-size:0.8em;
+  width:100%;
+}
+@import "header";
+
+@import "slider";
+
+@import "navbar";
+
+
+@import "footer";
+
