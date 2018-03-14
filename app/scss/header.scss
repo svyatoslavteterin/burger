@@ -9,19 +9,24 @@
   margin-right:3em;
   font-size:0.875em;
   text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 .select-city-link:hover {text-decoration: none;}
 
 .header .phone {
   text-align: center;
+  float:right;
 }
 
 .phone p.phone__value{
   font-weight: bold;
   font-size:2em;
   margin:0;
+  letter-spacing: 2px;
   font-family:$gilroy;
+  padding-top: 0.25em;
+  line-height: 1;
 }
 .phone  p {
   font-size:0.875em;
@@ -37,7 +42,11 @@
   font-weight:bold;
   font-size:0.875em;
   margin-right:1em;
+  padding-top: 1.25em;
+  padding-bottom: 1.25em;
 }
+
+
 
 .login-link {
   font-size:0.875em;
@@ -52,6 +61,7 @@
 .socials {
   display:inline-block;
   margin-right:1em;
+  height:22px;
 }
 
 
@@ -67,6 +77,6 @@
 
 
 .socials__item {
-  font-size:1.5em;
+  font-size:1.25em;
   margin-right:0.625em;
 }
