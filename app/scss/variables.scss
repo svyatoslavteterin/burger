@@ -72,7 +72,6 @@ $danger:        $red ;
 $light:         $gray-100 ;
 $dark:          $gray-800 ;
 $component-active-bg: $blue;
-
 $theme-colors: () ;
 $theme-colors: map-merge((
         "primary":    $primary,
@@ -184,7 +183,7 @@ $container-max-widths: (
         sm: 540px,
         md: 720px,
         lg: 960px,
-        xl: 1140px
+        xl: 1400px
 ) ;
 
 

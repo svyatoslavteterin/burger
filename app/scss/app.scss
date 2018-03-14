@@ -86,15 +86,17 @@ a {
   text-transform: uppercase;
   font-weight: bold;
   line-height: 1;
-  padding: .5rem;
+  padding: 1em .5rem;
+  width:100%;
 }
 
 .padding0 {}
 
 .food__item__weight {
   color:$shady-lady;
-  font-size:0.6em;
+  font-size:1.18em;
   padding-top:2em;
+  text-align:center;
 }
 
 .food__item__size {
@@ -143,13 +145,54 @@ a {
   margin-bottom:13px;
 }
 .food__item__controls .btn {
-  padding:.4rem .25rem .4rem 1rem;
-  border:1px solid #c8ced4;
-  border-radius:6px;
-  line-height: 1;
-  font-size:0.8em;
-  width:100%;
+  padding: .4rem .25rem .4rem .25rem;
+  border: 1px solid #c8ced4;
+  border-radius: 6px;
+  line-height: 0.9;
+  font-size: 1.1em;
+  width: 100%;
 }
+
+
+.add-to-dish i {
+  color:#4cd964;
+}
+
+.remove-from-dish i{
+  color:#ffd60f;
+}
+
+.add-to-dish i, .remove-from-dish i {
+  vertical-align: text-top;
+  display: inline-block;
+  margin-right:4px;
+}
+
+.hide {
+  display:none;
+}
+
+.minus-one-btn {background: none;border:none;height:1em;}
+
+.plus-one-btn {background: none;border:none;height:1.1em;}
+
+.food__item__amount__value {font-size:1.5em;line-height: 1;  padding:0 .5em;}
+
+.food__item__amount {
+  display: inline-block;
+  border-radius: 30px;
+  border:2px solid #ffd60f;
+  padding:0.875em;
+
+}
+
+.food__item__amount>* {display: inline-block;vertical-align: middle;}
+@media (min-width: 1430px) {
+  .container {
+    max-width: 1400px;
+  }
+}
+
 @import "header";
 
 @import "slider";
