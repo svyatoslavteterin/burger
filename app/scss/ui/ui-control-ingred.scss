@@ -1,0 +1,40 @@
+.ui-controls-ingred .btn {
+  padding: .4rem .25rem .4rem .25rem;
+  border: 1px solid #c8ced4;
+  border-radius: 6px;
+  line-height: 0.9;
+  font-size: 1.1em;
+  width: 100%;
+  max-width: 188px;
+}
+
+.add-to-dish i {
+  color: #4cd964;
+}
+
+.remove-from-dish i {
+  color: #ffd60f;
+}
+
+.add-to-dish i, .remove-from-dish i {
+  vertical-align: text-top;
+  display: inline-block;
+  margin-right: 4px;
+}
+
+.ui-controls-ingred > div:first-child {
+  padding-right: 7px;
+}
+
+.ui-controls-ingred > div:last-child {
+  padding-left: 7px;
+  text-align: right;
+}
+
+.ui-controls-ingred {
+  margin-bottom: 13px;
+}
+
+.ui-controls-ingred.vertical .btn:first-child{
+  margin-bottom:0.8em;
+}

@@ -141,137 +141,30 @@ a {
   text-align: center;
 }
 
-.food__item__size {
-  margin-bottom: 0.8125em;
-  border: 1px solid #c8ced4;
-  border-radius: 6px;
-  overflow: hidden;
+
+.food__item  .ui-amount-control__value {
+  font-size: 1.5em;
 }
 
-.food__item__size ul {
-  width: 100%;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
 
-.food__item__size ul li {
-  width: 33.333333333%;
-  margin-right: -3px;
-  display: inline-block;
-  text-align: center;
-}
-
-.food__item__size ul li a {
-  font-size: 1.1875em;
-  padding: 0.35em;
-  display: inline-block;
-  width: 100%;
-  color: $shady-lady;
-}
-
-.food__item__size ul li.active a, .food__item__size ul li a:hover {
-  background: #eff1f5;
-  color: #000;
-  font-weight: bold;
-  border-right: 1px solid #c8ced4;
-  border-left: 1px solid #c8ced4;
-}
-
-.food__item__size ul li:first-child {
-  text-align: left;
-}
-
-.food__item__size ul li:first-child a {
-  padding-left: .75em;
-  border-left:none;
-}
-
-.food__item__size ul li:last-child {
-  text-align: right;
-}
-
-.food__item__size ul li:last-child a {
-  padding-right: .75em;
-  border-right:none;
-}
-
-.food__item__controls > div:first-child {
-  padding-right: 7px;
-}
-
-.food__item__controls > div:last-child {
-  padding-left: 7px;
-  text-align: right;
-}
-
-.food__item__controls {
-  margin-bottom: 13px;
-}
-
-.food__item__controls .btn {
-  padding: .4rem .25rem .4rem .25rem;
-  border: 1px solid #c8ced4;
-  border-radius: 6px;
-  line-height: 0.9;
-  font-size: 1.1em;
-  width: 100%;
-}
-
-.add-to-dish i {
-  color: #4cd964;
-}
-
-.remove-from-dish i {
-  color: #ffd60f;
-}
-
-.add-to-dish i, .remove-from-dish i {
-  vertical-align: text-top;
-  display: inline-block;
-  margin-right: 4px;
-}
 
 .hide {
   display: none;
 }
 
-.minus-one-btn {
-  background: none;
-  border: none;
-  height: 1em;
-}
-
-.plus-one-btn {
-  background: none;
-  border: none;
-  height: 1.1em;
-}
-
-.food__item__amount__value {
-  font-size: 1.5em;
-  line-height: 1;
-  padding: 0 .5em;
-}
-
-.food__item__amount {
-  display: inline-block;
-  border-radius: 30px;
-  border: 2px solid #ffd60f;
-  padding: 0.875em;
+.pagetitle {
+  font-size:3em;
 
 }
 
-.food__item__amount > * {
-  display: inline-block;
-  vertical-align: middle;
-}
+@import "ui/ui-control-foodsize";
+@import "ui/ui-control-ingred";
+@import "ui/ui-amount-control";
 
-@media (min-width: 1430px) {
-  .container {
-    max-width: 1400px;
-  }
-}
+
+
+@import "cart";
+
 
 @import "header";
 
@@ -281,3 +174,8 @@ a {
 
 @import "footer";
 
+@media (min-width: 1430px) {
+  .container {
+    max-width: 1400px;
+  }
+}
