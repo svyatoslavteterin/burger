@@ -1,5 +1,6 @@
 #mainnavbar{
   background:#ffffff;
+  border-bottom: 1px solid #bfbfbf;
 }
 #mainnavbar nav {}
 #mainnavbar nav ul {
@@ -30,4 +31,62 @@
 
 }
 
-.filter {display: none;}
+.filter {display: inline-block;width:50%;margin-right:-4px;height: 41px;}
+
+.search-input{
+  display: inline-block;
+  width:50%;
+  border:2px solid #FFDA00;
+  border-radius: 0 4px 4px 0;
+  line-height: 1;
+  height:41px;
+  vertical-align: top;
+  position: relative;
+}
+
+.search-input:before{
+  content:'\6b';
+  font-family: "burger" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: absolute;
+  font-size:1.8em;
+  left: 16px;
+  font-size: 1.8em;
+  top: 4px;
+}
+
+.search-input input {
+  border: none;
+  background: none;
+  width: 70%;
+  float: right;
+  height: 100%;
+}
+
+.filter ul{display: none;}
+
+
+.filter-btn{
+  border:2px solid #A1A1A1;
+  border-right:none;
+  border-radius: 4px 0 0 4px;
+  width:100%;
+  height: 100%;
+}
+.filter-btn:after{
+  content:'';
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  display: inline-block;
+  border-top: 6px solid #A1A1A1;
+  margin-left:9px;
+}

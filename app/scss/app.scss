@@ -1,23 +1,59 @@
 // Переопределение дефолтных значений переменных Bootstrap 4 и определение своих
-
 @import "../../node_modules/bootstrap/scss/bootstrap";
 @import "variables";
 
 
-a:hover{ text-decoration:none;}
+@font-face {
+  font-family: 'Gilroy';
+  src: url('../fonts/subset-Gilroy-Medium.woff2') format('woff2'),
+  url('../fonts/subset-Gilroy-Medium.woff') format('woff'),
+  url('../fonts/subset-Gilroy-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url('../fonts/subset-Gilroy-Bold.woff2') format('woff2'),
+  url('../fonts/subset-Gilroy-Bold.woff') format('woff'),
+  url('../fonts/subset-Gilroy-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url('../fonts/subset-Gilroy-Regular.woff2') format('woff2'),
+  url('../fonts/subset-Gilroy-Regular.woff') format('woff'),
+  url('../fonts/subset-Gilroy-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url('../fonts/subset-Gilroy-Extrabold.woff2') format('woff2'),
+  url('../fonts/subset-Gilroy-Extrabold.woff') format('woff'),
+  url('../fonts/subset-Gilroy-Extrabold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}
 
 
-$bg-color:#f8f8f8;
+a:hover {
+  text-decoration: none;
+}
 
-$link-color:#000;
+$bg-color: #f8f8f8;
 
-$gilroy:'Gilroy',sans-serif;
+$link-color: #000;
+
+$gilroy: 'Gilroy', sans-serif;
 
 body {
   background: $bg-color;
-  font-family:$gilroy;
+  font-family: $gilroy;
 }
-
 
 .text-center {
   text-align: center;
@@ -28,7 +64,7 @@ body {
 }
 
 a {
-  color:$link-color;
+  color: $link-color;
 }
 
 .v-middle {
@@ -41,109 +77,138 @@ a {
   max-width: 100%;
 }
 
-.btn-white {
-  background:#fff;
+.btn-slim {
+  padding: 0;
 }
 
-.btn-shadow{
-  box-shadow: rgba(0,0,0,0.5) 3px 3px 10px;
+.btn-white {
+  background: #fff;
+}
+
+.btn-shadow {
+  box-shadow: rgba(0, 0, 0, 0.5) 3px 3px 10px;
 }
 
 #main {
-  padding-top:1.5rem;
+  padding-top: 1.5rem;
 }
 
 .food__item__wrapper {
-  background:#fff;
+  background: #fff;
   border-radius: 6px;
-  box-shadow: rgba(89,89,89,0.3) 3px 3px 10px;
-  padding:1.875rem;
+  box-shadow: rgba(89, 89, 89, 0.3) 3px 3px 10px;
+  padding: 1.875rem;
 }
+
 .food__item__title {
-  font-size:1.875em;
-  font-weight:700;
+  font-size: 1.875em;
+  font-weight: 700;
 
 }
 
 .food__item__ingredients {
-  font-weight:400;
-  color:$shady-lady;
-  margin-bottom:1.473em;
+  font-weight: 400;
+  color: $shady-lady;
+  margin-bottom: 1.473em;
 }
 
 .food__item__price {
-  font-weight:500;
-  font-size:2.71em;
+  font-weight: 500;
+  font-size: 2.71em;
 }
 
 .food__item {
-  margin-bottom:1.8em;
+  margin-bottom: 1.8em;
 
 }
 
 .btn-add-to-cart {
-  border:2px solid #ffd60f;
+  border: 2px solid #ffd60f;
   text-transform: uppercase;
   font-weight: bold;
   line-height: 1;
   padding: 1em .5rem;
-  width:100%;
+  width: 100%;
 }
 
-.padding0 {}
+.padding0 {
+}
 
 .food__item__weight {
-  color:$shady-lady;
-  font-size:1.18em;
-  padding-top:2em;
-  text-align:center;
-}
-
-.food__item__size {
-  margin-bottom:0.8125em;
-  border:1px solid #c8ced4;
-  border-radius:6px;
-}
-.food__item__size ul{
-  width: 100%;
-  padding:0;
-  margin:0;
-  list-style:none;
-  overflow:hidden;
-}
-
-.food__item__size ul li {
-  width:33.333333333%;
-  margin-right:-5px;
-  display:inline-block;
+  color: $shady-lady;
+  font-size: 1.18em;
+  padding-top: 2em;
   text-align: center;
 }
 
+.food__item__size {
+  margin-bottom: 0.8125em;
+  border: 1px solid #c8ced4;
+  border-radius: 6px;
+  overflow: hidden;
+}
 
+.food__item__size ul {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.food__item__size ul li {
+  width: 33.333333333%;
+  margin-right: -3px;
+  display: inline-block;
+  text-align: center;
+}
 
 .food__item__size ul li a {
-    font-size:1em;
-    padding:0.35em;
-  display:inline-block;
-  width:100%;
-  color:$shady-lady;
+  font-size: 1.1875em;
+  padding: 0.35em;
+  display: inline-block;
+  width: 100%;
+  color: $shady-lady;
 }
 
-.food__item__size ul li.active a, .food__item__size ul li a:hover{
-  background:#eff1f5;
-  color:#000;
-  font-weight:bold;
+.food__item__size ul li.active a, .food__item__size ul li a:hover {
+  background: #eff1f5;
+  color: #000;
+  font-weight: bold;
+  border-right: 1px solid #c8ced4;
+  border-left: 1px solid #c8ced4;
 }
 
-.food__item__size ul li:first-child {text-align: left;}
-.food__item__size ul li:last-child {text-align: right;}
-
-.food__item__controls>div:first-child{padding-right:7px;}
-.food__item__controls>div:last-child{padding-left:7px;text-align: right;}
-
-.food__item__controls{
-  margin-bottom:13px;
+.food__item__size ul li:first-child {
+  text-align: left;
 }
+
+.food__item__size ul li:first-child a {
+  padding-left: .75em;
+  border-left:none;
+}
+
+.food__item__size ul li:last-child {
+  text-align: right;
+}
+
+.food__item__size ul li:last-child a {
+  padding-right: .75em;
+  border-right:none;
+}
+
+.food__item__controls > div:first-child {
+  padding-right: 7px;
+}
+
+.food__item__controls > div:last-child {
+  padding-left: 7px;
+  text-align: right;
+}
+
+.food__item__controls {
+  margin-bottom: 13px;
+}
+
 .food__item__controls .btn {
   padding: .4rem .25rem .4rem .25rem;
   border: 1px solid #c8ced4;
@@ -153,40 +218,55 @@ a {
   width: 100%;
 }
 
-
 .add-to-dish i {
-  color:#4cd964;
+  color: #4cd964;
 }
 
-.remove-from-dish i{
-  color:#ffd60f;
+.remove-from-dish i {
+  color: #ffd60f;
 }
 
 .add-to-dish i, .remove-from-dish i {
   vertical-align: text-top;
   display: inline-block;
-  margin-right:4px;
+  margin-right: 4px;
 }
 
 .hide {
-  display:none;
+  display: none;
 }
 
-.minus-one-btn {background: none;border:none;height:1em;}
+.minus-one-btn {
+  background: none;
+  border: none;
+  height: 1em;
+}
 
-.plus-one-btn {background: none;border:none;height:1.1em;}
+.plus-one-btn {
+  background: none;
+  border: none;
+  height: 1.1em;
+}
 
-.food__item__amount__value {font-size:1.5em;line-height: 1;  padding:0 .5em;}
+.food__item__amount__value {
+  font-size: 1.5em;
+  line-height: 1;
+  padding: 0 .5em;
+}
 
 .food__item__amount {
   display: inline-block;
   border-radius: 30px;
-  border:2px solid #ffd60f;
-  padding:0.875em;
+  border: 2px solid #ffd60f;
+  padding: 0.875em;
 
 }
 
-.food__item__amount>* {display: inline-block;vertical-align: middle;}
+.food__item__amount > * {
+  display: inline-block;
+  vertical-align: middle;
+}
+
 @media (min-width: 1430px) {
   .container {
     max-width: 1400px;
@@ -198,7 +278,6 @@ a {
 @import "slider";
 
 @import "navbar";
-
 
 @import "footer";
 
