@@ -1,7 +1,13 @@
-.cart__item{
+section#cart {
+  background: #fff;
+  border-bottom: 1px solid #bfbfbf;
+}
+
+.cart__item {
   position: relative;
   margin-bottom: 20px;
 }
+
 .cart__item__wrapper {
   padding: 1em;
   border-radius: 8px;
@@ -52,28 +58,41 @@
 
 .param__tag {
   display: block;
-  background:#f8f8f8;
-  border:2px solid #ffd60f;
-  border-radius:5px;
-  padding:0.5em .8125em;
+  background: #f8f8f8;
+  border: 2px solid #ffd60f;
+  border-radius: 5px;
+  padding: 0.5em .8125em;
 }
 
-.param__tag+.param__tag{
-  margin-top:0.75em;
+.param__tag + .param__tag {
+  margin-top: 0.75em;
 }
 
-.cart__item__bottom {margin-top:16px;}
+.cart__item__bottom {
+  margin-top: 16px;
+}
 
-.cart__item__bottom>div {display: inline-block;vertical-align: middle;}
+.cart__item__bottom > div {
+  display: inline-block;
+  vertical-align: middle;
+}
 
-.cart__item__bottom .cart__item__price {margin-right:16px;}
+.cart__item__bottom .cart__item__price {
+  margin-right: 16px;
+}
 
 .cart__item__price {
-  font-size:2em;
+  font-size: 2em;
 }
 
-.cart__info {color:$shady-lady;}
-.cart-nav {color:$shady-lady;}
+.cart__info {
+  color: $shady-lady;
+}
+
+.cart-nav {
+  color: $shady-lady;
+}
+
 .cart__item__remove {
   background: url(/static/img/close.png);
   width: 20px;
@@ -81,5 +100,42 @@
   position: absolute;
   right: 1em;
   top: 1em;
-  z-index:2;
+  z-index: 2;
 }
+
+.col-half-offset {
+  margin-left: 4.166666667%;
+}
+
+.drinks-offer__item__wrapper {
+  background: #fff;
+  box-shadow: rgba(0, 0, 0, 0.06) 1px 1px 18px;
+  padding: 1em;
+  border-radius: 8px;
+}
+
+.drinks-offer__title {
+  font-size: 3em;
+}
+
+.drinks-offer__item__title {
+
+  font-size: 1.5em;
+}
+
+.drinks-offer__item {
+  padding-bottom: 10px;
+  border-bottom: 5px solid #4cd864;
+}
+
+.drinks-nav {
+  font-size: 1.5em;
+}
+
+.drinks-nav ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+
