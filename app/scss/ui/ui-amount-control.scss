@@ -8,6 +8,7 @@
   background: none;
   border: none;
   height: 1.1em;
+  padding-right:1.1em;
 }
 .minus-one-btn:hover, .plus-one-btn:hover {
   cursor:pointer;
@@ -40,3 +41,6 @@
   margin-right: -3px;
 }
 
+.ui-amount-control.border-yellow {
+  border:2px solid #ffd60f;
+}

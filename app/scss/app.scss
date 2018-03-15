@@ -50,11 +50,16 @@ $link-color: #000;
 
 $gilroy: 'Gilroy', sans-serif;
 
+
+
 body {
   background: $bg-color;
   font-family: $gilroy;
 }
-
+.actionlink {
+  border-bottom:1px dotted $shady-lady;
+  color:$shady-lady;
+}
 .text-center {
   text-align: center;
 }
