@@ -1,6 +1,7 @@
 section#cart {
   background: #fff;
   border-bottom: 1px solid #bfbfbf;
+  padding-top: 1em;
 }
 
 .cart__item {
@@ -186,27 +187,53 @@ section#cart {
   padding-top: 80px;
 }
 
-.checkout-address,.checkout-payment{
-  padding:1em;
-  background:#fff;
-  border-radius:6px;
-  border:1px solid $shady-lady;
-}
-.checkout-address__title,.checkout-payment__title{
-  font-size:1.5em;
+.checkout-address, .checkout-payment {
+  padding: 1em;
+  background: #fff;
+  border-radius: 6px;
+  border: 1px solid $shady-lady;
 }
 
-.checkout-address__value,.checkout-payment__value {
-  font-size:0.9em;
-  color:$shady-lady;
+.checkout-address__title, .checkout-payment__title {
+  font-size: 1.5em;
+  line-height: 1;
 }
 
-#total-cart-price {font-size:4em;}
+.checkout-address__value, .checkout-payment__value {
+  font-size: 0.9em;
+  color: $shady-lady;
+  padding-bottom: 2px;
+  display: inline-block;
+  line-height: 1;
+}
+
+#total-cart-price {
+  font-size: 4em;
+}
 
 .checkout__submit {
   background: #4bd963;
-  width:100%;
-  font-size:2em;
-  border-radius:8px;
-  color:#fff;
+  width: 100%;
+  font-size: 2em;
+  border-radius: 8px;
+  color: #fff;
 }
+
+.drinks-offer__item .ui-control-foodsize ul li a {
+  padding: .2em;
+}
+
+.bonus-balance {
+  margin-top: 20px;
+  font-size: 1.5em;
+}
+
+.bonus-balance__title {
+
+
+}
+
+
+.bonus-balance .actionlink+.actionlink{margin-left:80px;}
+
+.bonus-balance .actionlink {padding-bottom: 7px;}

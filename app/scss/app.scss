@@ -170,7 +170,25 @@ a {
   font-size:3em;
 }
 
+.arrow-left {
+  background:url(/static/img/arrow-left.png) no-repeat left top;
+  width:29px;
+  height:19px;
+  display: inline-block;
+  vertical-align:middle;
+  margin-right:10px;
 
+}
+
+.page-nav {
+  color:$shady-lady;
+  margin-bottom:10px;
+}
+
+
+.page-nav a {
+  color:$shady-lady;
+}
 
 @import "ui/ui-control-foodsize";
 @import "ui/ui-control-ingred";
@@ -179,6 +197,8 @@ a {
 
 
 @import "cart";
+
+@import "broadcast";
 
 
 @import "header";
