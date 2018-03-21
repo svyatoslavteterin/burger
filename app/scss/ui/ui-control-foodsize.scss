@@ -60,3 +60,10 @@
 }
 
 .ui-control-foodsize.drinks  ul li{text-align: center!important;}
+
+
+@media screen and (max-width:1200px){
+  .ui-control-foodsize {
+    font-size:10px;
+  }
+}

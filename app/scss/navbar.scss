@@ -1,6 +1,7 @@
 #mainnavbar{
   background:#ffffff;
   border-bottom: 1px solid #bfbfbf;
+  padding-top:1em;
 }
 #mainnavbar nav {}
 #mainnavbar nav ul {
@@ -28,6 +29,20 @@
 #mainnavbar nav ul li.active a,#mainnavbar nav ul li a:hover {
   color:#000;
   border-bottom:3px solid #4cd964;
+
+}
+
+@media screen and (max-width:1400px){
+  #mainnavbar{
+    font-size:14px;
+  }
+
+}
+
+@media screen and (max-width:1200px){
+  #mainnavbar{
+    font-size:11px;
+  }
 
 }
 

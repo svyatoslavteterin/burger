@@ -3,6 +3,18 @@
   border-bottom: 1px solid #bfbfbf;
 }
 
+@media screen and (max-width:1400px){
+  .header__topline {
+    font-size:14px;
+  }
+}
+
+@media screen and (max-width: 1200px){
+  .header__topline{
+    font-size:12px;
+  }
+}
+
 .select-city-link {
   color:#a1a1a1;
   border-bottom:1px dotted #a1a1a1;

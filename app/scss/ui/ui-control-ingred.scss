@@ -38,3 +38,10 @@
 .ui-controls-ingred.vertical .btn:first-child{
   margin-bottom:0.8em;
 }
+
+
+@media screen and (max-width:1200px) {
+  .ui-controls-ingred {
+    font-size:11px;
+  }
+}

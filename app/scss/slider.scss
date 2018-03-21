@@ -26,3 +26,18 @@
 }
 
 #slider .slide {max-width: 510px;}
+
+
+@media screen and (max-width:1400px){
+   #slider {
+     font-size:14px;
+     min-height:400px;
+   }
+}
+
+@media screen and (max-width:1200px){
+  #slider {
+    font-size:12px;
+    min-height:300px;
+  }
+}
