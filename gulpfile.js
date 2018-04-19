@@ -12,15 +12,33 @@ var autoprefixerList = [
 ];
 
 
+require('babel-polyfill');
+
+var browserify = require('browserify');
+var babelify = require("babelify");
+
 var gulp = require('gulp');
 var modernizr = require('gulp-modernizr');
 
-const babel = require('gulp-babel');
+
+
+const buffer = require('vinyl-buffer');
+const source = require('vinyl-source-stream');
+const log = require('gulplog');
+const vueify = require('vueify');
 const changed = require('gulp-changed');
 const ngAnnotate = require('gulp-ng-annotate'); // Just as an example
 
 
 var bsConfig = require("gulp-bootstrap-configurator");
+
+var fs        = require('fs');
+var path      = require('path');
+var gulp      = require('gulp');
+var rename    = require('gulp-rename');
+var VueModule = require('gulp-vue-module');
+
+
 
 
 
@@ -37,9 +55,11 @@ var path = {
         html:  'app/*.html',
         js:    'app/js/app.js',
         style: 'app/scss/app.scss',
+        css:   'app/css/**/*.css',
         img:   'app/img/**/*.*',
         fonts: 'app/fonts/**/*.*',
-        images: 'app/images/**/*.*'
+        images: 'app/images/**/*.*',
+        vue:    'app/js/**/*.vue'
     },
     watch: {
         html:  'app/**/*.html',
@@ -106,7 +126,7 @@ gulp.task('browserSync', function() {
 });
 
 gulp.task('sass', function(){
-    return gulp.src(['node_modules/bootstrap/scss/bootstrap.scss','app/scss/**/*.scss'])
+    return gulp.src(['node_modules/bootstrap/scss/bootstrap.scss','app/scss/**/*.scss',path.src.css])
         .pipe(sass()) // Using gulp-sass
         .pipe(ngAnnotate())
         .pipe(sourcemaps.init())
@@ -119,18 +139,9 @@ gulp.task('sass', function(){
         }))
 });
 
-// Move the javascript files into our /src/js folder
-gulp.task('js', function() {
-    return gulp.src(['node_modules/bootstrap/dist/js/bootstrap.min.js', 'node_modules/jquery/dist/jquery.min.js', 'node_modules/tether/dist/js/tether.min.js'])
-        .pipe(babel({
-            presets: ['env']
-        }))
-        .pipe(concat('app.js'))
-        .pipe(gulp.dest("public/js"))
-        .pipe(browserSync.reload({
-            stream: true
-        }))
-});
+
+
+
 
 gulp.task('useref', function(){
     return gulp.src('app/*.html')
@@ -161,7 +172,7 @@ gulp.task('clean:public', function() {
 
 gulp.task('build', function (callback) {
     runSequence('clean:public',
-        ['sass', 'useref', 'images', 'fonts'],
+        ['sass', 'useref', 'images', 'fonts','vue'],
         callback
     )
 });
@@ -218,13 +229,42 @@ gulp.task('css:build', function () {
 
 // сбор js
 gulp.task('js:build', function () {
-    gulp.src(path.src.js) // получим файл main.js
-        .pipe(plumber()) // для отслеживания ошибок
-        .pipe(rigger()) // импортируем все указанные файлы в app.js
-        .pipe(sourcemaps.init()) //инициализируем sourcemap
-        .pipe(uglify()) // минимизируем js
-        .pipe(sourcemaps.write('./')) //  записываем sourcemap
-        .pipe(gulp.dest(path.build.js)) // положим готовый файл
+
+    var b = browserify({
+        entries: path.src.js,
+        debug: true,
+        // defining transforms here will avoid crashing your stream
+        transform: [babelify,vueify]
+    });
+
+    return b.bundle()
+        .pipe(source('app.js'))
+        .pipe(buffer())
+        .pipe(sourcemaps.init({loadMaps: true}))
+        // Add transformation tasks to the pipeline here.
+        .pipe(uglify())
+        .on('error', log.error)
+        .pipe(sourcemaps.write('./'))
+        .pipe(gulp.dest(path.build.js))
+        .pipe(webserver.reload({stream: true})); // перезагрузим сервер
+});
+
+gulp.task('es6-compile', function() {
+    var b = browserify({
+        entries: gulp.dest(path.src.js),
+        debug: true,
+        // defining transforms here will avoid crashing your stream
+        transform: [vueify]
+    });
+    return b.bundle()
+        .pipe(source('app.js'))
+        .pipe(buffer())
+        .pipe(sourcemaps.init({loadMaps: true}))
+        // Add transformation tasks to the pipeline here.
+        .pipe(uglify())
+        .on('error', log.error)
+        .pipe(sourcemaps.write('./'))
+        .pipe(gulp.dest(path.build.js))
         .pipe(webserver.reload({stream: true})); // перезагрузим сервер
 });
 
@@ -295,6 +335,14 @@ gulp.task('watch', function() {
     gulp.watch(path.watch.fonts, ['fonts:build']);
 });
 
+gulp.task('vue', function() {
+    return gulp.src(path.src.vue)
+        .pipe(VueModule({
+            debug : true
+        }))
+        .pipe(rename({extname : ".js"}))
+        .pipe(gulp.dest(path.build.js));
+});
 
 // задача по умолчанию
 gulp.task('default', [

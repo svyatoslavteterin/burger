@@ -1,25 +1,79 @@
-/*
- * Third party
- */
-//= ../../node_modules/jquery/dist/jquery.js
-
-/*
- * Bootstrap
- */
-//= ../../node_modules/bootstrap/dist/js/bootstrap.js
+'use strict';
 
 
-/*
- * Lodash
- */
+window._ = require('lodash');
 
-//= lodash.js
+/* Vue */
+import Vue from 'vue'
+
+Vue.config.devtools = true;
+Vue.config.debug = true;
 
 
+import Vuex from 'vuex'
+import axios from 'axios'
+
+Vue.use(Vuex);
+
+Vue.component('food', require('./vue/components/food.vue'));
+
+Vue.prototype.$http = axios;
+
+window.store = new Vuex.Store({
+    state: {
+        cart: []
+    },
+    mutations: {},
+    getters: {},
+    actions: {}
+
+});
 
 
-document.querySelector('.basket-btn').addEventListener('click',function(e){
-    e.preventDefault();
-    document.getElementById('mini-cart').style.display="block";
+window.BurgerApp = new Vue({
+    el: '#app',
+    components: {},
+
+    data: {
+        "menu": []
+    },
+    watch: {
+        show(val) {
+            if (val) {
+
+
+            }
+        }
+    },
+    updated: function () {
+
+    },
+    methods: {
+        beforeOpen: function () {
+
+        },
+        beforeClose: function () {
+
+        }
+
+
+    },
+    created: function () {
+
+
+    },
+    computed: {},
+    mounted: function () {
+
+
+        this.$http.get('http://89.223.25.82:3030/api/foods/getAllFoods?access_token=fdsfdsfdsfsd').then((response) => {
+            this.menu = response.data;
+
+        }, (response) => {
+
+        });
+
+    }
+
 
 });
