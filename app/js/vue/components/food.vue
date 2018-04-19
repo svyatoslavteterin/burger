@@ -1,16 +1,14 @@
 <template>
 
     <div class="food__item__wrapper">
-        <div class="food__item__img"><img src="./assets/images/food/1.jpg" class="img-fluid"/></div>
-        <h2 class="food__item__title" ><span v-text="getFoodName"></span> {{data.FoodCategName}}</h2>
+        <div class="food__item__img"><img :src="getImage" class="img-fluid" width="200"/></div>
+        <h2 class="food__item__title" >{{data.categName}}</h2>
         <div class="food__item__ingredients">Бифштекс, лук, помидор, салат латук,
             помидор, бифштекс, лук.
         </div>
         <div class="ui-control-foodsize">
             <ul>
-                <li class="active"><a href="#">Маленькая</a></li>
-                <li><a href="#">Средняя</a></li>
-                <li><a href="#">Большая</a></li>
+                <li :class="{ active: isActiveDish(index) }" v-for="(dish,index) in data.dishes"><a href="" @click.prevent="setActiveDish(index)">{{dish.dishName}}</a></li>
             </ul>
         </div>
         <div class="ui-controls-ingred row">
@@ -24,13 +22,13 @@
         <div class="food__item__bottom">
             <div class="row v-middle">
                 <div class="col-lg-4 col-xl-4 col-md-4 food__item__price">
-                    597 ₽
+                    <span v-text="getPrice"></span> ₽
                 </div>
                 <div class="col-lg-3 col-xl-3  col-md-4 food__item__weight">
-                    700 г
+                    <span v-text="getWeight"></span> г
                 </div>
                 <div class="col-lg-5 col-xl-5 padding0 col-md-4 ">
-                    <button class="food__item__btn btn btn-add-to-cart">В корзину</button>
+                    <button class="food__item__btn btn btn-add-to-cart" @click.prevent="addToCart">В корзину</button>
                 </div>
             </div>
         </div>
@@ -39,13 +37,26 @@
 
 <script>
     module.exports = {
-        methods: {},
+        methods: {
+            isActiveDish:function(index){
+                if (index==this.activeDish){
+                    return true;
+                }
+            },
+            addToCart:function(){
+                store.commit('addToCart',{'value':this.data.id});
+                alert('Добавлено');
+            },
+            setActiveDish:function(index){
+                this.activeDish=index;
+            }
+        },
         created() {
 
         },
         data() {
             return {
-                active: 0
+                activeDish: 0
             }
         },
 
@@ -58,8 +69,14 @@
 
         },
         computed: {
-            getFoodName:function () {
-                return this.data.foods[0].foodName;
+            getPrice:function(){
+                return this.data.dishes[this.activeDish].Price;
+            },
+            getWeight:function(){
+                return this.data.dishes[this.activeDish].fullData.ExitMass;
+            },
+            getImage:function(){
+                return 'http://89.223.25.82/_img/Rest/'+this.data.ImageName;
             }
         }
     }

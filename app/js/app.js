@@ -23,7 +23,11 @@ window.store = new Vuex.Store({
     state: {
         cart: []
     },
-    mutations: {},
+    mutations: {
+        addToCart:function(state,payload){
+            state.cart.push(payload.value);
+        }
+    },
     getters: {},
     actions: {}
 
@@ -66,8 +70,8 @@ window.BurgerApp = new Vue({
     mounted: function () {
 
 
-        this.$http.get('http://89.223.25.82:3030/api/foods/getAllFoods?access_token=fdsfdsfdsfsd').then((response) => {
-            this.menu = response.data;
+        this.$http.get('http://89.223.25.82:3030/api/menu/getMenuFront').then((response) => {
+            this.menu = response.data.menu[2];
 
         }, (response) => {
 
