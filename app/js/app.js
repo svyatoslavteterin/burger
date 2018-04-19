@@ -6,8 +6,6 @@ window._ = require('lodash');
 /* Vue */
 import Vue from 'vue'
 
-Vue.config.devtools = true;
-Vue.config.debug = true;
 
 
 import Vuex from 'vuex'
