@@ -12,19 +12,19 @@
             </ul>
         </div>
         <div class="ui-controls-ingred row">
-            <div class="col-sm-6  "><a href="#" class="add-to-dish btn"><i class="icon-plus-circled"></i>Добавить в
+            <div class="col-sm-6  col-12"><a href="#" class="add-to-dish btn"><i class="icon-plus-circled"></i>Добавить в
                 блюдо</a></div>
 
-            <div class="col-sm-6  "><a href="#" class="remove-from-dish btn"><i class="icon-minus-circled"></i>Убрать из
+            <div class="col-sm-6 col-12 "><a href="#" class="remove-from-dish btn"><i class="icon-minus-circled"></i>Убрать из
                 блюда</a></div>
 
         </div>
         <div class="food__item__bottom">
             <div class="row v-middle">
-                <div class="col-lg-4 col-xl-4 col-md-4 food__item__price">
+                <div class="col-lg-4 col-xl-4 col-md-4 col-4 food__item__price">
                     <span v-text="getPrice"></span> ₽
                 </div>
-                <div class="col-lg-3 col-xl-3  col-md-4 food__item__weight">
+                <div class="col-lg-3 col-xl-3  col-md-4 col-8 food__item__weight">
                     <span v-text="getWeight"></span> г
                 </div>
                 <div class="col-lg-5 col-xl-5 padding0 col-md-4 ">

@@ -127,9 +127,7 @@ a {
 }
 
 @media screen and (max-width: 1200px){
-  .food__item__price {
-    font-size:1.5em;
-  }
+
 }
 
 .food__item {
@@ -144,6 +142,7 @@ a {
   line-height: 1;
   padding: 1em .5rem;
   width: 100%;
+  background:none;
 }
 
 @media screen and (max-width: 1200px){
@@ -159,8 +158,14 @@ a {
 .food__item__weight {
   color: $shady-lady;
   font-size: 1.18em;
-  padding-top: 2em;
+
   text-align: center;
+}
+
+@media screen and (min-width:771px) {
+  .food__item__weight {
+    padding-top: 2em;
+  }
 }
 
 
