@@ -26,12 +26,12 @@
   display: inline-block;
   width: 100%;
   color: $shady-lady;
+  text-transform: capitalize;
 }
 
 .ui-control-foodsize ul li.active a, .ui-control-foodsize ul li a:hover {
   background: #eff1f5;
   color: #000;
-  font-weight: bold;
   border-right: 1px solid #c8ced4;
   border-left: 1px solid #c8ced4;
 }
