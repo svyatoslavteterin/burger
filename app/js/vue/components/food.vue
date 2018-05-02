@@ -70,7 +70,7 @@
         },
         computed: {
             getPrice:function(){
-                return this.data.dishes[this.activeDish].Price;
+                return this.data.dishes[this.activeDish].Price.slice(0, -3);
             },
             getWeight:function(){
                 return this.data.dishes[this.activeDish].fullData.ExitMass;

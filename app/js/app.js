@@ -93,3 +93,19 @@ window.BurgerApp = new Vue({
 
 
 });
+
+
+
+
+let offsetHeight=document.querySelector('.header__topline').offsetHeight+document.querySelector('#slider').offsetHeight;
+
+
+function fixedNavbar(e) {
+    if (window.pageYOffset >= offsetHeight) {
+        document.querySelector('#mainnavbar').classList.add("fixed");
+    } else {
+        document.querySelector('#mainnavbar').classList.remove("fixed");
+    }
+}
+
+window.addEventListener('scroll', fixedNavbar);

@@ -83,6 +83,7 @@
   width: 70%;
   float: right;
   height: 100%;
+  padding-top: 5px;
 }
 
 .filter ul{display: none;}
@@ -104,4 +105,22 @@
   display: inline-block;
   border-top: 6px solid #A1A1A1;
   margin-left:9px;
+}
+
+#mainnavbar.fixed {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 2;
+  padding-top: 0;
+  overflow: hidden;
+}
+
+#mainnavbar .logo {
+  display: none;
+}
+
+#mainnavbar.fixed .logo {
+
+  display: block;
 }
