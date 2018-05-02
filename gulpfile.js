@@ -335,14 +335,6 @@ gulp.task('watch', function() {
     gulp.watch(path.watch.fonts, ['fonts:build']);
 });
 
-gulp.task('vue', function() {
-    return gulp.src(path.src.vue)
-        .pipe(VueModule({
-            debug : true
-        }))
-        .pipe(rename({extname : ".js"}))
-        .pipe(gulp.dest(path.build.js));
-});
 
 // задача по умолчанию
 gulp.task('default', [

@@ -6,19 +6,47 @@
 <body>
 //= template/header.html
 //= template/slider.html
-//= template/navbar.html
+
+<div id="app">
+<section id="mainnavbar">
+    <div class="container">
+        <div class="row v-middle">
+            <div class="col-lg-9 col-xl-9  ">
+              <mainmenu :data="menu"></mainmenu>
+            </div>
+            <div class="col-lg-3 col-xl-3    ">
+                <div class="filter">
+                    <button class="btn btn-slim filter-btn">Фильтр</button>
+                    <ul>
+                        <li><a href="#">Вегетарианцам</a></li>
+                        <li><a href="#">С рыбой</a></li>
+                        <li><a href="#">С говядиной</a></li>
+                        <li><a href="#">С курицей</a></li>
+                        <li><a href="#">С индейкой</a></li>
+                        <li><a href="#">С морепродуктами</a></li>
+                    </ul>
+                </div>
+                <div class="search-input">
+                    <input type="text" value="Поиск" />
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
 <section id="main">
     <div class="container food">
-        <div id="app">
+
             <div class="row">
-                <div class="col-12 col-md-6  col-lg-4 col-xl-4   food__item" v-for="food in menu.categs">
+                <div class="col-12 col-md-6  col-lg-4 col-xl-4   food__item" v-for="food in menu[currentArea].categs">
                     <food :data="food"></food>
                 </div>
             </div>
         </div>
-    </div>
-</section>
 
+</section>
+</div>
 //= template/footer.html
 
 </body>

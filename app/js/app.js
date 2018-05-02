@@ -5,7 +5,10 @@ window._ = require('lodash');
 
 /* Vue */
 import Vue from 'vue'
+import VueRouter from 'vue-router'
 
+Vue.config.devtools = true;
+Vue.config.debug = true;
 
 
 import Vuex from 'vuex'
@@ -13,17 +16,24 @@ import axios from 'axios'
 
 Vue.use(Vuex);
 
+Vue.use(VueRouter);
+
 Vue.component('food', require('./vue/components/food.vue'));
+Vue.component('mainmenu', require('./vue/components/mainmenu.vue'));
 
 Vue.prototype.$http = axios;
 
 window.store = new Vuex.Store({
     state: {
-        cart: []
+        cart: [],
+        area:2
     },
     mutations: {
         addToCart:function(state,payload){
             state.cart.push(payload.value);
+        },
+        changeArea:function(state,payload){
+            state.area=payload.value;
         }
     },
     getters: {},
@@ -64,12 +74,16 @@ window.BurgerApp = new Vue({
 
 
     },
-    computed: {},
+    computed: {
+        currentArea:function(){
+            return store.state.area;
+        }
+    },
     mounted: function () {
 
 
         this.$http.get('http://89.223.25.82:3030/api/menu/getMenuFront').then((response) => {
-            this.menu = response.data.menu[2];
+            this.menu = response.data.menu;
 
         }, (response) => {
 
