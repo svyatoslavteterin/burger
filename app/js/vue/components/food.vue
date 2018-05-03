@@ -76,7 +76,7 @@
             },
             getImage:function(){
                 let imageUrl='';
-                if (this.data.ImageName.indexOf('empty')){
+                if (this.data.ImageName.indexOf('empty')>0){
                     imageUrl='./assets/images/200x200.png';
                 }else{
                     imageUrl='http://89.223.25.82/_img/Rest/'+this.data.ImageName;
