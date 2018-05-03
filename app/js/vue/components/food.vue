@@ -3,12 +3,11 @@
     <div class="food__item__wrapper">
         <div class="food__item__img"><img :src="getImage" class="img-fluid" width="200"/></div>
         <h2 class="food__item__title" >{{data.categName}}</h2>
-        <div class="food__item__ingredients">Бифштекс, лук, помидор, салат латук,
-            помидор, бифштекс, лук.
+        <div class="food__item__ingredients">{{data.categDescr}}
         </div>
         <div class="ui-control-foodsize">
             <ul>
-                <li :class="{ active: isActiveDish(index) }" v-for="(dish,index) in data.dishes"><a href="" @click.prevent="setActiveDish(index)">{{dish.dishName}}</a></li>
+                <li :style="{ width: getModWidth+'%'}" :class="{ active: isActiveDish(index) }" v-for="(dish,index) in data.dishes"><a href="" @click.prevent="setActiveDish(index)">{{dish.dishName}}</a></li>
             </ul>
         </div>
         <div class="ui-controls-ingred row">
@@ -76,7 +75,17 @@
                 return this.data.dishes[this.activeDish].fullData.ExitMass;
             },
             getImage:function(){
-                return 'http://89.223.25.82/_img/Rest/'+this.data.ImageName;
+                let imageUrl='';
+                if (this.data.ImageName.indexOf('empty')){
+                    imageUrl='./assets/images/200x200.png';
+                }else{
+                    imageUrl='http://89.223.25.82/_img/Rest/'+this.data.ImageName;
+                }
+                return imageUrl;
+            },
+            getModWidth:function(){
+
+                return 100/this.data.dishes.length;
             }
         }
     }

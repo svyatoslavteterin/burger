@@ -47,7 +47,8 @@ window.BurgerApp = new Vue({
     components: {},
 
     data: {
-        "menu": []
+        "menu": [],
+        "ready":false
     },
     watch: {
         show(val) {
@@ -82,8 +83,9 @@ window.BurgerApp = new Vue({
     mounted: function () {
 
 
-        this.$http.get('http://89.223.25.82:3030/api/menu/getMenuFront').then((response) => {
+        this.$http.get('/getMenuFront.json').then((response) => {
             this.menu = response.data.menu;
+            this.ready=true;
 
         }, (response) => {
 
