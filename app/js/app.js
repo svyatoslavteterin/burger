@@ -3,6 +3,9 @@
 
 window._ = require('lodash');
 
+window.Popper=require('popper.js')
+
+
 /* Vue */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
