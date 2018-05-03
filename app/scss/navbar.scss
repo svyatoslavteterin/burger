@@ -123,3 +123,23 @@
 
   display: block;
 }
+
+
+#mainnavbar:not(.fixed){
+  @media (min-width: 1200px) {
+
+    .col-xl-8 {
+      -ms-flex: 0 0 75%;
+      flex: 0 0 75%;
+      max-width: 75%;
+    }
+  }
+  @media (min-width: 992px) {
+
+    .col-xl-8 {
+      -ms-flex: 0 0 75%;
+      flex: 0 0 75%;
+      max-width: 75%;
+    }
+  }
+}

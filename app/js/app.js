@@ -20,23 +20,41 @@ Vue.use(VueRouter);
 
 Vue.component('food', require('./vue/components/food.vue'));
 Vue.component('mainmenu', require('./vue/components/mainmenu.vue'));
+Vue.component('filters', require('./vue/components/filter.vue'));
+Vue.component('search', require('./vue/components/search.vue'));
 
 Vue.prototype.$http = axios;
 
 window.store = new Vuex.Store({
     state: {
         cart: [],
-        area:2
+        area:2,
+        filters:[],
+        q:''
     },
     mutations: {
+        loadFoods:function(state,payload){
+          state.foods=payload.value;
+        },
         addToCart:function(state,payload){
             state.cart.push(payload.value);
         },
         changeArea:function(state,payload){
             state.area=payload.value;
+        },
+        addFilter:function(state,payload){
+            state.filters.push(payload.value);
+        },
+        changeSearchQuery:function(state,payload){
+            state.q=payload.value;
         }
     },
-    getters: {},
+    getters: {
+
+
+
+
+    },
     actions: {}
 
 });
@@ -48,7 +66,8 @@ window.BurgerApp = new Vue({
 
     data: {
         "menu": [],
-        "ready":false
+        "ready":false,
+        "filters":['Веганам','С рыбой','С говядиной','С курицей','С индейкой','С морепродуктами'],
     },
     watch: {
         show(val) {
@@ -78,6 +97,16 @@ window.BurgerApp = new Vue({
     computed: {
         currentArea:function(){
             return store.state.area;
+        },
+        foods:function(){
+            if (store.state.q){
+
+                    return this.menu[store.state.area].categs.filter(item =>
+                        item.categName.toLowerCase().indexOf(store.state.q) > 0
+                    );
+
+            }
+            return this.menu[store.state.area].categs;
         }
     },
     mounted: function () {
@@ -85,7 +114,9 @@ window.BurgerApp = new Vue({
 
         this.$http.get('/getMenuFront.json').then((response) => {
             this.menu = response.data.menu;
+
             this.ready=true;
+
 
         }, (response) => {
 
