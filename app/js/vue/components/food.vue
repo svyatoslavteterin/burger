@@ -1,7 +1,7 @@
 <template>
 
     <div class="food__item__wrapper">
-        <div class="food__item__img"><img :src="getImage" class="img-fluid" width="200"/></div>
+        <div class="food__item__img"><img :src="getImage" class="img-fluid" /></div>
         <h2 class="food__item__title" >{{data.categName}}</h2>
         <div class="food__item__ingredients">{{data.categDescr}}
         </div>
@@ -79,7 +79,7 @@
                 if (this.data.ImageName.indexOf('empty')>0){
                     imageUrl='./assets/images/200x200.png';
                 }else{
-                    imageUrl='http://89.223.25.82/_img/Rest/'+this.data.ImageName;
+                    imageUrl='http://api.burger.jmedia.pro/public/images/'+this.data.id+'/430-275/'+this.data.ImageName;
                 }
                 return imageUrl;
             },
