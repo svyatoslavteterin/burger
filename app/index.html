@@ -4,10 +4,12 @@
     //= template/head.html
 </head>
 <body>
+
+<div id="app">
 //= template/header.html
 //= template/slider.html
 
-<div id="app">
+
 <section id="mainnavbar">
     <div class="container">
         <div class="row v-middle">
@@ -31,15 +33,91 @@
     <div class="container food">
 
             <div class="row">
-                <div class="col-12 col-md-6  col-lg-4 col-xl-4   food__item" v-for="food in foods">
-                    <food :data="food"></food>
-                </div>
+
             </div>
         </div>
-
 </section>
+    <modal name="login" height="auto" adaptive v-cloak >
+        <button @click="$modal.hide('login')" class="modal-close">
+            x
+        </button>
+        <h3 class="modal-header">Авторизация</h3>
+        <div class="modal-body">
+            <form name="register" action="/" method="post" @submit.prevent="auth" id="auth-form" >
+                <div class="form-group">
+                    <input type="text" class="form-control" name="username" value="" placeholder="Телефон" required />
+                </div>
+
+                <div class="form-group">
+                    <input type="password" class="form-control" name="password" value="" placeholder="Пароль" required />
+                    <a href="#" @click.prevent="restorePassword">Забыли пароль</a>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="form-control" name="submit" >Отправить</button>
+                </div>
+
+                <div class="form-group">
+                    <a href="#" @click.prevent="showRegister">Регистрация</a>
+                </div>
+
+            </form>
+        </div>
+    </modal>
+
+
+    <modal name="register" height="auto" adaptive v-cloak >
+        <button @click="$modal.hide('login')" class="modal-close">
+            x
+        </button>
+        <h3 class="modal-header">Регистрация</h3>
+        <div class="modal-body">
+            <form name="register" action="/" method="post" @submit.prevent="register" id="reg-form" >
+                <div class="form-group">
+                    <input type="text" class="form-control" name="name" value="" placeholder="Имя" required />
+
+                </div>
+
+                <div class="form-group">
+                    <input type="text" class="form-control" name="phone" value="" placeholder="Телефон" required />
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" required> Согласен с политикой конфиденциальности
+                    </label>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="form-control" name="submit" >Отправить</button>
+                </div>
+
+            </form>
+        </div>
+    </modal>
+
+    <modal name="register2" height="auto" adaptive v-cloak >
+        <button @click="$modal.hide('login')" class="modal-close">
+            x
+        </button>
+        <h3 class="modal-header">Регистрация- введите код из смс для активации</h3>
+        <div class="modal-body">
+            <form name="register-form-2" action="/" method="post" @submit.prevent="activate" id="reg-form2" >
+                <div class="form-group">
+                    <input type="text" class="form-control" name="phone" value="" placeholder="Телефон" required />
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="code" value="" placeholder="Код из смс" required />
+
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="form-control" name="submit" >Отправить</button>
+                </div>
+            </form>
+        </div>
+    </modal>
+
 </div>
 //= template/footer.html
+
+
 
 </body>
 </html>

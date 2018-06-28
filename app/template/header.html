@@ -19,24 +19,27 @@
                         <a href="#" class="socials__item insta"><i class="icon-instagram"></i></a>
                         <a href="#" class="socials__item youtube"><i class="icon-youtube-play"></i></a>
                     </div>
-                    <a href="#login" class="login-link">Войти</a>
-                    <a href="cart.html" class="btn basket-btn">Корзина</a>
+
+                        <a href="#login" class="login-link" v-if="!checkLogin">Войти</a>
+                    <div class="user-info" v-if="checkLogin" v-text="userInfo"></div>
+                        <a href="cart.html" class="btn basket-btn">Корзина</a>
+
                     <div class="mini-cart" id="mini-cart">
                         <div class="row">
                             <div class="col-md-2 col-xs-2">
-                                <img src="./assets/images/food/extrasmall/1.jpg" alt="food" />
+                                <img src="./assets/images/food/extrasmall/1.jpg" alt="food"/>
                             </div>
                             <div class="col-md-7 col-xs-7">
                                 <p>Овощная слоеная с овощами</p>
-                                <p>520 ₽  <span class="mini-cart__weight">800 г</span></p>
+                                <p>520 ₽ <span class="mini-cart__weight">800 г</span></p>
 
                             </div>
                             <div class="col-md-3 col-xs-3">
-                              <div class="ui-amount-control vertical">
-                                  <button class="minus-one-btn"><i class="icon-minus"></i></button>
-                                  <span class="ui-amount-control__value">1</span>
-                                  <button class="plus-one-btn"><i class="icon-plus"></i></button>
-                              </div>
+                                <div class="ui-amount-control vertical">
+                                    <button class="minus-one-btn"><i class="icon-minus"></i></button>
+                                    <span class="ui-amount-control__value">1</span>
+                                    <button class="plus-one-btn"><i class="icon-plus"></i></button>
+                                </div>
                             </div>
                         </div>
                     </div>
