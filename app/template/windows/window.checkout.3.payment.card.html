@@ -1,0 +1,83 @@
+<div class="modal-mask">
+    <div class="modal-wrapper">
+      <div class="modal-container">
+        <div class="modal-header">
+          <header class="xs-visible">
+            <div class="row">
+            <div class="col-9">
+              <img src="./assets/logo-words.png" alt="logo" />
+            </div>
+            <div class="col-3">
+                //= ../blocks/mobile-menu.html
+            </div>
+
+            </div>
+          </header>
+          <div class="steps">
+            <div class="steps__item">
+              <div class="steps__item__check"> </div>
+              <div class="steps__item__title">Проверка заказа</div>
+
+            </div>
+            <div class="steps__item ">
+                <div class="steps__item__check"> </div>
+                <div class="steps__item__title">Адрес</div>
+            </div>
+            <div class="steps__item  active" >
+                <div class="steps__item__check"> </div>
+                <div class="steps__item__title">Оплата</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-body">
+          <div class="payments">
+            <div class="payments__title">Способы оплаты:</div>
+            <div class="payments__item">
+              <div class="row">
+                <div class="col-4"><img src="./assets/images/payments/card.png" alt="card" /></div>
+                <div class="col-4">Оплата картой через сайт<br/> .......</div>
+                <div class="col-4"><a href="#"><i class="icon-arrow-down"> </i></a></div>
+              </div>
+            </div>
+
+            <div class="payments__info">
+              <div class="payments__info__block payments-yet">
+                <div class="payments__info__block__title">Избранные счета</div>
+                <div class="cards__item">
+                    <label>Карта любовницы</label>
+                    <input type="text" value="**** **** **** 2792" disabled />
+                    <img src=".assets/images/logos/visa.png" alt="" class="payment-logo"/>
+                 </div>
+              </div>
+              <div class="payments__info__block payments-new">
+                <div class="payments__info__block__title">Новая карта</div>
+                <form name="add-new-card" class="form" method="post">
+                  <div class="form-group">
+                    <label>Номер карты</label>
+                    <input type="text" value="" name="cardNumber" placeholder="**** **** **** ****" class="bankcard form-control"/>
+                   </div>
+                   <div class="row">
+                      <div class="col-6">
+                        <div class="form-group">
+                          <label>Срок действия</label>
+                          <input type="text" value="" placeholder="**/**"  name="cardYear" class="card__year"/>
+                         </div>
+                      </div>
+                      <div class="col-6">
+                        <div class="form-group">
+                          <label>CVV2/CVC2</label>
+                          <input type="text" value="" placeholder="***"  name="cardCvv" class="card__cvv"/>
+                         </div>
+                      </div>
+                   </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+          <button class="btn btn-next">Оплатить</button>
+
+      </div>
+    </div>
+  </div>
