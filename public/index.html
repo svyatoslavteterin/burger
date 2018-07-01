@@ -136,7 +136,7 @@
         <div class="modal-body">
             <form name="register" action="/" method="post" @submit.prevent="auth" id="auth-form" >
                 <div class="form-group">
-                    <input type="text" class="form-control" name="username" value="" placeholder="Телефон" required />
+                    <input type="text" class="form-control" name="username" value="" placeholder="Телефон" v-model="phone" required />
                 </div>
 
                 <div class="form-group">
@@ -157,25 +157,28 @@
 
 
     <modal name="register" height="auto" adaptive v-cloak >
-        <button @click="$modal.hide('login')" class="modal-close">
+        <button @click="$modal.hide('register')" class="modal-close">
             x
         </button>
         <h3 class="modal-header">Регистрация</h3>
         <div class="modal-body">
             <form name="register" action="/" method="post" @submit.prevent="register" id="reg-form" >
+                <p v-if="Object.keys(errors.register).length!==0">
+                    <b>Пожалуйста исправьте указанные ошибки:</b>
+                <ul>
+                    <li v-for="(error,input) in errors.register">{{ error }}</li>
+                </ul>
+                </p>
                 <div class="form-group">
-                    <input type="text" class="form-control" name="name" value="" placeholder="Имя" required />
+                    <input type="text" class="form-control" name="name" value="" placeholder="Имя" />
 
                 </div>
 
                 <div class="form-group">
-                    <input type="text" class="form-control" name="phone" value="" placeholder="Телефон" required />
+                    <input type="text" class="form-control" name="phone" value="" placeholder="Телефон"  v-model="phone" />
                 </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" required> Согласен с политикой конфиденциальности
-                    </label>
-                </div>
+
+
                 <div class="form-group">
                     <button type="submit" class="form-control" name="submit" >Отправить</button>
                 </div>
@@ -185,14 +188,20 @@
     </modal>
 
     <modal name="register2" height="auto" adaptive v-cloak >
-        <button @click="$modal.hide('login')" class="modal-close">
+        <button @click="$modal.hide('register2')" class="modal-close">
             x
         </button>
         <h3 class="modal-header">Регистрация- введите код из смс для активации</h3>
         <div class="modal-body">
             <form name="register-form-2" action="/" method="post" @submit.prevent="activate" id="reg-form2" >
                 <div class="form-group">
-                    <input type="text" class="form-control" name="phone" value="" placeholder="Телефон" required />
+                    <input type="hidden" class="form-control" name="phone" value="" placeholder="Телефон" required  v-model="phone"/>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" name="password" value="" placeholder="Пароль"  />
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" name="password_confirm" value="" placeholder="Подтверждение пароля"  />
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-control" name="code" value="" placeholder="Код из смс" required />

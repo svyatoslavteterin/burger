@@ -38,7 +38,7 @@ window.store = new Vuex.Store({
         area: 2,
         filters: [],
         q: '',
-        authUser:{}
+        authUser: {}
     },
     mutations: {
         loadFoods: function (state, payload) {
@@ -56,14 +56,12 @@ window.store = new Vuex.Store({
         changeSearchQuery: function (state, payload) {
             state.q = payload.value;
         },
-        setAuthUser:function(state,payload){
-            state.authUser=payload.value;
+        setAuthUser: function (state, payload) {
+            state.authUser = payload.value;
         }
     },
     getters: {},
-    actions: {
-
-    }
+    actions: {}
 
 });
 
@@ -76,6 +74,8 @@ window.BurgerApp = new Vue({
         "menu": [],
         "ready": false,
         "filters": ['Веганам', 'С рыбой', 'С говядиной', 'С курицей', 'С индейкой', 'С морепродуктами'],
+        "errors": {'register': {}},
+        "phone": null
     },
     watch: {
         show(val) {
@@ -89,48 +89,91 @@ window.BurgerApp = new Vue({
 
     },
     methods: {
-        restorePassword:function(){
+        checkForm: function (e) {
+
+
+            let form = document.forms[e.srcElement.id.toString()];
+            let formName=form.getAttribute('name');
+            this.errors[formName]={};
+
+
+            if (!form.name.value) this.errors[formName].name = "Укажите имя.";
+            if (!form.phone.value) {
+                this.errors[formName].phone = "Укажите телефон";
+            }
+            if (typeof form.password != "undefined" && !form.password.value) {
+                this.errors[formName].password = "Укажите пароль";
+            }
+            if (typeof form.password != "undefined" && form.password.length < 6) {
+                this.errors[formName].password = "Длина пароля меньше 6 символов";
+            }
+            if (typeof form.password != "undefined" && form.password.value != form.password_confirm.value) {
+                this.errors[formName].password_confirm = "Пароли не совпадают";
+            }
+
+            if (Object.keys(this.errors[formName]).length === 0) return true;
+            e.preventDefault();
+        },
+
+        restorePassword: function () {
 
         },
-        showRegister:function(){
+        showRegister: function () {
             this.$modal.hide('login');
             this.$modal.show('register');
         },
-        auth:function(){
+
+        getAuthUser:async function($credentials){
+            let response=await this.$http.post('http://apitest.burgerpizzoni.ru/api/Profiles/login', $credentials);
+           return response.data;
+        },
+        auth: function () {
             let formData = new FormData(document.querySelector('#auth-form'));
-            let data={};
-            data.username=formData.get('username');
-            data.password=formData.get('password');
-
-            this.$http.post('http://apitest.burgerpizzoni.ru/api/Profiles/login',data).then((response)=>{
-                console.log(response.data);
-                this.$modal.hide('login');
-                store.commit('setAuthUser',{'value':response.data});
-            }).catch((error)=>{console.log(error)});
+            let data = {};
+            data.username = formData.get('username');
+            data.password = formData.get('password');
+            store.commit('setAuthUser', {'value': this.getAuthUser(data)});
         },
-        register:function(){
-            let formData = new FormData(document.querySelector('#reg-form'));
-            let data={};
-            data.name=formData.get('name');
-            data.phone=formData.get('phone');
+        register: function (e) {
 
-            this.$http.post('http://apitest.burgerpizzoni.ru/api/Profiles/regStep1',data).then((response)=>{
-                console.log(response.data);
-                this.$modal.hide('register');
-                this.$modal.show('register2');
-            }).catch((error)=>{console.log(error)});
+            if (this.checkForm(e)) {
+                let formData = new FormData(document.querySelector('#reg-form'));
+                let data = {};
+                data.name = formData.get('name');
+                data.phone = formData.get('phone');
+
+                this.$http.post('http://apitest.burgerpizzoni.ru/api/Profiles/regStep1', data).then((response) => {
+                    if (!response.data.error) {
+                        this.$modal.hide('register');
+                        this.$modal.show('register2');
+                    }else{
+                       debugger;
+                        this.errors[e.target.getAttribute('name')][response.data.error.code] = response.data.error.message;
+                        this.$forceUpdate();
+                    }
+                }).catch((error) => {
+                    console.log(error);
+
+                });
+            }
         },
-        activate:function(){
+        activate: function () {
             let formData = new FormData(document.querySelector('#reg-form2'));
-            let data={};
-            data.code=formData.get('code');
-            data.phone=formData.get('phone');
-            this.$http.post('http://apitest.burgerpizzoni.ru/api/Profiles/regStep2',data).then((response)=>{
+            let data = {};
+            data.code = formData.get('code');
+            data.phone = formData.get('phone');
+            data.password = formData.get('password');
+
+            this.$http.post('http://apitest.burgerpizzoni.ru/api/Profiles/regStep2', data).then((response) => {
                 console.log(response.data);
                 this.$modal.hide('register2');
-                store.commit('setAuthUser',{'value':response.data});
+                
+                store.commit('setAuthUser', {'value': this.getAuthUser(data)});
+               // store.commit('setAuthUser', {'value': response.data});
 
-            }).catch((error)=>{console.log(error)});
+            }).catch((error) => {
+                console.log(error)
+            });
         },
         beforeOpen: function () {
 
@@ -150,15 +193,15 @@ window.BurgerApp = new Vue({
 
     },
     computed: {
-        checkLogin:function(){
-            if (Object.keys(store.state.authUser).length === 0 && store.state.authUser.constructor === Object){
+        checkLogin: function () {
+            if (Object.keys(store.state.authUser).length === 0 && store.state.authUser.constructor === Object) {
                 return 0;
-            }else{
+            } else {
                 return 1;
             }
 
         },
-        userInfo:function(){
+        userInfo: function () {
             return store.state.authUser.userInfo.FirstName;
         },
 
@@ -209,7 +252,7 @@ function fixedNavbar(e) {
 
 window.addEventListener('scroll', fixedNavbar);
 
-document.querySelector('.login-link').addEventListener('click',(e)=>{
+document.querySelector('.login-link').addEventListener('click', (e) => {
     e.preventDefault();
     BurgerApp.$modal.show('login');
 });
