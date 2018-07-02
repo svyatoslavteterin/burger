@@ -10,6 +10,8 @@ window.Popper = require('popper.js')
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+var VueCookie = require('vue-cookie');
+
 Vue.config.devtools = true;
 Vue.config.debug = true;
 
@@ -24,6 +26,8 @@ Vue.use(VModal)
 Vue.use(Vuex);
 
 Vue.use(VueRouter);
+
+Vue.use(VueCookie);
 
 Vue.component('food', require('./vue/components/food.vue'));
 Vue.component('mainmenu', require('./vue/components/mainmenu.vue'));
@@ -74,7 +78,7 @@ window.BurgerApp = new Vue({
         "menu": [],
         "ready": false,
         "filters": ['Веганам', 'С рыбой', 'С говядиной', 'С курицей', 'С индейкой', 'С морепродуктами'],
-        "errors": {'register': {},"login":{}},
+        "errors": {'register': {}, "login": {}},
         "phone": null
     },
     watch: {
@@ -93,8 +97,8 @@ window.BurgerApp = new Vue({
 
 
             let form = document.forms[e.srcElement.id.toString()];
-            let formName=form.getAttribute('name');
-            this.errors[formName]={};
+            let formName = form.getAttribute('name');
+            this.errors[formName] = {};
 
 
             if (!form.name.value) this.errors[formName].name = "Укажите имя.";
@@ -123,14 +127,14 @@ window.BurgerApp = new Vue({
             this.$modal.show('register');
         },
 
-        getAuthUser:async function(credentials){
+        getAuthUser: async function (credentials) {
 
             try {
-                let response=await this.$http.post('http://apitest.burgerpizzoni.ru/api/Profiles/login', credentials);
+                let response = await this.$http.post('http://apitest.burgerpizzoni.ru/api/Profiles/login', credentials);
                 store.commit('setAuthUser', {'value': response.data});
-            }catch(error)
-            {
-                this.errors.login.request="Неверные данные для входа";
+                this.$cookie.set('authUser', JSON.stringify(response.data), 1);
+            } catch (error) {
+                this.errors.login.request = "Неверные данные для входа";
                 this.$forceUpdate();
             }
 
@@ -155,8 +159,8 @@ window.BurgerApp = new Vue({
                     if (!response.data.error) {
                         this.$modal.hide('register');
                         this.$modal.show('register2');
-                    }else{
-                       debugger;
+                    } else {
+                        debugger;
                         this.errors[e.target.getAttribute('name')][response.data.error.code] = response.data.error.message;
                         this.$forceUpdate();
                     }
@@ -176,7 +180,7 @@ window.BurgerApp = new Vue({
             this.$http.post('http://apitest.burgerpizzoni.ru/api/Profiles/regStep2', data).then((response) => {
                 console.log(response.data);
                 this.$modal.hide('register2');
-                let credentials={"username":data.phone,"password":data.password};
+                let credentials = {"username": data.phone, "password": data.password};
                 this.getAuthUser(credentials);
 
 
@@ -229,9 +233,12 @@ window.BurgerApp = new Vue({
             return this.menu[store.state.area].categs;
         }
     },
+
     mounted: function () {
-
-
+        let authUser = JSON.parse(this.$cookie.get('authUser'));
+        if (authUser && Object.keys(authUser).length !== 0) {
+            store.commit('setAuthUser', {'value': authUser});
+        }
         this.$http.get('http://89.223.25.82:3030/api/menu/getMenuFront').then((response) => {
             this.menu = response.data.menu;
 
