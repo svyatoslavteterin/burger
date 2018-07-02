@@ -85,10 +85,17 @@
         },
         computed: {
             getPrice:function(){
-                return this.data.dishes[this.activeDish].Price.slice(0, -3);
+                let price=0;
+                if (typeof this.data.dishes[this.activeDish]!="undefined"){
+                    price=this.data.dishes[this.activeDish].Price.slice(0, -3);
+                }
+                return price;
+
             },
             getWeight:function(){
-                return this.data.dishes[this.activeDish].fullData.ExitMass;
+                if (typeof this.data.dishes[this.activeDish]!="undefined") {
+                    return this.data.dishes[this.activeDish].fullData.ExitMass;
+                }
             },
             getImage:function(){
                 let imageUrl='';
