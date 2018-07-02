@@ -10,11 +10,13 @@ window.Popper = require('popper.js')
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+
 var VueCookie = require('vue-cookie');
 
 import VueTheMask from 'vue-the-mask'
 
 Vue.use(VueTheMask)
+
 
 Vue.config.devtools = true;
 Vue.config.debug = true;
@@ -149,6 +151,7 @@ window.BurgerApp = new Vue({
         },
         auth: function () {
             let formData = new FormData(document.querySelector('#auth-form'));
+
             let credentials = {};
             credentials.username = formData.get('username').replace(new RegExp('-', 'g'), '');
             credentials.password = formData.get('password');
@@ -276,6 +279,7 @@ window.BurgerApp = new Vue({
                 this.$forceUpdate();
             }
         }
+
         this.$http.get('http://89.223.25.82:3030/api/menu/getMenuFront').then((response) => {
             this.menu = response.data.menu;
 
