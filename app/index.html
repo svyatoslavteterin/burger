@@ -46,11 +46,6 @@
         </button>
         <h3 class="modal-header">Авторизация</h3>
         <div class="modal-body">
-<<<<<<< Updated upstream
-            <form name="register" action="/" method="post" @submit.prevent="auth" id="auth-form" >
-                <div class="form-group">
-                    <input type="text" class="form-control" name="username" value="" placeholder="Телефон" v-model="phone" required />
-=======
             <form name="login" action="/" method="post" @submit.prevent="auth" id="auth-form">
                 <div v-if="Object.keys(errors.login).length!==0">
                     <b>Пожалуйста исправьте указанные ошибки:</b>
@@ -61,11 +56,10 @@
                 <div class="form-group">
                     <input type="text" class="form-control" name="username" value="" placeholder="Телефон"
                            v-model="phone" v-mask="'8-###-###-##-##'"/>
->>>>>>> Stashed changes
                 </div>
 
                 <div class="form-group">
-                    <input type="password" class="form-control" name="password" value="" placeholder="Пароль" required />
+                    <input type="password" class="form-control" name="password" value="" placeholder="Пароль"/>
                     <a href="#" @click.prevent="restorePassword">Забыли пароль</a>
                 </div>
                 <div class="form-group">
@@ -87,15 +81,6 @@
         </button>
         <h3 class="modal-header">Регистрация</h3>
         <div class="modal-body">
-<<<<<<< Updated upstream
-            <form name="register" action="/" method="post" @submit.prevent="register" id="reg-form" >
-                <p v-if="Object.keys(errors.register).length!==0">
-                    <b>Пожалуйста исправьте указанные ошибки:</b>
-                <ul>
-                    <li v-for="(error,input) in errors.register">{{ error }}</li>
-                </ul>
-                </p>
-=======
             <form name="register" action="/" method="post" @submit.prevent="register" id="reg-form">
                 <div v-if="Object.keys(errors.register).length!==0">
                     <b>Пожалуйста исправьте указанные ошибки:</b>
@@ -103,7 +88,6 @@
                         <li v-for="(error,input) in errors.register">{{ error }}</li>
                     </ul>
                 </div>
->>>>>>> Stashed changes
                 <div class="form-group">
                     <input type="text" class="form-control" name="name" value="" placeholder="Имя"/>
 
