@@ -10,6 +10,15 @@ window.Popper = require('popper.js')
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+<<<<<<< Updated upstream
+=======
+var VueCookie = require('vue-cookie');
+
+import VueTheMask from 'vue-the-mask'
+
+Vue.use(VueTheMask)
+
+>>>>>>> Stashed changes
 Vue.config.devtools = true;
 Vue.config.debug = true;
 
@@ -29,6 +38,7 @@ Vue.component('food', require('./vue/components/food.vue'));
 Vue.component('mainmenu', require('./vue/components/mainmenu.vue'));
 Vue.component('filters', require('./vue/components/filter.vue'));
 Vue.component('search', require('./vue/components/search.vue'));
+Vue.component('cartitem', require('./vue/components/cartitem.vue'));
 
 Vue.prototype.$http = axios;
 
@@ -45,7 +55,9 @@ window.store = new Vuex.Store({
             state.foods = payload.value;
         },
         addToCart: function (state, payload) {
+
             state.cart.push(payload.value);
+            
         },
         changeArea: function (state, payload) {
             state.area = payload.value;
@@ -61,7 +73,9 @@ window.store = new Vuex.Store({
         }
     },
     getters: {},
-    actions: {}
+    actions: {
+
+    }
 
 });
 
@@ -123,6 +137,7 @@ window.BurgerApp = new Vue({
             this.$modal.show('register');
         },
 
+<<<<<<< Updated upstream
         getAuthUser:async function($credentials){
             let response=await this.$http.post('http://apitest.burgerpizzoni.ru/api/Profiles/login', $credentials);
            return response.data;
@@ -133,6 +148,32 @@ window.BurgerApp = new Vue({
             data.username = formData.get('username');
             data.password = formData.get('password');
             store.commit('setAuthUser', {'value': this.getAuthUser(data)});
+=======
+        getAuthUser: async function (credentials) {
+
+            try {
+                let response = await this.$http.post('http://apitest.burgerpizzoni.ru/api/Profiles/login', credentials);
+                return response.data;
+            } catch (error) {
+                this.errors.login.request = "Неверные данные для входа";
+                this.$forceUpdate();
+            }
+
+        },
+        auth: function () {
+            let formData = new FormData(document.querySelector('#auth-form'));
+            let credentials = {};
+            credentials.username = formData.get('username').replace(new RegExp('-', 'g'), '');
+            credentials.password = formData.get('password');
+            this.getAuthUser(credentials).then((authUser)=>{
+                if (typeof authUser != "undefined") {
+                    store.commit('setAuthUser', {'value': authUser});
+                    this.$cookie.set('authUser', JSON.stringify(authUser), 1);
+                    this.$modal.hide('login');
+                }
+            });
+
+>>>>>>> Stashed changes
         },
         register: function (e) {
 
@@ -140,7 +181,7 @@ window.BurgerApp = new Vue({
                 let formData = new FormData(document.querySelector('#reg-form'));
                 let data = {};
                 data.name = formData.get('name');
-                data.phone = formData.get('phone');
+                data.phone = formData.get('phone').replace(new RegExp('-', 'g'), '');
 
                 this.$http.post('http://apitest.burgerpizzoni.ru/api/Profiles/regStep1', data).then((response) => {
                     if (!response.data.error) {
@@ -161,7 +202,7 @@ window.BurgerApp = new Vue({
             let formData = new FormData(document.querySelector('#reg-form2'));
             let data = {};
             data.code = formData.get('code');
-            data.phone = formData.get('phone');
+            data.phone = formData.get('phone').replace(new RegExp('-', 'g'), '');
             data.password = formData.get('password');
 
             this.$http.post('http://apitest.burgerpizzoni.ru/api/Profiles/regStep2', data).then((response) => {
@@ -193,6 +234,13 @@ window.BurgerApp = new Vue({
 
     },
     computed: {
+        getCartSum:function(){
+            let summ=0;
+            store.state.cart.forEach((item)=>{
+               summ+=item.price*item.count;
+            });
+            return summ+' ₽';
+        },
         checkLogin: function () {
             if (Object.keys(store.state.authUser).length === 0 && store.state.authUser.constructor === Object) {
                 return 0;
@@ -217,12 +265,35 @@ window.BurgerApp = new Vue({
                 );
 
             }
-            return this.menu[store.state.area].categs;
+            if (this.menu[store.state.area]){
+                return this.menu[store.state.area].categs;
+            }
+
+        },
+        cartItems:function(){
+            return store.state.cart;
         }
     },
     mounted: function () {
+<<<<<<< Updated upstream
 
 
+=======
+        if (this.$cookie.get('authUser') != "undefined") {
+            let authUser = JSON.parse(this.$cookie.get('authUser'));
+            if (authUser && Object.keys(authUser).length !== 0) {
+                store.commit('setAuthUser', {'value': authUser});
+            }
+        }
+
+        if (this.$cookie.get('cart') != "undefined") {
+            let cart= JSON.parse(this.$cookie.get('cart'));
+            if (cart && Object.keys(cart).length !== 0) {
+                store.state.cart=cart;
+                this.$forceUpdate();
+            }
+        }
+>>>>>>> Stashed changes
         this.$http.get('http://89.223.25.82:3030/api/menu/getMenuFront').then((response) => {
             this.menu = response.data.menu;
 

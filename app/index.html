@@ -6,46 +6,62 @@
 <body>
 
 <div id="app">
-//= template/header.html
-//= template/slider.html
+    //= template/header.html
+    //= template/slider.html
 
 
-<section id="mainnavbar">
-    <div class="container">
-        <div class="row v-middle">
-            <div class="col-lg-1 col-xl-1 logo">
-                <img src="./assets/images/logo.png" alt="logo"  class="img-fluid"/>
+    <section id="mainnavbar">
+        <div class="container">
+            <div class="row v-middle">
+                <div class="col-lg-1 col-xl-1 logo">
+                    <img src="./assets/images/logo.png" alt="logo" class="img-fluid"/>
+                </div>
+                <div class="col-lg-8 col-xl-8  ">
+                    <mainmenu :data="menu"></mainmenu>
+                </div>
+                <div class="col-lg-3 col-xl-3    ">
+                    <filters :filters="filters"></filters>
+
+                    <search></search>
+
+                </div>
             </div>
-            <div class="col-lg-8 col-xl-8  ">
-              <mainmenu :data="menu"></mainmenu>
-            </div>
-            <div class="col-lg-3 col-xl-3    ">
-               <filters :filters="filters"></filters>
 
-                <search></search>
-
-            </div>
         </div>
-
-    </div>
-</section>
-<section id="main">
-    <div class="container food">
+    </section>
+    <section id="main">
+        <div class="container food">
 
             <div class="row">
+                <div class="col-12 col-md-6  col-lg-4 col-xl-4   food__item" v-for="food in foods">
+                    <food :data="food"></food>
+                </div>
 
             </div>
         </div>
-</section>
-    <modal name="login" height="auto" adaptive v-cloak >
+    </section>
+    <modal name="login" height="auto" adaptive v-cloak>
         <button @click="$modal.hide('login')" class="modal-close">
             x
         </button>
         <h3 class="modal-header">Авторизация</h3>
         <div class="modal-body">
+<<<<<<< Updated upstream
             <form name="register" action="/" method="post" @submit.prevent="auth" id="auth-form" >
                 <div class="form-group">
                     <input type="text" class="form-control" name="username" value="" placeholder="Телефон" v-model="phone" required />
+=======
+            <form name="login" action="/" method="post" @submit.prevent="auth" id="auth-form">
+                <div v-if="Object.keys(errors.login).length!==0">
+                    <b>Пожалуйста исправьте указанные ошибки:</b>
+                    <ul>
+                        <li v-for="(error,input) in errors.login">{{ error }}</li>
+                    </ul>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="username" value="" placeholder="Телефон"
+                           v-model="phone" v-mask="'8-###-###-##-##'"/>
+>>>>>>> Stashed changes
                 </div>
 
                 <div class="form-group">
@@ -53,7 +69,7 @@
                     <a href="#" @click.prevent="restorePassword">Забыли пароль</a>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="form-control" name="submit" >Отправить</button>
+                    <button type="submit" class="form-control" name="submit">Отправить</button>
                 </div>
 
                 <div class="form-group">
@@ -65,12 +81,13 @@
     </modal>
 
 
-    <modal name="register" height="auto" adaptive v-cloak >
+    <modal name="register" height="auto" adaptive v-cloak>
         <button @click="$modal.hide('register')" class="modal-close">
             x
         </button>
         <h3 class="modal-header">Регистрация</h3>
         <div class="modal-body">
+<<<<<<< Updated upstream
             <form name="register" action="/" method="post" @submit.prevent="register" id="reg-form" >
                 <p v-if="Object.keys(errors.register).length!==0">
                     <b>Пожалуйста исправьте указанные ошибки:</b>
@@ -78,46 +95,58 @@
                     <li v-for="(error,input) in errors.register">{{ error }}</li>
                 </ul>
                 </p>
+=======
+            <form name="register" action="/" method="post" @submit.prevent="register" id="reg-form">
+                <div v-if="Object.keys(errors.register).length!==0">
+                    <b>Пожалуйста исправьте указанные ошибки:</b>
+                    <ul>
+                        <li v-for="(error,input) in errors.register">{{ error }}</li>
+                    </ul>
+                </div>
+>>>>>>> Stashed changes
                 <div class="form-group">
-                    <input type="text" class="form-control" name="name" value="" placeholder="Имя" />
+                    <input type="text" class="form-control" name="name" value="" placeholder="Имя"/>
 
                 </div>
 
                 <div class="form-group">
-                    <input type="text" class="form-control" name="phone" value="" placeholder="Телефон"  v-model="phone" />
+                    <input type="text" class="form-control" name="phone" value="" placeholder="Телефон" v-model="phone"
+                           v-mask="'8-###-###-##-##'"/>
                 </div>
 
 
                 <div class="form-group">
-                    <button type="submit" class="form-control" name="submit" >Отправить</button>
+                    <button type="submit" class="form-control" name="submit">Отправить</button>
                 </div>
 
             </form>
         </div>
     </modal>
 
-    <modal name="register2" height="auto" adaptive v-cloak >
+    <modal name="register2" height="auto" adaptive v-cloak>
         <button @click="$modal.hide('register2')" class="modal-close">
             x
         </button>
         <h3 class="modal-header">Регистрация- введите код из смс для активации</h3>
         <div class="modal-body">
-            <form name="register-form-2" action="/" method="post" @submit.prevent="activate" id="reg-form2" >
+            <form name="register-form-2" action="/" method="post" @submit.prevent="activate" id="reg-form2">
                 <div class="form-group">
-                    <input type="hidden" class="form-control" name="phone" value="" placeholder="Телефон" required  v-model="phone"/>
+                    <input type="hidden" class="form-control" name="phone" value="" placeholder="Телефон" required
+                           v-model="phone" v-mask="'8-###-###-##-##'"/>
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" name="password" value="" placeholder="Пароль"  />
+                    <input type="password" class="form-control" name="password" value="" placeholder="Пароль"/>
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" name="password_confirm" value="" placeholder="Подтверждение пароля"  />
+                    <input type="password" class="form-control" name="password_confirm" value=""
+                           placeholder="Подтверждение пароля"/>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" name="code" value="" placeholder="Код из смс" required />
+                    <input type="text" class="form-control" name="code" value="" placeholder="Код из смс" required/>
 
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="form-control" name="submit" >Отправить</button>
+                    <button type="submit" class="form-control" name="submit">Отправить</button>
                 </div>
             </form>
         </div>
@@ -125,7 +154,6 @@
 
 </div>
 //= template/footer.html
-
 
 
 </body>
