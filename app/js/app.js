@@ -146,6 +146,8 @@ window.BurgerApp = new Vue({
             credentials.username = formData.get('username');
             credentials.password = formData.get('password');
             this.getAuthUser(credentials);
+            this.$modal.hide('login');
+
         },
         register: function (e) {
 
@@ -268,7 +270,4 @@ function fixedNavbar(e) {
 
 window.addEventListener('scroll', fixedNavbar);
 
-document.querySelector('.login-link').addEventListener('click', (e) => {
-    e.preventDefault();
-    BurgerApp.$modal.show('login');
-});
+
