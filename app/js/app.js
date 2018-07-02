@@ -140,8 +140,7 @@ window.BurgerApp = new Vue({
 
             try {
                 let response = await this.$http.post('http://apitest.burgerpizzoni.ru/api/Profiles/login', credentials);
-                store.commit('setAuthUser', {'value': response.data});
-                this.$cookie.set('authUser', JSON.stringify(response.data), 1);
+                return response.data;
             } catch (error) {
                 this.errors.login.request = "Неверные данные для входа";
                 this.$forceUpdate();
@@ -277,6 +276,16 @@ window.BurgerApp = new Vue({
                 this.$forceUpdate();
             }
         }
+        this.$http.get('http://89.223.25.82:3030/api/menu/getMenuFront').then((response) => {
+            this.menu = response.data.menu;
+
+            this.ready = true;
+
+
+        }, (response) => {
+
+        });
+
     }
 });
 
