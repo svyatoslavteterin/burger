@@ -43,13 +43,19 @@
         </button>
         <h3 class="modal-header">Авторизация</h3>
         <div class="modal-body">
-            <form name="register" action="/" method="post" @submit.prevent="auth" id="auth-form" >
+            <form name="login" action="/" method="post" @submit.prevent="auth" id="auth-form" >
+                <div v-if="Object.keys(errors.login).length!==0">
+                    <b>Пожалуйста исправьте указанные ошибки:</b>
+                    <ul>
+                        <li v-for="(error,input) in errors.login">{{ error }}</li>
+                    </ul>
+                </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" name="username" value="" placeholder="Телефон" v-model="phone" required />
+                    <input type="text" class="form-control" name="username" value="" placeholder="Телефон" v-model="phone" />
                 </div>
 
                 <div class="form-group">
-                    <input type="password" class="form-control" name="password" value="" placeholder="Пароль" required />
+                    <input type="password" class="form-control" name="password" value="" placeholder="Пароль" />
                     <a href="#" @click.prevent="restorePassword">Забыли пароль</a>
                 </div>
                 <div class="form-group">
@@ -72,12 +78,12 @@
         <h3 class="modal-header">Регистрация</h3>
         <div class="modal-body">
             <form name="register" action="/" method="post" @submit.prevent="register" id="reg-form" >
-                <p v-if="Object.keys(errors.register).length!==0">
+                <div v-if="Object.keys(errors.register).length!==0">
                     <b>Пожалуйста исправьте указанные ошибки:</b>
                 <ul>
                     <li v-for="(error,input) in errors.register">{{ error }}</li>
                 </ul>
-                </p>
+                </div>
                 <div class="form-group">
                     <input type="text" class="form-control" name="name" value="" placeholder="Имя" />
 

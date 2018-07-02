@@ -74,7 +74,7 @@ window.BurgerApp = new Vue({
         "menu": [],
         "ready": false,
         "filters": ['Веганам', 'С рыбой', 'С говядиной', 'С курицей', 'С индейкой', 'С морепродуктами'],
-        "errors": {'register': {}},
+        "errors": {'register': {},"login":{}},
         "phone": null
     },
     watch: {
@@ -123,16 +123,25 @@ window.BurgerApp = new Vue({
             this.$modal.show('register');
         },
 
-        getAuthUser:async function($credentials){
-            let response=await this.$http.post('http://apitest.burgerpizzoni.ru/api/Profiles/login', $credentials);
-           return response.data;
+        getAuthUser:async function(credentials){
+
+            try {
+                let response=await this.$http.post('http://apitest.burgerpizzoni.ru/api/Profiles/login', credentials);
+                store.commit('setAuthUser', {'value': response.data});
+            }catch(error)
+            {
+                this.errors.login.request="Неверные данные для входа";
+                this.$forceUpdate();
+            }
+
+
         },
         auth: function () {
             let formData = new FormData(document.querySelector('#auth-form'));
-            let data = {};
-            data.username = formData.get('username');
-            data.password = formData.get('password');
-            store.commit('setAuthUser', {'value': this.getAuthUser(data)});
+            let credentials = {};
+            credentials.username = formData.get('username');
+            credentials.password = formData.get('password');
+            this.getAuthUser(credentials);
         },
         register: function (e) {
 
@@ -167,9 +176,9 @@ window.BurgerApp = new Vue({
             this.$http.post('http://apitest.burgerpizzoni.ru/api/Profiles/regStep2', data).then((response) => {
                 console.log(response.data);
                 this.$modal.hide('register2');
-                
-                store.commit('setAuthUser', {'value': this.getAuthUser(data)});
-               // store.commit('setAuthUser', {'value': response.data});
+                let credentials={"username":data.phone,"password":data.password};
+                this.getAuthUser(credentials);
+
 
             }).catch((error) => {
                 console.log(error)
