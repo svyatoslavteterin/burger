@@ -10,13 +10,11 @@ window.Popper = require('popper.js')
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-
 var VueCookie = require('vue-cookie');
 
 import VueTheMask from 'vue-the-mask'
 
 Vue.use(VueTheMask)
-
 
 Vue.config.devtools = true;
 Vue.config.debug = true;
@@ -27,7 +25,7 @@ import axios from 'axios'
 
 import VModal from 'vue-js-modal'
 
-Vue.use(VModal)
+Vue.use(VModal);
 
 Vue.use(Vuex);
 
@@ -142,7 +140,8 @@ window.BurgerApp = new Vue({
 
             try {
                 let response = await this.$http.post('http://apitest.burgerpizzoni.ru/api/Profiles/login', credentials);
-                return response.data;
+                store.commit('setAuthUser', {'value': response.data});
+                this.$cookie.set('authUser', JSON.stringify(response.data), 1);
             } catch (error) {
                 this.errors.login.request = "Неверные данные для входа";
                 this.$forceUpdate();
@@ -162,7 +161,6 @@ window.BurgerApp = new Vue({
                     this.$modal.hide('login');
                 }
             });
-
         },
         register: function (e) {
 
@@ -273,26 +271,13 @@ window.BurgerApp = new Vue({
         }
 
         if (this.$cookie.get('cart') != "undefined") {
-            let cart= JSON.parse(this.$cookie.get('cart'));
+            let cart = JSON.parse(this.$cookie.get('cart'));
             if (cart && Object.keys(cart).length !== 0) {
-                store.state.cart=cart;
+                store.state.cart = cart;
                 this.$forceUpdate();
             }
         }
-
-        this.$http.get('http://89.223.25.82:3030/api/menu/getMenuFront').then((response) => {
-            this.menu = response.data.menu;
-
-            this.ready = true;
-
-
-        }, (response) => {
-
-        });
-
     }
-
-
 });
 
 
