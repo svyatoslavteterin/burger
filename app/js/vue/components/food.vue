@@ -43,7 +43,23 @@
                 }
             },
             addToCart:function(){
-                store.commit('addToCart',{'value':this.data.id});
+                let dishData={
+                    id:this.data.id,
+                    dishName:this.data.dishes[this.activeDish].dishName,
+                    dishShortName:this.data.dishes[this.activeDish].dishShortName,
+                    dishExtName:this.data.ExternalName,
+                    count:1,
+                    price:this.data.dishes[this.activeDish].Price,
+                    outPrice:this.data.dishes[this.activeDish].OutPrice,
+                    sellType:"COUNT",
+                    summ:this.data.dishes[this.activeDish].Price,
+                    mods:[],
+                    idShop:3,
+                    position:this.data.ShowOrder,
+                    fullData:this.data.dishes[this.activeDish].fullData
+                };
+
+                store.commit('addToCart',{'value':dishData});
                 alert('Добавлено');
             },
             setActiveDish:function(index){
@@ -76,11 +92,11 @@
             },
             getImage:function(){
                 let imageUrl='';
-                if (this.data.ImageName.indexOf('empty')>0){
-                    imageUrl='./assets/images/200x200.png';
-                }else{
-                    imageUrl='http://api.burger.jmedia.pro/public/images/'+this.data.id+'/430-275/'+this.data.ImageName;
-                }
+               // if (this.data.ImageName.indexOf('empty')>0){
+                   imageUrl='./assets/images/200x200.png';
+              //  }else{
+                   // imageUrl='http://api.burger.jmedia.pro/public/images/'+this.data.id+'/430-275/'+this.data.ImageName;
+              //  }
                 return imageUrl;
             },
             getModWidth:function(){
