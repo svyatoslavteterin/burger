@@ -87,8 +87,10 @@ window.BurgerApp = new Vue({
         "menu": [],
         "ready": false,
         "filters": ['Веганам', 'С рыбой', 'С говядиной', 'С курицей', 'С индейкой', 'С морепродуктами'],
-        "errors": {'register': {}, "login": {}},
-        "phone": null
+        "errors": {'register': {}, "login": {},"register2":{}},
+        "phone": null,
+        "password":null,
+        "passwordConfirm":null
     },
     watch: {
         show(val) {
@@ -107,10 +109,14 @@ window.BurgerApp = new Vue({
 
             let form = document.forms[e.srcElement.id.toString()];
             let formName = form.getAttribute('name');
+
+
             this.errors[formName] = {};
 
 
-            if (!form.name.value) this.errors[formName].name = "Укажите имя.";
+            if (typeof form.fullname != "undefined" && !form.fullname.value) {
+                this.errors[formName].fullname = "Укажите имя";
+            }
             if (!form.phone.value) {
                 this.errors[formName].phone = "Укажите телефон";
             }
@@ -122,6 +128,9 @@ window.BurgerApp = new Vue({
             }
             if (typeof form.password != "undefined" && form.password.value != form.password_confirm.value) {
                 this.errors[formName].password_confirm = "Пароли не совпадают";
+            }
+            if (typeof form.code != "undefined" && !form.code.value) {
+                this.errors[formName].code = "Укажите код";
             }
 
             if (Object.keys(this.errors[formName]).length === 0) return true;
@@ -166,7 +175,7 @@ window.BurgerApp = new Vue({
             if (this.checkForm(e)) {
                 let formData = new FormData(document.querySelector('#reg-form'));
                 let data = {};
-                data.name = formData.get('name');
+                data.name = formData.get('fullname');
                 data.phone = formData.get('phone').replace(new RegExp('-', 'g'), '');
 
                 this.$http.post('http://apitest.burgerpizzoni.ru/api/Profiles/regStep1', data).then((response) => {
@@ -174,7 +183,6 @@ window.BurgerApp = new Vue({
                         this.$modal.hide('register');
                         this.$modal.show('register2');
                     } else {
-                        debugger;
                         this.errors[e.target.getAttribute('name')][response.data.error.code] = response.data.error.message;
                         this.$forceUpdate();
                     }
@@ -184,23 +192,38 @@ window.BurgerApp = new Vue({
                 });
             }
         },
-        activate: function () {
-            let formData = new FormData(document.querySelector('#reg-form2'));
-            let data = {};
-            data.code = formData.get('code');
-            data.phone = formData.get('phone').replace(new RegExp('-', 'g'), '');
-            data.password = formData.get('password');
+        activate: function (e) {
+            if (this.checkForm(e)) {
+                let formData = new FormData(document.querySelector('#reg-form2'));
+                let data = {};
+                data.code = formData.get('code');
+                data.phone = formData.get('phone').replace(new RegExp('-', 'g'), '');
+                data.password = formData.get('password');
 
-            this.$http.post('http://apitest.burgerpizzoni.ru/api/Profiles/regStep2', data).then((response) => {
-                console.log(response.data);
-                this.$modal.hide('register2');
                 let credentials = {"username": data.phone, "password": data.password};
-                this.getAuthUser(credentials);
+
+                this.$http.post('http://apitest.burgerpizzoni.ru/api/Profiles/regStep2', data).then((response) => {
+
+                    if (!response.data.error) {
+
+                            this.getAuthUser(credentials).then((authUser)=>{
+                                if (typeof authUser != "undefined") {
+                                    store.commit('setAuthUser', {'value': authUser});
+                                    this.$cookie.set('authUser', JSON.stringify(authUser), 1);
+                                    this.$modal.hide('register2');
+                                }
+                            });
 
 
-            }).catch((error) => {
-                console.log(error)
-            });
+                    } else {
+                        this.errors[e.target.getAttribute('name')][response.data.error.code] = response.data.error.message;
+                        this.$forceUpdate();
+                    }
+
+                }).catch((error) => {
+                    console.log(error)
+                });
+            }
         },
         beforeOpen: function () {
 

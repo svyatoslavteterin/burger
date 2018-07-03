@@ -89,13 +89,21 @@
                     </ul>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" name="name" value="" placeholder="Имя"/>
+                    <input type="text" class="form-control" name="fullname" value="" placeholder="Имя"/>
 
                 </div>
+
 
                 <div class="form-group">
                     <input type="text" class="form-control" name="phone" value="" placeholder="Телефон" v-model="phone"
                            v-mask="'8-###-###-##-##'"/>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" name="password" value="" placeholder="Пароль" v-model="password"/>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" name="password_confirm" value=""
+                           placeholder="Подтверждение пароля" v-model="passwordConfirm"/>
                 </div>
 
 
@@ -113,25 +121,28 @@
         </button>
         <h3 class="modal-header">Регистрация- введите код из смс для активации</h3>
         <div class="modal-body">
-            <form name="register-form-2" action="/" method="post" @submit.prevent="activate" id="reg-form2">
+            <form name="register2" action="/" method="post" @submit.prevent="activate" id="reg-form2">
+                <div v-if="Object.keys(errors.register2).length!==0">
+                    <b>Пожалуйста исправьте указанные ошибки:</b>
+                    <ul>
+                        <li v-for="(error,input) in errors.register2">{{ error }}</li>
+                    </ul>
+                </div>
                 <div class="form-group">
-                    <input type="hidden" class="form-control" name="phone" value="" placeholder="Телефон" required
+                    <input type="hidden" class="form-control" name="phone" value="" placeholder="Телефон"
                            v-model="phone" v-mask="'8-###-###-##-##'"/>
                 </div>
+
                 <div class="form-group">
-                    <input type="password" class="form-control" name="password" value="" placeholder="Пароль"/>
-                </div>
-                <div class="form-group">
-                    <input type="password" class="form-control" name="password_confirm" value=""
-                           placeholder="Подтверждение пароля"/>
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" name="code" value="" placeholder="Код из смс" required/>
+                    <input type="text" class="form-control" name="code" value="" placeholder="Код из смс" />
 
                 </div>
                 <div class="form-group">
                     <button type="submit" class="form-control" name="submit">Отправить</button>
                 </div>
+                <input type="hidden" class="form-control" name="password" value=""  v-model="password"/>
+                <input type="hidden" class="form-control" name="password_confirm" value=""
+                       placeholder="Подтверждение пароля" v-model="passwordConfirm"/>
             </form>
         </div>
     </modal>
