@@ -48,7 +48,6 @@
                     dishName:this.data.dishes[this.activeDish].dishName,
                     dishShortName:this.data.dishes[this.activeDish].dishShortName,
                     dishExtName:this.data.ExternalName,
-                    count:1,
                     price:this.data.dishes[this.activeDish].Price,
                     outPrice:this.data.dishes[this.activeDish].OutPrice,
                     sellType:"COUNT",

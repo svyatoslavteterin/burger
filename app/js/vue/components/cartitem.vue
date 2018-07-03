@@ -2,7 +2,7 @@
 <div class="col-lg-6 col-xl-6 cart__item">
 
     <div class="cart__item__wrapper">
-        <a href="#" class="cart__item__remove"></a>
+        <a href="#" class="cart__item__remove" @click.prevent="removeDish"></a>
         <div class="row">
             <div class="col-xs-3 col-md-3 cart__item__img">
                 <img :src="getImage" alt="food" class="img-fluid"/>
@@ -26,9 +26,9 @@
         <div class="cart__item__bottom">
             <div class="cart__item__price">{{data.price}} ₽</div>
             <div class="ui-amount-control vertical">
-                <button class="minus-one-btn"><i class="icon-minus"></i></button>
-                <span class="ui-amount-control__value">{{count}}</span>
-                <button class="plus-one-btn"><i class="icon-plus"></i></button>
+                <button class="minus-one-btn" @click.prevent="decrement"><i class="icon-minus"></i></button>
+                <span class="ui-amount-control__value" v-text="getCount"></span>
+                <button class="plus-one-btn" @click.prevent="increment"><i class="icon-plus"></i></button>
             </div>
         </div>
     </div>
@@ -38,7 +38,15 @@
 <script>
     module.exports = {
         methods: {
-
+            removeDish(){
+                store.commit('removeFromCart',this.data.id);
+            },
+            increment(){
+                store.commit('addEquentity',{"value":this.data});
+            },
+            decrement(){
+                store.commit('removeEquentity',{"value":this.data});
+            }
         },
         created() {
 
@@ -60,6 +68,10 @@
         computed: {
             getPrice:function(){
                 return this.data.price.slice(0, -3);
+            },
+            getCount:function(){
+                const dish = store.state.cart.find(p => p.id === this.data.id);
+                return dish.count;
             },
 
             getImage:function(){

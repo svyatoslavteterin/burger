@@ -10,6 +10,7 @@ window.Popper = require('popper.js')
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+var _ = require('lodash');
 var VueCookie = require('vue-cookie');
 
 import VueTheMask from 'vue-the-mask'
@@ -37,6 +38,7 @@ Vue.component('food', require('./vue/components/food.vue'));
 Vue.component('mainmenu', require('./vue/components/mainmenu.vue'));
 Vue.component('filters', require('./vue/components/filter.vue'));
 Vue.component('search', require('./vue/components/search.vue'));
+Vue.component('cart', require('./vue/components/cart.vue'));
 Vue.component('cartitem', require('./vue/components/cartitem.vue'));
 
 Vue.prototype.$http = axios;
@@ -50,13 +52,50 @@ window.store = new Vuex.Store({
         authUser: {}
     },
     mutations: {
+        initialiseStore(state) {
+            // Check if the ID exists
+            if (localStorage.getItem('store')) {
+                // Replace the state object with the stored item
+                this.replaceState(
+                    Object.assign(state, JSON.parse(localStorage.getItem('store')))
+                );
+            }
+        },
         loadFoods: function (state, payload) {
             state.foods = payload.value;
         },
         addToCart: function (state, payload) {
+            const dish = state.cart.find(p => p.id === payload.value.id)
 
-            state.cart.push(payload.value);
-            
+
+            if (!dish) {
+                state.cart.push(Object.assign(payload.value, {
+                    count: 1
+                }));
+            } else {
+                dish.count++;
+            }
+        },
+        removeFromCart: function (state, dishId) {
+            console.log(dishId);
+            let modifiedCart = state.cart.filter((item) => item.id != dishId);
+
+            state.cart=modifiedCart;
+
+        },
+
+        addEquentity: function (state, payload) {
+            const dish = state.cart.find(p => p.id === payload.value.id);
+
+            dish.count++;
+
+
+        },
+        removeEquentity: function (state, payload) {
+            const dish = state.cart.find(p => p.id === payload.value.id);
+            if (dish.count >= 2) {
+                dish.count--;
+            }
         },
         changeArea: function (state, payload) {
             state.area = payload.value;
@@ -72,25 +111,33 @@ window.store = new Vuex.Store({
         }
     },
     getters: {},
-    actions: {
+    actions: {}
 
-    }
+});
 
+// Subscribe to store updates
+store.subscribe((mutation, state) => {
+    // Store the state object as a JSON string
+    localStorage.setItem('store', JSON.stringify(state));
 });
 
 
 window.BurgerApp = new Vue({
     el: '#app',
+    store,
+    beforeCreate() {
+        this.$store.commit('initialiseStore');
+    },
     components: {},
 
     data: {
         "menu": [],
         "ready": false,
         "filters": ['Веганам', 'С рыбой', 'С говядиной', 'С курицей', 'С индейкой', 'С морепродуктами'],
-        "errors": {'register': {}, "login": {},"register2":{}},
+        "errors": {'register': {}, "login": {}, "register2": {}},
         "phone": null,
-        "password":null,
-        "passwordConfirm":null
+        "password": null,
+        "passwordConfirm": null
     },
     watch: {
         show(val) {
@@ -162,7 +209,7 @@ window.BurgerApp = new Vue({
             let credentials = {};
             credentials.username = formData.get('username').replace(new RegExp('-', 'g'), '');
             credentials.password = formData.get('password');
-            this.getAuthUser(credentials).then((authUser)=>{
+            this.getAuthUser(credentials).then((authUser) => {
                 if (typeof authUser != "undefined") {
                     store.commit('setAuthUser', {'value': authUser});
                     this.$cookie.set('authUser', JSON.stringify(authUser), 1);
@@ -206,22 +253,22 @@ window.BurgerApp = new Vue({
 
                     if (!response.data.error) {
 
-                            this.getAuthUser(credentials).then((authUser)=>{
-                                console.log(authUser);
-                                if (typeof authUser != "undefined") {
-                                    store.commit('setAuthUser', {'value': authUser});
-                                    this.$cookie.set('authUser', JSON.stringify(authUser), 1);
-                                    this.$modal.hide('register2');
-                                }else{
-                                    this.getAuthUser(credentials).then((authUser)=> {
-                                        if (typeof authUser != "undefined") {
-                                            store.commit('setAuthUser', {'value': authUser});
-                                            this.$cookie.set('authUser', JSON.stringify(authUser), 1);
-                                            this.$modal.hide('register2');
-                                        }
-                                    });
-                                }
-                            });
+                        this.getAuthUser(credentials).then((authUser) => {
+                            console.log(authUser);
+                            if (typeof authUser != "undefined") {
+                                store.commit('setAuthUser', {'value': authUser});
+                                this.$cookie.set('authUser', JSON.stringify(authUser), 1);
+                                this.$modal.hide('register2');
+                            } else {
+                                this.getAuthUser(credentials).then((authUser) => {
+                                    if (typeof authUser != "undefined") {
+                                        store.commit('setAuthUser', {'value': authUser});
+                                        this.$cookie.set('authUser', JSON.stringify(authUser), 1);
+                                        this.$modal.hide('register2');
+                                    }
+                                });
+                            }
+                        });
 
 
                     } else {
@@ -252,12 +299,12 @@ window.BurgerApp = new Vue({
 
     },
     computed: {
-        getCartSum:function(){
-            let summ=0;
-            store.state.cart.forEach((item)=>{
-               summ+=item.price*item.count;
+        getCartSum: function () {
+            let summ = 0;
+            store.state.cart.forEach((item) => {
+                summ += item.price * item.count;
             });
-            return summ+' ₽';
+            return summ + ' ₽';
         },
         checkLogin: function () {
             if (Object.keys(store.state.authUser).length === 0 && store.state.authUser.constructor === Object) {
@@ -283,12 +330,12 @@ window.BurgerApp = new Vue({
                 );
 
             }
-            if (this.menu[store.state.area]){
+            if (this.menu[store.state.area]) {
                 return this.menu[store.state.area].categs;
             }
 
         },
-        cartItems:function(){
+        cartItems: function () {
             return store.state.cart;
         }
     },
