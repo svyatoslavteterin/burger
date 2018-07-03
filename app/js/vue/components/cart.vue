@@ -53,7 +53,7 @@
                             <div id="total-cart-price">{{getCartSum}}</div>
                         </div>
                         <div class="col">
-                            <button class="checkout__submit btn" onclick="location.href='/live.html'">Оформить заказ
+                            <button class="checkout__submit btn" @click.prevent="checkout">Оформить заказ
                             </button>
                         </div>
                     </div>
@@ -68,8 +68,79 @@
 <script>
     module.exports = {
         methods: {
-            checkout() {
+            sendOrder:async function(order){
+                try {
+                    let response = await this.$http.post('https://apitest.burgerpizzoni.ru/api/Orders/newOrder?access_token=' + store.state.authUser.id, order);
+                    return response.data;
+                } catch (e) {
+                    this.errors.checkout.request = "Ошибка при чекауте";
 
+                }
+            },
+            checkout() {
+                let dishes = [];
+                let cartSum = 0;
+                store.state.cart.forEach((item) => {
+                    item.summ = item.count * item.price;
+                    dishes.push(item);
+                    cartSum += item.price * item.count;
+                });
+
+                let user = {
+                    "Username": store.state.authUser.userInfo.username,
+                    "id_Mongo": store.state.authUser.id,
+                    "Bonus": store.state.authUser.userInfo.Bonus,
+                    "id": store.state.authUser.userId,
+                    "FirstName": store.state.authUser.userInfo.FirstName,
+                    "Phone": store.state.authUser.userInfo.Phone,
+                    "LastName": store.state.authUser.userInfo.Lastname,
+                    "MiddleName": store.state.authUser.userInfo.MiddleName,
+                    "Mail": store.state.authUser.userInfo.Mail,
+                    "PersonalPercentBonus": store.state.authUser.userInfo.PersonalPercentBonus,
+                    "id_Cause": 0
+                };
+
+                let order = {
+                    "dishes": dishes,
+                    "summ": cartSum,
+                    "user": user,
+                    "customerName": user.FirstName,
+                    "status": "checked",
+                    "address": {
+                        "Street": this.street,
+                        "House": this.house,
+                        "Housing": "2",
+                        "Structure": "3",
+                        "Office": "4",
+                        "Entrance": "5",
+                        "DoorphoneСode": "6",
+                        "Floor": "7",
+                        "Apartment": "8",
+                        "needOddFrom": "",
+                        "Comments": "Комментарий к заказу"
+                    },
+                    "bonusByOrder": 97,
+                    "paymentInfo": {
+                        "payment": {
+                            "summ": cartSum,
+                            "orderSumm": cartSum,
+                            "bonusSumm": 0,
+                            "odd": 0,
+                            "type": "CASH-DELIVERY",
+                            "hybrid": {
+                                "step": 0,
+                                "cash": 0,
+                                "card": {
+                                    "type": "",
+                                    "summ": 0
+                                }
+                            }
+                        }
+                    }
+                };
+                this.sendOrder(order).then((data) => {
+                    console.log(data);
+                });
             },
             getAdresses: async function (query) {
 

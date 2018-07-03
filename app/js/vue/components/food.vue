@@ -51,7 +51,6 @@
                     price:this.data.dishes[this.activeDish].Price,
                     outPrice:this.data.dishes[this.activeDish].OutPrice,
                     sellType:"COUNT",
-                    summ:this.data.dishes[this.activeDish].Price,
                     mods:[],
                     idShop:3,
                     position:this.data.ShowOrder,
