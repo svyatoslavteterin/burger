@@ -207,10 +207,19 @@ window.BurgerApp = new Vue({
                     if (!response.data.error) {
 
                             this.getAuthUser(credentials).then((authUser)=>{
+                                console.log(authUser);
                                 if (typeof authUser != "undefined") {
                                     store.commit('setAuthUser', {'value': authUser});
                                     this.$cookie.set('authUser', JSON.stringify(authUser), 1);
                                     this.$modal.hide('register2');
+                                }else{
+                                    this.getAuthUser(credentials).then((authUser)=> {
+                                        if (typeof authUser != "undefined") {
+                                            store.commit('setAuthUser', {'value': authUser});
+                                            this.$cookie.set('authUser', JSON.stringify(authUser), 1);
+                                            this.$modal.hide('register2');
+                                        }
+                                    });
                                 }
                             });
 
