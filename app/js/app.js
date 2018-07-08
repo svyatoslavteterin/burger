@@ -81,7 +81,7 @@ window.store = new Vuex.Store({
             state.foods = payload.value;
         },
         addToCart: function (state, payload) {
-            const dish = state.cart.find(p => p.id === payload.value.id)
+            const dish = state.cart.find(p => p.id === payload.value.id);
 
 
             if (!dish) {
@@ -92,11 +92,66 @@ window.store = new Vuex.Store({
                 dish.count++;
             }
         },
+        addModToDish: function (state, payload) {
+            const dish = state.cart.find(p => p.id === payload.id);
+            if (dish) {
+                const mod = dish.mods.find(p => p.id === payload.modData.id);
+
+                if (!mod) {
+                    dish.mods.push(Object.assign(payload.modData, {
+                        count: 1,
+                        summ: payload.modData.price
+                    }));
+                } else {
+                    mod.count++;
+                    mod.summ = mod.count * mod.price | 0;
+                }
+            }else{
+                alert('Сначала добавьте блюдо в корзину');
+            }
+        },
+        removeModFromDish: function (state, payload) {
+            const dish = state.cart.find(p => p.id === payload.id);
+
+            const mod = dish.mods.find(p => p.id === payload.modId);
+
+            if (mod) {
+                let modifiedMods = dish.mods.filter((item) => item.id != payload.modId);
+                dish.mods = modifiedMods;
+            }
+        },
+        incModCount: function (state, payload) {
+            const dish = state.cart.find(p => p.id === payload.id);
+            if (dish) {
+                const mod = dish.mods.find(p => p.id === payload.modId);
+
+                if (!mod) {
+
+                } else {
+                    mod.count++;
+                }
+            }else{
+                alert('Сначала добавьте блюдо в корзину');
+            }
+        },
+        decModCount: function (state, payload) {
+            const dish = state.cart.find(p => p.id === payload.id);
+
+            const mod = dish.mods.find(p => p.id === payload.modId);
+
+            if (!mod) {
+
+            } else {
+                if (mod.count > 0) {
+                    mod.count--;
+                }
+            }
+        },
         removeFromCart: function (state, dishId) {
             console.log(dishId);
             let modifiedCart = state.cart.filter((item) => item.id != dishId);
 
-            state.cart=modifiedCart;
+            state.cart = modifiedCart;
 
         },
 
@@ -150,7 +205,7 @@ window.BurgerApp = new Vue({
         "menu": [],
         "ready": false,
         "filters": ['Веганам', 'С рыбой', 'С говядиной', 'С курицей', 'С индейкой', 'С морепродуктами'],
-        "errors": {'register': {}, "login": {}, "register2": {},"restorepassword":{},"restorepassword2":{}},
+        "errors": {'register': {}, "login": {}, "register2": {}, "restorepassword": {}, "restorepassword2": {}},
         "phone": null,
         "password": null,
         "passwordConfirm": null
@@ -204,24 +259,24 @@ window.BurgerApp = new Vue({
             this.$modal.hide('login');
             this.$modal.show('restorepassword');
         },
-        getRestoreCode:function(e){
+        getRestoreCode: function (e) {
             let formData = new FormData(document.querySelector('#restorepassword-form'));
             let data = {};
             data.phone = formData.get('phone').replace(new RegExp('-', 'g'), '');
 
-            axios.post('https://apitest.burgerpizzoni.ru/api/Profiles/resetPass',data).then((response)=>{
+            axios.post('https://apitest.burgerpizzoni.ru/api/Profiles/resetPass', data).then((response) => {
                 if (!response.data.error) {
                     this.$modal.hide('restorepassword');
                     this.$modal.show('restorepassword2');
-                }else{
+                } else {
                     this.errors[e.target.getAttribute('name')][response.data.error.code] = response.data.error.message;
                     this.$forceUpdate();
                 }
-            }).catch((error)=>{
+            }).catch((error) => {
                 console.log(error.message);
             });
         },
-        activateNewPassword:function(e){
+        activateNewPassword: function (e) {
             if (this.checkForm(e)) {
                 let formData = new FormData(document.querySelector('#restorepassword-form2'));
                 let data = {};
@@ -378,7 +433,14 @@ window.BurgerApp = new Vue({
         getCartSum: function () {
             let summ = 0;
             store.state.cart.forEach((item) => {
-                summ += item.price * item.count;
+
+                let itemPrice = +item.price;
+                if (item.mods.length > 0) {
+                    item.mods.forEach((mod) => {
+                        itemPrice += +mod.summ;
+                    });
+                }
+                summ += itemPrice * item.count;
             });
             return summ + ' ₽';
         },
