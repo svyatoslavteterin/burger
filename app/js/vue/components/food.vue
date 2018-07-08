@@ -92,7 +92,11 @@
         },
         data() {
             return {
-                activeDish: 0
+                activeDish: 0,
+                mods: {
+                    include: false,
+                    exclude: false
+                }
             }
         },
 
