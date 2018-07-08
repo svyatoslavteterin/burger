@@ -109,31 +109,34 @@
 
         },
         computed: {
-            getPrice:function(){
-                let price=0;
-                if (typeof this.data.dishes[this.activeDish]!="undefined"){
-                    price=this.data.dishes[this.activeDish].Price.slice(0, -3);
+            dishData: function () {
+                return this.data.dishes[this.activeDish];
+            },
+            getPrice: function () {
+                let price = 0;
+                if (typeof this.data.dishes[this.activeDish] != "undefined") {
+                    price = this.data.dishes[this.activeDish].Price.slice(0, -3);
                 }
                 return price;
 
             },
-            getWeight:function(){
-                if (typeof this.data.dishes[this.activeDish]!="undefined") {
+            getWeight: function () {
+                if (typeof this.data.dishes[this.activeDish] != "undefined") {
                     return this.data.dishes[this.activeDish].fullData.ExitMass;
                 }
             },
-            getImage:function(){
-                let imageUrl='';
-               // if (this.data.ImageName.indexOf('empty')>0){
-                   imageUrl='./assets/images/200x200.png';
-              //  }else{
-                   // imageUrl='http://api.burger.jmedia.pro/public/images/'+this.data.id+'/430-275/'+this.data.ImageName;
-              //  }
+            getImage: function () {
+                let imageUrl = '';
+                // if (this.data.ImageName.indexOf('empty')>0){
+                imageUrl = './assets/images/200x200.png';
+                //  }else{
+                // imageUrl='http://api.burger.jmedia.pro/public/images/'+this.data.id+'/430-275/'+this.data.ImageName;
+                //  }
                 return imageUrl;
             },
-            getModWidth:function(){
+            getModWidth: function () {
 
-                return 100/this.data.dishes.length;
+                return 100 / this.data.dishes.length;
             }
         }
     }
