@@ -55,22 +55,23 @@ window.store = new Vuex.Store({
         initialiseStore(state) {
             // Check if the ID exists
             let localStore = localStorage.getItem('store');
+
             if (localStore) {
                 let store = JSON.parse(localStore);
+                // Replace the state object with the stored item
+                this.replaceState(
+                    Object.assign(state, store)
+                );
                 if (store.authUser) {
                     axios.get('https://apitest.burgerpizzoni.ru/api/Profiles/getByToken?tokenId=' + store.authUser.id).then((response) => {
                         if (response.data.error) {
                             store.authUser = {};
+                            this.replaceState(
+                                Object.assign(state, store)
+                            );
                         }
-                        // Replace the state object with the stored item
-                        this.replaceState(
-                            Object.assign(state, store)
-                        );
+
                     });
-                }else{
-                    this.replaceState(
-                        Object.assign(state, store)
-                    );
                 }
 
             }
