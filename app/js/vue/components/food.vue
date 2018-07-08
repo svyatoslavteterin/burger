@@ -44,7 +44,7 @@
             },
             addToCart:function(){
                 let dishData={
-                    id:this.data.id,
+                    id:this.data.dishes[this.activeDish].id,
                     dishName:this.data.dishes[this.activeDish].dishName,
                     dishShortName:this.data.dishes[this.activeDish].dishShortName,
                     dishExtName:this.data.ExternalName,
