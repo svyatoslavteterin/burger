@@ -507,14 +507,20 @@ window.BurgerApp = new Vue({
 });
 
 
-let offsetHeight = document.querySelector('.header__topline').offsetHeight + document.querySelector('#slider').offsetHeight;
+let offsetHeight = document.querySelector('.header__topline').offsetHeight;
+
+if (document.querySelector('#slider')) {
+    offsetHeight += document.querySelector('#slider').offsetHeight;
+}
 
 
 function fixedNavbar(e) {
-    if (window.pageYOffset >= offsetHeight) {
-        document.querySelector('#mainnavbar').classList.add("fixed");
-    } else {
-        document.querySelector('#mainnavbar').classList.remove("fixed");
+    if (document.querySelector('#mainnavbar')) {
+        if (window.pageYOffset >= offsetHeight) {
+            document.querySelector('#mainnavbar').classList.add("fixed");
+        } else {
+            document.querySelector('#mainnavbar').classList.remove("fixed");
+        }
     }
 }
 
