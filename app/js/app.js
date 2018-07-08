@@ -40,6 +40,7 @@ Vue.component('filters', require('./vue/components/filter.vue'));
 Vue.component('search', require('./vue/components/search.vue'));
 Vue.component('cart', require('./vue/components/cart.vue'));
 Vue.component('cartitem', require('./vue/components/cartitem.vue'));
+Vue.component('dishmod', require('./vue/components/dishmod.vue'));
 
 Vue.prototype.$http = axios;
 
