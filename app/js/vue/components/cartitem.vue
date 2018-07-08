@@ -1,51 +1,55 @@
 <template>
-<div class="col-lg-6 col-xl-6 cart__item">
+    <div class="col-lg-6 col-xl-6 cart__item">
 
-    <div class="cart__item__wrapper">
-        <a href="#" class="cart__item__remove" @click.prevent="removeDish"></a>
-        <div class="row">
-            <div class="col-xs-3 col-md-3 cart__item__img">
-                <img :src="getImage" alt="food" class="img-fluid"/>
+        <div class="cart__item__wrapper">
+            <a href="#" class="cart__item__remove" @click.prevent="removeDish"></a>
+            <div class="row">
+                <div class="col-xs-3 col-md-3 cart__item__img">
+                    <img :src="getImage" alt="food" class="img-fluid"/>
+                </div>
+                <div class="col-xs-9 col-md-9">
+                    <div class="cart__item__title">{{data.dishExtName}}</div>
+                    <div class="cart__item__info">
+                        <div class="param">
+                            <div class="param__title">Вес:</div>
+                            <div class="param__value">{{data.fullData.ExitMass}} г.</div>
+                        </div>
+                        <div class="param">
+                            <div class="param__title">Размер:</div>
+                            <div class="param__value">{{data.dishName}}</div>
+                        </div>
+                        <div class="param__title">Дополнительно:</div>
+                        <ul class="cart-mods">
+                            <dishmod v-for="(mod,index) in data.mods" :data="mod" :type="'all'"
+                                     :dishId="data.id"></dishmod>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="col-xs-9 col-md-9">
-                <div class="cart__item__title">{{data.dishExtName}}</div>
-                <div class="cart__item__info">
-                    <div class="param">
-                        <div class="param__title">Вес:</div>
-                        <div class="param__value">{{data.fullData.ExitMass}} г.</div>
-                    </div>
-                    <div class="param">
-                        <div class="param__title">Размер:</div>
-                        <div class="param__value">{{data.dishName}}</div>
-                    </div>
-                    <div class="param__title">Дополнительно:</div>
+
+            <div class="cart__item__bottom">
+                <div class="cart__item__price">{{data.price}} ₽</div>
+                <div class="ui-amount-control vertical">
+                    <button class="minus-one-btn" @click.prevent="decrement"><i class="icon-minus"></i></button>
+                    <span class="ui-amount-control__value" v-text="getCount"></span>
+                    <button class="plus-one-btn" @click.prevent="increment"><i class="icon-plus"></i></button>
                 </div>
             </div>
         </div>
-
-        <div class="cart__item__bottom">
-            <div class="cart__item__price">{{data.price}} ₽</div>
-            <div class="ui-amount-control vertical">
-                <button class="minus-one-btn" @click.prevent="decrement"><i class="icon-minus"></i></button>
-                <span class="ui-amount-control__value" v-text="getCount"></span>
-                <button class="plus-one-btn" @click.prevent="increment"><i class="icon-plus"></i></button>
-            </div>
-        </div>
     </div>
-</div>
 </template>
 
 <script>
     module.exports = {
         methods: {
-            removeDish(){
-                store.commit('removeFromCart',this.data.id);
+            removeDish() {
+                store.commit('removeFromCart', this.data.id);
             },
-            increment(){
-                store.commit('addEquentity',{"value":this.data});
+            increment() {
+                store.commit('addEquentity', {"value": this.data});
             },
-            decrement(){
-                store.commit('removeEquentity',{"value":this.data});
+            decrement() {
+                store.commit('removeEquentity', {"value": this.data});
             }
         },
         created() {
@@ -66,18 +70,18 @@
 
         },
         computed: {
-            getPrice:function(){
+            getPrice: function () {
                 return this.data.price.slice(0, -3);
             },
-            getCount:function(){
+            getCount: function () {
                 const dish = store.state.cart.find(p => p.id === this.data.id);
                 return dish.count;
             },
 
-            getImage:function(){
-                let imageUrl='';
+            getImage: function () {
+                let imageUrl = '';
                 // if (this.data.ImageName.indexOf('empty')>0){
-                imageUrl='./assets/images/200x200.png';
+                imageUrl = './assets/images/200x200.png';
                 //  }else{
                 // imageUrl='http://api.burger.jmedia.pro/public/images/'+this.data.id+'/430-275/'+this.data.ImageName;
                 //  }

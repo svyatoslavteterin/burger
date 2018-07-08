@@ -1,21 +1,44 @@
 <template>
 
     <div class="food__item__wrapper">
-        <div class="food__item__img"><img :src="getImage" class="img-fluid" /></div>
-        <h2 class="food__item__title" >{{data.categName}}</h2>
+        <div class="food__item__img"><img :src="getImage" class="img-fluid"/></div>
+        <h2 class="food__item__title">{{data.categName}}</h2>
         <div class="food__item__ingredients">{{data.categDescr}}
         </div>
         <div class="ui-control-foodsize">
             <ul>
-                <li :style="{ width: getModWidth+'%'}" :class="{ active: isActiveDish(index) }" v-for="(dish,index) in data.dishes"><a href="" @click.prevent="setActiveDish(index)">{{dish.dishName}}</a></li>
+                <li :style="{ width: getModWidth+'%'}" :class="{ active: isActiveDish(index) }"
+                    v-for="(dish,index) in data.dishes"><a href="" @click.prevent="setActiveDish(index)">{{dish.dishName}}</a>
+                </li>
             </ul>
         </div>
         <div class="ui-controls-ingred row">
-            <div class="col-sm-6  col-12"><a href="#" class="add-to-dish btn"><i class="icon-plus-circled"></i>Добавить в
-                блюдо</a></div>
+            <div class="col-sm-6  col-12">
+                <a href="#" class="add-to-dish btn" @click.prevent="mods.include=!mods.include">
+                    <i class="icon-plus-circled"></i>Добавить
+                    в
+                    блюдо</a>
+                <div class="include-mods">
+                    <ul :class="{active:mods.include}">
+                        <dishmod :key="mod.id_Mod"  :data="mod" :dishId="dishData.id" :type="'include'"
+                                 v-for="(mod,index) in data.dishes[this.activeDish].ModGroups[1].mods"></dishmod>
+                    </ul>
+                </div>
 
-            <div class="col-sm-6 col-12 "><a href="#" class="remove-from-dish btn"><i class="icon-minus-circled"></i>Убрать из
-                блюда</a></div>
+            </div>
+
+            <div class="col-sm-6 col-12 ">
+                <a href="#" class="remove-from-dish btn" @click.prevent="mods.exclude=!mods.exclude">
+                    <i class="icon-minus-circled"></i>Убрать
+                    из
+                    блюда</a>
+                <div class="exclude-mods">
+                    <ul :class="{active:mods.exclude}">
+                        <dishmod :key="mod.id_Mod"  :data="mod" :dishId="dishData.id" :type="'exclude'"
+                                 v-for="(mod,index) in data.dishes[this.activeDish].ModGroups[2].mods"></dishmod>
+                    </ul>
+                </div>
+            </div>
 
         </div>
         <div class="food__item__bottom">
@@ -37,31 +60,31 @@
 <script>
     module.exports = {
         methods: {
-            isActiveDish:function(index){
-                if (index==this.activeDish){
+            isActiveDish: function (index) {
+                if (index == this.activeDish) {
                     return true;
                 }
             },
-            addToCart:function(){
-                let dishData={
-                    id:this.data.dishes[this.activeDish].id,
-                    dishName:this.data.dishes[this.activeDish].dishName,
-                    dishShortName:this.data.dishes[this.activeDish].dishShortName,
-                    dishExtName:this.data.ExternalName,
-                    price:this.data.dishes[this.activeDish].Price,
-                    outPrice:this.data.dishes[this.activeDish].OutPrice,
-                    sellType:"COUNT",
-                    mods:[],
-                    idShop:3,
-                    position:this.data.ShowOrder,
-                    fullData:this.data.dishes[this.activeDish].fullData
+            addToCart: function () {
+                let dishData = {
+                    id: this.data.dishes[this.activeDish].id,
+                    dishName: this.data.dishes[this.activeDish].dishName,
+                    dishShortName: this.data.dishes[this.activeDish].dishShortName,
+                    dishExtName: this.data.ExternalName,
+                    price: this.data.dishes[this.activeDish].Price,
+                    outPrice: this.data.dishes[this.activeDish].OutPrice,
+                    sellType: "COUNT",
+                    mods: [],
+                    idShop: 3,
+                    position: this.data.ShowOrder,
+                    fullData: this.data.dishes[this.activeDish].fullData
                 };
 
-                store.commit('addToCart',{'value':dishData});
+                store.commit('addToCart', {'value': dishData});
                 alert('Добавлено');
             },
-            setActiveDish:function(index){
-                this.activeDish=index;
+            setActiveDish: function (index) {
+                this.activeDish = index;
             }
         },
         created() {
