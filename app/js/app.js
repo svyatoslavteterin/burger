@@ -54,11 +54,25 @@ window.store = new Vuex.Store({
     mutations: {
         initialiseStore(state) {
             // Check if the ID exists
-            if (localStorage.getItem('store')) {
-                // Replace the state object with the stored item
-                this.replaceState(
-                    Object.assign(state, JSON.parse(localStorage.getItem('store')))
-                );
+            let localStore = localStorage.getItem('store');
+            if (localStore) {
+                let store = JSON.parse(localStore);
+                if (store.authUser) {
+                    axios.get('https://apitest.burgerpizzoni.ru/api/Profiles/getByToken?tokenId=' + store.authUser.id).then((response) => {
+                        if (response.data.error) {
+                            store.authUser = {};
+                        }
+                        // Replace the state object with the stored item
+                        this.replaceState(
+                            Object.assign(state, store)
+                        );
+                    });
+                }else{
+                    this.replaceState(
+                        Object.assign(state, store)
+                    );
+                }
+
             }
         },
         loadFoods: function (state, payload) {
