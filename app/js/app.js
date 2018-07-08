@@ -148,7 +148,7 @@ window.BurgerApp = new Vue({
         "menu": [],
         "ready": false,
         "filters": ['Веганам', 'С рыбой', 'С говядиной', 'С курицей', 'С индейкой', 'С морепродуктами'],
-        "errors": {'register': {}, "login": {}, "register2": {}},
+        "errors": {'register': {}, "login": {}, "register2": {},"restorepassword":{},"restorepassword2":{}},
         "phone": null,
         "password": null,
         "passwordConfirm": null
@@ -199,7 +199,67 @@ window.BurgerApp = new Vue({
         },
 
         restorePassword: function () {
+            this.$modal.hide('login');
+            this.$modal.show('restorepassword');
+        },
+        getRestoreCode:function(e){
+            let formData = new FormData(document.querySelector('#restorepassword-form'));
+            let data = {};
+            data.phone = formData.get('phone').replace(new RegExp('-', 'g'), '');
 
+            axios.post('https://apitest.burgerpizzoni.ru/api/Profiles/resetPass',data).then((response)=>{
+                if (!response.data.error) {
+                    this.$modal.hide('restorepassword');
+                    this.$modal.show('restorepassword2');
+                }else{
+                    this.errors[e.target.getAttribute('name')][response.data.error.code] = response.data.error.message;
+                    this.$forceUpdate();
+                }
+            }).catch((error)=>{
+                console.log(error.message);
+            });
+        },
+        activateNewPassword:function(e){
+            if (this.checkForm(e)) {
+                let formData = new FormData(document.querySelector('#restorepassword-form2'));
+                let data = {};
+                data.code = formData.get('code');
+                data.phone = formData.get('phone').replace(new RegExp('-', 'g'), '');
+                data.password = formData.get('password');
+
+                let credentials = {"username": data.phone, "password": data.password};
+
+                this.$http.post('http://apitest.burgerpizzoni.ru/api/Profiles/checkCodeResetPassword', data).then((response) => {
+
+                    if (!response.data.error) {
+
+                        this.getAuthUser(credentials).then((authUser) => {
+                            console.log(authUser);
+                            if (typeof authUser != "undefined") {
+                                store.commit('setAuthUser', {'value': authUser});
+                                this.$cookie.set('authUser', JSON.stringify(authUser), 1);
+                                this.$modal.hide('restorepassword2');
+                            } else {
+                                this.getAuthUser(credentials).then((authUser) => {
+                                    if (typeof authUser != "undefined") {
+                                        store.commit('setAuthUser', {'value': authUser});
+                                        this.$cookie.set('authUser', JSON.stringify(authUser), 1);
+                                        this.$modal.hide('restorepassword2');
+                                    }
+                                });
+                            }
+                        });
+
+
+                    } else {
+                        this.errors[e.target.getAttribute('name')][response.data.error.code] = response.data.error.message;
+                        this.$forceUpdate();
+                    }
+
+                }).catch((error) => {
+                    console.log(error)
+                });
+            }
         },
         showRegister: function () {
             this.$modal.hide('login');
