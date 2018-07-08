@@ -5,7 +5,8 @@
             <div class="page-nav"><a href="/"><i class="arrow-left"></i>Назад к меню</a></div>
             <div class="cart__top">
                 <h2 class="pagetitle col-md-6">Корзина</h2>
-                <div class="cart__info col-md-6 text-right">В вашей корзине <span v-text="getCartCount"></span> блюда.</div>
+                <div class="cart__info col-md-6 text-right">В вашей корзине <span v-text="getCartCount"></span> блюда.
+                </div>
             </div>
             <div class="row">
                 <div class="col-lg-6 col-xl-6 cart__item" v-for="data in this.items">
@@ -23,7 +24,7 @@
                             <div class="checkout-address">
                                 <div class="checkout-address__title">Адрес доставки</div>
                                 <input type="text" name="address" v-model="query" placeholder="Введите адрес"
-                                @change="showAddresses"/>
+                                       @change="showAddresses"/>
                                 <select name="street" v-model="street">
                                     <option disabled value="">Выберите доступную улицу</option>
                                     <option :value="street.street" v-for="street in this.addresses"
@@ -40,7 +41,7 @@
                         <div class="col">
                             <div class="checkout-payment">
                                 <div class="checkout-payment__title">Способ оплаты</div>
-                                <select name="payment"  v-model="payment">
+                                <select name="payment" v-model="payment">
                                     <option :value="payment.type" v-for="payment in this.payments"
                                             v-text="payment.title"></option>
                                 </select>
@@ -69,7 +70,7 @@
 <script>
     module.exports = {
         methods: {
-            sendOrder:async function(order){
+            sendOrder: async function (order) {
                 try {
                     let response = await this.$http.post('https://apitest.burgerpizzoni.ru/api/Orders/newOrder?access_token=' + store.state.authUser.id, order);
                     return response.data;
@@ -171,9 +172,9 @@
                 addresses: [],
                 street: '',
                 house: '',
-                payment:'CASH-DELIVERY',
-                payments:[
-                    {title:"Оплата курьеру наличными",type:"CASH-DELIVERY"}
+                payment: 'CASH-DELIVERY',
+                payments: [
+                    {title: "Оплата курьеру наличными", type: "CASH-DELIVERY"}
                 ]
 
             }
@@ -191,12 +192,18 @@
             getCartSum: function () {
                 let summ = 0;
                 store.state.cart.forEach((item) => {
-                    summ += item.price * item.count;
+                    let itemPrice = +item.price;
+                    if (item.mods.length > 0) {
+                        item.mods.forEach((mod) => {
+                            itemPrice += +mod.summ;
+                        });
+                    }
+                    summ += itemPrice * item.count;
                 });
                 return summ + ' ₽';
             },
-            getCartCount:function(){
-                let count=0;
+            getCartCount: function () {
+                let count = 0;
                 store.state.cart.forEach((item) => {
                     count += item.count;
                 });
