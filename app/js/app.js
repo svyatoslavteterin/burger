@@ -477,20 +477,8 @@ window.BurgerApp = new Vue({
     },
 
     mounted: function () {
-        if (this.$cookie.get('authUser') != "undefined") {
-            let authUser = JSON.parse(this.$cookie.get('authUser'));
-            if (authUser && Object.keys(authUser).length !== 0) {
-                store.commit('setAuthUser', {'value': authUser});
-            }
-        }
 
-        if (this.$cookie.get('cart') != "undefined") {
-            let cart = JSON.parse(this.$cookie.get('cart'));
-            if (cart && Object.keys(cart).length !== 0) {
-                store.state.cart = cart;
-                this.$forceUpdate();
-            }
-        }
+       
         this.$http.get('http://89.223.25.82:3030/api/menu/getMenuFront').then((response) => {
             this.menu = response.data.menu;
 
