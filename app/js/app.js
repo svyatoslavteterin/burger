@@ -125,10 +125,9 @@ window.store = new Vuex.Store({
             if (dish) {
                 const mod = dish.mods.find(p => p.id === payload.modId);
 
-                if (!mod) {
-
-                } else {
+                if (mod) {
                     mod.count++;
+                    mod.summ = mod.count * mod.price | 0;
                 }
             }else{
                 alert('Сначала добавьте блюдо в корзину');
@@ -139,11 +138,10 @@ window.store = new Vuex.Store({
 
             const mod = dish.mods.find(p => p.id === payload.modId);
 
-            if (!mod) {
-
-            } else {
+            if (mod) {
                 if (mod.count > 0) {
                     mod.count--;
+                    mod.summ = mod.count * mod.price | 0;
                 }
             }
         },
