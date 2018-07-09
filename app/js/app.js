@@ -72,6 +72,7 @@ window.store = new Vuex.Store({
                         this.replaceState(
                             Object.assign(state, store)
                         );
+                        localStorage.setItem('store', JSON.stringify(store));
                     });
                 }
 
