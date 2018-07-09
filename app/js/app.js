@@ -65,13 +65,13 @@ window.store = new Vuex.Store({
                 );
                 if (store.authUser) {
                     axios.get('https://apitest.burgerpizzoni.ru/api/Profiles/getByToken?tokenId=' + store.authUser.id).then((response) => {
-                        if (response.data.error) {
-                            store.authUser = {};
-                            this.replaceState(
-                                Object.assign(state, store)
-                            );
-                        }
+                       
 
+                    }).catch((error)=>{
+                        store.authUser = {};
+                        this.replaceState(
+                            Object.assign(state, store)
+                        );
                     });
                 }
 
