@@ -42,8 +42,8 @@
                             <div class="checkout-payment">
                                 <div class="checkout-payment__title">Способ оплаты</div>
                                 <select name="payment" v-model="payment">
-                                    <option :value="payment.type" v-for="payment in this.payments"
-                                            v-text="payment.title"></option>
+                                    <option :value="payment.Name" v-for="payment in this.payments"
+                                            v-text="payment.Descr"></option>
                                 </select>
                             </div>
                         </div>
@@ -69,7 +69,17 @@
 
 <script>
     module.exports = {
+
         methods: {
+            getPaymentTypes:async function(){
+                try {
+                    let response = await this.$http.get('https://apitest.burgerpizzoni.ru/api/Agents/getPayTypes');
+                    return response.data;
+                } catch (e) {
+                    this.errors.payment.request = "Ошибка при получении вариантов оплат";
+
+                }
+            },
             sendOrder: async function (order) {
                 try {
                     let response = await this.$http.post('https://apitest.burgerpizzoni.ru/api/Orders/newOrder?access_token=' + store.state.authUser.id, order);
@@ -128,7 +138,7 @@
                             "orderSumm": cartSum,
                             "bonusSumm": 0,
                             "odd": 0,
-                            "type": this.payment.type,
+                            "type": this.payment.Name,
                             "hybrid": {
                                 "step": 0,
                                 "cash": 0,
@@ -172,10 +182,8 @@
                 addresses: [],
                 street: '',
                 house: '',
-                payment: 'CASH-DELIVERY',
-                payments: [
-                    {title: "Оплата курьеру наличными", type: "CASH-DELIVERY"}
-                ]
+                payment: 'CASH',
+                payments: []
 
             }
         },
@@ -186,7 +194,11 @@
 
         },
         mounted: function () {
-
+            this.getPaymentTypes().then((payments) => {
+                if (typeof payments != "undefined") {
+                    this.payments=payments;
+                }
+            });
         },
         computed: {
             getCartSum: function () {
