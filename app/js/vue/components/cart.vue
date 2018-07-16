@@ -71,7 +71,7 @@
     module.exports = {
 
         methods: {
-            getPaymentTypes:async function(){
+            getPaymentTypes: async function () {
                 try {
                     let response = await this.$http.get('https://apitest.burgerpizzoni.ru/api/Agents/getPayTypes');
                     return response.data;
@@ -93,9 +93,13 @@
                 let dishes = [];
                 let cartSum = 0;
                 store.state.cart.forEach((item) => {
-                    item.summ = item.count * item.price;
-                    dishes.push(item);
-                    cartSum += item.price * item.count;
+                    let itemPrice = +item.price;
+                    if (item.mods.length > 0) {
+                        item.mods.forEach((mod) => {
+                            itemPrice += +mod.summ;
+                        });
+                    }
+                    cartSum += itemPrice * item.count;
                 });
 
                 let user = {
@@ -138,7 +142,7 @@
                             "orderSumm": cartSum,
                             "bonusSumm": 0,
                             "odd": 0,
-                            "type": this.payment.Name,
+                            "type": this.payment,
                             "hybrid": {
                                 "step": 0,
                                 "cash": 0,
@@ -150,8 +154,14 @@
                         }
                     }
                 };
-                this.sendOrder(order).then((data) => {
-                    console.log(data);
+                this.sendOrder(order).then((response) => {
+                    let orderId = response.data;
+                    if (this.payment == "NON-CASH") {
+                        this.$http.get('https://3dsec.sberbank.ru/payment/rest/register.do?amount=' + (this.getCartSum * 100) + '&currency=643&language=ru&orderNumber=' + orderId + '&userName=burgerpizzoni-api&password=burgerpizzoni&jsonParams={orderNumber:' + orderId + '}&pageView=DESKTOP&merchantLogin=burgerpizzoni&returnUrl=https://apitest.burgerpizzoni.ru/api/Acquirings/paymentSuccess').then((res) => {
+                            window.location.href=res.data.formUrl;
+                        });
+                    }
+
                 });
             },
             getAdresses: async function (query) {
@@ -196,7 +206,7 @@
         mounted: function () {
             this.getPaymentTypes().then((payments) => {
                 if (typeof payments != "undefined") {
-                    this.payments=payments;
+                    this.payments = payments;
                 }
             });
         },

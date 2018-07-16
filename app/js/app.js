@@ -204,7 +204,7 @@ window.BurgerApp = new Vue({
         "menu": [],
         "ready": false,
         "filters": ['Веганам', 'С рыбой', 'С говядиной', 'С курицей', 'С индейкой', 'С морепродуктами'],
-        "errors": {'register': {}, "login": {}, "register2": {}, "restorepassword": {}, "restorepassword2": {}},
+        "errors": {'register': {}, "login": {}, "register2": {}, "restorepassword": {}, "restorepassword2": {},"payment":{},"checkout":{}},
         "phone": null,
         "password": null,
         "passwordConfirm": null
