@@ -65,9 +65,9 @@ window.store = new Vuex.Store({
                 );
                 if (store.authUser) {
                     axios.get('https://apitest.burgerpizzoni.ru/api/Profiles/getByToken?tokenId=' + store.authUser.id).then((response) => {
-                       
 
-                    }).catch((error)=>{
+
+                    }).catch((error) => {
                         store.authUser = {};
                         this.replaceState(
                             Object.assign(state, store)
@@ -107,7 +107,7 @@ window.store = new Vuex.Store({
                     mod.count++;
                     mod.summ = mod.count * mod.price | 0;
                 }
-            }else{
+            } else {
                 alert('Сначала добавьте блюдо в корзину');
             }
         },
@@ -130,7 +130,7 @@ window.store = new Vuex.Store({
                     mod.count++;
                     mod.summ = mod.count * mod.price | 0;
                 }
-            }else{
+            } else {
                 alert('Сначала добавьте блюдо в корзину');
             }
         },
@@ -204,10 +204,29 @@ window.BurgerApp = new Vue({
         "menu": [],
         "ready": false,
         "filters": ['Веганам', 'С рыбой', 'С говядиной', 'С курицей', 'С индейкой', 'С морепродуктами'],
-        "errors": {'register': {}, "login": {}, "register2": {}, "restorepassword": {}, "restorepassword2": {},"payment":{},"checkout":{}},
+        "errors": {
+            'register': {},
+            "login": {},
+            "register2": {},
+            "restorepassword": {},
+            "restorepassword2": {},
+            "payment": {},
+            "checkout": {}
+        },
         "phone": null,
         "password": null,
-        "passwordConfirm": null
+        "passwordConfirm": null,
+        "index": {
+            "tags": {
+                0: [1462, 1463],
+                1: [1462],
+                2: [],
+                3: [],
+                4: [],
+                5: [],
+                6: []
+            }
+        }
     },
     watch: {
         show(val) {
@@ -469,6 +488,15 @@ window.BurgerApp = new Vue({
                 );
 
             }
+            if (store.state.filters) {
+                let ids = [];
+                store.state.filters.forEach((tag) => {
+                    ids.push(this.index.tags[tag]);
+                });
+
+                let dishesIds = _.intersection(ids);
+                console.log(dishesIds);
+            }
             if (this.menu[store.state.area]) {
                 return this.menu[store.state.area].categs;
             }
@@ -481,7 +509,7 @@ window.BurgerApp = new Vue({
 
     mounted: function () {
 
-       
+
         this.$http.get('http://89.223.25.82:3030/api/menu/getMenuFront').then((response) => {
             this.menu = response.data.menu;
 
