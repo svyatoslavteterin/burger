@@ -155,9 +155,10 @@
                     }
                 };
                 this.sendOrder(order).then((response) => {
-                    let orderId = response.data;
-                    if (this.payment == "NON-CASH") {
-                        this.$http.get('https://3dsec.sberbank.ru/payment/rest/register.do?amount=' + (this.getCartSum * 100) + '&currency=643&language=ru&orderNumber=' + orderId + '&userName=burgerpizzoni-api&password=burgerpizzoni&jsonParams={orderNumber:' + orderId + '}&pageView=DESKTOP&merchantLogin=burgerpizzoni&returnUrl=https://apitest.burgerpizzoni.ru/api/Acquirings/paymentSuccess').then((res) => {
+                    let orderId = response;
+
+                    if (this.payment == "CARD") {
+                        this.$http.get('https://3dsec.sberbank.ru/payment/rest/register.do?amount=' + (cartSum * 100) + '&currency=643&language=ru&orderNumber=' + orderId + '&userName=burgerpizzoni-api&password=burgerpizzoni&pageView=DESKTOP&merchantLogin=burgerpizzoni&returnUrl=https://apitest.burgerpizzoni.ru/api/Acquirings/paymentSuccess').then((res) => {
                             window.location.href=res.data.formUrl;
                         });
                     }
