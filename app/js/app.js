@@ -175,10 +175,10 @@ window.store = new Vuex.Store({
         },
         addFilter: function (state, payload) {
 
-            let index=state.filters.indexOf(payload.value);
-            if (index>=0){
-                state.filters.splice(index,1)
-            }else{
+            let index = state.filters.indexOf(payload.value);
+            if (index >= 0) {
+                state.filters.splice(index, 1)
+            } else {
                 state.filters.push(payload.value);
             }
 
@@ -234,17 +234,6 @@ window.BurgerApp = new Vue({
         "phone": null,
         "password": null,
         "passwordConfirm": null,
-        "index": {
-            "tags": {
-                0: [1462, 1463],
-                1: [1462],
-                2: [],
-                3: [],
-                4: [],
-                5: [],
-                6: []
-            }
-        }
     },
     watch: {
         show(val) {
@@ -510,12 +499,19 @@ window.BurgerApp = new Vue({
             }
             if (store.state.filters) {
                 let ids = [];
-                store.state.filters.forEach((tag) => {
-                    ids.push(this.index.tags[tag]);
+                store.state.filters.forEach((idTag) => {
+                    this.tags[idTag].dishes.forEach((dishId) => {
+                        ids.push(dishId);
+                    });
+
                 });
 
                 let dishesIds = _.intersection(ids);
-                console.log(dishesIds);
+                if (dishesIds.length>0){
+                    return this.menu[store.state.area].categs.filter(item =>
+                        item.categName.toLowerCase().indexOf(store.state.q) > 0
+                    );
+                }
             }
             if (this.menu[store.state.area]) {
                 return this.menu[store.state.area].categs;
