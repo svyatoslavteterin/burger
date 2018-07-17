@@ -215,7 +215,7 @@ window.BurgerApp = new Vue({
         "ready": false,
         "tags": {
             0: {idTag: 0, tagName: 'Веганам', dishes: [163]},
-            1: {idTag: 1, tagName: 'С рыбой', dishes: [170]},
+            1: {idTag: 1, tagName: 'С рыбой', dishes: [170,203]},
             2: {idTag: 2, tagName: 'С говядиной', dishes: [180]},
             3: {idTag: 3, tagName: 'С курицей', dishes: [220]},
             4: {idTag: 4, tagName: 'С индейкой', dishes: [244]},
@@ -490,32 +490,35 @@ window.BurgerApp = new Vue({
             return store.state.area;
         },
         foods: function () {
-            if (store.state.q) {
+            if (this.menu[store.state.area]) {
 
-                return this.menu[store.state.area].categs.filter(item =>
-                    item.categName.toLowerCase().indexOf(store.state.q) > 0
-                );
+                if (store.state.q) {
 
-            }
-            if (store.state.filters) {
-                let ids = [];
-                store.state.filters.forEach((idTag) => {
-                    this.tags[idTag].dishes.forEach((dishId) => {
-                        ids.push(dishId);
-                    });
-
-                });
-
-                let dishesIds = _.intersection(ids);
-                if (dishesIds.length>0){
                     return this.menu[store.state.area].categs.filter(item =>
                         item.categName.toLowerCase().indexOf(store.state.q) > 0
                     );
+
                 }
-            }
-            if (this.menu[store.state.area]) {
+                if (store.state.filters) {
+                    let ids = [];
+                    store.state.filters.forEach((idTag) => {
+                        this.tags[idTag].dishes.forEach((dishId) => {
+                            ids.push(dishId);
+                        });
+
+                    });
+
+                    let dishesIds = _.intersection(ids);
+                    if (dishesIds.length > 0) {
+                        return this.menu[store.state.area].categs.filter(item =>
+                            dishesIds.indexOf(+item.id) >= 0
+                        );
+                    }
+                }
+
                 return this.menu[store.state.area].categs;
             }
+
 
         },
         cartItems: function () {
