@@ -154,7 +154,7 @@ window.store = new Vuex.Store({
 
         },
         clearCart: function (state) {
-            state.cart = {};
+            state.cart = [];
         },
 
         addEquentity: function (state, payload) {

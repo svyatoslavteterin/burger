@@ -15,7 +15,7 @@
 
             </div>
         </div>
-        <div class="container">
+        <div class="container" v-if="getCartCount">
             <div class="row">
                 <div class="col-lg-6 col-xl-6">
                     <div class="row">
