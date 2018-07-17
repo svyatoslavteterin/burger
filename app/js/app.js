@@ -153,6 +153,9 @@ window.store = new Vuex.Store({
             state.cart = modifiedCart;
 
         },
+        clearCart: function (state) {
+            state.cart = {};
+        },
 
         addEquentity: function (state, payload) {
             const dish = state.cart.find(p => p.id === payload.value.id);

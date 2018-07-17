@@ -13,12 +13,12 @@
             </ul>
         </div>
         <div class="ui-controls-ingred row">
-            <div class="col-sm-6  col-12">
+            <div class="col-sm-6  col-12" v-if="data.dishes[this.activeDish].ModGroups[1]">
                 <a href="#" class="add-to-dish btn" @click.prevent="mods.include=!mods.include">
                     <i class="icon-plus-circled"></i>Добавить
                     в
                     блюдо</a>
-                <div class="include-mods">
+                <div class="include-mods" >
                     <ul :class="{active:mods.include}">
                         <dishmod :key="mod.id_Mod"  :data="mod" :dishId="dishData.id" :type="'include'"
                                  v-for="(mod,index) in data.dishes[this.activeDish].ModGroups[1].mods"></dishmod>
@@ -27,12 +27,12 @@
 
             </div>
 
-            <div class="col-sm-6 col-12 ">
+            <div class="col-sm-6 col-12 " v-if="data.dishes[this.activeDish].ModGroups[2]">
                 <a href="#" class="remove-from-dish btn" @click.prevent="mods.exclude=!mods.exclude">
                     <i class="icon-minus-circled"></i>Убрать
                     из
                     блюда</a>
-                <div class="exclude-mods">
+                <div class="exclude-mods" >
                     <ul :class="{active:mods.exclude}">
                         <dishmod :key="mod.id_Mod"  :data="mod" :dishId="dishData.id" :type="'exclude'"
                                  v-for="(mod,index) in data.dishes[this.activeDish].ModGroups[2].mods"></dishmod>

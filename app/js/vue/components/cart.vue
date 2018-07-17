@@ -71,6 +71,9 @@
     module.exports = {
 
         methods: {
+            clear: function () {
+                store.commit('clearCart');
+            },
             getPaymentTypes: async function () {
                 try {
                     let response = await this.$http.get('https://apitest.burgerpizzoni.ru/api/Agents/getPayTypes');
@@ -159,8 +162,8 @@
 
                     if (this.payment == "CARD") {
                         const proxyurl = "https://cors-anywhere.herokuapp.com/";
-                        this.$http.get(proxyurl+'https://3dsec.sberbank.ru/payment/rest/register.do?amount=' + (cartSum * 100) + '&currency=643&language=ru&orderNumber=' + orderId + '&userName=burgerpizzoni-api&password=burgerpizzoni&pageView=DESKTOP&merchantLogin=burgerpizzoni&returnUrl=https://apitest.burgerpizzoni.ru/api/Acquirings/paymentSuccess').then((res) => {
-                            window.location.href=res.data.formUrl;
+                        this.$http.get(proxyurl + 'https://3dsec.sberbank.ru/payment/rest/register.do?amount=' + (cartSum * 100) + '&currency=643&language=ru&orderNumber=' + orderId + '&userName=burgerpizzoni-api&password=burgerpizzoni&pageView=DESKTOP&merchantLogin=burgerpizzoni&returnUrl=https://apitest.burgerpizzoni.ru/api/Acquirings/paymentSuccess').then((res) => {
+                            window.location.href = res.data.formUrl;
                         });
                     }
 
