@@ -497,7 +497,7 @@ window.BurgerApp = new Vue({
                 let ids = [];
                 if (store.state.q.length > 4) {
                     _.forOwn(this.searchIndexes, (dishes,word) => {
-                        if (word.indexOf(store.state.q.toLowerCase()) >= 0) {
+                        if (word.indexOf(store.state.q) >= 0) {
                             dishes.forEach((dishId) => {
                                 ids.push(dishId);
                             });
