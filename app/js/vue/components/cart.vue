@@ -163,6 +163,7 @@
                     if (this.payment == "CARD") {
                         const proxyurl = "https://cors-anywhere.herokuapp.com/";
                         this.$http.get(proxyurl + 'https://3dsec.sberbank.ru/payment/rest/register.do?amount=' + (cartSum * 100) + '&currency=643&language=ru&orderNumber=' + orderId + '&userName=burgerpizzoni-api&password=burgerpizzoni&pageView=DESKTOP&merchantLogin=burgerpizzoni&returnUrl=https://apitest.burgerpizzoni.ru/api/Acquirings/paymentSuccess').then((res) => {
+                            this.clear();
                             window.location.href = res.data.formUrl;
                         });
                     }
@@ -218,22 +219,26 @@
         computed: {
             getCartSum: function () {
                 let summ = 0;
-                store.state.cart.forEach((item) => {
-                    let itemPrice = +item.price;
-                    if (item.mods.length > 0) {
-                        item.mods.forEach((mod) => {
-                            itemPrice += +mod.summ;
-                        });
-                    }
-                    summ += itemPrice * item.count;
-                });
+                if (store.state.cart.length > 0) {
+                    store.state.cart.forEach((item) => {
+                        let itemPrice = +item.price;
+                        if (item.mods.length > 0) {
+                            item.mods.forEach((mod) => {
+                                itemPrice += +mod.summ;
+                            });
+                        }
+                        summ += itemPrice * item.count;
+                    });
+                }
                 return summ + ' ₽';
             },
             getCartCount: function () {
                 let count = 0;
-                store.state.cart.forEach((item) => {
-                    count += item.count;
-                });
+                if (store.state.cart.length > 0) {
+                    store.state.cart.forEach((item) => {
+                        count += item.count;
+                    });
+                }
                 return count;
             }
         }

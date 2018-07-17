@@ -455,16 +455,18 @@ window.BurgerApp = new Vue({
     computed: {
         getCartSum: function () {
             let summ = 0;
-            store.state.cart.forEach((item) => {
+            if (store.state.cart.length > 0) {
+                store.state.cart.forEach((item) => {
 
-                let itemPrice = +item.price;
-                if (item.mods.length > 0) {
-                    item.mods.forEach((mod) => {
-                        itemPrice += +mod.summ;
-                    });
-                }
-                summ += itemPrice * item.count;
-            });
+                    let itemPrice = +item.price;
+                    if (item.mods.length > 0) {
+                        item.mods.forEach((mod) => {
+                            itemPrice += +mod.summ;
+                        });
+                    }
+                    summ += itemPrice * item.count;
+                });
+            }
             return summ + ' ₽';
         },
         checkLogin: function () {
