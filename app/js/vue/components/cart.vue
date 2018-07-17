@@ -158,7 +158,8 @@
                     let orderId = response;
 
                     if (this.payment == "CARD") {
-                        this.$http.get('https://3dsec.sberbank.ru/payment/rest/register.do?amount=' + (cartSum * 100) + '&currency=643&language=ru&orderNumber=' + orderId + '&userName=burgerpizzoni-api&password=burgerpizzoni&pageView=DESKTOP&merchantLogin=burgerpizzoni&returnUrl=https://apitest.burgerpizzoni.ru/api/Acquirings/paymentSuccess').then((res) => {
+                        const proxyurl = "https://cors-anywhere.herokuapp.com/";
+                        this.$http.get(proxyurl+'https://3dsec.sberbank.ru/payment/rest/register.do?amount=' + (cartSum * 100) + '&currency=643&language=ru&orderNumber=' + orderId + '&userName=burgerpizzoni-api&password=burgerpizzoni&pageView=DESKTOP&merchantLogin=burgerpizzoni&returnUrl=https://apitest.burgerpizzoni.ru/api/Acquirings/paymentSuccess').then((res) => {
                             window.location.href=res.data.formUrl;
                         });
                     }
@@ -193,7 +194,7 @@
                 addresses: [],
                 street: '',
                 house: '',
-                payment: 'CASH',
+                payment: 'CARD',
                 payments: []
 
             }
