@@ -174,7 +174,14 @@ window.store = new Vuex.Store({
             state.area = payload.value;
         },
         addFilter: function (state, payload) {
-            state.filters.push(payload.value);
+
+            let index=state.filters.indexOf(payload.value);
+            if (index>=0){
+                state.filters.splice(index,1)
+            }else{
+                state.filters.push(payload.value);
+            }
+
         },
         changeSearchQuery: function (state, payload) {
             state.q = payload.value;
@@ -206,6 +213,14 @@ window.BurgerApp = new Vue({
     data: {
         "menu": [],
         "ready": false,
+        "tags": {
+            0: {idTag: 0, tagName: 'Веганам', dishes: [163]},
+            1: {idTag: 1, tagName: 'С рыбой', dishes: [170]},
+            2: {idTag: 2, tagName: 'С говядиной', dishes: [180]},
+            3: {idTag: 3, tagName: 'С курицей', dishes: [220]},
+            4: {idTag: 4, tagName: 'С индейкой', dishes: [244]},
+            5: {idTag: 5, tagName: 'С морепродуктами', dishes: [250]},
+        },
         "filters": ['Веганам', 'С рыбой', 'С говядиной', 'С курицей', 'С индейкой', 'С морепродуктами'],
         "errors": {
             'register': {},
