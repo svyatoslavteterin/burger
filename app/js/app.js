@@ -215,11 +215,14 @@ window.BurgerApp = new Vue({
         "ready": false,
         "tags": {
             0: {idTag: 0, tagName: 'Веганам', dishes: [163]},
-            1: {idTag: 1, tagName: 'С рыбой', dishes: [170,203]},
+            1: {idTag: 1, tagName: 'С рыбой', dishes: [170, 203]},
             2: {idTag: 2, tagName: 'С говядиной', dishes: [180]},
             3: {idTag: 3, tagName: 'С курицей', dishes: [220]},
             4: {idTag: 4, tagName: 'С индейкой', dishes: [244]},
             5: {idTag: 5, tagName: 'С морепродуктами', dishes: [250]},
+        },
+        searchIndexes: {
+            "бургер": [203, 152, 206, 252, 219]
         },
         "filters": ['Веганам', 'С рыбой', 'С говядиной', 'С курицей', 'С индейкой', 'С морепродуктами'],
         "errors": {
@@ -491,16 +494,25 @@ window.BurgerApp = new Vue({
         },
         foods: function () {
             if (this.menu[store.state.area]) {
+                let ids = [];
+                if (store.state.q.length > 4) {
+                    _.forOwn(this.searchIndexes, (dishes,word) => {
+                        if (word.indexOf(store.state.q) >= 0) {
+                            dishes.forEach((dishId) => {
+                                ids.push(dishId);
+                            });
+                        }
+                    });
 
-                if (store.state.q) {
+                    let dishesIds = _.intersection(ids);
 
                     return this.menu[store.state.area].categs.filter(item =>
-                        item.categName.toLowerCase().indexOf(store.state.q) > 0
+                        dishesIds.indexOf(+item.id) >= 0
                     );
 
                 }
                 if (store.state.filters) {
-                    let ids = [];
+
                     store.state.filters.forEach((idTag) => {
                         this.tags[idTag].dishes.forEach((dishId) => {
                             ids.push(dishId);
