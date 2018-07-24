@@ -1,0 +1,262 @@
+section#cart {
+  background: #fff;
+  border-bottom: 1px solid #bfbfbf;
+  padding-top: 1em;
+}
+
+.cart__item {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.cart__item__wrapper {
+  padding: 1em;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: rgba(0, 0, 0, 0.06) 1px 1px 18px;
+  position: relative;
+}
+
+.cart__top {
+  border-bottom: 1px solid #bfbfbf;
+  overflow: hidden;
+}
+
+.cart__top .pagetitle {
+
+}
+
+.cart__info {
+  display: inline-block;
+  float: right;
+}
+
+.cart__top .pagetitle {
+
+  margin: 0;
+}
+
+.cart__top {
+  align-items: flex-end;
+  display: flex;
+  margin-bottom: .85em;
+}
+
+.cart__item__title {
+  font-size: 2em;
+}
+
+.param {
+}
+
+.param__value {
+  display: inline-block;
+}
+
+.param__title {
+  display: inline-block;
+}
+
+.param__tag {
+  display: block;
+  background: #f8f8f8;
+  border: 2px solid #ffd60f;
+  border-radius: 5px;
+  padding: 0.5em .8125em;
+}
+
+.param__tag + .param__tag {
+  margin-top: 0.75em;
+}
+
+.cart__item__bottom {
+  margin-top: 16px;
+}
+
+.cart__item__bottom > div {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.cart__item__bottom .cart__item__price {
+  margin-right: 16px;
+}
+
+.cart__item__price {
+  font-size: 2em;
+}
+
+.cart__info {
+  color: $shady-lady;
+}
+
+.cart-nav {
+  color: $shady-lady;
+}
+
+.cart__item__remove {
+  background: url(/static/img/close.png);
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 1em;
+  top: 1em;
+  z-index: 2;
+}
+
+.col-half-offset {
+  margin-left: 4.166666667%;
+}
+
+.drinks-offer__item__wrapper {
+  background: #fff;
+  box-shadow: rgba(0, 0, 0, 0.06) 1px 1px 18px;
+  padding: 1em;
+  border-radius: 8px;
+}
+
+.drinks-offer__title {
+  font-size: 3em;
+  padding-left: 15px;
+  padding-top: 0.3em;
+  padding-bottom: 0.4em;
+}
+
+.drinks-offer__item__title {
+  line-height: 1;
+  margin-bottom: 0.5em;
+  font-size: 1.5em;
+}
+
+.drinks-offer__item {
+  padding-bottom: 10px;
+  border-bottom: 5px solid transparent;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.drinks-offer__item.active, .drinks-offer__item:hover {
+  border-color: #4cd864;
+}
+
+.drinks-offer__item .ui-amount-control {
+  min-width: 83px;
+}
+
+.drinks-nav {
+  font-size: 1.5em;
+}
+
+.drinks-nav ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.drinks-nav ul li a {
+  padding: 0.5em;
+
+  display: inline-block;
+  width: 100%;
+  border-radius: 6px;
+}
+
+.drinks-nav ul li.active a {
+  box-shadow: -1px 0px 8px 2px rgba(0, 0, 0, 0.2);
+  background: #fff;
+}
+
+.drinks-offer__img {
+  text-align: center;
+}
+
+.drinks-offer__img img {
+  display: inline-block;
+}
+
+.drinks-offer__item__bottom .col {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#drinks-offer {
+  background: #fff;
+}
+
+#checkout {
+  padding-top: 80px;
+}
+
+.checkout-address, .checkout-payment {
+  padding: 1em;
+  background: #fff;
+  border-radius: 6px;
+  border: 1px solid $shady-lady;
+}
+
+.checkout-address__title, .checkout-payment__title {
+  font-size: 1.5em;
+  line-height: 1;
+}
+
+.checkout-address__value, .checkout-payment__value {
+  font-size: 0.9em;
+  color: $shady-lady;
+  padding-bottom: 2px;
+  display: inline-block;
+  line-height: 1;
+}
+
+#total-cart-price {
+  font-size: 4em;
+}
+
+.checkout__submit {
+  background: #4bd963;
+  width: 100%;
+  font-size: 2em;
+  border-radius: 8px;
+  color: #fff;
+}
+
+.drinks-offer__item .ui-control-foodsize ul li a {
+  padding: .2em;
+}
+
+.bonus-balance {
+  margin-top: 20px;
+  font-size: 1.5em;
+}
+
+.bonus-balance__title {
+
+
+}
+
+
+.bonus-balance .actionlink+.actionlink{margin-left:80px;}
+
+.bonus-balance .actionlink {padding-bottom: 7px;}
+
+
+.mini-cart {display:none;}
+
+
+.cart-mods {
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+
+.cart-mods li {
+  display:inline-block;
+  padding:10px 5px;
+  background:#d39e00;
+  color:#000000;
+}
+
+.mod-delete{
+  background:none;
+  padding:0;
+  border:none;
+}
