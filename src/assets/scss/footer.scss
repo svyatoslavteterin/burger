@@ -1,0 +1,30 @@
+.footer__bottom {
+  height:74px;
+  background:#fff;
+  color:$shady-lady;
+  line-height:1;
+  padding-top:1rem;
+  box-shadow:3px -3px  16px 3px rgba(0,0,0,0.16);
+}
+
+.wrapper-small{
+  padding-top:2em;
+  padding-bottom:2em;
+  max-width: 860px;
+  margin:0 auto;
+  color:$shady-lady;
+}
+
+.footer a {
+  border-bottom:1px dotted #000;
+
+}
+
+.footer a:hover{
+  border-bottom:none;
+  text-decoration: none;
+  color:inherit;
+}
+.footer {
+  background:#fff;
+}

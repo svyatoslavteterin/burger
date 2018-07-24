@@ -1,0 +1,68 @@
+.ui-control-foodsize {
+  margin-bottom: 0.8125em;
+  border: 1px solid #c8ced4;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.ui-control-foodsize ul {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.ui-control-foodsize ul li {
+  width: 33.333333333%;
+  display: inline-block;
+  text-align: center;
+
+}
+
+.ui-control-foodsize ul li a {
+  font-size: 1.1875em;
+  padding: 0.15em;
+  display: inline-block;
+  width: 100%;
+  color: $shady-lady;
+  text-transform: capitalize;
+}
+
+.ui-control-foodsize ul li.active a, .ui-control-foodsize ul li a:hover {
+  background: #eff1f5;
+  color: #000;
+  border-right: 1px solid #c8ced4;
+  border-left: 1px solid #c8ced4;
+}
+
+.ui-control-foodsize ul li:first-child {
+  text-align: left;
+}
+
+.ui-control-foodsize ul li:first-child a {
+  padding-left: .75em;
+  border-left:none;
+}
+
+.ui-control-foodsize ul li:last-child {
+  text-align: right;
+}
+
+.ui-control-foodsize ul li:last-child a {
+  padding-right: .75em;
+  border-right:none;
+}
+
+
+.ui-control-foodsize.drinks  ul li{
+  width: 50%;
+}
+
+.ui-control-foodsize.drinks  ul li{text-align: center!important;}
+
+
+@media screen and (max-width:1200px){
+  .ui-control-foodsize {
+    font-size:10px;
+  }
+}

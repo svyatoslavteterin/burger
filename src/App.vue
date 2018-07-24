@@ -1,0 +1,628 @@
+<template>
+    <div id="app">
+        <header class="header">
+            <div class="header__topline">
+                <div class="container">
+                    <div class="row v-middle">
+                        <div class="col-lg-3 col-xl-3 col-md-3">
+                            <a href="#city-select" class="select-city-link">Москва</a>
+                            <router-link to="/">  <a><img src="@/assets/images/logo.svg" alt="logo" class="img-fluid"/></a> </router-link>
+                        </div>
+                        <div class="col-lg-4 col-xl-4 col-md-4">
+                            <div class="phone">
+                                <p class="phone__value"> 8-800-555-55-55</p>
+                                <p>Звонок бесплатный</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 col-xl-5 col-md-5 col text-right">
+                            <div class="socials">
+                                <a href="#" class="socials__item vk"><i class="icon-vk"></i> </a>
+                                <a href="#" class="socials__item fb"><i class="icon-facebook"></i></a>
+                                <a href="#" class="socials__item insta"><i class="icon-instagram"></i></a>
+                                <a href="#" class="socials__item youtube"><i class="icon-youtube-play"></i></a>
+                            </div>
+
+                            <a href="#login" class="login-link" v-if="!checkLogin"
+                               @click.prevent="$modal.show('login')">Войти</a>
+                            <div class="user-info" v-if="checkLogin" v-text="userInfo"></div>
+
+                            <router-link to="/cart"><a class="btn basket-btn">Корзина</a></router-link>
+
+                            <div class="mini-cart" id="mini-cart">
+                                <div class="row">
+                                    <div class="col-md-2 col-xs-2">
+                                        <img src="./assets/images/food/extrasmall/1.jpg" alt="food"/>
+                                    </div>
+                                    <div class="col-md-7 col-xs-7">
+                                        <p>Овощная слоеная с овощами</p>
+                                        <p>520 ₽ <span class="mini-cart__weight">800 г</span></p>
+
+                                    </div>
+                                    <div class="col-md-3 col-xs-3">
+                                        <div class="ui-amount-control vertical">
+                                            <button class="minus-one-btn"><i class="icon-minus"></i></button>
+                                            <span class="ui-amount-control__value">1</span>
+                                            <button class="plus-one-btn"><i class="icon-plus"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="total-price">{{getCartSum}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <transition>
+            <keep-alive>
+        <router-view :menu="menu" :tags="tags" :foods="foods" :cartItems="cartItems"/>
+            </keep-alive>
+        </transition>
+        <modal name="login" height="auto" adaptive v-cloak>
+            <button @click="$modal.hide('login')" class="modal-close">
+                x
+            </button>
+            <h3 class="modal-header">Авторизация</h3>
+            <div class="modal-body">
+                <form name="login" action="/" method="post" @submit.prevent="auth" id="auth-form">
+                    <div v-if="Object.keys(errors.login).length!==0">
+                        <b>Пожалуйста исправьте указанные ошибки:</b>
+                        <ul>
+                            <li v-for="(error,index) in errors.login" v-bind:key="index">{{ error }}</li>
+                        </ul>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="username" value="" placeholder="Телефон"
+                               v-model="phone" v-mask="'7-###-###-##-##'" masked="false"/>
+                        </div>
+
+                    <div class="form-group">
+                        <input type="password" class="form-control" name="password" value="" placeholder="Пароль"/>
+                        <a href="#" @click.prevent="restorePassword">Забыли пароль?</a>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="form-control" name="submit">Отправить</button>
+                    </div>
+
+                    <div class="form-group">
+                        <a href="#" @click.prevent="showRegister">Регистрация</a>
+                    </div>
+
+                </form>
+            </div>
+        </modal>
+
+
+        <modal name="register" height="auto" adaptive v-cloak>
+            <button @click="$modal.hide('register')" class="modal-close">
+                x
+            </button>
+            <h3 class="modal-header">Регистрация</h3>
+            <div class="modal-body">
+                <form name="register" action="/" method="post" @submit.prevent="register" id="reg-form">
+                    <div v-if="Object.keys(errors.register).length!==0">
+                        <b>Пожалуйста исправьте указанные ошибки:</b>
+                        <ul>
+                            <li v-for="(error,index) in errors.register" v-bind:key="index">{{ error }}</li>
+                        </ul>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="fullname" value="" placeholder="Имя"/>
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="phone" value="" placeholder="Телефон"
+                               v-model="phone"
+                               v-mask="'7-###-###-##-##'" masked="false"/>
+            </div>
+            <div class=" form-group">
+                        <input type="password" class="form-control" name="password" value="" placeholder="Пароль"
+                               v-model="password"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" name="password_confirm" value=""
+                               placeholder="Подтверждение пароля" v-model="passwordConfirm"/>
+                    </div>
+
+
+                    <div class="form-group">
+                        <button type="submit" class="form-control" name="submit">Отправить</button>
+                    </div>
+
+                </form>
+            </div>
+        </modal>
+
+        <modal name="register2" height="auto" adaptive v-cloak>
+            <button @click="$modal.hide('register2')" class="modal-close">
+                x
+            </button>
+            <h3 class="modal-header">Регистрация- введите код из смс для активации</h3>
+            <div class="modal-body">
+                <form name="register2" action="/" method="post" @submit.prevent="activate" id="reg-form2">
+                    <div v-if="Object.keys(errors.register2).length!==0">
+                        <b>Пожалуйста исправьте указанные ошибки:</b>
+                        <ul>
+                            <li v-for="(error,index) in errors.register2" v-bind:key="index">{{ error }}</li>
+                        </ul>
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" name="phone" value="" placeholder="Телефон"
+                               v-model="phone" v-mask="'7-###-###-##-##'" masked="false"/>
+            </div>
+
+            <div class=" form-group">
+                        <input type="text" class="form-control" name="code" value="" placeholder="Код из смс"/>
+
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="form-control" name="submit">Отправить</button>
+                    </div>
+                    <input type="hidden" class="form-control" name="password" value="" v-model="password"/>
+                    <input type="hidden" class="form-control" name="password_confirm" value=""
+                           placeholder="Подтверждение пароля" v-model="passwordConfirm"/>
+                </form>
+            </div>
+        </modal>
+        <modal name="restorepassword" height="auto" adaptive v-cloak>
+            <button @click="$modal.hide('restorepassword')" class="modal-close">
+                x
+            </button>
+            <h3 class="modal-header">Восстановление пароля</h3>
+            <div class="modal-body">
+                <form name="restorepassword" action="/" method="post" @submit.prevent="getRestoreCode"
+                      id="restorepassword-form">
+                    <div v-if="Object.keys(errors.restorepassword).length!==0">
+                        <b>Пожалуйста исправьте указанные ошибки:</b>
+                        <ul>
+                            <li v-for="(error,index) in errors.restorepassword" v-bind:key="index">{{ error }}</li>
+                        </ul>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" name="phone" value="" placeholder="Телефон"
+                               v-model="phone" v-mask="'7-###-###-##-##'" masked="false"/>
+            </div>
+
+            <div class=" form-group">
+                        <button type="submit" class="form-control" name="submit">Отправить</button>
+                    </div>
+                </form>
+            </div>
+        </modal>
+        <modal name="restorepassword2" height="auto" adaptive v-cloak>
+            <button @click="$modal.hide('restorepassword2')" class="modal-close">
+                x
+            </button>
+            <h3 class="modal-header">Восстановление пароля</h3>
+            <div class="modal-body">
+                <form name="restorepassword2" action="/" method="post" @submit.prevent="activateNewPassword"
+                      id="restorepassword-form2">
+                    <div v-if="Object.keys(errors.restorepassword2).length!==0">
+                        <b>Пожалуйста исправьте указанные ошибки:</b>
+                        <ul>
+                            <li v-for="(error,index) in errors.restorepassword2" v-bind:key="index">{{ error }}</li>
+                        </ul>
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" name="phone" value="" placeholder="Телефон"
+                               v-model="phone" v-mask="'7-###-###-##-##'" masked="false"/>
+            </div>
+            <div class=" form-group">
+                        <input type="text" class="form-control" name="code" value="" placeholder="Код из смс"/>
+
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" name="password" value="" placeholder="Пароль"
+                               v-model="password"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" name="password_confirm" value=""
+                               placeholder="Подтверждение пароля" v-model="passwordConfirm"/>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="form-control" name="submit">Отправить</button>
+                    </div>
+
+                </form>
+            </div>
+        </modal>
+        <footer class="footer">
+            <div class="container">
+                <div class="wrapper-small text-center">
+                    <p>Вопросы и пожелания Вы можете прислать нам на электропочту,<br/>
+                        <a href="mailto:sos@foodkostgroup.ru">sos@foodkostgroup.ru</a></p>
+                    <div class="row">
+                        <div class="col-lg-4 col-xl-4 col-md-4">
+                            <a href="#agreements">Пользовательское соглашение</a>
+                        </div>
+                        <div class="col-lg-4 col-xl-4 col-md-4">
+                            <a href="#agreements">Политика конфиденциальности</a>
+                        </div>
+                        <div class="col-lg-4 col-xl-4 col-md-4 ">
+                            <a href="#agreements">Все о наших блюдах</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <div class="container">
+                    <div class="row v-middle">
+                        <div class="col-lg-2 col-xl-2 col-md-3">
+                            <img src="./assets/images/logo-words.svg" alt="logo" class="img-fluid"/>
+                        </div>
+                        <div class="col-lg-7 col-xl-7 col-md-4 text-center">
+                            © 2017 Burger & Pizzoni. All Right Recived.
+                        </div>
+                        <div class="col-lg-2 col-xl-2 col-md-3  text-right">
+                            <img src="./assets/images/fcg.svg" alt="logo" class="img-fluid"/>
+
+                        </div>
+                        <div class="col-lg-1 col-xl-1 col-md-2">
+
+                            <span>Блог Магомеда Костоева</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </footer>
+    </div>
+</template>
+
+<style lang="scss">
+
+    @import '@/assets/scss/app.scss';
+
+</style>
+
+
+<script>
+
+    import axios from "axios";
+
+    var _ = require('lodash');
+
+    export default {
+        beforeCreate() {
+            this.$store.commit('initialiseStore');
+        },
+
+        data() {
+            return {
+                "menu": [],
+                "ready": false,
+                "tags": {
+                    0: {idTag: 0, tagName: 'Веганам', dishes: [163]},
+                    1: {idTag: 1, tagName: 'С рыбой', dishes: [170, 203]},
+                    2: {idTag: 2, tagName: 'С говядиной', dishes: [180]},
+                    3: {idTag: 3, tagName: 'С курицей', dishes: [220]},
+                    4: {idTag: 4, tagName: 'С индейкой', dishes: [244]},
+                    5: {idTag: 5, tagName: 'С морепродуктами', dishes: [250]},
+                },
+                searchIndexes: {
+                    "бургер": [203, 152, 206, 252, 219]
+                },
+                "filters": ['Веганам', 'С рыбой', 'С говядиной', 'С курицей', 'С индейкой', 'С морепродуктами'],
+                "errors": {
+                    'register': {},
+                    "login": {},
+                    "register2": {},
+                    "restorepassword": {},
+                    "restorepassword2": {},
+                    "payment": {},
+                    "checkout": {}
+                },
+                "phone": null,
+                "password": null,
+                "passwordConfirm": null,
+            }
+        },
+        updated: function () {
+
+        },
+        methods: {
+            checkForm: function (e) {
+
+
+                let form = document.forms[e.srcElement.id.toString()];
+                let formName = form.getAttribute('name');
+
+
+                this.errors[formName] = {};
+
+
+                if (typeof form.fullname != "undefined" && !form.fullname.value) {
+                    this.errors[formName].fullname = "Укажите имя";
+                }
+                if (!form.phone.value) {
+                    this.errors[formName].phone = "Укажите телефон";
+                }
+                if (typeof form.password != "undefined" && !form.password.value) {
+                    this.errors[formName].password = "Укажите пароль";
+                }
+                if (typeof form.password != "undefined" && form.password.length < 6) {
+                    this.errors[formName].password = "Длина пароля меньше 6 символов";
+                }
+                if (typeof form.password != "undefined" && form.password.value != form.password_confirm.value) {
+                    this.errors[formName].password_confirm = "Пароли не совпадают";
+                }
+                if (typeof form.code != "undefined" && !form.code.value) {
+                    this.errors[formName].code = "Укажите код";
+                }
+
+                if (Object.keys(this.errors[formName]).length === 0) return true;
+                e.preventDefault();
+            },
+
+            restorePassword: function () {
+                this.$modal.hide('login');
+                this.$modal.show('restorepassword');
+            },
+            getRestoreCode: function (e) {
+                if (this.checkForm(e)) {
+                    let formData = new FormData(document.querySelector('#restorepassword-form'));
+                    let data = {};
+                    data.phone = formData.get('phone').replace(new RegExp('-', 'g'), '');
+
+                    axios.post('https://apitest.burgerpizzoni.ru/api/Profiles/resetPass', data).then((response) => {
+                        if (!response.data.error) {
+                            this.$modal.hide('restorepassword');
+                            this.$modal.show('restorepassword2');
+                        } else {
+                            this.errors[e.target.getAttribute('name')][response.data.error.code] = response.data.error.message;
+                            this.$forceUpdate();
+                        }
+                    }).catch((error) => {
+                        console.log(error.message);
+                    });
+                }
+            },
+            activateNewPassword: function (e) {
+                if (this.checkForm(e)) {
+                    let formData = new FormData(document.querySelector('#restorepassword-form2'));
+                    let data = {};
+                    data.code = formData.get('code');
+                    data.phone = formData.get('phone').replace(new RegExp('-', 'g'), '');
+                    data.password = formData.get('password');
+
+                    let credentials = {"username": data.phone, "password": data.password};
+
+                    this.$http.post('http://apitest.burgerpizzoni.ru/api/Profiles/checkCodeResetPassword', data).then((response) => {
+
+                        if (!response.data.error) {
+
+                            this.getAuthUser(credentials).then((authUser) => {
+                                console.log(authUser);
+                                if (typeof authUser != "undefined") {
+                                    this.$store.commit('setAuthUser', {'value': authUser});
+                                    this.$cookie.set('authUser', JSON.stringify(authUser), 1);
+                                    this.$modal.hide('restorepassword2');
+                                } else {
+                                    this.getAuthUser(credentials).then((authUser) => {
+                                        if (typeof authUser != "undefined") {
+                                            this.$store.commit('setAuthUser', {'value': authUser});
+                                            this.$cookie.set('authUser', JSON.stringify(authUser), 1);
+                                            this.$modal.hide('restorepassword2');
+                                        }
+                                    });
+                                }
+                            });
+
+
+                        } else {
+                            this.errors[e.target.getAttribute('name')][response.data.error.code] = response.data.error.message;
+                            this.$forceUpdate();
+                        }
+
+                    }).catch((error) => {
+                        console.log(error)
+                    });
+                }
+            },
+            showRegister: function () {
+                this.$modal.hide('login');
+                this.$modal.show('register');
+            },
+
+            getAuthUser: async function (credentials) {
+
+                try {
+                    let response = await this.$http.post('http://apitest.burgerpizzoni.ru/api/Profiles/login', credentials);
+                    return response.data;
+                } catch (error) {
+                    this.errors.login.request = "Неверные данные для входа";
+                    this.$forceUpdate();
+                }
+
+            },
+            auth: function () {
+                let formData = new FormData(document.querySelector('#auth-form'));
+
+                let credentials = {};
+                credentials.username = formData.get('username').replace(new RegExp('-', 'g'), '');
+                credentials.password = formData.get('password');
+                this.getAuthUser(credentials).then((authUser) => {
+                    if (typeof authUser != "undefined") {
+                        this.$store.commit('setAuthUser', {'value': authUser});
+                        this.$cookie.set('authUser', JSON.stringify(authUser), 1);
+                        this.$modal.hide('login');
+                    }
+                });
+            },
+            register: function (e) {
+
+                if (this.checkForm(e)) {
+                    let formData = new FormData(document.querySelector('#reg-form'));
+                    let data = {};
+                    data.name = formData.get('fullname');
+                    data.phone = formData.get('phone').replace(new RegExp('-', 'g'), '');
+
+                    this.$http.post('http://apitest.burgerpizzoni.ru/api/Profiles/regStep1', data).then((response) => {
+                        if (!response.data.error) {
+                            this.$modal.hide('register');
+                            this.$modal.show('register2');
+                        } else {
+                            this.errors[e.target.getAttribute('name')][response.data.error.code] = response.data.error.message;
+                            this.$forceUpdate();
+                        }
+                    }).catch((error) => {
+                        console.log(error);
+
+                    });
+                }
+            },
+            activate: function (e) {
+                if (this.checkForm(e)) {
+                    let formData = new FormData(document.querySelector('#reg-form2'));
+                    let data = {};
+                    data.code = formData.get('code');
+                    data.phone = formData.get('phone').replace(new RegExp('-', 'g'), '');
+                    data.password = formData.get('password');
+
+                    let credentials = {"username": data.phone, "password": data.password};
+
+                    this.$http.post('http://apitest.burgerpizzoni.ru/api/Profiles/regStep2', data).then((response) => {
+
+                        if (!response.data.error) {
+
+                            this.getAuthUser(credentials).then((authUser) => {
+                                console.log(authUser);
+                                if (typeof authUser != "undefined") {
+                                    this.$store.commit('setAuthUser', {'value': authUser});
+                                    this.$cookie.set('authUser', JSON.stringify(authUser), 1);
+                                    this.$modal.hide('register2');
+                                } else {
+                                    this.getAuthUser(credentials).then((authUser) => {
+                                        if (typeof authUser != "undefined") {
+                                            this.$store.commit('setAuthUser', {'value': authUser});
+                                            this.$cookie.set('authUser', JSON.stringify(authUser), 1);
+                                            this.$modal.hide('register2');
+                                        }
+                                    });
+                                }
+                            });
+
+
+                        } else {
+                            this.errors[e.target.getAttribute('name')][response.data.error.code] = response.data.error.message;
+                            this.$forceUpdate();
+                        }
+
+                    }).catch((error) => {
+                        console.log(error)
+                    });
+                }
+            },
+            beforeOpen: function () {
+
+            },
+            beforeClose: function () {
+
+            },
+            show(modalName) {
+                this.$modal.show(modalName);
+            },
+            hide(modalName) {
+                this.$modal.hide(modalName);
+            }
+        },
+        created: function () {
+
+
+        },
+        computed: {
+            getCartSum: function () {
+                let summ = 0;
+                if (this.$store.state.cart.length > 0) {
+                    this.$store.state.cart.forEach((item) => {
+
+                        let itemPrice = +item.price;
+                        if (item.mods.length > 0) {
+                            item.mods.forEach((mod) => {
+                                itemPrice += +mod.summ;
+                            });
+                        }
+                        summ += itemPrice * item.count;
+                    });
+                }
+                return summ + ' ₽';
+            },
+            checkLogin: function () {
+                if (Object.keys(this.$store.state.authUser).length === 0 && this.$store.state.authUser.constructor === Object) {
+                    return 0;
+                } else {
+                    return 1;
+                }
+
+            },
+            userInfo: function () {
+                return this.$store.state.authUser.userInfo.FirstName;
+            },
+
+
+            currentArea: function () {
+                return this.$store.state.area;
+            },
+            foods: function () {
+                if (this.menu[this.$store.state.area]) {
+                    let ids = [];
+                    if (this.$store.state.q.length > 4) {
+                        _.forOwn(this.searchIndexes, (dishes, word) => {
+                            if (word.indexOf(this.$store.state.q) >= 0) {
+                                dishes.forEach((dishId) => {
+                                    ids.push(dishId);
+                                });
+                            }
+                        });
+
+                        let dishesIds = _.intersection(ids);
+
+                        return this.menu[this.$store.state.area].categs.filter(item =>
+                            dishesIds.indexOf(+item.id) >= 0
+                        );
+
+                    }
+                    if (this.$store.state.filters) {
+
+                        this.$store.state.filters.forEach((idTag) => {
+                            this.tags[idTag].dishes.forEach((dishId) => {
+                                ids.push(dishId);
+                            });
+
+                        });
+
+                        let dishesIds = _.intersection(ids);
+                        if (dishesIds.length > 0) {
+                            return this.menu[this.$store.state.area].categs.filter(item =>
+                                dishesIds.indexOf(+item.id) >= 0
+                            );
+                        }
+                    }
+
+                    return this.menu[this.$store.state.area].categs;
+                }
+
+
+            },
+            cartItems: function () {
+                return this.$store.state.cart;
+            }
+        },
+
+        mounted: function () {
+
+
+            this.$http.get('http://89.223.25.82:3030/api/menu/getMenuFront').then((response) => {
+                this.menu = response.data.menu;
+
+                this.ready = true;
+
+
+            });
+        },
+    }
+</script>
+
