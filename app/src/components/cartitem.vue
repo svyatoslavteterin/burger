@@ -30,7 +30,7 @@
             <div class="cart__item__bottom">
                 <div class="cart__item__price">{{data.price}} ₽</div>
                 <div class="ui-amount-control vertical">
-                    <button class="minus-one-btn" @click.prevent="decrement"><i class="icon-minus"></i></button>
+                    <button class="" @click.prevent="decrement"><i class="icon-minus"></i></button>
                     <span class="ui-amount-control__value" v-text="getCount"></span>
                     <button class="plus-one-btn" @click.prevent="increment"><i class="icon-plus"></i></button>
                 </div>
@@ -41,7 +41,12 @@
 
 <script>
     import imageUrl from "@/assets/images/200x200.png";
+    import dishmod from "@/components/dishmod.vue";
     export default {
+
+        components:{
+          dishmod
+        },
         methods: {
             removeDish() {
                 this.$store.commit('removeFromCart', this.data.id);

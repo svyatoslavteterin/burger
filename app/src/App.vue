@@ -229,6 +229,46 @@
                 </form>
             </div>
         </modal>
+        <footer class="footer">
+            <div class="container">
+                <div class="wrapper-small text-center">
+                    <p>Вопросы и пожелания Вы можете прислать нам на электропочту,<br/>
+                        <a href="mailto:sos@foodkostgroup.ru">sos@foodkostgroup.ru</a></p>
+                    <div class="row">
+                        <div class="col-lg-4 col-xl-4 col-md-4">
+                            <a href="#agreements">Пользовательское соглашение</a>
+                        </div>
+                        <div class="col-lg-4 col-xl-4 col-md-4">
+                            <a href="#agreements">Политика конфиденциальности</a>
+                        </div>
+                        <div class="col-lg-4 col-xl-4 col-md-4 ">
+                            <a href="#agreements">Все о наших блюдах</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <div class="container">
+                    <div class="row v-middle">
+                        <div class="col-lg-2 col-xl-2 col-md-3">
+                            <img src="./assets/images/logo-words.svg" alt="logo" class="img-fluid"/>
+                        </div>
+                        <div class="col-lg-7 col-xl-7 col-md-4 text-center">
+                            © 2017 Burger & Pizzoni. All Right Recived.
+                        </div>
+                        <div class="col-lg-2 col-xl-2 col-md-3  text-right">
+                            <img src="./assets/images/fcg.svg" alt="logo" class="img-fluid"/>
+
+                        </div>
+                        <div class="col-lg-1 col-xl-1 col-md-2">
+
+                            <span>Блог Магомеда Костоева</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </footer>
     </div>
 </template>
 
@@ -243,7 +283,7 @@
 
     import axios from "axios";
 
-    var _ = require('lodash');
+    var _ = require('lodash/core');
 
     export default {
         beforeCreate() {
