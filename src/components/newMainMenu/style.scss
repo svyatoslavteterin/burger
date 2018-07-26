@@ -55,6 +55,7 @@
       flex: 0 0 75%;
       max-width: 75%;
     }
+    
   }
   @media (min-width: 992px) {
 
@@ -64,4 +65,13 @@
       max-width: 75%;
     }
   }
+
+  @media (max-width: 1200px) {
+
+    nav ul li a {
+      font-size: 17px;
+    }
+    
+  }
 }
+

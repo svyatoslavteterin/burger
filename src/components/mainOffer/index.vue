@@ -13,7 +13,6 @@
           <div class="i-item">мясо<span>✕</span></div>
           <div class="i-item">перец<span>✕</span></div>
           <div class="i-item">моцарелла<span>✕</span></div>
-          <div class="i-item">помидоры<span>✕</span></div>
         </div>
         <a class="i-add">добавить</a>
         <div class="sizes">
@@ -85,8 +84,6 @@
   </div>
 </template>
 <script>
-import './style.scss';
-export default {
-  
-}
+import "./style.scss";
+export default {};
 </script>

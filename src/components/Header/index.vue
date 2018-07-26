@@ -2,8 +2,8 @@
   <header class="header">
     <div class="header-center">
       <div class="header-left-block">
-          <a href="/"><img src="img/logo.svg" alt="logo" class="logo"/></a>
-          <a href="#city-select" class="select-city-link">Санкт Петербург</a>
+          <a href="/"><img src="./img/logo.svg" alt="logo" class="logo"/></a>
+          <a href="#city-select" class="select-city-link">Санкт-Петербург</a>
       </div>
       <div class="header-right-block">
         <div class="number-block">
