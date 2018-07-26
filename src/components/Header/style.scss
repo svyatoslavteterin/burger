@@ -34,15 +34,30 @@
   border-bottom: 2px dotted black;
   height: 25px;
 }
-.header-right-block{
+.header-right-block1{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 490px;
-  max-width: 490px;
+  width: 270px;
+  max-width: 270px;
+}
+.header-right-block2{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 430px;
+  max-width: 430px;
+}
+.header-right-block3{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 380px;
+  max-width: 380px;
 }
 .number-block{
   margin-right: 20px;
+  width: 185px;
 }
 .number{
   margin-top: 8px;
@@ -82,9 +97,54 @@
   cursor: pointer;
   border-bottom: 2px solid #ffd60f;
   height: 25px;
-  margin-top: 25px;
+  margin-top: 20px;
 }
-@media screen and (max-width:900px){
+.hello-block-text{
+  text-transform: uppercase;
+  margin-top: 14px;
+}
+.hello-block-text2{
+  margin: -10px 0px 0px 145px;
+  text-decoration: underline;
+}
+.password-botton{
+  text-transform: uppercase;
+  color: #BFBFBF;
+  border: 1px solid #BFBFBF;
+  border-radius: 5px;
+  padding: 10px 25px 5px 25px;
+  height: 42px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 14px;
+}
+.avatar{
+  object-fit: cover;
+  width: 40px;
+  height: 40px;
+  border-radius: 30px;
+  margin-top: 10px;
+}
+.person-info-block-texts{
+  margin-left: 6px;
+}
+.person-info-block{
+  display: flex;
+  text-transform: uppercase;
+}
+.person-info-block-name{
+  margin-top: 13px;
+}
+.person-info-block-text{
+  font-size: 12px;
+  margin-top: -8px;
+}
+.exit{
+  margin-top: -10px;
+  margin-left: 20px;
+  cursor: pointer;
+}
+@media screen and (max-width:1100px){
   .header-center{
     width: 100%;
     max-width: 100%;
