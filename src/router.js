@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Cart from './views/Cart.vue'
 import NewHome from './views/newHome'
+import BurgerPage from './views/BurgerPage'
 
 Vue.use(Router)
 
@@ -17,6 +18,11 @@ export default new Router({
       path: '/new',
       name: 'newhome',
       component: NewHome
+    },
+    {
+      path: '/burger',
+      name: 'burger',
+      component: BurgerPage
     },
     {
       path: '/cart',

@@ -12,12 +12,12 @@
                       <a class="agreements" href="#">Все о наших блюдах</a>
                   </div>
                   <div class="social-liks-block">
-                          <a href="#" ><img class="social-icon" src="./img/icons_soc_vk_gray.svg"/></a>
-                          <a href="#" ><img class="social-icon" src="./img/icons_soc_ok_gray.svg"/></a>
-                          <a href="#" ><img class="social-icon" src="./img/icons_soc_fbk_gray.svg"/></a>
-                          <a href="#" ><img class="social-icon" src="./img/icons_soc_inst_gray.svg"/></a>
-                          <a href="#" ><img class="social-icon" src="./img/icons_soc_wtsp_gray.svg"/></a>
-                          <a href="#" ><img class="social-icon" src="./img/icons_soc_tlgr_gray.svg"/></a>
+                          <a href="#" ><img class="social-icon sci1" src="./img/icons_soc_vk_gray.svg"/></a>
+                          <a href="#" ><img class="social-icon sci2" src="./img/icons_soc_ok_gray.svg"/></a>
+                          <a href="#" ><img class="social-icon sci3" src="./img/icons_soc_fbk_gray.svg"/></a>
+                          <a href="#" ><img class="social-icon sci4" src="./img/icons_soc_inst_gray.svg"/></a>
+                          <a href="#" ><img class="social-icon sci5" src="./img/icons_soc_wtsp_gray.svg"/></a>
+                          <a href="#" ><img class="social-icon sci6" src="./img/icons_soc_tlgr_gray.svg"/></a>
                   </div>
               </div>
           </div>
