@@ -2,7 +2,7 @@
     <div>
         <div class="container">
             <div class="slide">
-                <h2 class="slider__title">Бесплатная доставка!</h2>
+                <h2 class="slider__title">Беспая доставка!</h2>
                 <p class="slider__desc">Подарим Вам 300 бонусных рублей, если наш курьер
                     не успеет доставить заказ
                     в течение 60 минут.</p>

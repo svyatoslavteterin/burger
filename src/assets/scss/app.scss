@@ -3,43 +3,7 @@
 @import "variables";
 
 @import "icons";
-
-@font-face {
-  font-family: 'Gilroy';
-  src: url('assets/fonts/subset-Gilroy-Medium.woff2') format('woff2'),
-  url('assets/fonts/subset-Gilroy-Medium.woff') format('woff'),
-  url('assets/fonts/subset-Gilroy-Medium.ttf') format('truetype');
-  font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Gilroy';
-  src: url('assets/fonts/subset-Gilroy-Bold.woff2') format('woff2'),
-  url('assets/fonts/subset-Gilroy-Bold.woff') format('woff'),
-  url('assets/fonts/subset-Gilroy-Bold.ttf') format('truetype');
-  font-weight: bold;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Gilroy';
-  src: url('assets/fonts/subset-Gilroy-Regular.woff2') format('woff2'),
-  url('assets/fonts/subset-Gilroy-Regular.woff') format('woff'),
-  url('assets/fonts/subset-Gilroy-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Gilroy';
-  src: url('assets/fonts/subset-Gilroy-Extrabold.woff2') format('woff2'),
-  url('assets/fonts/subset-Gilroy-Extrabold.woff') format('woff'),
-  url('assets/fonts/subset-Gilroy-Extrabold.ttf') format('truetype');
-  font-weight: 800;
-  font-style: normal;
-}
-
+@import "fonts";
 
 a:hover {
   text-decoration: none;
@@ -54,7 +18,7 @@ $gilroy: 'Gilroy', sans-serif;
 
 
 body {
-  background: $bg-color;
+  background: #fff;
   font-family: $gilroy;
 }
 .actionlink {
@@ -221,17 +185,8 @@ a {
 
 
 @import "cart";
-
 @import "broadcast";
-
-
-@import "header";
-
 @import "slider";
-
-@import "navbar";
-
-@import "footer";
 
 @media screen and (min-width: 1400px) {
   .container {

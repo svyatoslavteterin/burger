@@ -1,0 +1,43 @@
+.search-input{
+  display: inline-block;
+  width: 50%;
+  border: 2px solid #FFDA00;
+  border-radius: 0 4px 4px 0;
+  line-height: 1;
+  height: 41px;
+  vertical-align: top;
+  position: relative;
+
+  &::before {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    top: 9px;
+    right: 15px;
+    background: url("img/icons_zoom.svg") center no-repeat;
+    background-size: contain;
+    width: 20px;
+    height: 20px;
+  }
+  input {
+    text-transform: uppercase;
+    border: none;
+    background: none;
+    width: 70%;
+    height: 100%;
+    padding-top: 5px;
+    line-height: 1;
+    padding-left: 15px;
+    text-decoration: none;
+    outline: none;
+    border: none;
+    box-shadow: none;
+    
+    &:focus {
+      text-decoration: none;
+      outline: none;
+      border: none;
+      box-shadow: none;
+    }
+  }
+}

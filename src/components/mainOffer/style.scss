@@ -1,0 +1,270 @@
+.main-offer {
+  width: 100%;
+  position: relative;
+  height: 730px;
+  background: url("img/bgr_head.jpg") bottom center no-repeat;
+  background-size: auto;
+}
+
+.main-title {
+  display: block;
+  text-align: center;
+  margin: 0 auto 0;
+  padding-top: 50px;
+  text-transform: uppercase;
+  font-size: 32px;
+  font-weight: bold;
+  font-family: "Gilroy";
+  color: black;
+  letter-spacing: 2px;
+}
+
+.sub-title {
+  text-align: center;
+  margin: 0 auto;
+  font-size: 32px;
+  color: black;
+  letter-spacing: 2px;
+}
+
+.pizza-mo {
+  position: absolute;
+  top: 20%;
+  left: -5%;
+  background: url("img/pizza_mashr.png") center left no-repeat;
+  background-size: contain;
+  width: 905px;
+  height: 450px;
+
+  .add-mo-to-cart {
+    left: 57%;
+    top: 130px;
+  }
+
+  &:hover {
+    .add-mo-to-cart {
+      opacity: 1;
+    }
+  }
+}
+
+.burger-mo {
+  position: absolute;
+  right: 36%;
+  top: 22%;
+  background: url("img/burger_classic_maxi.png") center right no-repeat;
+  background-size: contain;
+  width: 268px;
+  height: 300px;
+
+  .add-mo-to-cart {
+    left: 20%;
+    top: 70px;
+  }
+
+  &:hover {
+    .add-mo-to-cart {
+      opacity: 1;
+    }
+  }
+}
+
+.add-mo-to-cart {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background: rgba(0,0,0,0.3);
+  border-radius: 50%;
+  opacity: 0;
+  cursor: pointer;
+
+  .mo-to-cart-img {
+    width: 36px;
+    height: 36px;
+    background: url("img/icons_busket.png") center center no-repeat;
+    background-size: contain;
+    margin: 40px auto 0;
+  }
+  .mo-to-cart-text {
+    color: white;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+
+.mo {
+
+  .chars {
+    position: absolute;
+    width: 380px;
+    z-index: 1;
+    left: 90%;
+    top: 228px;
+
+    .title {
+      font-size: 24px;
+      font-family: "Gilroy";
+      text-transform: uppercase;
+      color: black;
+      font-weight: bold;
+
+      span {
+        display: block;
+        font-size: 32px;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .ingrids {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    .i-item {
+      font-size: 18px;
+      color: #808080;
+      margin: 0 5px 0 0;
+
+      span {
+        color: black;
+        cursor: pointer;
+        margin: 0 0 -3px -3px;
+      }
+    }
+  }
+  .i-add {
+    display: inline;
+    align-self: flex-start;
+    cursor: pointer;
+    text-decoration: none;
+    border-bottom: 2px dotted #808080;
+    font-size: 18px;
+    font-weight: bold;
+
+    &:hover {
+      border-bottom: 2px solid #808080;
+    }
+  }
+
+  .sizes {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: flex-start;
+    margin: 10px 0 0;
+
+    .size {
+      text-align: center;
+
+      .btn {
+        display: block;
+        border-radius: 15px;
+        border: 1px solid #808080;
+        color: black;
+        cursor: pointer;
+        padding: 5px;
+        margin-bottom: 3px;
+
+        &:hover,
+        &.active {
+          border: 1px solid #ffd70f;
+          background: #ffd70f;
+          box-shadow: 2px 5px 5px -4px rgba(0,0,0,0.18);
+
+          &+.weight {
+            color: black;
+          }
+        }
+
+
+        &.mini-size {
+          padding: 4px 8px;
+          margin-right: 8px;
+        }
+        &.middle-size {
+          padding: 4px 10px;
+          margin-right: 8px;
+        }
+        &.maxi-size {
+          padding: 4px 15px;
+        }
+      }
+
+      .weight {
+        color: #808080;
+      }
+
+    }
+  }
+
+  .bottom {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    margin-top: 15px;
+
+    .price {
+      font-size: 40px;
+      color: black;
+      margin: 0 10% 0 0;
+      line-height: 1;
+      sup {
+        font-size: 30px;
+      }
+    }
+
+    .in-basket {
+      position: relative;
+      outline: 0;
+      border: 2px solid #ffd70f;
+      border-radius: 4px;
+      text-align: center;
+      text-transform: uppercase;
+      color: black;
+      background: transparent;
+      padding: 0 8px;
+      font-size: 14px;
+      font-weight: 500;
+      max-height: 42px;
+      cursor: pointer;
+
+      &:hover {
+        background: #ffd70f
+      }
+
+      .count-items {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        display: block;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #ffd70f;
+        color: black;
+        font-size: 14px;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+.pizza-mo {
+  .chars {
+    position: absolute;
+    width: 380px;
+    z-index: 1;
+    left: 90%;
+    top: 310px;
+  }
+}
+
+.burger-mo {
+  .chars {
+    position: absolute;
+    width: 380px;
+    z-index: 1;
+    left: 106%;
+    top: 190px;
+  }
+}
