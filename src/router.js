@@ -4,30 +4,42 @@ import Home from './views/Home.vue'
 import Cart from './views/Cart.vue'
 import NewHome from './views/newHome'
 import BurgerPage from './views/BurgerPage'
+import PaymentPage from './views/PaymentPage'
 
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home
-    },
-    {
-      path: '/new',
-      name: 'newhome',
-      component: NewHome
-    },
-    {
-      path: '/burger',
-      name: 'burger',
-      component: BurgerPage
-    },
-    {
-      path: '/cart',
-      name: 'cart',
-      component: Cart
-    }
-  ]
+    mode:'history',
+    routes: [
+        {
+            path: '/',
+            name: 'home',
+            component: Home
+        },
+        {
+            path: '/new',
+            name: 'newhome',
+            component: NewHome
+        },
+        {
+            path: '/burger',
+            name: 'burger',
+            component: BurgerPage
+        },
+        {
+            path: '/cart',
+            name: 'cart',
+            component: Cart
+        },
+        {
+            path: '/payment/sucessfull',
+            component: PaymentPage,
+            props: (route) => ({orderid: route.query.orderid, status: '1'})
+        },
+        {
+            path: '/payment/error',
+            component: PaymentPage,
+            props: (route) => ({orderid: route.query.orderid, status: '0'})
+        }
+    ]
 })
