@@ -41,7 +41,7 @@
             <a class="i-add" @click.prevent="mods.include = !mods.include">добавить</a>
             <a class="i-more">развернуть</a>
             <div class="include-mods">
-                <newDishmod v-if="mods.include"></newDishmod>
+                <newDishmod v-if="mods.include" :data="data"></newDishmod>
             </div>
             <div class="sizes">
                 <div class="btn" :class="{ active: isActiveDish(index) }"  v-for="(dish,index) in data.dishes" :key="index" @click.prevent="setActiveDish(index)">{{dish.dishName}}</div>
