@@ -12,7 +12,7 @@ export default new Router({
     mode:'history',
     routes: [
         {
-            path: '/',
+            path: '/old',
             name: 'home',
             component: Home
         },
@@ -22,7 +22,7 @@ export default new Router({
             component: NewHome
         },
         {
-            path: '/burger',
+            path: '/',
             name: 'burger',
             component: BurgerPage
         },
