@@ -23,7 +23,11 @@
         <section id="main">
             <div class="container food">
                 <div class="row">
-                    <Food></Food>
+                    <div class="container">
+                        <div class="items">
+                            <Food v-for="food in foods" v-bind:key="food.id" :data="food"></Food>
+                        </div> <!--items-->
+                    </div>
                 </div>
             </div>
         </section>
@@ -31,22 +35,22 @@
 </template>
 
 <script>
-// @ is an alias to /src
-import MainMenu from "@/components/newMainMenu";
-import filters from "@/components/newFilter";
-import Food from "@/components/newFood";
-import MainOffer from "@/components/mainOffer";
-import search from "@/components/newSearch";
+    // @ is an alias to /src
+    import MainMenu from "@/components/newMainMenu";
+    import filters from "@/components/newFilter";
+    import Food from "@/components/newFood";
+    import MainOffer from "@/components/mainOffer";
+    import search from "@/components/newSearch";
 
-export default {
-  name: "home",
-  components: {
-    MainOffer,
-    MainMenu,
-    Food,
-    filters,
-    search
-  },
-  props: ["menu", "tags", "foods"]
-};
+    export default {
+        name: "home",
+        components: {
+            MainOffer,
+            MainMenu,
+            Food,
+            filters,
+            search
+        },
+        props: ["menu", "tags", "foods"]
+    };
 </script>
