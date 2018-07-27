@@ -24,7 +24,7 @@
                             соуса ба <span class="burger-cart-text-span">x</span>
                         </div>
                         <div class="add">добавить</div>
-                        <div class="weight">195 г</div>
+                        <div class="burger-weight">195 г</div>
                     </div>
                     <div class="burger-cart-plus">+</div>
                     <div class="burger-cart">

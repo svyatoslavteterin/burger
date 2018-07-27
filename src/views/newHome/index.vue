@@ -7,7 +7,7 @@
                     <div class="col-lg-1 col-xl-1 logo">
                         <img src="@/assets/images/logo.svg" alt="logo" class="img-fluid"/>
                     </div>
-                    <div class="col-lg-3 col-xl-3    ">
+                    <div class="col-lg-3 col-xl-3">
                         <filters :filters="tags"></filters>
 
                         <search></search>
