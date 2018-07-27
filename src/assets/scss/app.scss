@@ -19,7 +19,7 @@ $gilroy: 'Gilroy', sans-serif;
 
 body {
   background: #fff;
-  font-family: $gilroy;
+  font-family: $gilroy !important;
 }
 .actionlink {
   border-bottom:1px dotted $shady-lady;

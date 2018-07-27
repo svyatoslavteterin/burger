@@ -68,9 +68,7 @@
           <a class="i-add" @click.prevent="mods.include = !mods.include">добавить</a>
           <a class="i-more">развернуть</a>
           <div class="include-mods" >
-            <ul :class="{active: mods.include}">
-              123
-            </ul>
+            <newDishmod v-if="mods.include"></newDishmod>
           </div>
           <div class="sizes">
             <div class="btn mini-size active">мини</div>
@@ -680,10 +678,11 @@
 <script>
 import VuePerfectScrollbar from "vue-perfect-scrollbar";
 import dishmod from "@/components/dishmod.vue";
+import newDishmod from "@/components/newDishmod";
 import "./style.scss";
 
 export default {
-  components: { VuePerfectScrollbar, dishmod },
+  components: { VuePerfectScrollbar, dishmod, newDishmod },
   data() {
     return {
       showCounter: false,

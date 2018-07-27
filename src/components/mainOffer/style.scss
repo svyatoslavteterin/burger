@@ -58,7 +58,7 @@
   height: 300px;
 
   .add-mo-to-cart {
-    left: 20%;
+    left: 44%;
     top: 70px;
   }
 
@@ -96,55 +96,79 @@
 .mo {
 
   .chars {
-    position: absolute;
-    width: 380px;
-    z-index: 1;
-    left: 90%;
-    top: 228px;
+    width: 47%;
 
     .title {
-      font-size: 24px;
+      font-size: 21px;
       font-family: "Gilroy";
       text-transform: uppercase;
       color: black;
       font-weight: bold;
-
-      span {
-        display: block;
-        font-size: 32px;
-        font-weight: bold;
-      }
+      max-height: 62px;
+      overflow: hidden;
     }
   }
-
+  
   .ingrids {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
+    height: 81px;
+    overflow: hidden;
     .i-item {
-      font-size: 18px;
-      color: #808080;
       margin: 0 5px 0 0;
 
-      span {
+      .mod-name {
+        font-size: 18px;
+        color: #808080;
+      }
+
+      .mod-name-deleted {
+        text-decoration: line-through;
+      }
+
+      .mod-delete-icon {
+        color: black;
+        background: url("img/icons_close_min.png") center no-repeat;
+        background-size: contain; 
+        cursor: pointer;
+        width: 9px;
+        height: 9px;
+        display: inline-block;
+        margin: 0 0 0 2px;
+      }
+
+      .mod-return-icon {
         color: black;
         cursor: pointer;
-        margin: 0 0 -3px -3px;
+        font-size: 17px;
+        width: 9px;
+        height: 9px;
+        display: inline-block;
+        margin: 0 0 0 2px;
+        &::before {
+          content: '+';
+          display: inline-block;
+          transform: scale(1.12);
+        }
       }
     }
   }
-  .i-add {
+  .i-add, .i-more {
     display: inline;
     align-self: flex-start;
     cursor: pointer;
     text-decoration: none;
     border-bottom: 2px dotted #808080;
     font-size: 18px;
-    font-weight: bold;
 
     &:hover {
       border-bottom: 2px solid #808080;
     }
+  }
+
+  .i-add {
+    margin-right: 15px;
   }
 
   .sizes {
@@ -153,64 +177,59 @@
     flex-direction: flex-start;
     margin: 10px 0 0;
 
-    .size {
+    .btn {
       text-align: center;
+      display: block;
+      border-radius: 15px;
+      border: 1px solid #808080;
+      color: black;
+      cursor: pointer;
+      padding: 5px;
+      margin-bottom: 3px;
 
-      .btn {
-        display: block;
-        border-radius: 15px;
-        border: 1px solid #808080;
-        color: black;
-        cursor: pointer;
-        padding: 5px;
-        margin-bottom: 3px;
-
-        &:hover,
-        &.active {
-          border: 1px solid #ffd70f;
-          background: #ffd70f;
-          box-shadow: 2px 5px 5px -4px rgba(0,0,0,0.18);
-
-          &+.weight {
-            color: black;
-          }
-        }
-
-
-        &.mini-size {
-          padding: 4px 8px;
-          margin-right: 8px;
-        }
-        &.middle-size {
-          padding: 4px 10px;
-          margin-right: 8px;
-        }
-        &.maxi-size {
-          padding: 4px 15px;
-        }
+      &:hover,
+      &.active {
+        border: 1px solid #ffd70f;
+        background: #ffd70f;
+        box-shadow: 2px 5px 5px -4px rgba(0,0,0,0.18);
       }
 
-      .weight {
-        color: #808080;
+      &.mini-size {
+        padding: 4px 8px;
+        margin-right: 8px;
       }
-
+      &.middle-size {
+        padding: 4px 10px;
+        margin-right: 8px;
+      }
+      &.maxi-size {
+        padding: 4px 15px;
+      }
     }
+
   }
 
   .bottom {
     display: flex;
     flex-wrap: nowrap;
-    justify-content: flex-start;
+    justify-content: space-around;
+    align-items: center;
     margin-top: 15px;
 
     .price {
-      font-size: 40px;
+      font-size: 2rem;
       color: black;
-      margin: 0 10% 0 0;
-      line-height: 1;
-      sup {
-        font-size: 30px;
-      }
+      margin: 0 0 0 0;
+      white-space: nowrap;
+
+      span {
+        font-size: 1.8rem;      }
+    }
+
+    .weight {
+      color: #808080;
+      font-size: 12px;
+      white-space: nowrap;
     }
 
     .in-basket {
@@ -222,10 +241,8 @@
       text-transform: uppercase;
       color: black;
       background: transparent;
-      padding: 0 8px;
-      font-size: 14px;
+      padding: 5px 13px;
       font-weight: 500;
-      max-height: 42px;
       cursor: pointer;
 
       &:hover {
@@ -246,23 +263,51 @@
         font-weight: 500;
       }
     }
+
+    .counter-block {
+      display: flex;
+
+      .counter {
+        width: 26px;
+        height: 26px;
+        background: transparent;
+        border-radius: 50%;
+        border: 1px solid #808080;
+        outline: none;
+        text-decoration: none;
+        box-shadow: none;
+        cursor: pointer;
+
+        &:hover {
+          background: #ffd70f;
+          border: 1px solid #ffd70f;
+        }
+      }
+
+      .label-counter {
+        display: inline-block;
+        margin: 2px 0.5rem 0;
+        font-size: 1.8rem;
+        line-height: 1;
+      }
+    }
   }
 }
 
 .pizza-mo {
   .chars {
     position: absolute;
-    width: 380px;
+    width: 300px;
     z-index: 1;
     left: 90%;
-    top: 310px;
+    top: 275px;
   }
 }
 
 .burger-mo {
   .chars {
     position: absolute;
-    width: 380px;
+    width: 300px;
     z-index: 1;
     left: 106%;
     top: 190px;

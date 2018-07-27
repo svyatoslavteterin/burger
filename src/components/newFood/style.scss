@@ -148,23 +148,24 @@
   .bottom {
     display: flex;
     flex-wrap: nowrap;
-    justify-content: flex-start;
+    justify-content: space-around;
+    align-items: center;
     margin-top: 15px;
 
     .price {
-      font-size: 28px;
+      font-size: 2rem;
       color: black;
-      margin: 0 10% 0 0;
+      margin: 0 0 0 0;
+      white-space: nowrap;
 
       span {
-        font-size: 26px;
-      }
+        font-size: 1.8rem;      }
     }
 
     .weight {
       color: #808080;
       font-size: 12px;
-      margin: 13px 10% 0 0;
+      white-space: nowrap;
     }
 
     .in-basket {
@@ -176,7 +177,7 @@
       text-transform: uppercase;
       color: black;
       background: transparent;
-      padding: 0 13px;
+      padding: 5px 13px;
       font-weight: 500;
       cursor: pointer;
 
@@ -201,7 +202,6 @@
 
     .counter-block {
       display: flex;
-      margin: 8px 0 0;
 
       .counter {
         width: 26px;
@@ -222,8 +222,8 @@
 
       .label-counter {
         display: inline-block;
-        margin: 2px 15px 0;
-        font-size: 26px;
+        margin: 2px 0.5rem 0;
+        font-size: 1.8rem;
         line-height: 1;
       }
     }
@@ -385,5 +385,9 @@
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 );
 }
 
+
+.include-mods {
+  position: relative;
+}
 
 
