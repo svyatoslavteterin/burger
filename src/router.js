@@ -6,7 +6,7 @@ import NewHome from './views/newHome'
 import BurgerPage from './views/BurgerPage'
 import PaymentPage from './views/PaymentPage'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
     mode:'history',
