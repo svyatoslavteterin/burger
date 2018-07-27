@@ -29,7 +29,7 @@
       <!--Модалка и добавление модификаторов только на первый элемент, измененное отображение модификаторов тоже только у первого-->
       <div class="food">
         <div class="chars">
-          <div class="title">Куриная</div>
+          <div class="title">Наименование в две строки</div>
           <div class="ingrids">
             <div class="i-item">
               <span class="mod-name">мясо</span>
@@ -44,39 +44,48 @@
               <span class="mod-return-icon"></span>
             </div>
             <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
               <span class="mod-name mod-name-deleted">перец</span>
               <span class="mod-return-icon"></span>
             </div>
             
           </div>
           <a class="i-add" @click.prevent="mods.include = !mods.include">добавить</a>
+          <a class="i-more">развернуть</a>
           <div class="include-mods" >
-            <!-- <dishmod :key="mod.id_Mod"  :data="mod" :dishId="dishData.id" :type="'include'"
-                                 v-for="(mod) in data.dishes[this.activeDish].ModGroups[1].mods" ></dishmod> -->
             <ul :class="{active: mods.include}">
               123
             </ul>
           </div>
           <div class="sizes">
-            <div class="size">
-              <span class="btn mini-size active">мини</span>
-              <span class="weight">410 г</span>
-            </div>
-            <div class="size">
-              <span class="btn middle-size">мидл</span>
-              <span class="weight">800 г</span>
-            </div>
-            <div class="size">
-              <span class="btn maxi-size">макси</span>
-              <span class="weight">1125 г</span>
-            </div>
+            <div class="btn mini-size active">мини</div>
+            <div class="btn middle-size">мидл</div>
+            <div class="btn maxi-size">макси</div>
           </div>
           <div class="bottom">
-            <div class="price">1050<sup>₽</sup></div>
-            <button class="in-basket">
-              <span>В корзину</span>
-              <span class="count-items">2</span>
-            </button>
+            <div class="price">1 050<span>₽</span></div>
+            <div class="weight">1125 г.</div>
+            <button class="in-basket" v-show="!showCounter" @click="showCounter = !showCounter">В корзину</button>
+            <div v-show="showCounter" class="counter-block">
+              <button class="counter">−</button>
+              <span class="label-counter">1</span>
+              <button class="counter">+</button>
+            </div>
           </div>
         </div><!--chars-->
         <div class="pic" @click="$modal.show('info')">
@@ -677,6 +686,7 @@ export default {
   components: { VuePerfectScrollbar, dishmod },
   data() {
     return {
+      showCounter: false,
       settings: {
         maxScrollbarLength: 60
       },

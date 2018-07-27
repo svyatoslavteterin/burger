@@ -10,6 +10,7 @@
     padding: 7px 10px;
     display: flex;
     flex-wrap: nowrap;
+    height: 288px;
     justify-content: space-between;
 
     &:hover {
@@ -39,6 +40,8 @@
       text-transform: uppercase;
       color: black;
       font-weight: bold;
+      max-height: 62px;
+      overflow: hidden;
     }
   }
   
@@ -46,6 +49,8 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
+    height: 81px;
+    overflow: hidden;
     .i-item {
       margin: 0 5px 0 0;
 
@@ -80,22 +85,26 @@
         &::before {
           content: '+';
           display: inline-block;
+          transform: scale(1.12);
         }
       }
     }
   }
-  .i-add {
+  .i-add, .i-more {
     display: inline;
     align-self: flex-start;
     cursor: pointer;
     text-decoration: none;
     border-bottom: 2px dotted #808080;
     font-size: 18px;
-    font-weight: bold;
 
     &:hover {
       border-bottom: 2px solid #808080;
     }
+  }
+
+  .i-add {
+    margin-right: 15px;
   }
 
   .sizes {
@@ -104,48 +113,36 @@
     flex-direction: flex-start;
     margin: 10px 0 0;
 
-    .size {
+    .btn {
       text-align: center;
+      display: block;
+      border-radius: 15px;
+      border: 1px solid #808080;
+      color: black;
+      cursor: pointer;
+      padding: 5px;
+      margin-bottom: 3px;
 
-      .btn {
-        display: block;
-        border-radius: 15px;
-        border: 1px solid #808080;
-        color: black;
-        cursor: pointer;
-        padding: 5px;
-        margin-bottom: 3px;
-
-        &:hover,
-        &.active {
-          border: 1px solid #ffd70f;
-          background: #ffd70f;
-          box-shadow: 2px 5px 5px -4px rgba(0,0,0,0.18);
-
-          &+.weight {
-            color: black;
-          }
-        }
-
-
-        &.mini-size {
-          padding: 4px 8px;
-          margin-right: 8px;
-        }
-        &.middle-size {
-          padding: 4px 10px;
-          margin-right: 8px;
-        }
-        &.maxi-size {
-          padding: 4px 15px;
-        }
+      &:hover,
+      &.active {
+        border: 1px solid #ffd70f;
+        background: #ffd70f;
+        box-shadow: 2px 5px 5px -4px rgba(0,0,0,0.18);
       }
 
-      .weight {
-        color: #808080;
+      &.mini-size {
+        padding: 4px 8px;
+        margin-right: 8px;
       }
-
+      &.middle-size {
+        padding: 4px 10px;
+        margin-right: 8px;
+      }
+      &.maxi-size {
+        padding: 4px 15px;
+      }
     }
+
   }
 
   .bottom {
@@ -157,10 +154,17 @@
     .price {
       font-size: 28px;
       color: black;
-      margin: 0 10% 0 0; 
-      sup {
-        font-size: 18px;
+      margin: 0 10% 0 0;
+
+      span {
+        font-size: 26px;
       }
+    }
+
+    .weight {
+      color: #808080;
+      font-size: 12px;
+      margin: 13px 10% 0 0;
     }
 
     .in-basket {
@@ -194,13 +198,43 @@
         font-weight: 500;
       }
     }
+
+    .counter-block {
+      display: flex;
+      margin: 8px 0 0;
+
+      .counter {
+        width: 26px;
+        height: 26px;
+        background: transparent;
+        border-radius: 50%;
+        border: 1px solid #808080;
+        outline: none;
+        text-decoration: none;
+        box-shadow: none;
+        cursor: pointer;
+
+        &:hover {
+          background: #ffd70f;
+          border: 1px solid #ffd70f;
+        }
+      }
+
+      .label-counter {
+        display: inline-block;
+        margin: 2px 15px 0;
+        font-size: 26px;
+        line-height: 1;
+      }
+    }
   }
 
   .pic {
     position: relative;
     cursor: pointer;
     width: 50%;
-    max-height: 253px;
+    max-height: 280px;
+    margin: auto 0;
 
     img {
       width: 100%;
@@ -255,7 +289,7 @@
 
 }
 
-
+// Модальные стили для всплавашки элемента
 .modal-header {
   position: relative;
   background: black;
