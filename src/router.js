@@ -17,12 +17,12 @@ export default new Router({
             component: Home
         },
         {
-            path: '/new',
+            path: '/',
             name: 'newhome',
             component: NewHome
         },
         {
-            path: '/',
+            path: '/burger',
             name: 'burger',
             component: BurgerPage
         },
