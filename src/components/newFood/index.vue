@@ -5,7 +5,7 @@
     <div class="modal-header">
       <button @click="$modal.hide('info')" class="info-modal-close"></button>
       <div class="info-yellow-block"></div>
-      <div class="info-title">С белыми грибами и трюфельной пастой и еще чем-то и еще</div>
+      <div class="info-title">Куриная</div>
     </div>
     <div class="info-modal-pic">
       <img src="./img/modal-pic.png" alt="">
@@ -29,7 +29,7 @@
       <!--Модалка и добавление модификаторов только на первый элемент, измененное отображение модификаторов тоже только у первого-->
       <div class="food">
         <div class="chars">
-          <div class="title">Наименование в две строки</div>
+          <div class="title">Куриная</div>
           <div class="ingrids">
             <div class="i-item">
               <span class="mod-name">мясо</span>
@@ -101,42 +101,60 @@
           <div class="title">С белыми грибами и трюфельной пастой</div>
           <div class="ingrids">
             <div class="i-item">
-                мясо
-              <span>✕</span>
+              <span class="mod-name">мясо</span>
+              <span class="mod-delete-icon"></span>
             </div>
             <div class="i-item">
-              перец
-              <span>✕</span>
+              <span class="mod-name mod-name-deleted">лук</span>
+              <span class="mod-return-icon"></span>
             </div>
             <div class="i-item">
-              моцарелла
-              <span>✕</span>
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">перец</span>
+              <span class="mod-return-icon"></span>
             </div>
             
           </div>
-          <a class="i-add">добавить</a>
+          <a class="i-add" @click.prevent="mods.include = !mods.include">добавить</a>
+          <a class="i-more">развернуть</a>
+          <div class="include-mods" >
+          </div>
           <div class="sizes">
-            <div class="size">
-              <span class="btn mini-size active">мини</span>
-              <span class="weight">410 г</span>
-            </div>
-            <div class="size">
-              <span class="btn middle-size">мидл</span>
-              <span class="weight">800 г</span>
-            </div>
-            <div class="size">
-              <span class="btn maxi-size">макси</span>
-              <span class="weight">1125 г</span>
-            </div>
+            <div class="btn mini-size active">мини</div>
+            <div class="btn middle-size">мидл</div>
+            <div class="btn maxi-size">макси</div>
           </div>
           <div class="bottom">
-            <div class="price">1050<sup>₽</sup></div>
-            <button class="in-basket">
-              <span>В корзину</span>
-            </button>
+            <div class="price">1 050<span>₽</span></div>
+            <div class="weight">1125 г.</div>
+            <button class="in-basket" v-show="!showCounter" @click="showCounter = !showCounter">В корзину</button>
+            <div v-show="showCounter" class="counter-block">
+              <button class="counter">−</button>
+              <span class="label-counter">1</span>
+              <button class="counter">+</button>
+            </div>
           </div>
         </div><!--chars-->
-        <div class="pic">
+        <div class="pic" @click="$modal.show('info')">
           <img src="./img/pizzoni_parts_02.jpg" alt="">
           <div class="arrow"></div>
           <div class="detail">
@@ -148,50 +166,63 @@
 
       <div class="food">
         <div class="chars">
-          <div class="title">Куриная</div>
+          <div class="title">Мясная</div>
           <div class="ingrids">
             <div class="i-item">
-                мясо
-              <span>✕</span>
+              <span class="mod-name">мясо</span>
+              <span class="mod-delete-icon"></span>
             </div>
             <div class="i-item">
-              перец
-              <span>✕</span>
+              <span class="mod-name mod-name-deleted">лук</span>
+              <span class="mod-return-icon"></span>
             </div>
             <div class="i-item">
-              моцарелла
-              <span>✕</span>
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
             </div>
             <div class="i-item">
-              помидоры
-              <span>✕</span>
-              </div>
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">перец</span>
+              <span class="mod-return-icon"></span>
+            </div>
             
           </div>
-          <a class="i-add" @click.prevent="mods.include=!mods.include">добавить</a>
+          <a class="i-add" @click.prevent="mods.include = !mods.include">добавить</a>
+          <a class="i-more">развернуть</a>
+          <div class="include-mods" >
+          </div>
           <div class="sizes">
-            <div class="size">
-              <span class="btn mini-size active">мини</span>
-              <span class="weight">410 г</span>
-            </div>
-            <div class="size">
-              <span class="btn middle-size">мидл</span>
-              <span class="weight">800 г</span>
-            </div>
-            <div class="size">
-              <span class="btn maxi-size">макси</span>
-              <span class="weight">1125 г</span>
-            </div>
+            <div class="btn mini-size active">мини</div>
+            <div class="btn middle-size">мидл</div>
+            <div class="btn maxi-size">макси</div>
           </div>
           <div class="bottom">
-            <div class="price">1050<sup>₽</sup></div>
-            <button class="in-basket">
-              <span>В корзину</span>
-              <span class="count-items">2</span>
-            </button>
+            <div class="price">1 050<span>₽</span></div>
+            <div class="weight">1125 г.</div>
+            <button class="in-basket" v-show="!showCounter" @click="showCounter = !showCounter">В корзину</button>
+            <div v-show="showCounter" class="counter-block">
+              <button class="counter">−</button>
+              <span class="label-counter">1</span>
+              <button class="counter">+</button>
+            </div>
           </div>
         </div><!--chars-->
-        <div class="pic">
+        <div class="pic" @click="$modal.show('info')">
           <img src="./img/pizzoni_parts_03.jpg" alt="">
           <div class="arrow"></div>
           <div class="detail">
@@ -203,45 +234,63 @@
 
       <div class="food">
         <div class="chars">
-          <div class="title">С белыми грибами и трюфельной пастой</div>
+          <div class="title">С грушей и горгондзолой</div>
           <div class="ingrids">
             <div class="i-item">
-                мясо
-              <span>✕</span>
+              <span class="mod-name">мясо</span>
+              <span class="mod-delete-icon"></span>
             </div>
             <div class="i-item">
-              перец
-              <span>✕</span>
+              <span class="mod-name mod-name-deleted">лук</span>
+              <span class="mod-return-icon"></span>
             </div>
             <div class="i-item">
-              моцарелла
-              <span>✕</span>
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">перец</span>
+              <span class="mod-return-icon"></span>
             </div>
             
           </div>
-          <a class="i-add">добавить</a>
+          <a class="i-add" @click.prevent="mods.include = !mods.include">добавить</a>
+          <a class="i-more">развернуть</a>
+          <div class="include-mods" >
+          </div>
           <div class="sizes">
-            <div class="size">
-              <span class="btn mini-size active">мини</span>
-              <span class="weight">410 г</span>
-            </div>
-            <div class="size">
-              <span class="btn middle-size">мидл</span>
-              <span class="weight">800 г</span>
-            </div>
-            <div class="size">
-              <span class="btn maxi-size">макси</span>
-              <span class="weight">1125 г</span>
-            </div>
+            <div class="btn mini-size active">мини</div>
+            <div class="btn middle-size">мидл</div>
+            <div class="btn maxi-size">макси</div>
           </div>
           <div class="bottom">
-            <div class="price">1050<sup>₽</sup></div>
-            <button class="in-basket">
-              <span>В корзину</span>
-            </button>
+            <div class="price">1 050<span>₽</span></div>
+            <div class="weight">1125 г.</div>
+            <button class="in-basket" v-show="!showCounter" @click="showCounter = !showCounter">В корзину</button>
+            <div v-show="showCounter" class="counter-block">
+              <button class="counter">−</button>
+              <span class="label-counter">1</span>
+              <button class="counter">+</button>
+            </div>
           </div>
         </div><!--chars-->
-        <div class="pic">
+        <div class="pic" @click="$modal.show('info')">
           <img src="./img/pizzoni_parts_04.jpg" alt="">
           <div class="arrow"></div>
           <div class="detail">
@@ -253,50 +302,63 @@
 
       <div class="food">
         <div class="chars">
-          <div class="title">Куриная</div>
+          <div class="title">Овощная</div>
           <div class="ingrids">
             <div class="i-item">
-                мясо
-              <span>✕</span>
+              <span class="mod-name">мясо</span>
+              <span class="mod-delete-icon"></span>
             </div>
             <div class="i-item">
-              перец
-              <span>✕</span>
+              <span class="mod-name mod-name-deleted">лук</span>
+              <span class="mod-return-icon"></span>
             </div>
             <div class="i-item">
-              моцарелла
-              <span>✕</span>
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
             </div>
             <div class="i-item">
-              помидоры
-              <span>✕</span>
-              </div>
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">перец</span>
+              <span class="mod-return-icon"></span>
+            </div>
             
           </div>
-          <a class="i-add" @click.prevent="mods.include=!mods.include">добавить</a>
+          <a class="i-add" @click.prevent="mods.include = !mods.include">добавить</a>
+          <a class="i-more">развернуть</a>
+          <div class="include-mods" >
+          </div>
           <div class="sizes">
-            <div class="size">
-              <span class="btn mini-size active">мини</span>
-              <span class="weight">410 г</span>
-            </div>
-            <div class="size">
-              <span class="btn middle-size">мидл</span>
-              <span class="weight">800 г</span>
-            </div>
-            <div class="size">
-              <span class="btn maxi-size">макси</span>
-              <span class="weight">1125 г</span>
-            </div>
+            <div class="btn mini-size active">мини</div>
+            <div class="btn middle-size">мидл</div>
+            <div class="btn maxi-size">макси</div>
           </div>
           <div class="bottom">
-            <div class="price">1050<sup>₽</sup></div>
-            <button class="in-basket">
-              <span>В корзину</span>
-              <span class="count-items">2</span>
-            </button>
+            <div class="price">1 050<span>₽</span></div>
+            <div class="weight">1125 г.</div>
+            <button class="in-basket" v-show="!showCounter" @click="showCounter = !showCounter">В корзину</button>
+            <div v-show="showCounter" class="counter-block">
+              <button class="counter">−</button>
+              <span class="label-counter">1</span>
+              <button class="counter">+</button>
+            </div>
           </div>
         </div><!--chars-->
-        <div class="pic">
+        <div class="pic" @click="$modal.show('info')">
           <img src="./img/pizzoni_parts_05.jpg" alt="">
           <div class="arrow"></div>
           <div class="detail">
@@ -308,45 +370,63 @@
 
       <div class="food">
         <div class="chars">
-          <div class="title">С белыми грибами и трюфельной пастой</div>
+          <div class="title">С морепродуктами в цукини</div>
           <div class="ingrids">
             <div class="i-item">
-                мясо
-              <span>✕</span>
+              <span class="mod-name">мясо</span>
+              <span class="mod-delete-icon"></span>
             </div>
             <div class="i-item">
-              перец
-              <span>✕</span>
+              <span class="mod-name mod-name-deleted">лук</span>
+              <span class="mod-return-icon"></span>
             </div>
             <div class="i-item">
-              моцарелла
-              <span>✕</span>
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">перец</span>
+              <span class="mod-return-icon"></span>
             </div>
             
           </div>
-          <a class="i-add">добавить</a>
+          <a class="i-add" @click.prevent="mods.include = !mods.include">добавить</a>
+          <a class="i-more">развернуть</a>
+          <div class="include-mods" >
+          </div>
           <div class="sizes">
-            <div class="size">
-              <span class="btn mini-size active">мини</span>
-              <span class="weight">410 г</span>
-            </div>
-            <div class="size">
-              <span class="btn middle-size">мидл</span>
-              <span class="weight">800 г</span>
-            </div>
-            <div class="size">
-              <span class="btn maxi-size">макси</span>
-              <span class="weight">1125 г</span>
-            </div>
+            <div class="btn mini-size active">мини</div>
+            <div class="btn middle-size">мидл</div>
+            <div class="btn maxi-size">макси</div>
           </div>
           <div class="bottom">
-            <div class="price">1050<sup>₽</sup></div>
-            <button class="in-basket">
-              <span>В корзину</span>
-            </button>
+            <div class="price">1 050<span>₽</span></div>
+            <div class="weight">1125 г.</div>
+            <button class="in-basket" v-show="!showCounter" @click="showCounter = !showCounter">В корзину</button>
+            <div v-show="showCounter" class="counter-block">
+              <button class="counter">−</button>
+              <span class="label-counter">1</span>
+              <button class="counter">+</button>
+            </div>
           </div>
         </div><!--chars-->
-        <div class="pic">
+        <div class="pic" @click="$modal.show('info')">
           <img src="./img/pizzoni_parts_06.jpg" alt="">
           <div class="arrow"></div>
           <div class="detail">
@@ -358,50 +438,63 @@
 
       <div class="food">
         <div class="chars">
-          <div class="title">Куриная</div>
+          <div class="title">Овощная</div>
           <div class="ingrids">
             <div class="i-item">
-                мясо
-              <span>✕</span>
+              <span class="mod-name">мясо</span>
+              <span class="mod-delete-icon"></span>
             </div>
             <div class="i-item">
-              перец
-              <span>✕</span>
+              <span class="mod-name mod-name-deleted">лук</span>
+              <span class="mod-return-icon"></span>
             </div>
             <div class="i-item">
-              моцарелла
-              <span>✕</span>
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
             </div>
             <div class="i-item">
-              помидоры
-              <span>✕</span>
-              </div>
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">перец</span>
+              <span class="mod-return-icon"></span>
+            </div>
             
           </div>
-          <a class="i-add" @click.prevent="mods.include=!mods.include">добавить</a>
+          <a class="i-add" @click.prevent="mods.include = !mods.include">добавить</a>
+          <a class="i-more">развернуть</a>
+          <div class="include-mods" >
+          </div>
           <div class="sizes">
-            <div class="size">
-              <span class="btn mini-size active">мини</span>
-              <span class="weight">410 г</span>
-            </div>
-            <div class="size">
-              <span class="btn middle-size">мидл</span>
-              <span class="weight">800 г</span>
-            </div>
-            <div class="size">
-              <span class="btn maxi-size">макси</span>
-              <span class="weight">1125 г</span>
-            </div>
+            <div class="btn mini-size active">мини</div>
+            <div class="btn middle-size">мидл</div>
+            <div class="btn maxi-size">макси</div>
           </div>
           <div class="bottom">
-            <div class="price">1050<sup>₽</sup></div>
-            <button class="in-basket">
-              <span>В корзину</span>
-              <span class="count-items">2</span>
-            </button>
+            <div class="price">1 050<span>₽</span></div>
+            <div class="weight">1125 г.</div>
+            <button class="in-basket" v-show="!showCounter" @click="showCounter = !showCounter">В корзину</button>
+            <div v-show="showCounter" class="counter-block">
+              <button class="counter">−</button>
+              <span class="label-counter">1</span>
+              <button class="counter">+</button>
+            </div>
           </div>
         </div><!--chars-->
-        <div class="pic">
+        <div class="pic" @click="$modal.show('info')">
           <img src="./img/pizzoni_parts_07.jpg" alt="">
           <div class="arrow"></div>
           <div class="detail">
@@ -413,45 +506,63 @@
 
       <div class="food">
         <div class="chars">
-          <div class="title">С белыми грибами и трюфельной пастой</div>
+          <div class="title">С рикоттой и ягодами</div>
           <div class="ingrids">
             <div class="i-item">
-                мясо
-              <span>✕</span>
+              <span class="mod-name">мясо</span>
+              <span class="mod-delete-icon"></span>
             </div>
             <div class="i-item">
-              перец
-              <span>✕</span>
+              <span class="mod-name mod-name-deleted">лук</span>
+              <span class="mod-return-icon"></span>
             </div>
             <div class="i-item">
-              моцарелла
-              <span>✕</span>
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">перец</span>
+              <span class="mod-return-icon"></span>
             </div>
             
           </div>
-          <a class="i-add">добавить</a>
+          <a class="i-add" @click.prevent="mods.include = !mods.include">добавить</a>
+          <a class="i-more">развернуть</a>
+          <div class="include-mods" >
+          </div>
           <div class="sizes">
-            <div class="size">
-              <span class="btn mini-size active">мини</span>
-              <span class="weight">410 г</span>
-            </div>
-            <div class="size">
-              <span class="btn middle-size">мидл</span>
-              <span class="weight">800 г</span>
-            </div>
-            <div class="size">
-              <span class="btn maxi-size">макси</span>
-              <span class="weight">1125 г</span>
-            </div>
+            <div class="btn mini-size active">мини</div>
+            <div class="btn middle-size">мидл</div>
+            <div class="btn maxi-size">макси</div>
           </div>
           <div class="bottom">
-            <div class="price">1050<sup>₽</sup></div>
-            <button class="in-basket">
-              <span>В корзину</span>
-            </button>
+            <div class="price">1 050<span>₽</span></div>
+            <div class="weight">1125 г.</div>
+            <button class="in-basket" v-show="!showCounter" @click="showCounter = !showCounter">В корзину</button>
+            <div v-show="showCounter" class="counter-block">
+              <button class="counter">−</button>
+              <span class="label-counter">1</span>
+              <button class="counter">+</button>
+            </div>
           </div>
         </div><!--chars-->
-        <div class="pic">
+        <div class="pic" @click="$modal.show('info')">
           <img src="./img/pizzoni_parts_08.jpg" alt="">
           <div class="arrow"></div>
           <div class="detail">
@@ -463,50 +574,63 @@
 
       <div class="food">
         <div class="chars">
-          <div class="title">Куриная</div>
+          <div class="title">Пепперони двойная</div>
           <div class="ingrids">
             <div class="i-item">
-                мясо
-              <span>✕</span>
+              <span class="mod-name">мясо</span>
+              <span class="mod-delete-icon"></span>
             </div>
             <div class="i-item">
-              перец
-              <span>✕</span>
+              <span class="mod-name mod-name-deleted">лук</span>
+              <span class="mod-return-icon"></span>
             </div>
             <div class="i-item">
-              моцарелла
-              <span>✕</span>
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
             </div>
             <div class="i-item">
-              помидоры
-              <span>✕</span>
-              </div>
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">перец</span>
+              <span class="mod-return-icon"></span>
+            </div>
             
           </div>
-          <a class="i-add" @click.prevent="mods.include=!mods.include">добавить</a>
+          <a class="i-add" @click.prevent="mods.include = !mods.include">добавить</a>
+          <a class="i-more">развернуть</a>
+          <div class="include-mods" >
+          </div>
           <div class="sizes">
-            <div class="size">
-              <span class="btn mini-size active">мини</span>
-              <span class="weight">410 г</span>
-            </div>
-            <div class="size">
-              <span class="btn middle-size">мидл</span>
-              <span class="weight">800 г</span>
-            </div>
-            <div class="size">
-              <span class="btn maxi-size">макси</span>
-              <span class="weight">1125 г</span>
-            </div>
+            <div class="btn mini-size active">мини</div>
+            <div class="btn middle-size">мидл</div>
+            <div class="btn maxi-size">макси</div>
           </div>
           <div class="bottom">
-            <div class="price">1050<sup>₽</sup></div>
-            <button class="in-basket">
-              <span>В корзину</span>
-              <span class="count-items">2</span>
-            </button>
+            <div class="price">1 050<span>₽</span></div>
+            <div class="weight">1125 г.</div>
+            <button class="in-basket" v-show="!showCounter" @click="showCounter = !showCounter">В корзину</button>
+            <div v-show="showCounter" class="counter-block">
+              <button class="counter">−</button>
+              <span class="label-counter">1</span>
+              <button class="counter">+</button>
+            </div>
           </div>
         </div><!--chars-->
-        <div class="pic">
+        <div class="pic" @click="$modal.show('info')">
           <img src="./img/pizzoni_parts_09.jpg" alt="">
           <div class="arrow"></div>
           <div class="detail">
@@ -518,45 +642,63 @@
 
       <div class="food">
         <div class="chars">
-          <div class="title">С белыми грибами и трюфельной пастой</div>
+          <div class="title">С рукколой и пармской ветчиной</div>
           <div class="ingrids">
             <div class="i-item">
-                мясо
-              <span>✕</span>
+              <span class="mod-name">мясо</span>
+              <span class="mod-delete-icon"></span>
             </div>
             <div class="i-item">
-              перец
-              <span>✕</span>
+              <span class="mod-name mod-name-deleted">лук</span>
+              <span class="mod-return-icon"></span>
             </div>
             <div class="i-item">
-              моцарелла
-              <span>✕</span>
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">перец</span>
+              <span class="mod-return-icon"></span>
             </div>
             
           </div>
-          <a class="i-add">добавить</a>
+          <a class="i-add" @click.prevent="mods.include = !mods.include">добавить</a>
+          <a class="i-more">развернуть</a>
+          <div class="include-mods" >
+          </div>
           <div class="sizes">
-            <div class="size">
-              <span class="btn mini-size active">мини</span>
-              <span class="weight">410 г</span>
-            </div>
-            <div class="size">
-              <span class="btn middle-size">мидл</span>
-              <span class="weight">800 г</span>
-            </div>
-            <div class="size">
-              <span class="btn maxi-size">макси</span>
-              <span class="weight">1125 г</span>
-            </div>
+            <div class="btn mini-size active">мини</div>
+            <div class="btn middle-size">мидл</div>
+            <div class="btn maxi-size">макси</div>
           </div>
           <div class="bottom">
-            <div class="price">1050<sup>₽</sup></div>
-            <button class="in-basket">
-              <span>В корзину</span>
-            </button>
+            <div class="price">1 050<span>₽</span></div>
+            <div class="weight">1125 г.</div>
+            <button class="in-basket" v-show="!showCounter" @click="showCounter = !showCounter">В корзину</button>
+            <div v-show="showCounter" class="counter-block">
+              <button class="counter">−</button>
+              <span class="label-counter">1</span>
+              <button class="counter">+</button>
+            </div>
           </div>
         </div><!--chars-->
-        <div class="pic">
+        <div class="pic" @click="$modal.show('info')">
           <img src="./img/pizzoni_parts_10.jpg" alt="">
           <div class="arrow"></div>
           <div class="detail">
@@ -568,50 +710,63 @@
 
       <div class="food">
         <div class="chars">
-          <div class="title">Куриная</div>
+          <div class="title">Наименование в две строки</div>
           <div class="ingrids">
             <div class="i-item">
-                мясо
-              <span>✕</span>
+              <span class="mod-name">мясо</span>
+              <span class="mod-delete-icon"></span>
             </div>
             <div class="i-item">
-              перец
-              <span>✕</span>
+              <span class="mod-name mod-name-deleted">лук</span>
+              <span class="mod-return-icon"></span>
             </div>
             <div class="i-item">
-              моцарелла
-              <span>✕</span>
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
             </div>
             <div class="i-item">
-              помидоры
-              <span>✕</span>
-              </div>
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">перец</span>
+              <span class="mod-return-icon"></span>
+            </div>
             
           </div>
-          <a class="i-add" @click.prevent="mods.include=!mods.include">добавить</a>
+          <a class="i-add" @click.prevent="mods.include = !mods.include">добавить</a>
+          <a class="i-more">развернуть</a>
+          <div class="include-mods" >
+          </div>
           <div class="sizes">
-            <div class="size">
-              <span class="btn mini-size active">мини</span>
-              <span class="weight">410 г</span>
-            </div>
-            <div class="size">
-              <span class="btn middle-size">мидл</span>
-              <span class="weight">800 г</span>
-            </div>
-            <div class="size">
-              <span class="btn maxi-size">макси</span>
-              <span class="weight">1125 г</span>
-            </div>
+            <div class="btn mini-size active">мини</div>
+            <div class="btn middle-size">мидл</div>
+            <div class="btn maxi-size">макси</div>
           </div>
           <div class="bottom">
-            <div class="price">1050<sup>₽</sup></div>
-            <button class="in-basket">
-              <span>В корзину</span>
-              <span class="count-items">2</span>
-            </button>
+            <div class="price">1 050<span>₽</span></div>
+            <div class="weight">1125 г.</div>
+            <button class="in-basket" v-show="!showCounter" @click="showCounter = !showCounter">В корзину</button>
+            <div v-show="showCounter" class="counter-block">
+              <button class="counter">−</button>
+              <span class="label-counter">1</span>
+              <button class="counter">+</button>
+            </div>
           </div>
         </div><!--chars-->
-        <div class="pic">
+        <div class="pic" @click="$modal.show('info')">
           <img src="./img/pizzoni_parts_11.jpg" alt="">
           <div class="arrow"></div>
           <div class="detail">
@@ -623,45 +778,63 @@
 
       <div class="food">
         <div class="chars">
-          <div class="title">С белыми грибами и трюфельной пастой</div>
+          <div class="title">С чорризо и брокколи</div>
           <div class="ingrids">
             <div class="i-item">
-                мясо
-              <span>✕</span>
+              <span class="mod-name">мясо</span>
+              <span class="mod-delete-icon"></span>
             </div>
             <div class="i-item">
-              перец
-              <span>✕</span>
+              <span class="mod-name mod-name-deleted">лук</span>
+              <span class="mod-return-icon"></span>
             </div>
             <div class="i-item">
-              моцарелла
-              <span>✕</span>
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
+            </div>
+            <div class="i-item">
+              <span class="mod-name mod-name-deleted">перец</span>
+              <span class="mod-return-icon"></span>
             </div>
             
           </div>
-          <a class="i-add">добавить</a>
+          <a class="i-add" @click.prevent="mods.include = !mods.include">добавить</a>
+          <a class="i-more">развернуть</a>
+          <div class="include-mods" >
+          </div>
           <div class="sizes">
-            <div class="size">
-              <span class="btn mini-size active">мини</span>
-              <span class="weight">410 г</span>
-            </div>
-            <div class="size">
-              <span class="btn middle-size">мидл</span>
-              <span class="weight">800 г</span>
-            </div>
-            <div class="size">
-              <span class="btn maxi-size">макси</span>
-              <span class="weight">1125 г</span>
-            </div>
+            <div class="btn mini-size active">мини</div>
+            <div class="btn middle-size">мидл</div>
+            <div class="btn maxi-size">макси</div>
           </div>
           <div class="bottom">
-            <div class="price">1050<sup>₽</sup></div>
-            <button class="in-basket">
-              <span>В корзину</span>
-            </button>
+            <div class="price">1 050<span>₽</span></div>
+            <div class="weight">1125 г.</div>
+            <button class="in-basket" v-show="!showCounter" @click="showCounter = !showCounter">В корзину</button>
+            <div v-show="showCounter" class="counter-block">
+              <button class="counter">−</button>
+              <span class="label-counter">1</span>
+              <button class="counter">+</button>
+            </div>
           </div>
         </div><!--chars-->
-        <div class="pic">
+        <div class="pic" @click="$modal.show('info')">
           <img src="./img/pizzoni_parts_12.jpg" alt="">
           <div class="arrow"></div>
           <div class="detail">
