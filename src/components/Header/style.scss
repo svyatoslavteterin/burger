@@ -104,19 +104,20 @@
   margin-top: 14px;
 }
 .hello-block-text2{
+  display: block;
   margin: -10px 0px 0px 145px;
   text-decoration: underline;
 }
-.password-botton{
+.password-input{
   text-transform: uppercase;
-  color: #BFBFBF;
+  color: black;
   border: 1px solid #BFBFBF;
   border-radius: 5px;
   padding: 10px 25px 5px 25px;
   height: 42px;
-  cursor: pointer;
   margin-top: 10px;
   font-size: 14px;
+  width: 114px;
 }
 .avatar{
   object-fit: cover;

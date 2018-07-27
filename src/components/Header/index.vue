@@ -20,10 +20,10 @@
         </div>
          <div v-if="login == 2" class="header-right-block2">
             <div class="hello-block">
-                <div class="hello-block-text">Здравствуйте, вячеслав</div>
-                <div class="hello-block-text2">это не я</div>
+                <div class="hello-block-text">Здравствуйте, Вячеслав</div>
+                <a href="#" class="hello-block-text2">это не я</a>
             </div>
-            <div class="password-botton">Пароль</div>
+            <input class="password-input" type="password" placeholder="Пароль" />
             <a href="#" v-if="!checkLogin" @click.prevent="login = 3" class="basket">Войти</a>
         </div>
         <div v-if="login == 3" class="header-right-block3">
