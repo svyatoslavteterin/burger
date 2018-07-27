@@ -11,7 +11,7 @@
       <img src="./img/modal-pic.png" alt="">
     </div>
     <div class="scrollbar-wrapper">
-      <VuePerfectScrollbar class="modal-scrollbar" v-once :settings="settings" @ps-scroll-y="scrollHanle">
+      <VuePerfectScrollbar class="modal-scrollbar" v-once :settings="settings">
         <p>
           <span>Состав:</span> оливковое масло, соль, перец, чеснок, помидоры
         </p>
@@ -26,30 +26,33 @@
   </modal>
 
     <div class="items">
+      <!--Модалка и добавление модификаторов только на первый элемент, измененное отображение модификаторов тоже только у первого-->
       <div class="food">
         <div class="chars">
           <div class="title">Куриная</div>
           <div class="ingrids">
             <div class="i-item">
-                мясо
-              <span>✕</span>
+              <span class="mod-name">мясо</span>
+              <span class="mod-delete-icon"></span>
             </div>
             <div class="i-item">
-              перец
-              <span>✕</span>
+              <span class="mod-name mod-name-deleted">лук</span>
+              <span class="mod-return-icon"></span>
             </div>
             <div class="i-item">
-              моцарелла
-              <span>✕</span>
+              <span class="mod-name mod-name-deleted">помидоры</span>
+              <span class="mod-return-icon"></span>
             </div>
             <div class="i-item">
-              помидоры
-              <span>✕</span>
-              </div>
+              <span class="mod-name mod-name-deleted">перец</span>
+              <span class="mod-return-icon"></span>
+            </div>
             
           </div>
           <a class="i-add" @click.prevent="mods.include = !mods.include">добавить</a>
           <div class="include-mods" >
+            <!-- <dishmod :key="mod.id_Mod"  :data="mod" :dishId="dishData.id" :type="'include'"
+                                 v-for="(mod) in data.dishes[this.activeDish].ModGroups[1].mods" ></dishmod> -->
             <ul :class="{active: mods.include}">
               123
             </ul>
@@ -683,6 +686,55 @@ export default {
         exclude: false
       }
     };
+  },
+  props: ["data"],
+  methods: {
+    isActiveDish: function(index) {
+      if (index == this.activeDish) {
+        return true;
+      }
+    },
+    addToCart: function() {
+      let dishData = {
+        id: this.data.dishes[this.activeDish].id,
+        dishName: this.data.dishes[this.activeDish].dishName,
+        dishShortName: this.data.dishes[this.activeDish].dishShortName,
+        dishExtName: this.data.ExternalName,
+        price: this.data.dishes[this.activeDish].Price,
+        outPrice: this.data.dishes[this.activeDish].OutPrice,
+        sellType: "COUNT",
+        mods: [],
+        idShop: 3,
+        position: this.data.ShowOrder,
+        fullData: this.data.dishes[this.activeDish].fullData
+      };
+
+      this.$store.commit("addToCart", { value: dishData });
+      alert("Добавлено");
+    },
+    setActiveDish: function(index) {
+      this.activeDish = index;
+    }
+  },
+  computed: {
+    dishData: function() {
+      return this.data.dishes[this.activeDish];
+    },
+    getPrice: function() {
+      let price = 0;
+      if (typeof this.data.dishes[this.activeDish] != "undefined") {
+        price = this.data.dishes[this.activeDish].Price.slice(0, -3);
+      }
+      return price;
+    },
+    getWeight: function() {
+      if (typeof this.data.dishes[this.activeDish] != "undefined") {
+        return this.data.dishes[this.activeDish].fullData.ExitMass;
+      }
+    },
+    getModWidth: function() {
+      return 100 / this.data.dishes.length;
+    }
   }
 };
 </script>

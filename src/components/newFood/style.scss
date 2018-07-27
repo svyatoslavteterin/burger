@@ -47,14 +47,40 @@
     flex-wrap: wrap;
     justify-content: flex-start;
     .i-item {
-      font-size: 18px;
-      color: #808080;
       margin: 0 5px 0 0;
 
-      span {
+      .mod-name {
+        font-size: 18px;
+        color: #808080;
+      }
+
+      .mod-name-deleted {
+        text-decoration: line-through;
+      }
+
+      .mod-delete-icon {
+        color: black;
+        background: url("img/icons_close_min.png") center no-repeat;
+        background-size: contain; 
+        cursor: pointer;
+        width: 9px;
+        height: 9px;
+        display: inline-block;
+        margin: 0 0 0 2px;
+      }
+
+      .mod-return-icon {
         color: black;
         cursor: pointer;
-        margin: 0 0 -3px -3px;
+        font-size: 17px;
+        width: 9px;
+        height: 9px;
+        display: inline-block;
+        margin: 0 0 0 2px;
+        &::before {
+          content: '+';
+          display: inline-block;
+        }
       }
     }
   }
@@ -174,7 +200,7 @@
     position: relative;
     cursor: pointer;
     width: 50%;
-    max-height: 200px;
+    max-height: 253px;
 
     img {
       width: 100%;
@@ -258,6 +284,7 @@
     width: 21px;
     height: 21px;
     background: url("img/icons_close_max.png") center no-repeat;
+    background-size: contain;
     position: absolute;
     top: 14px;
     right: 10px;
