@@ -24,9 +24,7 @@
             <div class="container food">
                 <div class="row">
                     <div class="container">
-                        <div class="items">
-                            <Food v-for="food in foods" v-bind:key="food.id" :data="food"></Food>
-                        </div> <!--items-->
+                        <Foods :data="foods"></Foods>
                     </div>
                 </div>
             </div>
@@ -38,7 +36,7 @@
     // @ is an alias to /src
     import MainMenu from "@/components/newMainMenu";
     import filters from "@/components/newFilter";
-    import Food from "@/components/newFood";
+    import Foods from "@/components/newFood";
     import MainOffer from "@/components/mainOffer";
     import search from "@/components/newSearch";
 
@@ -47,7 +45,7 @@
         components: {
             MainOffer,
             MainMenu,
-            Food,
+            Foods,
             filters,
             search
         },

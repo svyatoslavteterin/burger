@@ -33,7 +33,7 @@
             </div>
         </modal>
 
-        <foodItem v-for="food in data" :key="food.id"></foodItem>
+        <foodItem v-for="food in data" :key="food.id" :data="food"></foodItem>
 
     </div> <!--items-->
 </template>
@@ -43,7 +43,7 @@
     import "./style.scss";
 
     export default {
-        components: {VuePerfectScrollbar, dishmod, newDishmod},
+        components: {VuePerfectScrollbar, foodItem},
         data() {
             return {
                 showCounter: false,
