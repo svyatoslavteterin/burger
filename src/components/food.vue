@@ -8,7 +8,8 @@
         <div class="ui-control-foodsize">
             <ul>
                 <li :style="{ width: getModWidth+'%'}" :class="{ active: isActiveDish(index) }"
-                    v-for="(dish,index) in data.dishes" :key="index"><a href="" @click.prevent="setActiveDish(index)">{{dish.dishName}}</a>
+                    v-for="(dish,index) in data.dishes" :key="index">
+                    <a href="" @click.prevent="setActiveDish(index)">{{dish.dishName}}</a>
                 </li>
             </ul>
         </div>
@@ -18,10 +19,10 @@
                     <i class="icon-plus-circled"></i>Добавить
                     в
                     блюдо</a>
-                <div class="include-mods" >
+                <div class="include-mods">
                     <ul :class="{active:mods.include}">
-                        <dishmod :key="mod.id_Mod"  :data="mod" :dishId="dishData.id" :type="'include'"
-                                 v-for="(mod) in data.dishes[this.activeDish].ModGroups[1].mods" ></dishmod>
+                        <dishmod :key="mod.id_Mod" :data="mod" :dishId="dishData.id" :type="'include'"
+                                 v-for="(mod) in data.dishes[this.activeDish].ModGroups[1].mods"></dishmod>
                     </ul>
                 </div>
 
@@ -32,10 +33,10 @@
                     <i class="icon-minus-circled"></i>Убрать
                     из
                     блюда</a>
-                <div class="exclude-mods" >
+                <div class="exclude-mods">
                     <ul :class="{active:mods.exclude}">
-                        <dishmod :key="mod.id_Mod"  :data="mod" :dishId="dishData.id" :type="'exclude'"
-                                 v-for="(mod) in data.dishes[this.activeDish].ModGroups[2].mods" ></dishmod>
+                        <dishmod :key="mod.id_Mod" :data="mod" :dishId="dishData.id" :type="'exclude'"
+                                 v-for="(mod) in data.dishes[this.activeDish].ModGroups[2].mods"></dishmod>
                     </ul>
                 </div>
             </div>

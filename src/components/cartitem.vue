@@ -42,10 +42,11 @@
 <script>
     import imageUrl from "@/assets/images/200x200.png";
     import dishmod from "@/components/dishmod.vue";
+
     export default {
 
-        components:{
-          dishmod
+        components: {
+            dishmod
         },
         methods: {
             removeDish() {

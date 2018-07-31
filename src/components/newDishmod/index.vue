@@ -8,8 +8,8 @@
         <div class="scrollbar-wrapper">
             <VuePerfectScrollbar class="modal-scrollbar" v-once :settings="settings">
                 <ul class="mods">
-                    <dishModItem :key="mod.id_Mod" :data="mod" :dishId="dishData.id" :type="'include'"
-                                 v-for="(mod) in data.dishes[this.activeDish].ModGroups[1].mods"></dishModItem>
+                    <dishModItem :key="mod.id_Mod" :data="mod" :dishId="dishId" :type="'include'"
+                                 v-for="(mod) in mods"></dishModItem>
                 </ul>
             </VuePerfectScrollbar>
 
@@ -26,10 +26,13 @@
         components: {VuePerfectScrollbar, dishModItem},
         data() {
             return {
+                settings: {
+                    maxScrollbarLength: 60
+                },
                 okButton: false
             };
         },
-        props: ["data"]
+        props: ["mods","dishId"]
     };
 </script>
 

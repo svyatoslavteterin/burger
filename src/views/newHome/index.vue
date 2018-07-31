@@ -24,7 +24,7 @@
             <div class="container food">
                 <div class="row">
                     <div class="container">
-                        <Foods :data="foods"></Foods>
+                        <Foods :foods="foods"></Foods>
                     </div>
                 </div>
             </div>

@@ -7,15 +7,16 @@
             <a class="i-add" @click.prevent="mods.include = !mods.include">добавить</a>
             <a class="i-more">развернуть</a>
 
-            <dishMods></dishMods>
+            <dishMods :mods="data.dishes[this.activeDish].ModGroups[1]"
+                      :dishId="this.data.dishes[this.activeDish]"></dishMods>
             <modGroups></modGroups>
             <div class="bottom">
                 <div class="price"><span v-text="getPrice"></span><span>₽</span></div>
                 <div class="weight"><span v-text="getWeight"></span> г.</div>
                 <button class="in-basket" v-show="!showCounter" @click="showCounter = !showCounter">В корзину</button>
-                <div v-show="showCounter" class="counter-block">
-                    <amountControls></amountControls>
-                </div>
+
+                <amountControls :count="count" :showCounter="showCounter"></amountControls>
+
             </div>
         </div><!--chars-->
         <div class="pic" @click="$modal.show('info')">
@@ -39,7 +40,12 @@
         components: {dishMods, dishModItem, amountControls, modGroups},
         methods: {
 
-
+            increment() {
+                this.$store.commit('addEquentity', {"value": this.data});
+            },
+            decrement() {
+                this.$store.commit('removeEquentity', {"value": this.data});
+            },
             isActiveDish: function (index) {
                 if (index == this.activeDish) {
                     return true;
@@ -73,10 +79,11 @@
         data() {
             return {
                 activeDish: 0,
+                showCounter: false,
                 mods: {
                     include: false,
                     exclude: false
-                }
+                },
             }
         },
 
@@ -89,6 +96,19 @@
 
         },
         computed: {
+            count: {
+                get: function () {
+                    let count = 0;
+                    const dish = this.$store.state.cart.find(p => p.id === this.data.dishes[this.activeDish].id);
+                    if (dish) {
+                        count = dish.count
+                    }
+                    return count;
+                },
+                set: function () {
+
+                }
+            },
             dishData: function () {
                 return this.data.dishes[this.activeDish];
             },

@@ -33,7 +33,7 @@
             </div>
         </modal>
 
-        <foodItem v-for="food in data" :key="food.id" :data="food"></foodItem>
+        <foodItem v-for="food in foods" :key="food.id" :data="food"></foodItem>
 
     </div> <!--items-->
 </template>
@@ -46,7 +46,6 @@
         components: {VuePerfectScrollbar, foodItem},
         data() {
             return {
-                showCounter: false,
                 settings: {
                     maxScrollbarLength: 60
                 },
@@ -57,7 +56,7 @@
                 }
             };
         },
-        props: ["data"],
+        props: ["foods"],
         methods: {
             isActiveDish: function (index) {
                 if (index == this.activeDish) {
