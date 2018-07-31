@@ -7,8 +7,8 @@
             <a class="i-add" @click.prevent="mods.include = !mods.include">добавить</a>
             <a class="i-more">развернуть</a>
 
-            <dishMods :mods="data.dishes[this.activeDish].ModGroups[1]"
-                      :dishId="this.data.dishes[this.activeDish]"></dishMods>
+            <dishMods :mods="data.dishes[this.activeDish].ModGroups[1].mods"
+                      :dishId="this.data.dishes[this.activeDish].id"></dishMods>
             <modGroups></modGroups>
             <div class="bottom">
                 <div class="price"><span v-text="getPrice"></span><span>₽</span></div>
