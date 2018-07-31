@@ -136,11 +136,7 @@
             },
             getImage: function () {
 
-                // if (this.data.ImageName.indexOf('empty')>0){
-
-                //  }else{
-                // imageUrl='http://api.burger.jmedia.pro/public/images/'+this.data.id+'/430-275/'+this.data.ImageName;
-                //  }
+                imageUrl=``;
                 return imageUrl;
             },
             getModWidth: function () {

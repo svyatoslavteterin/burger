@@ -13,9 +13,9 @@
             </div>
             <div v-if="login == 1" class="header-right-block1">
                 <div class="price_block">
-                    <div class="price">1990₽</div>
+                    <div class="price"><span v-text="this.getCartSum"></span> ₽</div>
                 </div>
-                <div class="basket">Корзина</div>
+                <router-link to="/cart"><div class="basket">Корзина</div></router-link>
                 <a href="#" @click.prevent="login = 2" class="sign_in">Войти</a>
             </div>
             <div v-if="login == 2" class="header-right-block2">
@@ -28,9 +28,9 @@
             </div>
             <div v-if="login == 3" class="header-right-block3">
                 <div class="price_block">
-                    <div class="price">1990₽</div>
+                    <div class="price"><span v-text="this.getCartSum"></span>₽</div>
                 </div>
-                <div class="basket">Корзина</div>
+                <router-link to="/cart"><div class="basket">Корзина</div></router-link>
                 <div class="person-info-block">
                     <img src="./img/person.png" alt="avatar" class="avatar"/>
                     <div class="person-info-block-texts">
@@ -45,14 +45,31 @@
     </header>
 </template>
 <script>
-    import "./style.scss";
+  import "./style.scss";
 
-    export default {
-        data() {
-            return {
-                login: 1
-            };
+  export default {
+    data() {
+      return {
+        login: 1
+      };
+    },
+    computed: {
+      getCartSum: function () {
+        let summ = 0;
+        if (this.$store.state.cart.length > 0) {
+          this.$store.state.cart.forEach(item => {
+            let itemPrice = +item.price;
+            if (item.mods.length > 0) {
+              item.mods.forEach(mod => {
+                itemPrice += +mod.summ;
+              });
+            }
+            summ += itemPrice * item.count;
+          });
         }
-    };
+        return summ;
+      },
+    }
+  };
 </script>
 

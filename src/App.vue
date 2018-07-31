@@ -465,21 +465,7 @@
         created: function () {
         },
         computed: {
-            getCartSum: function () {
-                let summ = 0;
-                if (this.$store.state.cart.length > 0) {
-                    this.$store.state.cart.forEach(item => {
-                        let itemPrice = +item.price;
-                        if (item.mods.length > 0) {
-                            item.mods.forEach(mod => {
-                                itemPrice += +mod.summ;
-                            });
-                        }
-                        summ += itemPrice * item.count;
-                    });
-                }
-                return summ + " ₽";
-            },
+
             checkLogin: function () {
                 if (
                     Object.keys(this.$store.state.authUser).length === 0 &&
