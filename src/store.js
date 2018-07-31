@@ -42,6 +42,7 @@ export default new Vuex.Store({
             state.foods = payload.value;
         },
         addToCart: function (state, payload) {
+
             const dish = state.cart.find(p => p.id === payload.value.id);
 
 
@@ -118,6 +119,7 @@ export default new Vuex.Store({
         },
 
         addEquentity: function (state, payload) {
+
             const dish = state.cart.find(p => p.id === payload.value.id);
 
             dish.count++;

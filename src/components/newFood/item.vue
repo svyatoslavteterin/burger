@@ -13,9 +13,10 @@
             <div class="bottom">
                 <div class="price"><span v-text="getPrice"></span><span>₽</span></div>
                 <div class="weight"><span v-text="getWeight"></span> г.</div>
-                <button class="in-basket" v-show="!showCounter" @click="showCounter = !showCounter">В корзину</button>
+                <button class="in-basket" v-show="!showCounter" @click="addToCart">В корзину</button>
 
-                <amountControls :count="count" :showCounter="showCounter"></amountControls>
+                <amountControls v-show="showCounter" :count="count" :showCounter="showCounter"
+                                v-on:decrement="decrement" v-on:increment="increment"></amountControls>
 
             </div>
         </div><!--chars-->
@@ -41,10 +42,10 @@
         methods: {
 
             increment() {
-                this.$store.commit('addEquentity', {"value": this.data});
+                this.$store.commit('addEquentity', {"value": this.data.dishes[this.activeDish]});
             },
             decrement() {
-                this.$store.commit('removeEquentity', {"value": this.data});
+                this.$store.commit('removeEquentity', {"value": this.data.dishes[this.activeDish]});
             },
             isActiveDish: function (index) {
                 if (index == this.activeDish) {
@@ -52,6 +53,8 @@
                 }
             },
             addToCart: function () {
+              this.showCounter = !this.showCounter;
+
                 let dishData = {
                     id: this.data.dishes[this.activeDish].id,
                     dishName: this.data.dishes[this.activeDish].dishName,
@@ -74,7 +77,7 @@
             }
         },
         created() {
-
+            this.showCounter=!!this.count;
         },
         data() {
             return {

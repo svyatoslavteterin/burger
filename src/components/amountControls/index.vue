@@ -1,20 +1,26 @@
 <template>
-    <div v-show="showCounter" class="counter-block">
-        <button class="counter" @click="$emit('decrement')">−</button>
-        <span class="label-counter">{{count}}</span>
-        <button class="counter" @click="$emit('increment')">+</button>
+    <div class="counter-block">
+        <button class="counter" @click="decrement">−</button>
+        <span class=" label-counter
+        ">{{count}}</span>
+        <button class="counter" @click="increment">+</button>
     </div>
 </template>
 <script>
-    export default {
-        data() {
-            return {
-                showCounter:false
-            }
-        },
-        methods: {},
-        props: ['count']
+  export default {
+    data() {
+      return {}
+    },
+    methods: {
+      decrement() {
+        this.$emit('decrement');
+      },
+      increment() {
+        this.$emit('increment');
+      }
+    },
+    props: ['count']
 
 
-    }
+  }
 </script>
