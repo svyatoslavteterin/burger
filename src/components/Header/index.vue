@@ -15,7 +15,73 @@
             <div class="price_block">
                 <div class="price">1990₽</div>
             </div>
-            <div class="basket">Корзина</div>
+            <a href="#" @click.prevent="basket = true" class="basket">Корзина</a>
+            <div v-if="basket == true" class="basket-block">
+                <div class="triangle"></div>
+                <div class="basket-block-food-block">
+                    <div class="basket-block-food-block-left">
+                        <div class="basket-block-food-image"></div>
+                        <div class="food-name-and-price-block">
+                            <div class="food-name">Куриная</div>
+                            <div class="food-price">1050 ₽</div>
+                        </div>
+                        <div class="food-size-block">
+                            <select class="size-selector">
+                                <option>макси</option>
+                                <option>мини</option>
+                            </select>
+                            <div class="food-weight">1125 г</div>
+                        </div>
+                    </div>
+                    <div class="basket-block-food-block-right">
+                        <div class="amount-food-block">
+                            <div class="plus-minus-block">
+                                <div class="minus">-</div>
+                            </div>
+                            <div class="amount-food-num">2</div>
+                            <div class="plus-minus-block">
+                                <div class="plus">+</div>
+                            </div>
+                        </div>
+                        <div class="delete-button">удалить</div>
+                    </div>
+                </div>
+                <div class="basket-block-food-block">
+                    <div class="basket-block-food-block-left">
+                        <div class="basket-block-food-image"></div>
+                        <div class="food-name-and-price-block">
+                            <div class="food-name">маргарита</div>
+                            <div class="food-price">270 ₽</div>
+                        </div>
+                        <div class="food-size-block">
+                            <select class="size-selector">
+                                <option>макси</option>
+                                <option>мини</option>
+                            </select>
+                            <div class="food-weight">280 г</div>
+                        </div>
+                    </div>
+                    <div class="basket-block-food-block-right">
+                        <div class="amount-food-block">
+                            <div class="plus-minus-block">
+                                <div class="minus">-</div>
+                            </div>
+                            <div class="amount-food-num">1</div>
+                            <div class="plus-minus-block">
+                                <div class="plus">+</div>
+                            </div>
+                        </div>
+                        <div class="delete-button">удалить</div>
+                    </div>
+                </div>
+                <div class="totals-block">
+                    <div class="totals-text">
+                        Итого: 
+                        <span class="totals-text-bold">1320 ₽</span>
+                    </div>
+                    <div class="go-to-basket-button">перейти в корзину</div>
+                </div>
+            </div>
             <a href="#" @click.prevent="login = 2" class="sign_in">Войти</a>
         </div>
          <div v-if="login == 2" class="header-right-block2">
@@ -49,7 +115,8 @@ import "./style.scss";
 export default {
   data() {
     return {
-      login: 1
+      login: 1,
+      basket: false
     };
   }
 };
