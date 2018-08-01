@@ -182,12 +182,20 @@ export default new Vuex.Store({
 
             return summ;
         },
-        getCartSum(state, getters) {
+        getCartSum(state) {
             const {cart} = state;
             let summ = 0;
 
             if (cart.length > 0) {
-                summ = getters.getModsSum + getters.getDishSum;
+                cart.forEach(item => {
+                    summ += +item.price * item.count;
+                    if (item.mods.length > 0) {
+                        item.mods.forEach(mod => {
+                            summ += +mod.summ;
+                        });
+                    }
+                });
+
             }
 
             return summ;
