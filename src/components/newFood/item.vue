@@ -5,8 +5,10 @@
 
             <a class="i-add" @click.prevent="mods.include = !mods.include">добавить</a>
             <a class="i-more">развернуть</a>
-
-
+            <div class="include-mods">
+                <dishMods v-if="mods.include" :mods="data.dishes[this.activeDish].ModGroups[1].mods"
+                          :dishId="data.dishes[this.activeDish].id"></dishMods>
+            </div>
             <Dishes :dishes="this.data.dishes" :activeDish="this.activeDish"
                     v-on:setActiveDish="setActiveDish"></Dishes>
             <div class="bottom">
@@ -20,7 +22,7 @@
             </div>
         </div><!--chars-->
         <div class="pic" @click="$modal.show('info')">
-            <img src="./img/pizzoni_parts_03.jpg" alt="">
+            <img :src="getImage" alt="">
             <div class="arrow"></div>
             <div class="detail">
                 <div class="detail-img"></div>
@@ -32,12 +34,11 @@
 
 <script>
   import dishMods from "@/components/newDishmod";
-  import dishModItem from "@/components/newDishmod/item.vue";
   import amountControls from "@/components/amountControls";
   import Dishes from "@/components/Dishes";
 
   export default {
-    components: {dishMods, dishModItem, amountControls, Dishes},
+    components: {dishMods, amountControls, Dishes},
     methods: {
 
       increment() {
@@ -75,7 +76,7 @@
       }
     },
     created() {
-      
+
     },
     data() {
       return {
@@ -96,7 +97,7 @@
 
     },
     computed: {
-      showCounter:function() {
+      showCounter: function () {
         return this.count > 0 ? true : false;
       },
       count: {
@@ -129,12 +130,9 @@
         }
       },
       getImage: function () {
+        const imageUrl = `https://imgtest.burgerpizzoni.ru/_img/Rest/${this.data.ImageName}`;
 
-        // if (this.data.ImageName.indexOf('empty')>0){
-
-        //  }else{
-        // imageUrl='http://api.burger.jmedia.pro/public/images/'+this.data.id+'/430-275/'+this.data.ImageName;
-        //  }
+        console.log(imageUrl);
         return imageUrl;
       },
       getModWidth: function () {

@@ -42,22 +42,3 @@ new Vue({
     store,
     render: h => h(App)
 }).$mount('#app')
-
-// let offsetHeight = document.querySelector('.header__topline').offsetHeight;
-
-// if (document.querySelector('#slider')) {
-//     offsetHeight += document.querySelector('#slider').offsetHeight;
-// }
-
-
-// function fixedNavbar() {
-//     if (document.querySelector('#mainnavbar')) {
-//         if (window.pageYOffset >= offsetHeight) {
-//             document.querySelector('#mainnavbar').classList.add("fixed");
-//         } else {
-//             document.querySelector('#mainnavbar').classList.remove("fixed");
-//         }
-//     }
-// }
-
-// window.addEventListener('scroll', fixedNavbar);
