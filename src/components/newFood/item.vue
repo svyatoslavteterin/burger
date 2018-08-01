@@ -5,8 +5,9 @@
 
             <a class="i-add" @click.prevent="mods.include = !mods.include">добавить</a>
             <a class="i-more">развернуть</a>
-
-
+            <div class="include-mods" >
+                <dishMods v-if="mods.include" :mods="data.dishes[this.activeDish].ModGroups[1].mods"></dishMods>
+            </div>
             <Dishes :dishes="this.data.dishes" :activeDish="this.activeDish"
                     v-on:setActiveDish="setActiveDish"></Dishes>
             <div class="bottom">
@@ -32,12 +33,11 @@
 
 <script>
   import dishMods from "@/components/newDishmod";
-  import dishModItem from "@/components/newDishmod/item.vue";
   import amountControls from "@/components/amountControls";
   import Dishes from "@/components/Dishes";
 
   export default {
-    components: {dishMods, dishModItem, amountControls, Dishes},
+    components: {dishMods, amountControls, Dishes},
     methods: {
 
       increment() {
@@ -75,7 +75,7 @@
       }
     },
     created() {
-      
+
     },
     data() {
       return {
