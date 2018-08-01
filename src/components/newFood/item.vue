@@ -6,7 +6,7 @@
             <a class="i-add" @click.prevent="mods.include = !mods.include">добавить</a>
             <a class="i-more">развернуть</a>
             <div class="include-mods" >
-                <dishMods v-if="mods.include" :mods="data.dishes[this.activeDish].ModGroups[1].mods"></dishMods>
+                <dishMods v-if="mods.include" :mods="data.dishes[this.activeDish].ModGroups[1].mods" :dishId="data.dishes[this.activeDish].id"></dishMods>
             </div>
             <Dishes :dishes="this.data.dishes" :activeDish="this.activeDish"
                     v-on:setActiveDish="setActiveDish"></Dishes>
