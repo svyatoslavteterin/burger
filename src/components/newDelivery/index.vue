@@ -16,10 +16,22 @@
         Самовывоз
       </div>
     </div>
-    <div v-if="activeTab == 1" class="modal-wrapper">
+    <div v-if="activeTab == 1" class="modal-wrapper delivery">
       <div class="hello-message">Введите ваш адрес и мы сообщим, входит ли он в зону доставки</div>
 
-      <input class="search-input" type="text" placeholder="Адрес доставки">
+      <div class="search-wrapper">
+        <input class="search-input" type="text" v-model="q" placeholder="Адрес доставки" required>
+        <button class="search-btn"></button>
+        <button class="clear-btn" @click="clearSearch"></button>
+        <ul class="result">
+          <li>Петрозаводск <span>город</span></li>
+          <li>Петрозаводская <span>здание</span></li>
+          <li>Петрозаводская, 13 <span>здание</span></li>
+          <li>Петрозаводская, 15 <span>здание</span></li>
+          <li>Петрозаводская, 7А <span>здание</span></li>
+          <li>Петрозаводское шоссе <span>улица</span></li>
+        </ul>
+      </div>
 
       <div class="small-inputs-wrapper">
         <div class="small-wrapper">
@@ -146,8 +158,14 @@ export default {
       okButton: false,
       okDelivery: false,
       okSelfDelivery: false,
-      activeTab: 1
+      activeTab: 1,
+      q: ""
     };
+  },
+  methods: {
+    clearSearch() {
+      this.q = "";
+    }
   }
 };
 </script>
