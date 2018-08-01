@@ -526,7 +526,7 @@
 
         mounted: function () {
             this.$http
-                .get("https://apitest.burgerpizzoni.ru/api/menu/getMenuFront")
+                .get("https://apitest.burgerpizzoni.ru/api/Menu/getMenu")
                 .then(response => {
                     this.menu = response.data.menu;
 
