@@ -88,7 +88,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="#" @click.prevent="login = 2" class="sign_in">Войти</a>
+                <a href="#" @click.prevent="$modal.show('login')" class="sign_in">Войти</a>
             </div>
             <div v-if="login == 2" class="header-right-block2">
                 <div class="hello-block">
