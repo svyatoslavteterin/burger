@@ -3,7 +3,11 @@
         <div class="modal-header">
             <button class="info-modal-close" @click="okButton = !okButton">OK</button>
             <div class="info-yellow-block">Добавлено</div>
-            <div class="info-title">+274<span>₽</span></div>
+            <div class="info-title">
+                +
+                <span v-text="this.$store.getters.getModsSum[dishId]"></span>
+                ₽
+            </div>
         </div>
         <div class="scrollbar-wrapper">
             <VuePerfectScrollbar class="modal-scrollbar" v-once :settings="settings">
