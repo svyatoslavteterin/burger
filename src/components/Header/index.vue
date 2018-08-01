@@ -1,7 +1,6 @@
 <template>
   <header class="header">
     <delivery></delivery>
-    <samovivoz></samovivoz>
     <div class="header-center">
       <div class="header-left-block">
           <a href="/"><img src="./img/logo.svg" alt="logo" class="logo"/></a>
@@ -48,10 +47,9 @@
 <script>
 import "./style.scss";
 import delivery from "@/components/newDelivery";
-import samovivoz from "@/components/newSamovivoz";
 
 export default {
-  components: { delivery, samovivoz },
+  components: { delivery },
   data() {
     return {
       login: 1
