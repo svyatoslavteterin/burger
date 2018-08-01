@@ -1,7 +1,7 @@
 <template>
-  <div class="delivery" v-if="!okButton">
+  <modal name="delivery" class="delivery" height="auto" adaptive v-cloak>
     <div class="modal-header">
-      <button @click="okButton = !okButton" class="info-modal-close"></button>
+      <button @click="$modal.hide('delivery')" class="info-modal-close"></button>
       <div class="info-yellow-block">Способ покупки</div>
       <div
         @click="activeTab = 1"
@@ -133,7 +133,7 @@
       </div>
 
     </div>
-  </div>
+  </modal>
 </template>
 <script>
 import VuePerfectScrollbar from "vue-perfect-scrollbar";

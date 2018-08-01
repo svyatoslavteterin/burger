@@ -5,9 +5,7 @@
   width: 640px;
   height: 400px;
   background: white;
-  z-index: 2;
-
-  // Шапка модального окна
+  z-index: 9999; // Шапка модального окна
   .modal-header {
     display: flex;
     justify-content: flex-start;
@@ -16,19 +14,17 @@
     padding: 0;
     height: 48px;
     border-bottom: 0;
-  
     .info-yellow-block {
       background: #ffd70f;
       padding: 10px;
       display: block;
       height: 100%;
-      width: 35%;
+      width: 222px;
       color: black;
       font-size: 21px;
       text-align: center;
       text-transform: uppercase;
     }
-  
     .tab-name {
       cursor: pointer;
       display: block;
@@ -43,7 +39,6 @@
         background: white;
       }
     }
-  
     .info-modal-close {
       width: 21px;
       height: 21px;
@@ -59,31 +54,22 @@
       opacity: .5;
       cursor: pointer;
       transition: all .2s ease-in-out;
-  
       &:hover {
         opacity: 1;
       }
     }
   }
-  
   .info-modal-pic {
     width: 100%;
     max-height: 540px;
     img {
       width: 100%;
       object-fit: contain;
-  
     }
-  }
-
-  // КОНЕЦ Шапка модального окна
-  
+  } // КОНЕЦ Шапка модального окна
   .modal-wrapper {
     padding: 30px;
-    position: relative;
-
-    //Доставка
-
+    position: relative; //Доставка
     .hello-message {
       color: black;
       width: 100%;
@@ -91,7 +77,6 @@
       font-size: 18px;
       margin-bottom: 15px;
     }
-
     .search-input {
       text-transform: uppercase;
       border: 1px solid #b2b2b2;
@@ -109,18 +94,15 @@
         color: #b2b2b2;
       }
     }
-
     .small-inputs-wrapper {
       display: flex;
       flex-wrap: nowrap;
       justify-content: space-between;
       margin-bottom: 15px;
     }
-
     .small-wrapper {
       position: relative;
       width: 23%;
-
       label {
         position: absolute;
         top: 25%;
@@ -135,7 +117,6 @@
         pointer-events: none;
       }
     }
-
     .small-input {
       position: relative;
       text-transform: uppercase;
@@ -145,12 +126,10 @@
       font-size: 14px;
       text-align: center;
       width: 100%;
-
       &:focus,
       &:valid {
         outline: 0;
         border: 1px solid #ffd70f;
-
         &~label {
           width: auto;
           height: auto;
@@ -160,18 +139,15 @@
         }
       }
     }
-
     .recieve-code-wrapper {
       display: flex;
       flex-wrap: nowrap;
       justify-content: center;
       margin-bottom: 15px;
     }
-
     .phone-wrapper {
       width: 50%;
     }
-
     .phone-input {
       text-transform: uppercase;
       border: 1px solid #b2b2b2;
@@ -185,7 +161,6 @@
         border: 1px solid #ffd70f;
       }
     }
-
     .phone-btn {
       text-transform: uppercase;
       border: 1px solid #b2b2b2;
@@ -206,19 +181,16 @@
         outline: 0;
       }
     }
-
     .send-code-wrapper {
       display: flex;
       flex-wrap: nowrap;
       justify-content: center;
       margin-bottom: 30px;
     }
-
     .code-wrapper,
     .code-btn {
       width: 25%;
     }
-
     .send-link-again-wrapper {
       width: 100%;
       text-align: center;
@@ -228,28 +200,20 @@
       font-size: 18px;
       margin: 0 auto;
       text-decoration: underline;
-
       &:hover {
         color: black;
       }
-
       &:focus {
         outline: 0;
       }
-    }
-
-    // Конец Доставка
-
+    } // Конец Доставка
     // Самовывоз
-
     .addresses-wrapper {
       height: 200px;
-
       .modal-scrollbar {
         max-height: 200px;
       }
     }
-
     .radio-container {
       display: flex;
       flex-wrap: wrap;
@@ -270,19 +234,16 @@
       -ms-user-select: none;
       user-select: none;
     }
-
     .rb-container .work-time {
       display: block;
       font-size: 12px;
       color: #808080;
     }
-
     /* Hide the browser's default radio button */
     .rb-container input {
       position: absolute;
       opacity: 0;
     }
-
     /* Create a custom radio button */
     .checkmark {
       position: absolute;
@@ -294,30 +255,25 @@
       border-radius: 50%;
       border: 1px solid #b2b2b2;
     }
-
     /* On mouse-over, add a grey background color */
-    .rb-container:hover input ~ .checkmark {
+    .rb-container:hover input~.checkmark {
       border: 1px solid #808080;
     }
-
     /* When the radio button is checked, add a blue background */
-    .rb-container input:checked ~ .checkmark {
+    .rb-container input:checked~.checkmark {
       background-color: #ffffff;
       border: 1px solid #808080;
     }
-
     /* Create the indicator (the dot/circle - hidden when not checked) */
     .checkmark:after {
       content: "";
       position: absolute;
       display: none;
     }
-
     /* Show the indicator (dot/circle) when checked */
-    .rb-container input:checked ~ .checkmark:after {
+    .rb-container input:checked~.checkmark:after {
       display: block;
     }
-
     /* Style the indicator (dot/circle) */
     .rb-container .checkmark:after {
       top: 4px;
@@ -327,7 +283,6 @@
       border-radius: 50%;
       background: #ffd70f;
     }
-
     .selfdelivery-btn {
       display: block;
       background: #ffd70f;
@@ -339,10 +294,7 @@
       cursor: pointer;
       padding: 6px 50px 4px;
       margin: 16px auto 0;
-    }
-
-    // Конец Самовывоз
-
+    } // Конец Самовывоз
     .thank-you-message {
       background: white;
       padding: 50px 30px 30px;
@@ -351,7 +303,6 @@
       left: 0;
       width: 100%;
       height: 100%;
-
       p {
         color: black;
         width: 100%;
@@ -362,7 +313,6 @@
       .address {
         margin-bottom: 25px;
       }
-
       button {
         display: block;
         background: #ffd70f;
@@ -376,9 +326,5 @@
         margin: 30px auto 0;
       }
     }
-
   }
-  
-  
 }
-
