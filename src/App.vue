@@ -6,115 +6,10 @@
                 <router-view :menu="menu" :tags="tags" :foods="foods" :cartItems="cartItems"/>
             </keep-alive>
         </transition>
-        <modal name="login" height="auto" adaptive v-cloak>
-            <button @click="$modal.hide('login')" class="modal-close">
-                x
-            </button>
-            <h3 class="modal-header">Авторизация</h3>
-            <div class="modal-body">
-                <form name="login" action="/" method="post" @submit.prevent="auth" id="auth-form">
-                    <div v-if="Object.keys(errors.login).length!==0">
-                        <b>Пожалуйста исправьте указанные ошибки:</b>
-                        <ul>
-                            <li v-for="(error,index) in errors.login" v-bind:key="index">{{ error }}</li>
-                        </ul>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="username" value="" placeholder="Телефон"
-                               v-model="phone" v-mask="'7-###-###-##-##'" masked="false"/>
-                    </div>
 
-                    <div class="form-group">
-                        <input type="password" class="form-control" name="password" value="" placeholder="Пароль"/>
-                        <a href="#" @click.prevent="restorePassword">Забыли пароль?</a>
-                    </div>
-
-                    <div class="form-group">
-                        <button type="submit" class="form-control" name="submit">Отправить</button>
-                    </div>
-
-                    <div class="form-group">
-                        <a href="#" @click.prevent="showRegister">Регистрация</a>
-                    </div>
-
-                </form>
-            </div>
-        </modal>
-
-
-        <modal name="register" height="auto" adaptive v-cloak>
-            <button @click="$modal.hide('register')" class="modal-close">
-                x
-            </button>
-            <h3 class="modal-header">Регистрация</h3>
-            <div class="modal-body">
-                <form name="register" action="/" method="post" @submit.prevent="register" id="reg-form">
-                    <div v-if="Object.keys(errors.register).length!==0">
-                        <b>Пожалуйста исправьте указанные ошибки:</b>
-                        <ul>
-                            <li v-for="(error,index) in errors.register" v-bind:key="index">{{ error }}</li>
-                        </ul>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="fullname" value="" placeholder="Имя"/>
-
-                    </div>
-
-
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="phone" value="" placeholder="Телефон"
-                               v-model="phone"
-                               v-mask="'7-###-###-##-##'" masked="false"/>
-                    </div>
-                    <div class=" form-group">
-                        <input type="password" class="form-control" name="password" value="" placeholder="Пароль"
-                               v-model="password"/>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" name="password_confirm" value=""
-                               placeholder="Подтверждение пароля" v-model="passwordConfirm"/>
-                    </div>
-
-
-                    <div class="form-group">
-                        <button type="submit" class="form-control" name="submit">Отправить</button>
-                    </div>
-
-                </form>
-            </div>
-        </modal>
-
-        <modal name="register2" height="auto" adaptive v-cloak>
-            <button @click="$modal.hide('register2')" class="modal-close">
-                x
-            </button>
-            <h3 class="modal-header">Регистрация- введите код из смс для активации</h3>
-            <div class="modal-body">
-                <form name="register2" action="/" method="post" @submit.prevent="activate" id="reg-form2">
-                    <div v-if="Object.keys(errors.register2).length!==0">
-                        <b>Пожалуйста исправьте указанные ошибки:</b>
-                        <ul>
-                            <li v-for="(error,index) in errors.register2" v-bind:key="index">{{ error }}</li>
-                        </ul>
-                    </div>
-                    <div class="form-group">
-                        <input type="hidden" class="form-control" name="phone" value="" placeholder="Телефон"
-                               v-model="phone" v-mask="'7-###-###-##-##'" masked="false"/>
-                    </div>
-
-                    <div class=" form-group">
-                        <input type="text" class="form-control" name="code" value="" placeholder="Код из смс"/>
-
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="form-control" name="submit">Отправить</button>
-                    </div>
-                    <input type="hidden" class="form-control" name="password" value="" v-model="password"/>
-                    <input type="hidden" class="form-control" name="password_confirm" value=""
-                           placeholder="Подтверждение пароля" v-model="passwordConfirm"/>
-                </form>
-            </div>
-        </modal>
+        <Login />
+		<Registration />
+       
         <modal name="restorepassword" height="auto" adaptive v-cloak>
             <button @click="$modal.hide('restorepassword')" class="modal-close">
                 x
@@ -187,17 +82,18 @@
 
 
 <script>
+    import _ from 'lodash';
     import axios from "axios";
     import headerModule from "@/components/Header";
     import footerModule from "@/components/Footer";
-
-    var _ = require("lodash");
+    import Login from '@/components/Login';
+	import Registration from '@/components/Registration';
 
     export default {
         beforeCreate() {
             this.$store.commit("initialiseStore");
         },
-        components: {headerModule, footerModule},
+        components: {headerModule, footerModule, Login, Registration},
         data() {
             return {
                 menu: [],
@@ -353,35 +249,6 @@
                 this.$modal.hide("login");
                 this.$modal.show("register");
             },
-
-            getAuthUser: async function (credentials) {
-                try {
-                    let response = await this.$http.post(
-                        "http://apitest.burgerpizzoni.ru/api/Profiles/login",
-                        credentials
-                    );
-                    return response.data;
-                } catch (error) {
-                    this.errors.login.request = "Неверные данные для входа";
-                    this.$forceUpdate();
-                }
-            },
-            auth: function () {
-                let formData = new FormData(document.querySelector("#auth-form"));
-
-                let credentials = {};
-                credentials.username = formData
-                    .get("username")
-                    .replace(new RegExp("-", "g"), "");
-                credentials.password = formData.get("password");
-                this.getAuthUser(credentials).then(authUser => {
-                    if (typeof authUser != "undefined") {
-                        this.$store.commit("setAuthUser", {value: authUser});
-                        this.$cookie.set("authUser", JSON.stringify(authUser), 1);
-                        this.$modal.hide("login");
-                    }
-                });
-            },
             register: function (e) {
                 if (this.checkForm(e)) {
                     let formData = new FormData(document.querySelector("#reg-form"));
@@ -395,49 +262,6 @@
                             if (!response.data.error) {
                                 this.$modal.hide("register");
                                 this.$modal.show("register2");
-                            } else {
-                                this.errors[e.target.getAttribute("name")][
-                                    response.data.error.code
-                                    ] =
-                                    response.data.error.message;
-                                this.$forceUpdate();
-                            }
-                        })
-                        .catch(error => {
-                            console.log(error);
-                        });
-                }
-            },
-            activate: function (e) {
-                if (this.checkForm(e)) {
-                    let formData = new FormData(document.querySelector("#reg-form2"));
-                    let data = {};
-                    data.code = formData.get("code");
-                    data.phone = formData.get("phone").replace(new RegExp("-", "g"), "");
-                    data.password = formData.get("password");
-
-                    let credentials = {username: data.phone, password: data.password};
-
-                    this.$http
-                        .post("http://apitest.burgerpizzoni.ru/api/Profiles/regStep2", data)
-                        .then(response => {
-                            if (!response.data.error) {
-                                this.getAuthUser(credentials).then(authUser => {
-                                    console.log(authUser);
-                                    if (typeof authUser != "undefined") {
-                                        this.$store.commit("setAuthUser", {value: authUser});
-                                        this.$cookie.set("authUser", JSON.stringify(authUser), 1);
-                                        this.$modal.hide("register2");
-                                    } else {
-                                        this.getAuthUser(credentials).then(authUser => {
-                                            if (typeof authUser != "undefined") {
-                                                this.$store.commit("setAuthUser", {value: authUser});
-                                                this.$cookie.set("authUser", JSON.stringify(authUser), 1);
-                                                this.$modal.hide("register2");
-                                            }
-                                        });
-                                    }
-                                });
                             } else {
                                 this.errors[e.target.getAttribute("name")][
                                     response.data.error.code
