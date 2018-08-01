@@ -63,6 +63,7 @@
   margin-top: 8px;
   font-size: 24px;
   font-weight: bold;
+  width: 205px;
 }
 .number2{
   margin-top: -4px;
@@ -99,21 +100,26 @@
   height: 25px;
   margin-top: 20px;
 }
+.hello-block{
+  width: 205px;
+}
 .hello-block-text{
   text-transform: uppercase;
   margin-top: 14px;
+  font-size: 16px;
 }
 .hello-block-text2{
   display: block;
   margin: -10px 0px 0px 145px;
   text-decoration: underline;
+  font-size: 16px;
 }
 .password-input{
   text-transform: uppercase;
   color: black;
   border: 1px solid #BFBFBF;
   border-radius: 5px;
-  padding: 10px 25px 5px 25px;
+  padding: 6px 25px 5px 25px;
   height: 42px;
   margin-top: 10px;
   font-size: 14px;
@@ -145,6 +151,151 @@
   margin-left: 20px;
   cursor: pointer;
 }
+.basket-block{
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #CFCFCF;
+  border-radius: 5px;
+  right: -100px;
+  min-width: 600px;
+  top: 50px;
+  background: white;
+  padding: 0px 20px 15px 20px;
+}
+.basket-block-food-block{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  margin-top: 15px;
+}
+.basket-block-food-image{
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
+  background: url('./img/pizza.png') center;
+}
+.food-name-and-price-block{
+  display: flex;
+  flex-direction: column;
+}
+.food-name{
+  text-transform: uppercase;
+  color: black;
+  font-size: 23px;
+  font-weight: bold;
+  margin-left: 15px; 
+}
+.food-price{
+  text-transform: uppercase;
+  color: black;
+  font-size: 31px;
+  margin-left: 15px;
+  margin-top: -5px;
+}
+.food-size-block{
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+.size-selector{
+  margin-top: 8px;
+}
+.food-weight{
+  color: #7E7E7E;
+  margin-top: 13px;
+  font-size: 17px;
+}
+.amount-food-block{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 80px;
+}
+.plus-minus-block{
+  border: 1px solid black;
+  border-radius: 100%;
+  margin-top: 30px;
+  padding: 1px 18px 0px 5px;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  font-size: 25px;
+  line-height: 22px;
+}
+.plus-minus-block:hover{
+  background-color: #ffd60f;
+  border: 1px solid #ffd60f;
+}
+.amount-food-num{
+  font-size: 23px;
+  margin-top: 24px;
+}
+.delete-button{
+  font-size: 20px;
+  color: black;
+  border: 1px solid black;
+  padding: 5px 20px 0px 20px;
+  border-radius: 24px;
+  height: 45px;
+  margin: 17px 20px 0px 20px;
+  cursor: pointer;
+}
+.delete-button:hover{
+  background-color: #ffd60f;
+  border: 1px solid #ffd60f;
+}
+.basket-block-food-block-left{
+  display: flex;
+  flex-direction: row;
+}
+.basket-block-food-block-right{
+  display: flex;
+  flex-direction: row;
+}
+.totals-block{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-top: 1px solid #DADADA;
+  margin-top: 20px;
+}
+.totals-text{
+  color: black;
+  font-size: 22px;
+  margin-top: 20px;
+}
+.totals-text-bold{
+  font-size: 25px;
+  font-weight: bold;
+}
+.go-to-basket-button{
+  color: black;
+  font-size: 19px;
+  background-color: #ffd60f;
+  height: 50px;
+  padding: 12px 35px 0px 35px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  margin-top: 13px;
+  cursor: pointer;
+}
+.triangle{
+  position: absolute;
+  border-left: 1px solid #CFCFCF;
+  border-top: 1px solid #CFCFCF;
+  transform: rotate(45deg);
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  right: 140px;
+  top: -11px;
+}
+.basket-wrapper{
+  margin-top: 18px;
+  position: relative;
+}
+
 @media screen and (max-width:1100px){
   .header-center{
     width: 100%;
@@ -154,5 +305,8 @@
   .header{
     display: flex;
     justify-content: start;
+  }
+  .triangle{
+    right: 140px;
   }
 }

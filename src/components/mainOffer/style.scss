@@ -34,13 +34,11 @@
   background: url("img/pizza_mashr.png") center left no-repeat;
   background-size: contain;
   width: 47vw;
-  height: 450px;
-
+  height: 570px;
   .add-mo-to-cart {
     left: 57%;
     top: 130px;
   }
-
   &:hover {
     .add-mo-to-cart {
       opacity: 1;
@@ -52,16 +50,14 @@
   position: absolute;
   right: 36%;
   top: 22%;
-  background: url("img/burger_classic_maxi.png") center right no-repeat;
+  background: url("img/burger.png") center right no-repeat;
   background-size: contain;
   width: 20vw;
   height: 300px;
-
   .add-mo-to-cart {
     left: 44%;
     top: 70px;
   }
-
   &:hover {
     .add-mo-to-cart {
       opacity: 1;
@@ -73,11 +69,10 @@
   position: absolute;
   width: 150px;
   height: 150px;
-  background: rgba(0,0,0,0.3);
+  background: rgba(0, 0, 0, 0.3);
   border-radius: 50%;
   opacity: 0;
   cursor: pointer;
-
   .mo-to-cart-img {
     width: 36px;
     height: 36px;
@@ -94,10 +89,8 @@
 }
 
 .mo {
-
   .chars {
     width: 47%;
-
     .title {
       font-size: 21px;
       font-family: "Gilroy";
@@ -108,7 +101,6 @@
       overflow: hidden;
     }
   }
-  
   .ingrids {
     display: flex;
     flex-wrap: wrap;
@@ -117,27 +109,23 @@
     overflow: hidden;
     .i-item {
       margin: 0 5px 0 0;
-
       .mod-name {
         font-size: 18px;
         color: #808080;
       }
-
       .mod-name-deleted {
         text-decoration: line-through;
       }
-
       .mod-delete-icon {
         color: black;
         background: url("img/icons_close_min.png") center no-repeat;
-        background-size: contain; 
+        background-size: contain;
         cursor: pointer;
         width: 9px;
         height: 9px;
         display: inline-block;
         margin: 0 0 0 2px;
       }
-
       .mod-return-icon {
         color: black;
         cursor: pointer;
@@ -154,29 +142,26 @@
       }
     }
   }
-  .i-add, .i-more {
+  .i-add,
+  .i-more {
     display: inline;
     align-self: flex-start;
     cursor: pointer;
     text-decoration: none;
     border-bottom: 2px dotted #808080;
     font-size: 18px;
-
     &:hover {
       border-bottom: 2px solid #808080;
     }
   }
-
   .i-add {
     margin-right: 15px;
   }
-
   .sizes {
     display: flex;
     flex-wrap: nowrap;
     flex-direction: flex-start;
     margin: 10px 0 0;
-
     .btn {
       text-align: center;
       display: block;
@@ -186,14 +171,12 @@
       cursor: pointer;
       padding: 5px;
       margin-bottom: 3px;
-
       &:hover,
       &.active {
         border: 1px solid #ffd70f;
         background: #ffd70f;
-        box-shadow: 2px 5px 5px -4px rgba(0,0,0,0.18);
+        box-shadow: 2px 5px 5px -4px rgba(0, 0, 0, 0.18);
       }
-
       &.mini-size {
         padding: 4px 8px;
         margin-right: 8px;
@@ -206,32 +189,27 @@
         padding: 4px 15px;
       }
     }
-
   }
-
   .bottom {
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-around;
     align-items: center;
     margin-top: 15px;
-
     .price {
       font-size: 2rem;
       color: black;
       margin: 0 0 0 0;
       white-space: nowrap;
-
       span {
-        font-size: 1.8rem;      }
+        font-size: 1.8rem;
+      }
     }
-
     .weight {
       color: #808080;
       font-size: 12px;
       white-space: nowrap;
     }
-
     .in-basket {
       position: relative;
       outline: 0;
@@ -244,11 +222,9 @@
       padding: 5px 13px;
       font-weight: 500;
       cursor: pointer;
-
       &:hover {
         background: #ffd70f
       }
-
       .count-items {
         position: absolute;
         top: -10px;
@@ -263,10 +239,8 @@
         font-weight: 500;
       }
     }
-
     .counter-block {
       display: flex;
-
       .counter {
         width: 26px;
         height: 26px;
@@ -277,13 +251,11 @@
         text-decoration: none;
         box-shadow: none;
         cursor: pointer;
-
         &:hover {
           background: #ffd70f;
           border: 1px solid #ffd70f;
         }
       }
-
       .label-counter {
         display: inline-block;
         margin: 2px 0.5rem 0;
@@ -298,7 +270,6 @@
   .chars {
     position: absolute;
     width: 300px;
-    z-index: 1;
     left: 45vw;
     top: 308px;
   }
@@ -308,7 +279,6 @@
   .chars {
     position: absolute;
     width: 300px;
-    z-index: 1;
     left: 106%;
     top: 190px;
   }
