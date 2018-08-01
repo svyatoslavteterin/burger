@@ -2,7 +2,6 @@
     <div class="food">
         <div class="chars">
             <div class="title">{{data.categName}}</div>
-            {{data.categDescr}}
 
             <a class="i-add" @click.prevent="mods.include = !mods.include">добавить</a>
             <a class="i-more">развернуть</a>
