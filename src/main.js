@@ -1,11 +1,5 @@
 'use strict';
 
-
-window._ = require('lodash');
-
-window.Popper = require('popper.js')
-
-
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
