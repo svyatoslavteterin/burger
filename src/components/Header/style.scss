@@ -158,16 +158,16 @@
   border: 1px solid #CFCFCF;
   border-radius: 5px;
   right: 80px;
-  min-width: 630px;
+  min-width: 600px;
   top: 70px;
   background: white;
-  padding: 0px 20px 20px 20px;
+  padding: 0px 20px 15px 20px;
 }
 .basket-block-food-block{
   display: flex;
   justify-content: space-between;
   flex-direction: row;
-  margin-top: 20px;
+  margin-top: 15px;
 }
 .basket-block-food-image{
   width: 80px;
@@ -222,13 +222,13 @@
 }
 .minus{
   position: relative;
-  top: -9px;
-  left: 1px;
+  top: -8px;
+  left: -1px;
 }
 .plus{
   position: relative;
-  top: -6px;
-  left: -2px;
+  top: -8px;
+  left: -1px;
 }
 .amount-food-num{
   font-size: 23px;
@@ -239,7 +239,7 @@
   font-size: 20px;
   color: black;
   border: 1px solid black;
-  padding: 4px 20px 0px 20px;
+  padding: 5px 20px 0px 20px;
   border-radius: 24px;
   height: 45px;
   margin: 17px 20px 0px 20px;
