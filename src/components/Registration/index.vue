@@ -1,31 +1,20 @@
 <template>
   <div>
-    <modal name="register" height="auto" adaptive v-cloak>
-      <h3 v-if="regStep === 1" class="modal-header">Регистрация</h3>
-      <h3 v-if="regStep === 2" class="modal-header">Регистрация - введите код из смс для активации</h3>
-
       <div class="modal-body">
+        <div class="hello-message" v-if="regStep === 2">Введите код из смс для активации</div>
         <form v-if="regStep === 1"  @submit.prevent="register">
-
-          <div v-if="errors.length">
-            <b>Пожалуйста исправьте указанные ошибки:</b>
-            <ul>
-              <li v-for="error in errors" :key="error" v-html="error"/>
-            </ul>
-          </div>
-
-          <div class="form-group">
+          <div class="auth-input-wrapper">
             <input
-              class="form-control"
+              class="auth-input"
               type="text"
               v-model="name"
               placeholder="Имя"
             />
           </div>
 
-          <div class="form-group">
+          <div class="auth-input-wrapper">
             <input
-              class="form-control"
+              class="auth-input filled-input"
               type="text"
               placeholder="Телефон"
               v-model="phone"
@@ -33,77 +22,67 @@
             />
           </div>
 
-          <div class=" form-group">
+          <div class="auth-input-wrapper">
             <input
-              class="form-control"
+              class="auth-input"
               type="password"
               v-model="password"
               placeholder="Пароль"
             />
           </div>
 
-          <div class="form-group">
+          <div class="auth-input-wrapper">
             <input
               type="password"
-              class="form-control"
+              class="auth-input error-input"
               v-model="passwordConfirm"
               placeholder="Подтверждение пароля"
             />
           </div>
 
-          <div class="form-group">
-            <button type="submit" class="form-control">Отправить</button>
-          </div>
+          <ul class="error-list" v-if="errors.length">
+            <li v-for="error in errors" :key="error" v-html="error"/>
+          </ul>
+
+          <button type="submit" class="send-btn">Зарегистрироваться</button>
 
         </form>
 
         <form v-if="regStep === 2" @submit.prevent="activate">
 
-          <div v-if="errors.length">
-            <b>Пожалуйста исправьте указанные ошибки:</b>
-            <ul>
-              <li v-for="error in errors" :key="error" v-html="error"/>
-            </ul>
-          </div>
-
-          <div class=" form-group">
+          <div class="auth-input-wrapper">
             <input
-              class="form-control"
+              class="auth-input"
               type="text"
               v-model="code"
               placeholder="Код из смс"
             />
           </div>
 
-          <div class="form-group">
-            <button type="submit" class="form-control" name="submit">Отправить</button>
-          </div>
+          <ul class="error-list" v-if="errors.length">
+            <li v-for="error in errors" :key="error" v-html="error"/>
+          </ul>
+
+          <button type="submit" class="send-btn" name="submit">Зарегистрироваться</button>
 
         </form>
       </div>
-
-      <button
-        class="modal-close"
-        @click="$modal.hide('register')"
-        v-text="'x'"
-      />
-    </modal>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Registration',
+  name: "Registration",
   data() {
     return {
       regStep: 1,
-      name: '',
-      phone: '',
-      password: '',
-      passwordConfirm: '',
-      code: '',
+      name: "",
+      phone: "",
+      password: "",
+      passwordConfirm: "",
+      code: "",
       errors: []
-    }
+    };
   },
   methods: {
     register() {
@@ -114,11 +93,12 @@ export default {
 
         const data = {
           name,
-          phone: phone.replace(/-/g, ''),
+          phone: phone.replace(/-/g, ""),
           password
-        }
+        };
 
-        this.$http.post("http://apitest.burgerpizzoni.ru/api/Profiles/regStep1", data)
+        this.$http
+          .post("http://apitest.burgerpizzoni.ru/api/Profiles/regStep1", data)
           .then(response => {
             if (!response.data.error) {
               this.regStep = 2;
@@ -144,48 +124,41 @@ export default {
         };
 
         const credentials = {
-          username: phone.replace(/-/g, ''), 
+          username: phone.replace(/-/g, ""),
           password
         };
 
         this.$http
           .post("http://apitest.burgerpizzoni.ru/api/Profiles/regStep2", data)
           .then(response => {
-              if (!response.data.error) {
-                this.getAuthUser(credentials).then(authUser => {
-                  console.log(authUser);
-                  if (typeof authUser != "undefined") {
-                    this.$store.commit("setAuthUser", {value: authUser});
-                    this.$cookie.set("authUser", JSON.stringify(authUser), 1);
-                    this.$modal.hide("register");
-                  } else {
-                    this.getAuthUser(credentials).then(authUser => {
-                      if (typeof authUser != "undefined") {
-                        this.$store.commit("setAuthUser", {value: authUser});
-                        this.$cookie.set("authUser", JSON.stringify(authUser), 1);
-                        this.$modal.hide("register");
-                      }
-                    });
-                  }
-                });
-              } else {
-                this.errors.push(response.data.error.message);
-              }
+            if (!response.data.error) {
+              this.getAuthUser(credentials).then(authUser => {
+                console.log(authUser);
+                if (typeof authUser != "undefined") {
+                  this.$store.commit("setAuthUser", { value: authUser });
+                  this.$cookie.set("authUser", JSON.stringify(authUser), 1);
+                  this.$modal.hide("register");
+                } else {
+                  this.getAuthUser(credentials).then(authUser => {
+                    if (typeof authUser != "undefined") {
+                      this.$store.commit("setAuthUser", { value: authUser });
+                      this.$cookie.set("authUser", JSON.stringify(authUser), 1);
+                      this.$modal.hide("register");
+                    }
+                  });
+                }
+              });
+            } else {
+              this.errors.push(response.data.error.message);
+            }
           })
           .catch(error => {
-              console.log(error);
+            console.log(error);
           });
       }
     },
     checkForm() {
-      const {
-        regStep,
-        name,
-        phone,
-        password,
-        passwordConfirm,
-        code
-      } = this;
+      const { regStep, name, phone, password, passwordConfirm, code } = this;
 
       this.errors = [];
 
@@ -218,6 +191,6 @@ export default {
       return true;
     }
   }
-}
+};
 </script>
 
