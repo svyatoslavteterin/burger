@@ -1,0 +1,3 @@
+[submodule "public"]
+	path = public
+	url = admin@jmedia.pro:www/burger.jmedia.pro/public/.git
