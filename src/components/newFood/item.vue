@@ -1,6 +1,7 @@
 <template>
     <div class="food">
         <div class="chars">
+          <div class="top">
             <div class="title">{{data.categName}}</div>
 
             <a class="i-add" @click.prevent="mods.include = !mods.include">добавить</a>
@@ -11,15 +12,15 @@
             </div>
             <Dishes :dishes="this.data.dishes" :activeDish="this.activeDish"
                     v-on:setActiveDish="setActiveDish"></Dishes>
-            <div class="bottom">
-                <div class="price"><span v-text="getPrice"></span><span>₽</span></div>
-                <div class="weight"><span v-text="getWeight"></span> г.</div>
-                <button class="in-basket" v-show="!showCounter" @click="addToCart">В корзину</button>
+          </div>
+          <div class="bottom">
+              <div class="price"><span v-text="getPrice"></span><span>₽</span></div>
+              <div class="weight"><span v-text="getWeight"></span> г.</div>
+              <button class="in-basket" v-show="!showCounter" @click="addToCart">В корзину</button>
 
-                <amountControls v-show="showCounter" :count="count" :showCounter="showCounter"
-                                v-on:decrement="decrement" v-on:increment="increment"></amountControls>
-
-            </div>
+              <amountControls v-show="showCounter" :count="count" :showCounter="showCounter"
+                              v-on:decrement="decrement" v-on:increment="increment"></amountControls>
+          </div>
         </div><!--chars-->
         <div class="pic" @click="$modal.show('info')">
           <div class="detail">
