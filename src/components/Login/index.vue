@@ -8,7 +8,11 @@
       
       <div class="auth-input-wrapper">
         <input 
-          class="auth-input"
+          :class="{
+            'auth-input': true,
+            'filled-input': phone.length === 15,
+            'error-input': phone.length < 15 && phone
+          }"
           type="text"
           placeholder="Телефон"
           v-model="phone" 
@@ -19,7 +23,9 @@
 
       <div class="auth-input-wrapper">
         <input 
-          class="auth-input"
+          :class="{
+            'auth-input': true,
+          }"
           type="password"
           v-model="password"
           placeholder="Пароль"
@@ -53,9 +59,8 @@ export default {
   components: { RestorePass },
   data() {
     return {
-      phone: null,
-      password: null,
-      passwordConfirm: null,
+      phone: "",
+      password: "",
       showRestore: false,
       errors: []
     };

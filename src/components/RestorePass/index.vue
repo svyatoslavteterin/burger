@@ -47,8 +47,12 @@
           
       <div class="auth-input-wrapper">
         <input
+          :class="{
+            'auth-input': true,
+            'filled-input': phone.length === 15,
+            'error-input': phone.length < 15 && phone
+          }"
           type="hidden"
-          class="auth-input"
           name="phone"
           placeholder="Телефон"
           v-model="phone"
@@ -58,16 +62,23 @@
       </div>
       <div class="auth-input-wrapper">
         <input
+          :class="{
+            'auth-input': true,
+            'error-input': errorCode
+          }"
           type="text"
-          class="auth-input"
           name="code"
           placeholder="Код из смс"
         />
       </div>
       <div class="auth-input-wrapper">
         <input
+          :class="{
+            'auth-input': true,
+            'filled-input': password.length >= 6,
+            'error-input': password.length < 6 && password
+          }"
           type="password"
-          class="auth-input"
           name="password"
           placeholder="Пароль"
           v-model="password"
@@ -75,9 +86,12 @@
       </div>
       <div class="auth-input-wrapper">
         <input
+          :class="{
+            'auth-input': true,
+            'filled-input': passwordConfirm === password ,
+            'error-input': passwordConfirm !== password && passwordConfirm
+          }"
           type="password"
-          class="auth-input"
-          name="password_confirm"
           placeholder="Подтверждение пароля"
           v-model="passwordConfirm"
         />
@@ -98,11 +112,11 @@ export default {
   name: "RestorePass",
   data() {
     return {
-      name: "",
       phone: "",
       password: "",
       passwordConfirm: "",
       code: "",
+      errorCode: false,
       errors: [],
       restoreStep: 1
     };
@@ -185,13 +199,11 @@ export default {
                 if (typeof authUser != "undefined") {
                   this.$store.commit("setAuthUser", { value: authUser });
                   this.$cookie.set("authUser", JSON.stringify(authUser), 1);
-                  this.$modal.hide("restorepassword2");
                 } else {
                   this.getAuthUser(credentials).then(authUser => {
                     if (typeof authUser != "undefined") {
                       this.$store.commit("setAuthUser", { value: authUser });
                       this.$cookie.set("authUser", JSON.stringify(authUser), 1);
-                      this.$modal.hide("restorepassword2");
                     }
                   });
                 }
