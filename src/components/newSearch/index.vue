@@ -1,6 +1,16 @@
 <template>
-    <div class="search-input">
-      <input type="text" placeholder="Поиск" v-model="query"  />
+    <div class="search-wrapper-nav">
+      <input class="search-input" type="text" v-model="q" placeholder="Поиск" required>
+      <button class="search-btn"></button>
+      <button class="clear-btn" @click="clearSearch"></button>
+      <ul class="result">
+        <li>Пиццони</li>
+        <li>Пиццони</li>
+        <li>Пиццони</li>
+        <li>Пиццони</li>
+        <li>Пиццони</li>
+        <li>Пиццони</li>
+      </ul>
     </div>
 </template>
 
