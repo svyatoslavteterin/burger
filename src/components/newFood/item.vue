@@ -107,11 +107,7 @@ export default {
         }
         return count;
       },
-<<<<<<< HEAD
-      set: function() {}
-=======
-      addToCart: function () {
-
+      addToCart: function() {
         let dishData = {
           id: this.data.dishes[this.activeDish].id,
           dishName: this.data.dishes[this.activeDish].dishName,
@@ -126,13 +122,11 @@ export default {
           fullData: this.data.dishes[this.activeDish].fullData
         };
 
-        this.$store.commit('addToCart', {'value': dishData});
-
+        this.$store.commit("addToCart", { value: dishData });
       },
-      setActiveDish: function (index) {
+      setActiveDish: function(index) {
         this.activeDish = index;
       }
->>>>>>> fb0efb28908df6f61dc12027d16312212fbba6bc
     },
     dishData: function() {
       return this.data.dishes[this.activeDish];
