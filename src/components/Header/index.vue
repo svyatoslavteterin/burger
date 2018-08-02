@@ -88,7 +88,7 @@
               </div>
           </div>
         </div>
-        <a href="#" @click.prevent="login = 2" class="sign_in">Войти</a>
+        <a href="#" @click.prevent="$modal.show('auth')" class="sign_in">Войти</a>
       </div>
         <div v-if="login == 2" class="header-right-block2">
         <div class="hello-block">
@@ -131,29 +131,28 @@ export default {
       }
     };
   },
-    computed:{
-        getCartSum() {
-            const { cart } = this.$store.state;
-            let summ = 0;
+  computed: {
+    getCartSum() {
+      const { cart } = this.$store.state;
+      let summ = 0;
 
-            if (cart.length > 0) {
-                cart.forEach(item => {
-                    let itemPrice = +item.price;
+      if (cart.length > 0) {
+        cart.forEach(item => {
+          let itemPrice = +item.price;
 
-                    if (item.mods.length > 0) {
-                        item.mods.forEach(mod => {
-                            itemPrice += +mod.summ;
-                        });
-                    }
+          if (item.mods.length > 0) {
+            item.mods.forEach(mod => {
+              itemPrice += +mod.summ;
+            });
+          }
 
-                    summ += itemPrice * item.count;
-                });
-            }
+          summ += itemPrice * item.count;
+        });
+      }
 
-            return summ;
-        }
+      return summ;
     }
+  }
 };
-
 </script>
 
