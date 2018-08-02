@@ -88,7 +88,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="#" @click.prevent="$modal.show('login')" class="sign_in">Войти</a>
+                <a href="#" @click.prevent="$modal.show('auth')" class="sign_in">Войти</a>
             </div>
             <div v-if="login == 2" class="header-right-block2">
                 <div class="hello-block">
@@ -117,22 +117,21 @@
     </header>
 </template>
 <script>
-    import "./style.scss";
-    import delivery from "@/components/newDelivery";
+import "./style.scss";
+import delivery from "@/components/newDelivery";
 
-    export default {
-        components: {delivery},
-        data() {
-            return {
-                login: 1,
-                basket: false,
-                mods: {
-                    include: false,
-                    exclude: false
-                }
-            };
-        },
+export default {
+  components: { delivery },
+  data() {
+    return {
+      login: 1,
+      basket: false,
+      mods: {
+        include: false,
+        exclude: false
+      }
     };
-
+  }
+};
 </script>
 
