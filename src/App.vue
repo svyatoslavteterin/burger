@@ -9,6 +9,8 @@
 
     <Auth />
 
+    <DetailInfo />
+
     <footerModule />
   </div>
 </template>
@@ -24,12 +26,13 @@ import axios from "axios";
 import headerModule from "@/components/Header";
 import footerModule from "@/components/Footer";
 import Auth from "@/components/Auth";
+import DetailInfo from "@/components/DetailInfo";
 
 export default {
   beforeCreate() {
     this.$store.commit("initialiseStore");
   },
-  components: { headerModule, footerModule, Auth },
+  components: { headerModule, footerModule, Auth, DetailInfo },
   data() {
     return {
       menu: [],
