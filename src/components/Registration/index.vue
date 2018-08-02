@@ -5,7 +5,11 @@
         <form v-if="regStep === 1"  @submit.prevent="register">
           <div class="auth-input-wrapper">
             <input
-              class="auth-input"
+              :class="{
+                'auth-input': true,
+                'filled-input': name.length >= 2,
+                'error-input': name.length < 2 && name
+              }"
               type="text"
               v-model="name"
               placeholder="Имя"
@@ -14,17 +18,26 @@
 
           <div class="auth-input-wrapper">
             <input
-              class="auth-input filled-input"
+              :class="{
+                'auth-input': true,
+                'filled-input': phone.length === 15,
+                'error-input': phone.length < 15 && phone
+              }"
               type="text"
               placeholder="Телефон"
               v-model="phone"
-              v-mask="'7-###-###-##-##'" masked="false"
+              v-mask="'7-###-###-##-##'"
+              masked="false"
             />
           </div>
 
           <div class="auth-input-wrapper">
             <input
-              class="auth-input"
+              :class="{
+                'auth-input': true,
+                'filled-input': password.length >= 6,
+                'error-input': password.length < 6 && password
+              }"
               type="password"
               v-model="password"
               placeholder="Пароль"
@@ -34,7 +47,11 @@
           <div class="auth-input-wrapper">
             <input
               type="password"
-              class="auth-input error-input"
+              :class="{
+                'auth-input': true,
+                'filled-input': passwordConfirm === password,
+                'error-input': passwordConfirm !== password && passwordConfirm
+              }"
               v-model="passwordConfirm"
               placeholder="Подтверждение пароля"
             />

@@ -22,123 +22,119 @@
             </div>
         </div><!--chars-->
         <div class="pic" @click="$modal.show('info')">
-            <img :src="getImage" alt="">
+          <div class="detail">
             <div class="arrow"></div>
-            <div class="detail">
-                <div class="detail-img"></div>
-                <div class="detail-text">подробнее</div>
-            </div>
+            <div class="detail-img"></div>
+            <div class="detail-text">подробнее</div>
+          </div>
+          <img :src="getImage" alt="">
         </div> <!--pic-->
     </div> <!--food-->
 </template>
 
 <script>
-  import dishMods from "@/components/newDishmod";
-  import amountControls from "@/components/amountControls";
-  import Dishes from "@/components/Dishes";
+import dishMods from "@/components/newDishmod";
+import amountControls from "@/components/amountControls";
+import Dishes from "@/components/Dishes";
 
-  export default {
-    components: {dishMods, amountControls, Dishes},
-    methods: {
-
-      increment() {
-        this.$store.commit('addEquentity', {"value": this.data.dishes[this.activeDish]});
-      },
-      decrement() {
-        this.$store.commit('removeEquentity', {"value": this.data.dishes[this.activeDish]});
-      },
-      isActiveDish: function (index) {
-        if (index == this.activeDish) {
-          return true;
-        }
-      },
-      addToCart: function () {
-
-        let dishData = {
-          id: this.data.dishes[this.activeDish].id,
-          dishName: this.data.dishes[this.activeDish].dishName,
-          dishShortName: this.data.dishes[this.activeDish].dishShortName,
-          dishExtName: this.data.ExternalName,
-          price: this.data.dishes[this.activeDish].Price,
-          outPrice: this.data.dishes[this.activeDish].OutPrice,
-          sellType: "COUNT",
-          mods: [],
-          idShop: 3,
-          position: this.data.ShowOrder,
-          fullData: this.data.dishes[this.activeDish].fullData
-        };
-
-        this.$store.commit('addToCart', {'value': dishData});
-        alert('Добавлено');
-      },
-      setActiveDish: function (index) {
-        this.activeDish = index;
+export default {
+  components: { dishMods, amountControls, Dishes },
+  methods: {
+    increment() {
+      this.$store.commit("addEquentity", {
+        value: this.data.dishes[this.activeDish]
+      });
+    },
+    decrement() {
+      this.$store.commit("removeEquentity", {
+        value: this.data.dishes[this.activeDish]
+      });
+    },
+    isActiveDish: function(index) {
+      if (index == this.activeDish) {
+        return true;
       }
     },
-    created() {
+    addToCart: function() {
+      let dishData = {
+        id: this.data.dishes[this.activeDish].id,
+        dishName: this.data.dishes[this.activeDish].dishName,
+        dishShortName: this.data.dishes[this.activeDish].dishShortName,
+        dishExtName: this.data.ExternalName,
+        price: this.data.dishes[this.activeDish].Price,
+        outPrice: this.data.dishes[this.activeDish].OutPrice,
+        sellType: "COUNT",
+        mods: [],
+        idShop: 3,
+        position: this.data.ShowOrder,
+        fullData: this.data.dishes[this.activeDish].fullData
+      };
 
+      this.$store.commit("addToCart", { value: dishData });
+      alert("Добавлено");
     },
-    data() {
-      return {
-        activeDish: 0,
-        mods: {
-          include: false,
-          exclude: false
-        },
+    setActiveDish: function(index) {
+      this.activeDish = index;
+    }
+  },
+  created() {},
+  data() {
+    return {
+      activeDish: 0,
+      mods: {
+        include: false,
+        exclude: false
+      }
+    };
+  },
+
+  props: ["data"],
+
+  ready: function() {},
+  mounted: function() {},
+  computed: {
+    showCounter: function() {
+      return this.count > 0 ? true : false;
+    },
+    count: {
+      get: function() {
+        let count = 0;
+        const dish = this.$store.state.cart.find(
+          p => p.id === this.data.dishes[this.activeDish].id
+        );
+        if (dish) {
+          count = dish.count;
+        }
+        return count;
+      },
+      set: function() {}
+    },
+    dishData: function() {
+      return this.data.dishes[this.activeDish];
+    },
+    getPrice: function() {
+      let price = 0;
+      if (typeof this.data.dishes[this.activeDish] != "undefined") {
+        price = this.data.dishes[this.activeDish].Price.slice(0, -3);
+      }
+      return price;
+    },
+    getWeight: function() {
+      if (typeof this.data.dishes[this.activeDish] != "undefined") {
+        return this.data.dishes[this.activeDish].fullData.ExitMass;
       }
     },
+    getImage: function() {
+      const imageUrl = `https://imgtest.burgerpizzoni.ru/_img/Rest/${
+        this.data.dishes[this.activeDish].fullData.Images[0].ImageName
+      }`;
 
-    props: ['data'],
-
-    ready: function () {
-
+      console.log(imageUrl);
+      return imageUrl;
     },
-    mounted: function () {
-
-    },
-    computed: {
-      showCounter: function () {
-        return this.count > 0 ? true : false;
-      },
-      count: {
-        get: function () {
-          let count = 0;
-          const dish = this.$store.state.cart.find(p => p.id === this.data.dishes[this.activeDish].id);
-          if (dish) {
-            count = dish.count
-          }
-          return count;
-        },
-        set: function () {
-
-        }
-      },
-      dishData: function () {
-        return this.data.dishes[this.activeDish];
-      },
-      getPrice: function () {
-        let price = 0;
-        if (typeof this.data.dishes[this.activeDish] != "undefined") {
-          price = this.data.dishes[this.activeDish].Price.slice(0, -3);
-        }
-        return price;
-
-      },
-      getWeight: function () {
-        if (typeof this.data.dishes[this.activeDish] != "undefined") {
-          return this.data.dishes[this.activeDish].fullData.ExitMass;
-        }
-      },
-      getImage: function () {
-        const imageUrl = `https://imgtest.burgerpizzoni.ru/_img/Rest/${this.data.dishes[this.activeDish].fullData.Images[0].ImageName}`;
-
-        console.log(imageUrl);
-        return imageUrl;
-      },
-      getModWidth: function () {
-
-        return 100 / this.data.dishes.length;
-      }
+    getModWidth: function() {
+      return 100 / this.data.dishes.length;
     }
   }
+};
 </script>
