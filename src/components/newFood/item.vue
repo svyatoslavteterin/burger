@@ -130,7 +130,7 @@
         }
       },
       getImage: function () {
-        const imageUrl = `https://imgtest.burgerpizzoni.ru/_img/Rest/${this.data.ImageName}`;
+        const imageUrl = `https://imgtest.burgerpizzoni.ru/_img/Rest/${this.data.dishes[this.activeDish].fullData.Images[0].ImageName}`;
 
         console.log(imageUrl);
         return imageUrl;

@@ -152,7 +152,55 @@ export default new Vuex.Store({
             state.authUser = payload.value;
         }
     },
-    getters: {},
+    getters: {
+        getDishSum(state) {
+            const {cart} = state;
+            let summ = 0;
+
+            if (cart.length > 0) {
+                cart.forEach(item => {
+                    summ += +item.price * item.count;
+                });
+            }
+            return summ;
+        },
+
+        getModsSum(state) {
+            const {cart} = state;
+            let summ = {};
+
+            if (cart.length > 0) {
+                cart.forEach(item => {
+                    if (item.mods.length > 0) {
+                        summ[item.id] = 0;
+                        item.mods.forEach(mod => {
+                            summ[item.id] += +mod.summ;
+                        });
+                    }
+                });
+            }
+
+            return summ;
+        },
+        getCartSum(state) {
+            const {cart} = state;
+            let summ = 0;
+
+            if (cart.length > 0) {
+                cart.forEach(item => {
+                    summ += +item.price * item.count;
+                    if (item.mods.length > 0) {
+                        item.mods.forEach(mod => {
+                            summ += +mod.summ;
+                        });
+                    }
+                });
+
+            }
+
+            return summ;
+        },
+    },
     actions: {}
 
 })
