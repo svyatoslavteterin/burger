@@ -4,9 +4,11 @@
             <button class="info-modal-close" @click="okButton = !okButton">OK</button>
             <div class="info-yellow-block">Добавлено</div>
             <div class="info-title">
+                <span v-if="this.$store.getters.getModsSum[dishId]">
                 +
                 <span v-text="this.$store.getters.getModsSum[dishId]"></span>
                 ₽
+                    </span>
             </div>
         </div>
         <div class="scrollbar-wrapper">
@@ -36,7 +38,7 @@
                 okButton: false
             };
         },
-        props: ["mods","dishId"]
+        props: ["mods", "dishId"]
     };
 </script>
 
