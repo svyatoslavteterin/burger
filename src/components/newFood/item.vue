@@ -69,7 +69,7 @@
         };
 
         this.$store.commit('addToCart', {'value': dishData});
-        alert('Добавлено');
+
       },
       setActiveDish: function (index) {
         this.activeDish = index;
