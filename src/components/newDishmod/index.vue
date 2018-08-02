@@ -1,5 +1,5 @@
 <template>
-    <div class="dishmod" v-if="!okButton">
+    <div :class="{dishmod: true, 'right-side': rightSide}" v-if="!okButton">
         <div class="modal-header">
             <button class="info-modal-close" @click="okButton = !okButton">OK</button>
             <div class="info-yellow-block">Добавлено</div>
@@ -24,21 +24,29 @@
     </div>
 </template>
 <script>
-    import VuePerfectScrollbar from "vue-perfect-scrollbar";
-    import dishModItem from "./item.vue";
-    import "./style.scss";
+import VuePerfectScrollbar from "vue-perfect-scrollbar";
+import dishModItem from "./item.vue";
+import "./style.scss";
 
-    export default {
-        components: {VuePerfectScrollbar, dishModItem},
-        data() {
-            return {
-                settings: {
-                    maxScrollbarLength: 60
-                },
-                okButton: false
-            };
-        },
-        props: ["mods", "dishId"]
+export default {
+  mounted() {
+    const test = this.$el.clientWidth + this.$el.getBoundingClientRect().left;
+    if (test > window.innerWidth) {
+      this.rightSide = true;
+    }
+  },
+
+  components: { VuePerfectScrollbar, dishModItem },
+  data() {
+    return {
+      settings: {
+        maxScrollbarLength: 60
+      },
+      okButton: false,
+      rightSide: false
     };
+  },
+  props: ["mods", "dishId"]
+};
 </script>
 

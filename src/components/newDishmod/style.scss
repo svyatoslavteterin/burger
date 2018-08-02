@@ -7,6 +7,11 @@
   background: white;
   z-index: 2;
 
+  &.right-side {
+    right: 0;
+    left: auto;
+  }
+
   .modal-header {
     position: relative;
     background: black;
