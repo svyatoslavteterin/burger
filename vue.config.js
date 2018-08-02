@@ -1,13 +1,13 @@
 module.exports = {
-  assetsDir: 'src/assets',
+    assetsDir: 'src/assets',
 
-  css: {
-    sourceMap: true
-  },
+    css: {
+        sourceMap: true
+    },
 
-  baseUrl: undefined,
-  outputDir: 'public',
-  runtimeCompiler: true,
-  productionSourceMap: undefined,
-  parallel: undefined
+    baseUrl: undefined,
+    outputDir: 'dist',
+    runtimeCompiler: true,
+    productionSourceMap: true,
+    parallel: undefined
 }

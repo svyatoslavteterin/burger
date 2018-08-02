@@ -32,7 +32,7 @@ export default new Router({
             component: Cart
         },
         {
-            path: '/payment/sucessfull',
+            path: '/payment/successfull',
             component: PaymentPage,
             props: (route) => ({orderid: route.query.orderid, status: '1'})
         },
