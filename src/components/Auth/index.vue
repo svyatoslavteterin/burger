@@ -1,5 +1,13 @@
 <template>
-  <modal name="auth" class="auth" height="auto" adaptive v-cloak>
+  <modal
+    name="auth"
+    class="auth"
+    height="auto"
+    @opened="openedModal"
+    @closed="closedModal"
+    adaptive
+    v-cloak
+  >
     <div class="modal-header">
       <button @click="$modal.hide('auth')" class="info-modal-close"></button>
       <div class="info-yellow-block">Вход</div>
@@ -32,10 +40,12 @@
 <script>
 import Login from "@/components/Login";
 import Registration from "@/components/Registration";
+import modalActions from "@/mixins/modalActions";
 import "./style.scss";
 
 export default {
   name: "Auth",
+  mixins: [modalActions],
   components: { Login, Registration },
   data() {
     return {
@@ -46,6 +56,6 @@ export default {
       q: ""
     };
   },
-  methods: {}
+  methods: { }
 };
 </script>
