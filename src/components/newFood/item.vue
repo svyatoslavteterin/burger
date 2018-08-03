@@ -8,10 +8,9 @@
         </div>
         <div class="chars">
             <div class="title">{{data.categName}}</div>
-            <div class="ingrids">
-                <dishMods :mods="data.dishes[this.activeDish].ModGroups[2].mods"
+            <div class="ingrids" v-if="data.dishes[this.activeDish].techCardData">
+                <dishMods :mods="data.dishes[this.activeDish].techCardData"
                           :dishId="data.dishes[this.activeDish].id" :type="'exclude'"></dishMods>
-
             </div>
             <a class="i-add" @click.prevent="mods.include = !mods.include">добавить</a>
             <a class="i-more">развернуть</a>
@@ -36,8 +35,8 @@
         <div class="chars">
             <div class="top">
                 <div class="title">{{data.categName}}</div>
-                <div class="ingrids" v-if="data.dishes[this.activeDish].ModGroups[2]">
-                    <dishMods :mods="data.dishes[this.activeDish].ModGroups[2].mods"
+                <div class="ingrids" v-if="data.dishes[this.activeDish].techCardData">
+                    <dishMods :mods="data.dishes[this.activeDish].techCardData"
                               :dishId="data.dishes[this.activeDish].id" :type="'exclude'"></dishMods>
                 </div>
                 <a class="i-add" @click.prevent="mods.include = !mods.include"
