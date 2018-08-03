@@ -10,7 +10,7 @@
     padding: 7px 10px;
     display: flex;
     flex-wrap: nowrap;
-    height: 288px;
+    height: 316px;
     justify-content: space-between;
 
     &:hover {
@@ -52,14 +52,14 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    height: 81px;
+    max-height: 6.5rem;
     overflow: hidden;
     .i-item {
       margin: 0 5px 0 0;
-      display: inline-block;
+      display: inline;
 
       .mod-name {
-        font-size: 18px;
+        font-size: 1.1rem;
         color: #808080;
       }
 
@@ -100,7 +100,7 @@
     cursor: pointer;
     text-decoration: none;
     border-bottom: 2px dotted #808080;
-    font-size: 18px;
+    font-size: 1.1rem;
 
     &:hover {
       border-bottom: 2px solid #808080;
@@ -173,7 +173,7 @@
 
     .weight {
       color: #808080;
-      font-size: 12px;
+      font-size: 13px;
       white-space: nowrap;
     }
 
@@ -241,13 +241,17 @@
   .pic {
     position: relative;
     cursor: pointer;
+    display: flex;
     width: 50%;
-    height: 280px;
+    height: 100%;
     margin: auto 0;
 
     img {
-      width: 100%;
-      max-height: 98%;
+      max-width: 100%;
+      max-height: 100%;
+      display: flex;
+      align-self: center;
+      justify-content: center;
       margin: 0 auto;
       filter: brightness(100%);
     }
@@ -309,4 +313,19 @@
   position: relative;
 }
 
+@media (min-width: 1024px) and (max-width: 1099px) {
+  .items {
+    .food {
+      height: 274px;
+    }
+  }
+}
+
+@media (min-width: 1100px) and (max-width: 1199px) {
+  .items {
+    .food {
+      height: 284px;
+    }
+  }
+}
 
