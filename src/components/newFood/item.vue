@@ -13,7 +13,7 @@
                           :dishId="data.dishes[this.activeDish].id" :type="'exclude'"></dishMods>
             </div>
             <a class="i-add" @click.prevent="mods.include = !mods.include">добавить</a>
-            <a class="i-more">развернуть</a>
+            <a class="i-more" @click.prevent="mods.expanded = !mods.expanded">развернуть</a>
             <div class="include-mods">
 
                 <dishMods v-if="mods.include" :mods="data.dishes[this.activeDish].ModGroups[1].mods"

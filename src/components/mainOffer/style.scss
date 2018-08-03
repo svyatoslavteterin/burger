@@ -171,23 +171,33 @@
       cursor: pointer;
       padding: 5px;
       margin-bottom: 3px;
+      margin-right: 5px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
       &:hover,
       &.active {
         border: 1px solid #ffd70f;
         background: #ffd70f;
         box-shadow: 2px 5px 5px -4px rgba(0, 0, 0, 0.18);
       }
+
       &.mini-size {
         padding: 4px 8px;
         margin-right: 8px;
       }
+
       &.middle-size {
         padding: 4px 10px;
         margin-right: 8px;
       }
+
       &.maxi-size {
         padding: 4px 15px;
       }
+
     }
   }
   .bottom {
@@ -219,7 +229,7 @@
       text-transform: uppercase;
       color: black;
       background: transparent;
-      padding: 5px 13px 2px;
+      padding: 9px 13px 6px;
       font-weight: 500;
       cursor: pointer;
       &:hover {

@@ -1,5 +1,13 @@
 <template>
-  <modal name="delivery" class="delivery" height="auto" adaptive v-cloak>
+  <modal
+    name="delivery"
+    class="delivery"
+    height="auto"
+    @opened="openedModal"
+    @closed="closedModal"
+    adaptive
+    v-cloak
+  >
     <div class="modal-header">
       <button @click="$modal.hide('delivery')" class="info-modal-close"></button>
       <div class="info-yellow-block">Способ покупки</div>
@@ -149,10 +157,12 @@
 </template>
 <script>
 import VuePerfectScrollbar from "vue-perfect-scrollbar";
+import modalActions from "@/mixins/modalActions";
 import "./style.scss";
 
 export default {
   components: { VuePerfectScrollbar },
+  mixins: [modalActions],
   data() {
     return {
       okButton: false,

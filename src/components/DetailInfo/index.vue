@@ -1,5 +1,12 @@
 <template>
-  <modal name="info" height="auto" adaptive v-cloak>
+  <modal
+    name="info"
+    height="auto"
+    @opened="openedModal"
+    @closed="closedModal"
+    adaptive
+    v-cloak
+  >
     <div class="modal-header-info">
       <div class="info-yellow-block"></div>
       <div class="info-title">Куриная</div>
@@ -40,9 +47,11 @@
 </template>
 <script>
 import VuePerfectScrollbar from "vue-perfect-scrollbar";
+import modalActions from "@/mixins/modalActions";
 import "./style.scss";
 
 export default {
-  components: { VuePerfectScrollbar }
+  components: { VuePerfectScrollbar },
+  mixins: [ modalActions ]
 };
 </script>
