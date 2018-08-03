@@ -11,13 +11,11 @@
             <button class="counter" @click.prevent="addMod()">+</button>
         </div>
     </li>
-    <li v-else-if="type=='exclude'">
-        <div class="i-item">
-            <span class="mod-name" v-text="data.ModName"></span>
-            <span class="mod-delete-icon" :v-show="getCount" @click.prevent="addMod()"></span>
-            <span class="mod-return-icon" :v-show="!getCount" @click.prevent="decModCount()"></span>
-        </div>
-    </li>
+    <div class="i-item" v-else-if="type=='exclude'">
+            <span class="mod-name" v-text="data.ModName" :class="{ 'mod-name-deleted': getCount }"></span>
+            <span class="mod-delete-icon" v-if="!getCount" @click.prevent="addMod()"></span>
+            <span class="mod-return-icon" v-if="getCount" @click.prevent="decModCount()"></span>
+    </div>
     <li v-else-if="type=='all'">
         <button @click="removeMod()" class="mod-delete">x</button>
         <span v-text="data.name"></span> x<span

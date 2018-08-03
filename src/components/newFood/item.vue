@@ -2,7 +2,7 @@
     <div :class="getClass" v-if="type==='offer'">
         <div class="add-mo-to-cart">
             <div class="mo-to-cart-img"></div>
-            <div class="mo-to-cart-text"  v-show="!showCounter" @click="showCounter = !showCounter">Заказать</div>
+            <div class="mo-to-cart-text" v-show="!showCounter" @click="showCounter = !showCounter">Заказать</div>
             <amountControls v-show="showCounter" :count="count" :showCounter="showCounter"
                             v-on:decrement="decrement" v-on:increment="increment"></amountControls>
         </div>
@@ -51,7 +51,7 @@
                           :dishId="data.dishes[this.activeDish].id"></dishMods>
             </div>
             <Dishes :dishes="this.data.dishes" v-if="this.data.dishes.length>1" :activeDish="this.activeDish"
-            v-on:setActiveDish="setActiveDish"></Dishes>
+                    v-on:setActiveDish="setActiveDish"></Dishes>
             <div class="bottom">
                 <div class="price"><span v-text="getPrice"></span><span>₽</span></div>
                 <div class="weight"><span v-text="getWeight"></span> г.</div>
@@ -66,17 +66,17 @@
         <div class="chars">
             <div class="top">
                 <div class="title">{{data.categName}}</div>
-                <div class="ingrids">
-
+                <div class="ingrids" v-if="data.dishes[this.activeDish].ModGroups[2]">
+                    <dishMods :mods="data.dishes[this.activeDish].ModGroups[2].mods"
+                              :dishId="data.dishes[this.activeDish].id" :type="'exclude'"></dishMods>
                 </div>
                 <a class="i-add" @click.prevent="mods.include = !mods.include"
                    v-if="data.dishes[this.activeDish].ModGroups[1]">добавить</a>
                 <a class="i-more"
                    v-if="data.dishes[this.activeDish].ModGroups[3]">развернуть</a>
                 <div class="include-mods">
-
                     <dishMods v-if="mods.include" :mods="data.dishes[this.activeDish].ModGroups[1].mods"
-                              :dishId="data.dishes[this.activeDish].id"></dishMods>
+                              :dishId="data.dishes[this.activeDish].id" :type="'include'"></dishMods>
                 </div>
                 <Dishes :dishes="this.data.dishes" v-if="this.data.dishes.length>1" :activeDish="this.activeDish"
                         v-on:setActiveDish="setActiveDish"></Dishes>
