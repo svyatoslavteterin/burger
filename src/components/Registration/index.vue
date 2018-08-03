@@ -57,11 +57,16 @@
             />
           </div>
 
-          <ul class="error-list" v-if="errors.length">
+          <ul class="error-list">
             <li v-for="error in errors" :key="error" v-html="error"/>
           </ul>
 
-          <button type="submit" class="send-btn">Зарегистрироваться</button>
+          <button type="submit" class="send-btn" :disabled="spinner">
+            <Spinner v-if="spinner" />
+            <span :style="{'opacity': spinner ? 0 : 1}">
+              Зарегистрироваться
+            </span>
+          </button>
 
         </form>
 
@@ -76,7 +81,7 @@
             />
           </div>
 
-          <ul class="error-list" v-if="errors.length">
+          <ul class="error-list">
             <li v-for="error in errors" :key="error" v-html="error"/>
           </ul>
 
@@ -88,11 +93,15 @@
 </template>
 
 <script>
+import Spinner from "@/components/Spinner";
+
 export default {
   name: "Registration",
+  components: { Spinner },
   data() {
     return {
       regStep: 1,
+      spinner: false,
       name: "",
       phone: "",
       password: "",
@@ -106,6 +115,7 @@ export default {
       const isValid = this.checkForm();
 
       if (isValid) {
+        this.spinner = true;
         const { name, phone, password } = this;
 
         const data = {
@@ -119,11 +129,14 @@ export default {
           .then(response => {
             if (!response.data.error) {
               this.regStep = 2;
+              this.spinner = false;
             } else {
+              this.spinner = false;
               this.errors.push(response.data.error.message);
             }
           })
           .catch(error => {
+            this.spinner = false;
             console.log(error);
           });
       }

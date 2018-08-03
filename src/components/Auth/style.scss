@@ -1,3 +1,7 @@
+ul {
+  margin: 0 !important;
+}
+
 .auth {
 
   .modal-header {
@@ -67,6 +71,9 @@
     }
     // Добавленные классы для авторизации/регистрации
     .error-list {
+      min-height: 40px;
+      position: relative;
+      display: block;
       list-style-type: none;
       padding: 0;
       color: #b73245;
@@ -74,6 +81,7 @@
 
     .send-btn {
       display: block;
+      position: relative;
       background: #ffd70f;
       color: black;
       text-align: center;
@@ -120,6 +128,7 @@
     }
 
     .info-block {
+      min-height: 40px;
       display: flex;
       flex-wrap: nowrap;
       justify-content: space-between;
