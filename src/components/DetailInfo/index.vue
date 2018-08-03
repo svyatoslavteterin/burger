@@ -8,7 +8,6 @@
     v-cloak
   >
     <div class="modal-header-info">
-      <div class="info-yellow-block"></div>
       <div class="info-title">Куриная</div>
       <button @click="$modal.hide('info')" class="info-modal-close"></button>
     </div>
