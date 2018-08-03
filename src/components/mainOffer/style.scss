@@ -110,7 +110,7 @@
     .i-item {
       margin: 0 5px 0 0;
       .mod-name {
-        font-size: 18px;
+        font-size: 1.1rem;
         color: #808080;
       }
       .mod-name-deleted {
@@ -149,7 +149,7 @@
     cursor: pointer;
     text-decoration: none;
     border-bottom: 2px dotted #808080;
-    font-size: 18px;
+    font-size: 1.1rem;
     &:hover {
       border-bottom: 2px solid #808080;
     }
@@ -217,7 +217,7 @@
     }
     .weight {
       color: #808080;
-      font-size: 12px;
+      font-size: 13px;
       white-space: nowrap;
     }
     .in-basket {
