@@ -33,16 +33,17 @@
       </div>
 
       <div class="info-block">
-        <div>
-          <ul class="error-list" v-if="errors.length">
-            <li v-for="error in errors" :key="error" v-html="error"/>
-          </ul>
-        </div>
+        <ul class="error-list">
+          <li v-for="error in errors" :key="error" v-html="error"/>
+        </ul>
         <a class="restore-pass-link" href="#" @click.prevent="showRestore = true">Забыли пароль?</a>
       </div>
       
 
-      <button type="submit" class="send-btn" name="submit">Войти</button>
+      <button type="submit" class="send-btn" name="submit" :disabled="spinner">
+        <Spinner v-if="spinner" />
+        <span :style="{'opacity': spinner ? 0 : 1}">Войти</span>
+      </button>
 
     </form>
 
@@ -53,29 +54,32 @@
 
 <script>
 import RestorePass from "@/components/RestorePass";
+import Spinner from "@/components/Spinner";
 
 export default {
   name: "Login",
-  components: { RestorePass },
+  components: { RestorePass, Spinner },
   data() {
     return {
       phone: "",
       password: "",
       showRestore: false,
+      spinner: false,
       errors: []
     };
   },
   methods: {
     auth() {
-      const { username, password } = this;
+      this.errors = [];
+      this.spinner = true;
+      const { phone, password } = this;
 
       const credentials = {
-        username: username ? username.replace(/-/g, "") : "",
+        username: phone ? phone.replace(/-/g, "") : "",
         password
       };
 
       this.getAuthUser(credentials).then(authUser => {
-        console.log("authUser", authUser);
         if (!authUser) return;
 
         this.$store.commit("setAuthUser", { value: authUser });
@@ -86,16 +90,15 @@ export default {
     async getAuthUser(credentials) {
       this.$http
         .post("http://apitest.burgerpizzoni.ru/api/Profiles/login", credentials)
-        .then(res => res.data)
+        .then(res => {
+          this.spinner = false;
+          return res.data
+        })
         .catch(() => {
+          this.spinner = false;
           this.errors.push("Неверные данные для входа");
         });
     }
   }
 };
 </script>
-
-<style lang="scss" scoped>
-</style>
-
-

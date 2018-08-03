@@ -23,7 +23,8 @@
                 </div>
                 <div class="basket-wrapper">
                     <a href="#" @click.prevent="basket = !basket" class="basket">Корзина</a>
-                    <div v-if="basket == true" class="basket-block">
+                    <BasketPreview v-if="basket" />
+                    <!-- <div v-if="basket == true" class="basket-block">
                         <div class="triangle"></div>
                         <div class="basket-block-food-block">
                             <div class="basket-block-food-block-left">
@@ -86,7 +87,7 @@
                                 <div class="go-to-basket-button">перейти в корзину</div>
                             </router-link>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <a href="#" @click.prevent="$modal.show('auth')" class="sign_in">Войти</a>
             </div>
@@ -119,9 +120,10 @@
 <script>
 import "./style.scss";
 import delivery from "@/components/newDelivery";
+import BasketPreview from "@/components/BasketPreview";
 
 export default {
-  components: { delivery },
+  components: { delivery, BasketPreview },
   data() {
     return {
       login: 1,

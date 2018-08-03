@@ -1,6 +1,5 @@
 <template>
     <div class="col-lg-6 col-xl-6 cart__item">
-
         <div class="cart__item__wrapper">
             <a href="#" class="cart__item__remove" @click.prevent="removeDish"></a>
             <div class="row">
