@@ -96,47 +96,47 @@
       <div class="addresses-wrapper">
         <VuePerfectScrollbar class="modal-scrollbar" v-once :settings="settings">
           <div class="radio-container">
-            <label class="rb-container">Мира, 71
+            <label class="rb-container"><span class="address-value">Мира, 71</span>
               <span class="work-time">08:00 – 18:00, Открыто</span>
-              <input type="radio" checked="checked" name="radio">
+              <input type="radio" checked="checked" name="radio" @click="checkAddress">
               <span class="checkmark"></span>
             </label>
-            <label class="rb-container">Рябиновый, 16
+            <label class="rb-container"><span class="address-value">Рябиновый, 16</span>
               <span class="work-time">Круглосуточно</span>
-              <input type="radio" name="radio">
+              <input type="radio" name="radio" @click="checkAddress">
               <span class="checkmark"></span>
             </label>
 
-            <label class="rb-container">Бульвар Ленина, 2
+            <label class="rb-container"><span class="address-value">Бульвар Ленина, 2</span>
               <span class="work-time">08:00 – 18:00, Открыто</span>
-              <input type="radio" name="radio">
+              <input type="radio" name="radio" @click="checkAddress">
               <span class="checkmark"></span>
             </label>
-            <label class="rb-container">Рудакова, 52А
+            <label class="rb-container"><span class="address-value">Рудакова, 52А</span>
               <span class="work-time">Круглосуточно</span>
-              <input type="radio" name="radio">
+              <input type="radio" name="radio" @click="checkAddress">
               <span class="checkmark"></span>
             </label>
 
-            <label class="rb-container">Приморский бульвар, 101
+            <label class="rb-container"><span class="address-value">Приморский бульвар, 101</span>
               <span class="work-time">08:00 – 18:00, Открыто</span>
-              <input type="radio" name="radio">
+              <input type="radio" name="radio" @click="checkAddress">
               <span class="checkmark"></span>
             </label>
-            <label class="rb-container">Приморский бульвар, 110
+            <label class="rb-container"><span class="address-value">Приморский бульвар, 110</span>
               <span class="work-time">Круглосуточно</span>
-              <input type="radio" name="radio">
+              <input type="radio" name="radio" @click="checkAddress">
               <span class="checkmark"></span>
             </label>
 
-            <label class="rb-container">Победы, 40
+            <label class="rb-container"><span class="address-value">Победы, 40</span>
               <span class="work-time">08:00 – 18:00, Открыто</span>
-              <input type="radio" name="radio">
+              <input type="radio" name="radio" @click="checkAddress">
               <span class="checkmark"></span>
             </label>
-            <label class="rb-container">Космосольская, 2
+            <label class="rb-container"><span class="address-value">Космосольская, 2</span>
               <span class="work-time">Круглосуточно</span>
-              <input type="radio" name="radio">
+              <input type="radio" name="radio" @click="checkAddress">
               <span class="checkmark"></span>
             </label>
           </div>
@@ -179,6 +179,12 @@
       };
     },
     methods: {
+      checkAddress: function (e) {
+        let container = e.target.parentNode;
+
+        let addressValue = container.querySelector('.address-value').innerText;
+        this.address = addressValue;
+      },
       clearSearch() {
         this.q = "";
       },
@@ -221,17 +227,22 @@
             let house = addressArr[1];
             let street = addressArr[0];
 
-            if (!Object.hasOwnProperty.call(this.addresses, street)) {
+            if (this.addresses.indexOf(street) < 0) {
               this.street = '';
               this.house = '';
             } else {
-              if (!Object.hasOwnProperty.call(this.addresses[street].houses, house)) {
+              if (this.addresses[street].houses.indexOf(house) < 0) {
                 this.house = '';
               }
             }
+            this.$store.commit('setDeliveryInfo', {
+              street: this.street,
+              house: this.house
+            });
+
           } else {
             if (this.street) {
-              if (!Object.hasOwnProperty.call(this.addresses, street)) {
+              if (this.addresses.indexOf(this.street) < 0) {
                 this.street = '';
                 this.house = '';
               }
@@ -241,6 +252,10 @@
         get: function () {
           if (this.street) {
             if (this.house) {
+              this.$store.commit('setDeliveryInfo', {
+                street: this.street,
+                house: this.house
+              });
               return this.fullAddress;
             } else {
               return this.street;
