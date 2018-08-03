@@ -1,22 +1,22 @@
 <template>
-    <div id="app">
-        <headerModule/>
-        <transition>
-            <keep-alive>
-                <router-view :menu="menu" :tags="tags" :foods="foods" :cartItems="cartItems"/>
-            </keep-alive>
-        </transition>
+  <div id="app">
+    <headerModule/>
+    <transition>
+      <keep-alive>
+        <router-view :menu="menu" :tags="tags" :foods="foods" :cartItems="cartItems"/>
+      </keep-alive>
+    </transition>
 
-        <Auth/>
+    <Auth/>
 
-        <DetailInfo/>
-
-        <footerModule/>
-    </div>
+    <DetailInfo/>
+    <delivery></delivery>
+    <footerModule/>
+  </div>
 </template>
 
 <style lang="scss">
-    @import "@/assets/scss/app.scss";
+  @import "@/assets/scss/app.scss";
 </style>
 
 
@@ -27,12 +27,13 @@
   import footerModule from "@/components/Footer";
   import Auth from "@/components/Auth";
   import DetailInfo from "@/components/DetailInfo";
+  import delivery from "@/components/newDelivery";
 
   export default {
     beforeCreate() {
       this.$store.commit("initialiseStore");
     },
-    components: {headerModule, footerModule, Auth, DetailInfo},
+    components: {headerModule, footerModule, Auth, DetailInfo,delivery},
     data() {
       return {
         menu: [],
