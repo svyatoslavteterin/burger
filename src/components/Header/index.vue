@@ -22,8 +22,8 @@
                     <div class="price"><span v-text="this.$store.getters.getCartSum"></span>₽</div>
                 </div>
                 <div class="basket-wrapper">
-                    <a href="#" @click.prevent="basket = !basket" class="basket">Корзина</a>
-                    <BasketPreview v-if="basket" />
+                    <router-link to="/cart" class="basket">Корзина</router-link>
+                    <BasketPreview />
                     <!-- <div v-if="basket == true" class="basket-block">
                         <div class="triangle"></div>
                         <div class="basket-block-food-block">

@@ -1,16 +1,22 @@
 <template>
-  <div class="basket-block">
+  <div class="basket-block" v-if="$store.getters.getCartSum">
+    <div class="floating-top-block">
+      0
+    </div>
     <div class="triangle"></div>
     <CartItem
-      v-for="(item, index) in cartItems"
-      :key="index"
+      v-for="item in cartItems"
+      :key="item.id"
       :data="item"
     />
+    <div class="cart-price">
+      Итого: <span>{{$store.getters.getCartSum}} ₽</span>
+    </div>
   </div>  
 </template>
 
 <script>
-import CartItem from '@/components/cartitem'
+import CartItem from './dish'
 
 export default {
   name: "BasketPreview",
@@ -24,3 +30,27 @@ export default {
 };
 </script>
 
+<style lang="scss" scoped>
+.basket-block {
+  .floating-top-block {
+    position: absolute !important;
+    color: transparent !important;
+    font-size: 0 !important;
+    width: 100% !important;
+    height: 1.2rem !important;
+    top: -1.1rem !important;
+    left: 0 !important;
+    background-color: transparent !important;
+  }
+}
+.cart-price {
+  margin-left: auto;
+  margin-top: 1rem;
+  font-size: 1.35rem;
+
+  span {
+    font-size: 2rem !important;
+    margin-left: 1rem;
+  }
+}
+</style>

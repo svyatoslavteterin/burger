@@ -91,6 +91,10 @@
   border-radius: 7px;
   max-height: 42px;
   cursor: pointer;
+
+  &:hover ~ .basket-block {
+    display: flex;
+  }
 }
 .sign_in{
   font-size: 16px;
@@ -152,16 +156,20 @@
   cursor: pointer;
 }
 .basket-block{
+  display: none;
   position: absolute;
-  display: flex;
   flex-direction: column;
   border: 1px solid #CFCFCF;
   border-radius: 5px;
   right: -100px;
-  min-width: 600px;
+  width: 500px;
   top: 50px;
   background: white;
-  padding: 0px 20px 15px 20px;
+  padding: 20px;
+
+  &:hover {
+    display: flex;
+  }
 }
 .basket-block-food-block{
   display: flex;

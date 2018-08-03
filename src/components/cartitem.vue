@@ -39,7 +39,6 @@
 </template>
 
 <script>
-    import imageUrl from "@/assets/images/200x200.png";
     import dishmod from "@/components/dishmod.vue";
 
     export default {
@@ -85,11 +84,11 @@
             },
 
             getImage: function () {
+              const imageUrl = `https://imgtest.burgerpizzoni.ru/_img/Rest/${
+              this.data.fullData.Images[0].ImageName
+              }`;
 
-                //  }else{
-                // imageUrl='http://api.burger.jmedia.pro/public/images/'+this.data.id+'/430-275/'+this.data.ImageName;
-                //  }
-                return imageUrl;
+              return imageUrl;
             },
         }
     }
