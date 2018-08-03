@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build && ncp dist publish --limit 0",
-    "build-dev": "vue-cli-service build --dest dist --mode development && ncp dist publish --limit 0",
+    "build-dev": "vue-cli-service build --dest public --mode development",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit"
   },

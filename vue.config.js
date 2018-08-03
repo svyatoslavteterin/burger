@@ -1,13 +1,15 @@
 module.exports = {
-    assetsDir: 'src/assets',
+  assetsDir: 'src/assets',
 
-    css: {
-        sourceMap: true
-    },
-
-    baseUrl: undefined,
-    outputDir: 'dist',
-    runtimeCompiler: true,
-    productionSourceMap: true,
-    parallel: undefined
+  css: {
+    sourceMap: true
+  },
+  configureWebpack: {
+    devtool: 'source-map'
+  },
+  baseUrl: undefined,
+  outputDir: 'dist',
+  runtimeCompiler: true,
+  productionSourceMap: false,
+  parallel: undefined
 }
