@@ -1,4 +1,4 @@
-<template>
+ <template>
   <modal
     name="info"
     height="auto"
