@@ -9,38 +9,8 @@
         <div class="chars">
             <div class="title">{{data.categName}}</div>
             <div class="ingrids">
-                <div class="i-item">
-                    <span class="mod-name">мясо</span>
-                    <span class="mod-delete-icon"></span>
-                </div>
-                <div class="i-item">
-                    <span class="mod-name mod-name-deleted">лук</span>
-                    <span class="mod-delete-icon"></span>
-                </div>
-                <div class="i-item">
-                    <span class="mod-name mod-name-deleted">помидоры</span>
-                    <span class="mod-delete-icon"></span>
-                </div>
-                <div class="i-item">
-                    <span class="mod-name mod-name-deleted">помидоры</span>
-                    <span class="mod-delete-icon"></span>
-                </div>
-                <div class="i-item">
-                    <span class="mod-name mod-name-deleted">помидоры</span>
-                    <span class="mod-delete-icon"></span>
-                </div>
-                <div class="i-item">
-                    <span class="mod-name mod-name-deleted">помидоры</span>
-                    <span class="mod-delete-icon"></span>
-                </div>
-                <div class="i-item">
-                    <span class="mod-name mod-name-deleted">помидоры</span>
-                    <span class="mod-delete-icon"></span>
-                </div>
-                <div class="i-item">
-                    <span class="mod-name mod-name-deleted">перец</span>
-                    <span class="mod-delete-icon"></span>
-                </div>
+                <dishMods :mods="data.dishes[this.activeDish].ModGroups[2].mods"
+                          :dishId="data.dishes[this.activeDish].id" :type="'exclude'"></dishMods>
 
             </div>
             <a class="i-add" @click.prevent="mods.include = !mods.include">добавить</a>
