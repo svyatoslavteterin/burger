@@ -1,8 +1,6 @@
 <template>
     <header class="header">
-        <button id="show-modal" @click="$modal.show('delivery')">Доставка</button>
         <!-- use the modal component, pass in the prop -->
-        <delivery></delivery>
         <div class="header-center">
             <div class="header-left-block">
 
@@ -119,11 +117,10 @@
 </template>
 <script>
 import "./style.scss";
-import delivery from "@/components/newDelivery";
 import BasketPreview from "@/components/BasketPreview";
 
 export default {
-  components: { delivery, BasketPreview },
+  components: { BasketPreview },
   data() {
     return {
       login: 1,
