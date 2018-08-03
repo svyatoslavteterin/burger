@@ -49,7 +49,7 @@
               type="password"
               :class="{
                 'auth-input': true,
-                'filled-input': passwordConfirm === password,
+                'filled-input': passwordConfirm === password && passwordConfirm,
                 'error-input': passwordConfirm !== password && passwordConfirm
               }"
               v-model="passwordConfirm"
