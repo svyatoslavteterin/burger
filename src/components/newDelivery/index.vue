@@ -28,17 +28,18 @@
       <div class="hello-message">Введите ваш адрес и мы сообщим, входит ли он в зону доставки</div>
 
       <div class="search-wrapper">
-        <input class="search-input" type="text" v-model="q" placeholder="Адрес доставки" required>
+        <input class="search-input" type="text" v-model="query" placeholder="Адрес доставки" required>
         <button class="search-btn"></button>
         <button class="clear-btn" @click="clearSearch"></button>
-        <ul class="result">
-          <li>Петрозаводск <span>город</span></li>
-          <li>Петрозаводская <span>здание</span></li>
-          <li>Петрозаводская, 13 <span>здание</span></li>
-          <li>Петрозаводская, 15 <span>здание</span></li>
-          <li>Петрозаводская, 7А <span>здание</span></li>
-          <li>Петрозаводское шоссе <span>улица</span></li>
+        <ul class="result" v-if="!this.street">
+          <li v-for="(street,index) in this.addresses" @click="setStreet(street.street)" :key="index"><span
+            v-text="street.street"></span></li>
         </ul>
+        <ul class="result" v-if="this.street && !this.house">
+          <li v-for="(house,index) in this.addresses[this.street].houses"
+              :key="index"><span v-text="street+','+house.house" @click="setHouse(house.house)"></span></li>
+        </ul>
+
       </div>
 
       <div class="small-inputs-wrapper">
@@ -156,27 +157,100 @@
   </modal>
 </template>
 <script>
-import VuePerfectScrollbar from "vue-perfect-scrollbar";
-import modalActions from "@/mixins/modalActions";
-import "./style.scss";
+  import VuePerfectScrollbar from "vue-perfect-scrollbar";
+  import modalActions from "@/mixins/modalActions";
+  import "./style.scss";
 
-export default {
-  components: { VuePerfectScrollbar },
-  mixins: [modalActions],
-  data() {
-    return {
-      okButton: false,
-      okDelivery: false,
-      okSelfDelivery: false,
-      activeTab: 1,
-      q: ""
-    };
-  },
-  methods: {
-    clearSearch() {
-      this.q = "";
+  export default {
+    components: {VuePerfectScrollbar},
+    mixins: [modalActions],
+    data() {
+      return {
+        okButton: false,
+        okDelivery: false,
+        okSelfDelivery: false,
+        activeTab: 1,
+        addresses: [],
+        houses: [],
+        house: '',
+        q: '',
+        address: '',
+        street: ''
+      };
+    },
+    methods: {
+      clearSearch() {
+        this.q = "";
+      },
+      setStreet(street) {
+        this.street = street;
+
+      },
+      setHouse(house) {
+        this.house = house;
+
+      },
+      getAdresses: async function () {
+
+        try {
+          let response = await this.$http.get('https://apitest.burgerpizzoni.ru/api/Address/get?street=' + this.q + '&access_token=' + this.$store.state.authUser.id);
+          return response.data;
+        } catch (e) {
+          this.errors.address.request = "Ошибка при получении адресов";
+
+        }
+      },
+      showAddresses() {
+        this.getAdresses(this.q).then((addresses) => {
+          if (typeof addresses != "undefined") {
+            this.addresses = addresses;
+          }
+        });
+      }
+    },
+    computed: {
+      fullAddress: function () {
+        return this.street + ',' + this.house;
+      },
+      query: {
+        set: function (newValue) {
+          this.showAddresses();
+          this.q = newValue;
+          if (this.street && this.house) {
+            let addressArr = this.q.split(',');
+            let house = addressArr[1];
+            let street = addressArr[0];
+
+            if (!Object.hasOwnProperty.call(this.addresses, street)) {
+              this.street = '';
+              this.house = '';
+            } else {
+              if (!Object.hasOwnProperty.call(this.addresses[street].houses, house)) {
+                this.house = '';
+              }
+            }
+          } else {
+            if (this.street) {
+              if (!Object.hasOwnProperty.call(this.addresses, street)) {
+                this.street = '';
+                this.house = '';
+              }
+            }
+          }
+        },
+        get: function () {
+          if (this.street) {
+            if (this.house) {
+              return this.fullAddress;
+            } else {
+              return this.street;
+            }
+          } else {
+            return this.q;
+          }
+        }
+      }
     }
-  }
-};
+  };
 </script>
 
