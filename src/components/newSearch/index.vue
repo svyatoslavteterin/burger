@@ -1,9 +1,9 @@
 <template>
     <div class="search-wrapper-nav">
-      <input class="search-input" type="text" v-model="q" placeholder="Поиск" required>
+      <input class="search-input" type="text" v-model="query" placeholder="Поиск" required>
       <button class="search-btn"></button>
       <button class="clear-btn" @click="clearSearch"></button>
-      <ul class="result">
+      <ul class="result" style="display:none;">
         <li>Пиццони</li>
         <li>Пиццони</li>
         <li>Пиццони</li>
