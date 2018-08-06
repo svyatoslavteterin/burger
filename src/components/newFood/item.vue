@@ -17,15 +17,18 @@
         <dishMods v-if="mods.include" :mods="data.dishes[this.activeDish].ModGroups[1].mods"
                   :dishId="data.dishes[this.activeDish].id"></dishMods>
       </div>
-      <Dishes :dishes="this.data.dishes" v-if="this.data.dishes.length>1" :activeDish="this.activeDish"
-              v-on:setActiveDish="setActiveDish"></Dishes>
       <div class="bottom">
-        <div class="price"><span v-text="getPrice"></span><span>₽</span></div>
-        <div class="weight"><span v-text="getWeight"></span> г.</div>
-        <button class="in-basket" v-show="!showCounter" @click="addToCart">В корзину
-        </button>
-        <amountControls v-show="showCounter" :count="count" :showCounter="showCounter"
-                        v-on:decrement="decrement" v-on:increment="increment"></amountControls>
+        <Dishes :dishes="this.data.dishes" v-if="this.data.dishes.length>1" :activeDish="this.activeDish"
+                v-on:setActiveDish="setActiveDish"></Dishes>
+        <div class="bottom-row">
+          <div class="price"><span v-text="getPrice"></span><span>₽</span></div>
+          <div class="weight"><span v-text="getWeight"></span> г.</div>
+          <button class="in-basket" v-show="!showCounter" @click="addToCart">
+            В корзину
+          </button>
+          <amountControls v-show="showCounter" :count="count" :showCounter="showCounter"
+                          v-on:decrement="decrement" v-on:increment="increment"></amountControls>
+        </div>
       </div>
     </div><!--chars-->
   </div>
@@ -45,16 +48,19 @@
           <dishMods v-if="mods.include" :mods="data.dishes[this.activeDish].ModGroups[1].mods"
                     :dishId="data.dishes[this.activeDish].id" :type="'include'"></dishMods>
         </div>
-        <Dishes :dishes="this.data.dishes" v-if="this.data.dishes.length>1" :activeDish="this.activeDish"
-                v-on:setActiveDish="setActiveDish"></Dishes>
+
       </div>
       <div class="bottom">
-        <div class="price"><span v-text="getPrice"></span><span>₽</span></div>
-        <div class="weight"><span v-text="getWeight"></span> г.</div>
-        <button class="in-basket" v-show="!showCounter" @click="addToCart">В корзину</button>
+        <Dishes :dishes="this.data.dishes" v-if="this.data.dishes.length>1" :activeDish="this.activeDish"
+                v-on:setActiveDish="setActiveDish"></Dishes>
+        <div class="bottom-row">
+          <div class="price"><span v-text="getPrice"></span><span>₽</span></div>
+          <div class="weight"><span v-text="getWeight"></span> г.</div>
+          <button class="in-basket" v-show="!showCounter" @click="addToCart">В корзину</button>
 
-        <amountControls v-show="showCounter" :count="count" :showCounter="showCounter"
-                        v-on:decrement="decrement" v-on:increment="increment"></amountControls>
+          <amountControls v-show="showCounter" :count="count" :showCounter="showCounter"
+                          v-on:decrement="decrement" v-on:increment="increment"></amountControls>
+        </div>
       </div>
     </div><!--chars-->
     <div class="pic" @click="showInfo">
@@ -96,7 +102,6 @@
         }
       },
       addToCart: function () {
-
         let dishData = {
           id: this.data.dishes[this.activeDish].id,
           dishName: this.data.dishes[this.activeDish].dishName,
@@ -114,8 +119,7 @@
         this.$store.commit("addToCart", {value: dishData});
 
         if (!Object.keys(this.$store.state.deliveryInfo).length > 0) {
-
-          this.$modal.show('delivery');
+          this.$modal.show("delivery");
         }
       },
       setActiveDish: function (index) {
@@ -142,7 +146,7 @@
     },
     computed: {
       getClass: function () {
-        return 'mo ' + this.classKey + '-mo';
+        return "mo " + this.classKey + "-mo";
       },
       showCounter: function () {
         return this.count > 0 ? true : false;
@@ -198,9 +202,8 @@
         const imageUrl = `https://imgtest.burgerpizzoni.ru/_img/Rest/${
           this.data.dishes[this.activeDish].fullData.Images[0].ImageName
           }`;
-
         return imageUrl;
       },
     }
-  };
+  }
 </script>
