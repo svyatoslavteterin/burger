@@ -47,7 +47,7 @@
           5: {idTag: 5, tagName: "С морепродуктами", dishes: [250]}
         },
         searchIndexes: {
-          бургер: [203, 152, 206, 252, 219]
+          бургер: [203, 152]
         },
         filters: [
           "Веганам",
@@ -271,7 +271,7 @@
               });
             });
 
-            let dishesIds = _.intersection(ids);
+            let dishesIds = _.union(ids);
             if (dishesIds.length > 0) {
               return this.menu[this.$store.state.area].categs.filter(
                 item => dishesIds.indexOf(+item.id) >= 0

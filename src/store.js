@@ -151,7 +151,7 @@ export default new Vuex.Store({
 
     },
     changeSearchQuery: function (state, payload) {
-      state.q = payload.value;
+      state.q = payload.value.toLowerCase();
     },
     setAuthUser: function (state, payload) {
       state.authUser = payload.value;
