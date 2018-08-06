@@ -10,7 +10,7 @@
     <Auth/>
 
     <DetailInfo/>
-    <delivery></delivery>
+    <Delivery></Delivery>
     <footerModule/>
   </div>
 </template>
@@ -27,13 +27,13 @@
   import footerModule from "@/components/Footer";
   import Auth from "@/components/Auth";
   import DetailInfo from "@/components/DetailInfo";
-  import delivery from "@/components/newDelivery";
+  import Delivery from "@/components/newDelivery";
 
   export default {
     beforeCreate() {
       this.$store.commit("initialiseStore");
     },
-    components: {headerModule, footerModule, Auth, DetailInfo,delivery},
+    components: {headerModule, footerModule, Auth, DetailInfo,Delivery},
     data() {
       return {
         menu: [],
