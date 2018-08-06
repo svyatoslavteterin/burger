@@ -1,29 +1,32 @@
 <template>
-    <li v-if="type=='include'">
-        <div class="mod-item">
-            <span class="mod-name" v-text="data.ModName"></span>
-            <span class="mod-price">+<span v-text="data.Price"></span>₽</span>
-        </div>
-        <div class="mod-actions">
-            <button class="counter" @click.prevent="decModCount()">–</button>
-            <span class="label-counter"><span
-                    v-text="getCount"></span></span>
-            <button class="counter" @click.prevent="addMod()">+</button>
-        </div>
-    </li>
-    <div class="i-item" v-else-if="type=='exclude'">
-        <span class="mod-name" v-text="data.FoodName" :class="{ 'mod-name-deleted': getCount }"></span>
-        <span class="mod-delete-icon" v-if="!getCount" @click.prevent="addMod()"></span>
-        <span class="mod-return-icon" v-if="getCount" @click.prevent="decModCount()"></span>
+  <li v-if="type=='include'">
+    <div class="mod-item">
+      <span class="mod-name" v-text="data.ModName"></span>
+      <span class="mod-price">+<span v-text="data.Price"></span>₽</span>
     </div>
-    <li v-else-if="type=='all'">
-        <button @click="removeMod()" class="mod-delete">x</button>
-        <span v-text="data.name"></span> x<span
-            v-text="data.count"></span>
-        <span v-text="data.summ+' ₽'"></span>
-        <button @click.prevent="addMod()">+</button>
-        <button :class="{hide:(data.count<2)}" @click.prevent="decModCount()">-</button>
-    </li>
+    <div class="mod-actions">
+      <button class="counter" @click.prevent="decModCount()">–</button>
+      <span class="label-counter"><span
+        v-text="getCount"></span></span>
+      <button class="counter" @click.prevent="addMod()">+</button>
+    </div>
+  </li>
+  <div class="i-item" v-else-if="type=='exclude'">
+    <span class="mod-name" v-text="data.FoodName" :class="{ 'mod-name-deleted': getCount }"></span>
+    <span class="mod-delete-icon" v-if="!getCount" @click.prevent="addMod()"></span>
+    <span class="mod-return-icon" v-if="getCount" @click.prevent="decModCount()"></span>
+  </div>
+  <li v-else-if="type=='text'">
+    <span v-text="data.name"></span> ,
+  </li>
+  <li v-else-if="type=='all'">
+    <button @click="removeMod()" class="mod-delete">x</button>
+    <span v-text="data.name"></span> x<span
+    v-text="data.count"></span>
+    <span v-text="data.summ+' ₽'"></span>
+    <button @click.prevent="addMod()">+</button>
+    <button :class="{hide:(data.count<2)}" @click.prevent="decModCount()">-</button>
+  </li>
 </template>
 
 <script>

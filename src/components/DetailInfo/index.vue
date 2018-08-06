@@ -1,4 +1,4 @@
- <template>
+<template>
   <modal
     name="info"
     height="auto"
@@ -6,38 +6,26 @@
     @closed="closedModal"
     adaptive
     v-cloak
+    @before-open="beforeOpen"
   >
     <div class="modal-header-info">
-      <div class="info-title">Куриная</div>
+      <div class="info-title" v-if="data.dishes" v-text="data.categName"></div>
       <button @click="$modal.hide('info')" class="info-modal-close"></button>
     </div>
-    <div class="info-modal-pic">
-      <img src="./img/modal-pic.png" alt="">
+    <div class="info-modal-pic" v-if="data.dishes">
+      <img :src="getImage()" alt="">
     </div>
     <div class="scrollbar-wrapper">
       <VuePerfectScrollbar class="modal-scrollbar" v-once :settings="settings">
-          <p>
-            <span>Состав:</span> оливковое масло, соль, перец, чеснок, помидоры
-          </p>
-          <p>
-            <span>Описание:</span> Lorem Ipsum - это текст-"рыба", часто используемый в печати и
-            вэб-дизайне.
-            Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время
-            некий
-            безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для
-            распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но
-            и
-            перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов
-            Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной
-            вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.
-            Его популяризации в новое время послужили публикация листов
-            Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной
-            вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.
-            Его популяризации в новое время послужили публикация листов
-            Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной
-            вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.
-          </p>
-          <div class="empty-gap"></div>
+        <p >
+          <span>Состав:</span>
+          <dishMods :mods="data.dishes[this.activeDish].techCardData"
+                    :dishId="data.dishes[this.activeDish].id" :type="'text'" v-if="data.dishes"></dishMods>
+        </p>
+        <p v-if="data.dishes">
+          <span>Описание:</span> {{data.categDescr}}
+        </p>
+        <div class="empty-gap"></div>
       </VuePerfectScrollbar>
 
       <div class="fade-out-block"></div>
@@ -45,12 +33,34 @@
   </modal>
 </template>
 <script>
-import VuePerfectScrollbar from "vue-perfect-scrollbar";
-import modalActions from "@/mixins/modalActions";
-import "./style.scss";
+  import VuePerfectScrollbar from "vue-perfect-scrollbar";
+  import modalActions from "@/mixins/modalActions";
+  import dishMods from "@/components/newDishmod";
+  import "./style.scss";
 
-export default {
-  components: { VuePerfectScrollbar },
-  mixins: [ modalActions ]
-};
+  export default {
+    methods: {
+      beforeOpen(event) {
+        debugger
+        this.data = event.params.data;
+        this.activeDish = event.params.activeDish;
+      },
+      getImage: function () {
+        const imageUrl = `https://imgtest.burgerpizzoni.ru/_img/Rest/${
+          this.data.dishes[this.activeDish].fullData.Images[0].ImageName
+          }`;
+
+        return imageUrl;
+      },
+    },
+
+    components: {VuePerfectScrollbar, dishMods},
+    data() {
+      return {
+        data:{},
+        activeDish:0
+      }
+    },
+    mixins: [modalActions]
+  };
 </script>

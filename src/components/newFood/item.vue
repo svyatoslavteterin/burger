@@ -2,7 +2,7 @@
   <div :class="getClass" v-if="type=='offer'">
     <div class="add-mo-to-cart" v-show="!showCounter" @click="addToCart">
       <div class="mo-to-cart-img"></div>
-      <div class="mo-to-cart-text" >Заказать</div>
+      <div class="mo-to-cart-text">Заказать</div>
     </div>
     <div class="chars">
       <div class="title">{{data.categName}}</div>
@@ -57,7 +57,7 @@
                         v-on:decrement="decrement" v-on:increment="increment"></amountControls>
       </div>
     </div><!--chars-->
-    <div class="pic" @click="$modal.show('info')">
+    <div class="pic" @click="showInfo">
       <div class="detail">
         <div class="arrow"></div>
         <div class="detail-img"></div>
@@ -77,6 +77,9 @@
   export default {
     components: {dishMods, amountControls, Dishes, dishModItem},
     methods: {
+      showInfo() {
+        this.$modal.show('info', {data: this.data, activeDish: this.activeDish});
+      },
       increment() {
         this.$store.commit("addEquentity", {
           value: this.data.dishes[this.activeDish]
@@ -196,7 +199,6 @@
           this.data.dishes[this.activeDish].fullData.Images[0].ImageName
           }`;
 
-        console.log(imageUrl);
         return imageUrl;
       },
     }
