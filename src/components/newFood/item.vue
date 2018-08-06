@@ -1,5 +1,5 @@
 <template>
-  <div :class="getClass" v-if="type==='offer'">
+  <div :class="getClass" v-if="type=='offer'">
     <div class="add-mo-to-cart">
       <div class="mo-to-cart-img"></div>
       <div class="mo-to-cart-text" v-show="!showCounter" @click="showCounter = !showCounter">Заказать</div>
