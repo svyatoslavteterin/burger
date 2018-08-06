@@ -1,10 +1,8 @@
 <template>
   <div :class="getClass" v-if="type=='offer'">
-    <div class="add-mo-to-cart">
+    <div class="add-mo-to-cart" v-show="!showCounter" @click="addToCart">
       <div class="mo-to-cart-img"></div>
-      <div class="mo-to-cart-text" v-show="!showCounter" @click="showCounter = !showCounter">Заказать</div>
-      <amountControls v-show="showCounter" :count="count" :showCounter="showCounter"
-                      v-on:decrement="decrement" v-on:increment="increment"></amountControls>
+      <div class="mo-to-cart-text" >Заказать</div>
     </div>
     <div class="chars">
       <div class="title">{{data.categName}}</div>
