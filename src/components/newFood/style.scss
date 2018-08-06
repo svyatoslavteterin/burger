@@ -5,9 +5,8 @@
   flex-wrap: wrap;
 
   .food {
-    width: 49%;
+    width: 50%;
     border: 2px solid transparent;
-    padding: 7px 10px;
     display: flex;
     flex-wrap: nowrap;
     height: 316px;
@@ -20,12 +19,15 @@
     &:nth-child(even) {
       flex-direction: row-reverse;
       .pic {
+        img {
+          margin: 0 auto 0 0;
+        }
+
         .arrow {
           top: calc(50% - 15px);
           left: auto;
           right: -14px;
           transform: scaleX(-1);
-
         }
       }
     }
@@ -33,6 +35,7 @@
 
   .chars {
     width: 47%;
+    margin: 7px 0 7px 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -115,16 +118,17 @@
     display: flex;
     flex-wrap: nowrap;
     flex-direction: flex-start;
-    margin: 10px 0 0;
+    margin: 0 0 15px;
+    width: 100%;
 
     .btn {
       text-align: center;
       display: block;
-      border-radius: 15px;
+      border-radius: 18px;
       border: 1px solid #808080;
       color: black;
       cursor: pointer;
-      padding: 5px;
+      padding: 5px 14px;
       margin-bottom: 3px;
       margin-right: 5px;
 
@@ -138,18 +142,6 @@
         background: #ffd70f;
         box-shadow: 2px 5px 5px -4px rgba(0,0,0,0.18);
       }
-
-      &.mini-size {
-        padding: 4px 8px;
-        margin-right: 8px;
-      }
-      &.middle-size {
-        padding: 4px 10px;
-        margin-right: 8px;
-      }
-      &.maxi-size {
-        padding: 4px 15px;
-      }
     }
 
   }
@@ -157,9 +149,18 @@
   .bottom {
     display: flex;
     flex-wrap: nowrap;
-    justify-content: space-around;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
     margin-top: 15px;
+
+    .bottom-row {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
 
     .price {
       font-size: 2rem;
@@ -173,7 +174,7 @@
 
     .weight {
       color: #808080;
-      font-size: 13px;
+      font-size: 1rem;
       white-space: nowrap;
     }
 
@@ -245,6 +246,7 @@
     width: 50%;
     height: 100%;
     margin: auto 0;
+    text-align: right;
 
     img {
       max-width: 100%;
@@ -252,7 +254,7 @@
       display: flex;
       align-self: center;
       justify-content: center;
-      margin: 0 auto;
+      margin: 0 0 0 auto;
       filter: brightness(100%);
     }
 

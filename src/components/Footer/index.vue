@@ -8,8 +8,8 @@
           </div>
           <div class="links">
             <a class="agreements" href="#">Пользовательское соглашение</a>
-            <a class="agreements" href="#">Политика конфиденциальности</a>
             <a class="agreements" href="#">Все о наших блюдах</a>
+            <a class="agreements" href="#">Политика конфиденциальности</a>
           </div>
           <div class="social-liks-block">
             <a href="#" ><img class="social-icon sci1" src="./img/icons_soc_vk_gray.svg"/></a>

@@ -19,15 +19,18 @@
         <dishMods v-if="mods.include" :mods="data.dishes[this.activeDish].ModGroups[1].mods"
                   :dishId="data.dishes[this.activeDish].id"></dishMods>
       </div>
-      <Dishes :dishes="this.data.dishes" v-if="this.data.dishes.length>1" :activeDish="this.activeDish"
-              v-on:setActiveDish="setActiveDish"></Dishes>
       <div class="bottom">
-        <div class="price"><span v-text="getPrice"></span><span>₽</span></div>
-        <div class="weight"><span v-text="getWeight"></span> г.</div>
-        <button class="in-basket" v-show="!showCounter" @click="addToCart">В корзину
-        </button>
-        <amountControls v-show="showCounter" :count="count" :showCounter="showCounter"
-                        v-on:decrement="decrement" v-on:increment="increment"></amountControls>
+        <Dishes :dishes="this.data.dishes" v-if="this.data.dishes.length>1" :activeDish="this.activeDish"
+              v-on:setActiveDish="setActiveDish"></Dishes>
+        <div class="bottom-row">
+          <div class="price"><span v-text="getPrice"></span><span>₽</span></div>
+          <div class="weight"><span v-text="getWeight"></span> г.</div>
+          <button class="in-basket" v-show="!showCounter" @click="addToCart">
+            В корзину
+          </button>
+          <amountControls v-show="showCounter" :count="count" :showCounter="showCounter"
+                          v-on:decrement="decrement" v-on:increment="increment"></amountControls>
+        </div>
       </div>
     </div><!--chars-->
   </div>
@@ -47,16 +50,19 @@
           <dishMods v-if="mods.include" :mods="data.dishes[this.activeDish].ModGroups[1].mods"
                     :dishId="data.dishes[this.activeDish].id" :type="'include'"></dishMods>
         </div>
-        <Dishes :dishes="this.data.dishes" v-if="this.data.dishes.length>1" :activeDish="this.activeDish"
-                v-on:setActiveDish="setActiveDish"></Dishes>
+        
       </div>
       <div class="bottom">
-        <div class="price"><span v-text="getPrice"></span><span>₽</span></div>
-        <div class="weight"><span v-text="getWeight"></span> г.</div>
-        <button class="in-basket" v-show="!showCounter" @click="addToCart">В корзину</button>
+        <Dishes :dishes="this.data.dishes" v-if="this.data.dishes.length>1" :activeDish="this.activeDish"
+                v-on:setActiveDish="setActiveDish"></Dishes>
+        <div class="bottom-row">
+          <div class="price"><span v-text="getPrice"></span><span>₽</span></div>
+          <div class="weight"><span v-text="getWeight"></span> г.</div>
+          <button class="in-basket" v-show="!showCounter" @click="addToCart">В корзину</button>
 
-        <amountControls v-show="showCounter" :count="count" :showCounter="showCounter"
-                        v-on:decrement="decrement" v-on:increment="increment"></amountControls>
+          <amountControls v-show="showCounter" :count="count" :showCounter="showCounter"
+                          v-on:decrement="decrement" v-on:increment="increment"></amountControls>
+        </div>
       </div>
     </div><!--chars-->
     <div class="pic" @click="$modal.show('info')">
@@ -71,31 +77,88 @@
 </template>
 
 <script>
-  import dishMods from "@/components/newDishmod";
-  import dishModItem from "@/components/newDishmod/item.vue";
-  import amountControls from "@/components/amountControls";
-  import Dishes from "@/components/Dishes";
+import dishMods from "@/components/newDishmod";
+import dishModItem from "@/components/newDishmod/item.vue";
+import amountControls from "@/components/amountControls";
+import Dishes from "@/components/Dishes";
 
-  export default {
-    components: {dishMods, amountControls, Dishes, dishModItem},
-    methods: {
-      increment() {
-        this.$store.commit("addEquentity", {
-          value: this.data.dishes[this.activeDish]
-        });
-      },
-      decrement() {
-        this.$store.commit("removeEquentity", {
-          value: this.data.dishes[this.activeDish]
-        });
-      },
-      isActiveDish: function (index) {
-        if (index == this.activeDish) {
-          return true;
+export default {
+  components: { dishMods, amountControls, Dishes, dishModItem },
+  methods: {
+    increment() {
+      this.$store.commit("addEquentity", {
+        value: this.data.dishes[this.activeDish]
+      });
+    },
+    decrement() {
+      this.$store.commit("removeEquentity", {
+        value: this.data.dishes[this.activeDish]
+      });
+    },
+    isActiveDish: function(index) {
+      if (index == this.activeDish) {
+        return true;
+      }
+    },
+    addToCart: function() {
+      let dishData = {
+        id: this.data.dishes[this.activeDish].id,
+        dishName: this.data.dishes[this.activeDish].dishName,
+        dishShortName: this.data.dishes[this.activeDish].dishShortName,
+        dishExtName: this.data.ExternalName,
+        price: this.data.dishes[this.activeDish].Price,
+        outPrice: this.data.dishes[this.activeDish].OutPrice,
+        sellType: "COUNT",
+        mods: [],
+        idShop: 3,
+        position: this.data.ShowOrder,
+        fullData: this.data.dishes[this.activeDish].fullData
+      };
+
+      this.$store.commit("addToCart", { value: dishData });
+
+      if (!Object.keys(this.$store.state.deliveryInfo).length > 0) {
+        this.$modal.show("delivery");
+      }
+    },
+    setActiveDish: function(index) {
+      this.activeDish = index;
+    }
+  },
+  created() {},
+  data() {
+    return {
+      activeDish: 0,
+      mods: {
+        include: false,
+        exclude: false
+      }
+    };
+  },
+
+  props: ["data", "type", "classKey"],
+
+  ready: function() {},
+  mounted: function() {},
+  computed: {
+    getClass: function() {
+      return "mo " + this.classKey + "-mo";
+    },
+    showCounter: function() {
+      return this.count > 0 ? true : false;
+    },
+    count: {
+      get: function() {
+        let count = 0;
+        const dish = this.$store.state.cart.find(
+          p => p.id === this.data.dishes[this.activeDish].id
+        );
+        if (dish) {
+          count = dish.count;
         }
+        return count;
       },
-      addToCart: function () {
-
+      addToCart: function() {
         let dishData = {
           id: this.data.dishes[this.activeDish].id,
           dishName: this.data.dishes[this.activeDish].dishName,
@@ -110,97 +173,35 @@
           fullData: this.data.dishes[this.activeDish].fullData
         };
 
-        this.$store.commit("addToCart", {value: dishData});
-
-        if (!Object.keys(this.$store.state.deliveryInfo).length > 0) {
-
-          this.$modal.show('delivery');
-        }
+        this.$store.commit("addToCart", { value: dishData });
       },
-      setActiveDish: function (index) {
+      setActiveDish: function(index) {
         this.activeDish = index;
       }
     },
-    created() {
+    dishData: function() {
+      return this.data.dishes[this.activeDish];
     },
-    data() {
-      return {
-        activeDish: 0,
-        mods: {
-          include: false,
-          exclude: false
-        }
-      };
+    getPrice: function() {
+      let price = 0;
+      if (typeof this.data.dishes[this.activeDish] != "undefined") {
+        price = this.data.dishes[this.activeDish].Price.slice(0, -3);
+      }
+      return price;
     },
-
-    props: ["data", "type", "classKey"],
-
-    ready: function () {
+    getWeight: function() {
+      if (typeof this.data.dishes[this.activeDish] != "undefined") {
+        return this.data.dishes[this.activeDish].fullData.ExitMass;
+      }
     },
-    mounted: function () {
-    },
-    computed: {
-      getClass: function () {
-        return 'mo ' + this.classKey + '-mo';
-      },
-      showCounter: function () {
-        return this.count > 0 ? true : false;
-      },
-      count: {
-        get: function () {
-          let count = 0;
-          const dish = this.$store.state.cart.find(
-            p => p.id === this.data.dishes[this.activeDish].id
-          );
-          if (dish) {
-            count = dish.count;
-          }
-          return count;
-        },
-        addToCart: function () {
-          let dishData = {
-            id: this.data.dishes[this.activeDish].id,
-            dishName: this.data.dishes[this.activeDish].dishName,
-            dishShortName: this.data.dishes[this.activeDish].dishShortName,
-            dishExtName: this.data.ExternalName,
-            price: this.data.dishes[this.activeDish].Price,
-            outPrice: this.data.dishes[this.activeDish].OutPrice,
-            sellType: "COUNT",
-            mods: [],
-            idShop: 3,
-            position: this.data.ShowOrder,
-            fullData: this.data.dishes[this.activeDish].fullData
-          };
+    getImage: function() {
+      const imageUrl = `https://imgtest.burgerpizzoni.ru/_img/Rest/${
+        this.data.dishes[this.activeDish].fullData.Images[0].ImageName
+      }`;
 
-          this.$store.commit("addToCart", {value: dishData});
-        },
-        setActiveDish: function (index) {
-          this.activeDish = index;
-        }
-      },
-      dishData: function () {
-        return this.data.dishes[this.activeDish];
-      },
-      getPrice: function () {
-        let price = 0;
-        if (typeof this.data.dishes[this.activeDish] != "undefined") {
-          price = this.data.dishes[this.activeDish].Price.slice(0, -3);
-        }
-        return price;
-      },
-      getWeight: function () {
-        if (typeof this.data.dishes[this.activeDish] != "undefined") {
-          return this.data.dishes[this.activeDish].fullData.ExitMass;
-        }
-      },
-      getImage: function () {
-        const imageUrl = `https://imgtest.burgerpizzoni.ru/_img/Rest/${
-          this.data.dishes[this.activeDish].fullData.Images[0].ImageName
-          }`;
-
-        console.log(imageUrl);
-        return imageUrl;
-      },
+      console.log(imageUrl);
+      return imageUrl;
     }
-  };
+  }
+};
 </script>
