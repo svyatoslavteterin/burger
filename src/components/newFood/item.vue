@@ -21,7 +21,7 @@
         <Dishes :dishes="this.data.dishes" v-if="this.data.dishes.length>1" :activeDish="this.activeDish"
                 v-on:setActiveDish="setActiveDish"></Dishes>
         <div class="bottom-row">
-          <div class="price"><span v-text="getPrice"></span><span>₽</span></div>
+          <div class="price"><span v-text="getPrice"></span></div>
           <div class="weight"><span v-text="getWeight"></span> г.</div>
           <button class="in-basket" v-show="!showCounter" @click="addToCart">
             В корзину
@@ -54,7 +54,7 @@
         <Dishes :dishes="this.data.dishes" v-if="this.data.dishes.length>1" :activeDish="this.activeDish"
                 v-on:setActiveDish="setActiveDish"></Dishes>
         <div class="bottom-row">
-          <div class="price"><span v-text="getPrice"></span><span>₽</span></div>
+          <div class="price"><span v-text="getPrice"></span></div>
           <div class="weight"><span v-text="getWeight"></span> г.</div>
           <button class="in-basket" v-show="!showCounter" @click="addToCart">В корзину</button>
 
@@ -191,7 +191,7 @@
         if (typeof this.data.dishes[this.activeDish] != "undefined") {
           price = this.data.dishes[this.activeDish].Price.slice(0, -3);
         }
-        return price;
+        return this.$currencyFormatter.format(price, { code: 'RUB',precision:0});
       },
       getWeight: function () {
         if (typeof this.data.dishes[this.activeDish] != "undefined") {

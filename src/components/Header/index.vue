@@ -17,7 +17,7 @@
             </div>
             <div v-if="login == 1" class="header-right-block1">
                 <div class="price_block">
-                    <div class="price"><span v-text="this.$store.getters.getCartSum"></span>₽</div>
+                    <div class="price"><span v-text="this.$store.getters.getCartSum"></span></div>
                 </div>
                 <div class="basket-wrapper">
                     <router-link to="/cart" class="basket">Корзина</router-link>

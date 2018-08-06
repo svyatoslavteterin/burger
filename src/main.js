@@ -4,6 +4,7 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import store from './store';
+import currencyFormatter from 'currency-formatter';
 
 // Subscribe to store updates
 store.subscribe((mutation, state) => {
@@ -31,6 +32,8 @@ Vue.use(VueCookie);
 import axios from "axios";
 
 Vue.prototype.$http = axios;
+
+Vue.prototype.$currencyFormatter = currencyFormatter;
 
 new Vue({
   router,

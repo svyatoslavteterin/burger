@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from "axios";
+import currencyFormatter from 'currency-formatter';
 
 Vue.use(Vuex);
 
@@ -202,7 +203,7 @@ export default new Vuex.Store({
 
       }
 
-      return summ;
+      return currencyFormatter.format(summ, { code: 'RUB',precision:0});
     },
   },
   actions: {}
