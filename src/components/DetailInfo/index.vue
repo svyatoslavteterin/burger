@@ -17,7 +17,7 @@
     </div>
     <div class="scrollbar-wrapper">
       <VuePerfectScrollbar class="modal-scrollbar" v-once :settings="settings">
-        <p >
+        <p>
           <span>Состав:</span>
           <dishMods :mods="data.dishes[this.activeDish].techCardData"
                     :dishId="data.dishes[this.activeDish].id" :type="'text'" v-if="data.dishes"></dishMods>
@@ -56,8 +56,8 @@
     components: {VuePerfectScrollbar, dishMods},
     data() {
       return {
-        data:{},
-        activeDish:0
+        data: {},
+        activeDish: 0
       }
     },
     mixins: [modalActions]
