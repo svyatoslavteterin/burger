@@ -1,0 +1,164 @@
+<template>
+  <li class="cart-item">
+    <div class="close"></div>
+    <div class="main-info">
+      <div class="pic">
+        <img src="./img/temp.jpg" alt="">
+      </div><!--pic-->
+      <div class="chars">
+        <div class="top">
+          <div class="title">{{data.dishExtName}} <span class="size">|&nbsp;{{data.dishName}}</span></div>
+          <div class="ingrids">
+            <!-- <dishMods
+              :mods="data.dishes[this.activeDish].techCardData"
+              :dishId="data.dishes[this.activeDish].id"
+              :type="'exclude'"
+            /> -->
+          </div>
+        </div>
+        <div class="bottom">
+          <div class="bottom-row">
+            <div class="price"><span v-text="getPrice"></span></div>
+            <div class="weight"><span v-text="getWeight"></span> г.</div>
+            <div class="counter-block">
+              <button class="counter">−</button>
+              <span class="label-counter">2</span>
+              <button class="counter">+</button>
+            </div>
+          </div>
+        </div>
+      </div><!--chars-->
+    </div>
+    <div class="additional-with-order">
+        <!-- заполнить блок -->
+    </div>
+  </li>
+</template>
+<script>
+import dishMods from "@/components/newDishmod";
+import dishModItem from "@/components/newDishmod/item.vue";
+export default {
+  name: "CartList",
+  components: { dishMods, dishModItem },
+  props: ["data", "type"],
+  methods: {
+    increment() {
+      this.$store.commit("addEquentity", {
+        value: this.data.dishes[this.activeDish]
+      });
+    },
+    decrement() {
+      this.$store.commit("removeEquentity", {
+        value: this.data.dishes[this.activeDish]
+      });
+    },
+    isActiveDish: function(index) {
+      if (index == this.activeDish) {
+        return true;
+      }
+    },
+    addToCart: function() {
+      let dishData = {
+        id: this.data.dishes[this.activeDish].id,
+        dishName: this.data.dishes[this.activeDish].dishName,
+        dishShortName: this.data.dishes[this.activeDish].dishShortName,
+        dishExtName: this.data.ExternalName,
+        price: this.data.dishes[this.activeDish].Price,
+        outPrice: this.data.dishes[this.activeDish].OutPrice,
+        sellType: "COUNT",
+        mods: [],
+        idShop: 3,
+        position: this.data.ShowOrder,
+        fullData: this.data.dishes[this.activeDish].fullData
+      };
+
+      this.$store.commit("addToCart", { value: dishData });
+
+      if (!Object.keys(this.$store.state.deliveryInfo).length > 0) {
+        this.$modal.show("delivery");
+      }
+    },
+    setActiveDish: function(index) {
+      this.activeDish = index;
+    }
+  },
+  created() {},
+  data() {
+    return {
+      activeDish: 0,
+      mods: {
+        include: false,
+        exclude: false
+      }
+    };
+  },
+  ready: function() {},
+  mounted: function() {},
+  computed: {
+    getClass: function() {
+      return "mo " + this.classKey + "-mo";
+    },
+    showCounter: function() {
+      return this.count > 0 ? true : false;
+    },
+    count: {
+      get: function() {
+        let count = 0;
+        const dish = this.$store.state.cart.find(
+          p => p.id === this.data.dishes[this.activeDish].id
+        );
+        if (dish) {
+          count = dish.count;
+        }
+        return count;
+      },
+      addToCart: function() {
+        let dishData = {
+          id: this.data.dishes[this.activeDish].id,
+          dishName: this.data.dishes[this.activeDish].dishName,
+          dishShortName: this.data.dishes[this.activeDish].dishShortName,
+          dishExtName: this.data.ExternalName,
+          price: this.data.dishes[this.activeDish].Price,
+          outPrice: this.data.dishes[this.activeDish].OutPrice,
+          sellType: "COUNT",
+          mods: [],
+          idShop: 3,
+          position: this.data.ShowOrder,
+          fullData: this.data.dishes[this.activeDish].fullData
+        };
+
+        this.$store.commit("addToCart", { value: dishData });
+      },
+      setActiveDish: function(index) {
+        this.activeDish = index;
+      }
+    },
+    dishData: function() {
+      return this.data.dishes[this.activeDish];
+    },
+    getPrice: function() {
+      console.log("data:", this.data);
+      let price = 0;
+      if (typeof this.data != "undefined") {
+        price = this.data.fullData.Price.slice(0, -3);
+      }
+      return this.$currencyFormatter.format(price, {
+        code: "RUB",
+        precision: 0
+      });
+    },
+    getWeight: function() {
+      if (typeof this.data != "undefined") {
+        return this.data.fullData.ExitMass;
+      }
+    },
+    getImage: function() {
+      const imageUrl = `https://imgtest.burgerpizzoni.ru/_img/Rest/${
+        this.data.dishes[this.activeDish].fullData.Images[0].ImageName
+      }`;
+      return imageUrl;
+    }
+  }
+};
+</script>
+

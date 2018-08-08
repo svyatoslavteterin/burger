@@ -10,20 +10,20 @@
       :data="item"
     />
     <div class="cart-price">
-      Итого: <span>{{$store.getters.getCartSum}} ₽</span>
+      Итого: <span>{{$store.getters.getCartSum}}</span>
     </div>
   </div>  
 </template>
 
 <script>
-import CartItem from './dish'
+import CartItem from "./dish";
 
 export default {
   name: "BasketPreview",
   components: { CartItem },
   computed: {
     cartItems() {
-      console.log(this.$store.state.cart)
+      console.log(this.$store.state.cart);
       return this.$store.state.cart;
     }
   }

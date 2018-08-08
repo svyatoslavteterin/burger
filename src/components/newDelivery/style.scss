@@ -1,3 +1,6 @@
+.with-overflow-off {
+  overflow: visible !important; 
+}
 .delivery {
   .modal-header {
     display: flex;
@@ -156,7 +159,7 @@
         border: 1px solid #ffd70f;
         border-top: none;
         padding: 0;
-        z-index: 1;
+        z-index: 9999;
 
         li {
           margin-bottom: 3px;

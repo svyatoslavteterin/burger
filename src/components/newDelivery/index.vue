@@ -3,6 +3,7 @@
     name="delivery"
     class="delivery"
     height="auto"
+    :classes="'v--modal with-overflow-off'"
     @opened="openedModal"
     @closed="closedModal"
     adaptive
@@ -157,115 +158,115 @@
   </modal>
 </template>
 <script>
-  import VuePerfectScrollbar from "vue-perfect-scrollbar";
-  import modalActions from "@/mixins/modalActions";
-  import "./style.scss";
+import VuePerfectScrollbar from "vue-perfect-scrollbar";
+import modalActions from "@/mixins/modalActions";
+import "./style.scss";
 
-  export default {
-    components: {VuePerfectScrollbar},
-    mixins: [modalActions],
-    data() {
-      return {
-        okButton: false,
-        okDelivery: false,
-        okSelfDelivery: false,
-        activeTab: 1,
-        addresses: [],
-        houses: [],
-        house: '',
-        q: '',
-        address: '',
-        street: ''
-      };
+export default {
+  components: { VuePerfectScrollbar },
+  mixins: [modalActions],
+  data() {
+    return {
+      okButton: false,
+      okDelivery: false,
+      okSelfDelivery: false,
+      activeTab: 1,
+      addresses: [],
+      houses: [],
+      house: "",
+      q: "",
+      address: "",
+      street: ""
+    };
+  },
+  methods: {
+    checkAddress: function(e) {
+      let container = e.target.parentNode;
+
+      let addressValue = container.querySelector(".address-value").innerText;
+      this.address = addressValue;
     },
-    methods: {
-      checkAddress: function (e) {
-        let container = e.target.parentNode;
-
-        let addressValue = container.querySelector('.address-value').innerText;
-        this.address = addressValue;
-      },
-      clearSearch() {
-        this.q = "";
-      },
-      setStreet(street) {
-        this.street = street;
-
-      },
-      setHouse(house) {
-        this.house = house;
-
-      },
-      getAdresses: async function () {
-
-        try {
-          let response = await this.$http.get('https://apitest.burgerpizzoni.ru/api/Address/get?street=' + this.q + '&access_token=' + this.$store.state.authUser.id);
-          return response.data;
-        } catch (e) {
-          this.errors.address.request = "Ошибка при получении адресов";
-
-        }
-      },
-      showAddresses() {
-        this.getAdresses(this.q).then((addresses) => {
-          if (typeof addresses != "undefined") {
-            this.addresses = addresses;
-          }
-        });
+    clearSearch() {
+      this.q = "";
+    },
+    setStreet(street) {
+      this.street = street;
+    },
+    setHouse(house) {
+      this.house = house;
+    },
+    getAdresses: async function() {
+      try {
+        let response = await this.$http.get(
+          "https://apitest.burgerpizzoni.ru/api/Address/get?street=" +
+            this.q +
+            "&access_token=" +
+            this.$store.state.authUser.id
+        );
+        return response.data;
+      } catch (e) {
+        this.errors.address.request = "Ошибка при получении адресов";
       }
     },
-    computed: {
-      fullAddress: function () {
-        return this.street + ',' + this.house;
-      },
-      query: {
-        set: function (newValue) {
-          this.showAddresses();
-          this.q = newValue;
-          if (this.street && this.house) {
-            let addressArr = this.q.split(',');
-            let house = addressArr[1];
-            let street = addressArr[0];
+    showAddresses() {
+      this.getAdresses(this.q).then(addresses => {
+        if (typeof addresses != "undefined") {
+          this.addresses = addresses;
+        }
+      });
+    }
+  },
+  computed: {
+    fullAddress: function() {
+      return this.street + "," + this.house;
+    },
+    query: {
+      set: function(newValue) {
+        this.showAddresses();
+        this.q = newValue;
+        if (this.street && this.house) {
+          let addressArr = this.q.split(",");
+          let house = addressArr[1];
+          let street = addressArr[0];
 
-            if (this.addresses.indexOf(street) < 0) {
-              this.street = '';
-              this.house = '';
-            } else {
-              if (this.addresses[street].houses.indexOf(house) < 0) {
-                this.house = '';
-              }
+          if (this.addresses.indexOf(street) < 0) {
+            this.street = "";
+            this.house = "";
+          } else {
+            if (this.addresses[street].houses.indexOf(house) < 0) {
+              this.house = "";
             }
-            this.$store.commit('setDeliveryInfo', {
+          }
+          this.$store.commit("setDeliveryInfo", {
+            street: this.street,
+            house: this.house
+          });
+        } else {
+          if (this.street) {
+            if (this.addresses.indexOf(this.street) < 0) {
+              this.street = "";
+              this.house = "";
+            }
+          }
+        }
+      },
+      get: function() {
+        if (this.street) {
+          if (this.house) {
+            this.$store.commit("setDeliveryInfo", {
               street: this.street,
               house: this.house
             });
-
+            return this.fullAddress;
           } else {
-            if (this.street) {
-              if (this.addresses.indexOf(this.street) < 0) {
-                this.street = '';
-                this.house = '';
-              }
-            }
+            return this.street;
           }
-        },
-        get: function () {
-          if (this.street) {
-            if (this.house) {
-              this.$store.commit('setDeliveryInfo', {
-                street: this.street,
-                house: this.house
-              });
-              return this.fullAddress;
-            } else {
-              return this.street;
-            }
-          } else {
-            return this.q;
-          }
+        } else {
+          return this.q;
         }
       }
     }
-  };
+  }
+};
 </script>
 

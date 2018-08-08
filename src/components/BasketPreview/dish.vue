@@ -42,65 +42,59 @@
 </template>
 
 <script>
-    import dishmod from "@/components/dishmod.vue";
+import dishmod from "@/components/dishmod.vue";
 
-    export default {
-
-        components: {
-            dishmod
-        },
-        methods: {
-            removeDish() {
-                this.$store.commit('removeFromCart', this.data.id);
-            },
-            increment() {
-                this.$store.commit('addEquentity', {"value": this.data});
-            },
-            decrement() {
-                this.$store.commit('removeEquentity', {"value": this.data});
-            },
-            removeMod(modId) {
-              console.log(this.data);
-              this.$store.commit("removeModFromDish", {
-                modId,
-                id: this.data.id
-              });
-            },
-        },
-        created() {
-
-        },
-        data() {
-            return {
-                count: this.data.count
-            }
-        },
-
-        props: ['data'],
-
-        ready: function () {
-
-        },
-        mounted: function () {
-        },
-        computed: {
-            getCartPrice: function () {
-                return this.$store.getters.getCartSum;
-            },
-            getCount: function () {
-                const dish = this.$store.state.cart.find(p => p.id === this.data.id);
-                return dish.count;
-            },
-
-            getImage: function () {
-              const imageUrl = `https://imgtest.burgerpizzoni.ru/_img/Rest/${
-              this.data.fullData.Images[0].ImageName
-              }`;
-
-              return imageUrl;
-            },
-        }
+export default {
+  components: {
+    dishmod
+  },
+  methods: {
+    removeDish() {
+      this.$store.commit("removeFromCart", this.data.id);
+    },
+    increment() {
+      this.$store.commit("addEquentity", { value: this.data });
+    },
+    decrement() {
+      this.$store.commit("removeEquentity", { value: this.data });
+    },
+    removeMod(modId) {
+      console.log(this.data);
+      this.$store.commit("removeModFromDish", {
+        modId,
+        id: this.data.id
+      });
     }
+  },
+  created() {},
+  data() {
+    return {
+      count: this.data.count
+    };
+  },
+
+  props: ["data"],
+
+  ready: function() {},
+  mounted: function() {},
+  computed: {
+    getCartPrice: function() {
+      return this.$store.getters.getCartSum;
+    },
+    getCount: function() {
+      const dish = this.$store.state.cart.find(p => p.id === this.data.id);
+      return dish.count;
+    },
+
+    getImage: function() {
+      const imageUrl = `https://imgtest.burgerpizzoni.ru/_img/Rest/${
+        this.data.fullData.Images[0].ImageName
+      }`;
+
+      return imageUrl;
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -128,10 +122,9 @@
     img {
       width: 60px;
       height: auto;
-      transform: scale(1.15);
+      transform: scale(1.65);
     }
   }
-
 
   .item-info {
     width: 100%;
@@ -176,7 +169,7 @@
           font-size: 1.25rem;
           line-height: 0;
           outline: none;
-          
+
           &:hover {
             background-color: #ffd60f;
             border: 1px solid #ffd60f;
@@ -185,19 +178,19 @@
       }
 
       a {
-          color: black !important;
-          font-size: 1rem;
-          display: flex;
-          align-items: center;
-          padding: 0 0.75rem;
-          border: 1px solid black;
-          border-radius: 50px;
+        color: black !important;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        padding: 0 0.75rem;
+        border: 1px solid black;
+        border-radius: 50px;
 
-          &:hover {
-            background-color: #ffd60f;
-            border: 1px solid #ffd60f;
-          }
+        &:hover {
+          background-color: #ffd60f;
+          border: 1px solid #ffd60f;
         }
+      }
     }
 
     .item-mods {
@@ -233,7 +226,7 @@
         margin-left: auto;
         font-size: 1rem;
       }
-      
+
       &--count {
         font-size: 1rem;
         color: black;
@@ -260,7 +253,7 @@
     .item-price-and-weight {
       display: flex;
       flex-flow: row nowrap;
-      align-items: flex-end; 
+      align-items: flex-end;
 
       .item-price {
         font-size: 1.75rem;
