@@ -44,7 +44,7 @@
 
       <div class="small-inputs-wrapper">
         <div class="small-wrapper">
-          <input class="small-input" type="text" required>
+          <input class="small-input lab-1" type="text" required>
           <label for="">Подъезд</label>
         </div>
         <div class="small-wrapper">
@@ -62,22 +62,35 @@
       </div>
 
       <div class="recieve-code-wrapper">
+        <div class="auth-button">Авторизоваться</div>
+          <div class="">
+            <input type='checkbox' class='ios8-switch ios8-switch-lg' id='checkbox-3'>
+            <label for='checkbox-3'></label>
+          </div>
+        <div class="reg-button">Зарегистрироваться</div>
+      </div>
+      <div class="recieve-code-wrapper">
         <div class="small-wrapper phone-wrapper">
-          <input class="small-input phone-input" type="text" required>
-          <label for="">Номер телефона в любом виде</label>
+          <input class="small-input2" 
+          type="text" 
+          placeholder="Номер телефона в любом формате" 
+          required>
         </div>
-        <button class="phone-btn">Получить код</button>
-      </div>
-
-      <div class="send-code-wrapper">
-        <div class="small-wrapper code-wrapper">
-          <input class="small-input phone-input code-input" type="text" required>
-          <label for="">Код из СМС</label>
+        <div class="small-wrapper phone-wrapper">
+          <input
+            class="small-input2-error" 
+            type="password"
+            placeholder="Пароль"
+          required>
+          <img src="./img/icons_incorrect.svg" class="icons_incorrect">
         </div>
-        <button class="phone-btn code-btn" @click="okDelivery = !okDelivery">ОК</button>
       </div>
-      <div class="send-link-again-wrapper">
-        <a class="send-again-link" href="#">Отправить код еще раз</a>
+      <div class="recieve-code-wrapper" style="justify-content: flex-end;">
+        <div class="error-mess">Неверный пароль</div>
+        <div class="send-again-link">Напомнить?</div>
+      </div>
+      <div class="recieve-code-wrapper" style="justify-content: center;">
+        <div class="send-button">Отправить</div>
       </div>
 
       <div v-if="okDelivery" class="thank-you-message">
@@ -157,115 +170,115 @@
   </modal>
 </template>
 <script>
-  import VuePerfectScrollbar from "vue-perfect-scrollbar";
-  import modalActions from "@/mixins/modalActions";
-  import "./style.scss";
+import VuePerfectScrollbar from "vue-perfect-scrollbar";
+import modalActions from "@/mixins/modalActions";
+import "./style.scss";
 
-  export default {
-    components: {VuePerfectScrollbar},
-    mixins: [modalActions],
-    data() {
-      return {
-        okButton: false,
-        okDelivery: false,
-        okSelfDelivery: false,
-        activeTab: 1,
-        addresses: [],
-        houses: [],
-        house: '',
-        q: '',
-        address: '',
-        street: ''
-      };
+export default {
+  components: { VuePerfectScrollbar },
+  mixins: [modalActions],
+  data() {
+    return {
+      okButton: false,
+      okDelivery: false,
+      okSelfDelivery: false,
+      activeTab: 1,
+      addresses: [],
+      houses: [],
+      house: "",
+      q: "",
+      address: "",
+      street: ""
+    };
+  },
+  methods: {
+    checkAddress: function(e) {
+      let container = e.target.parentNode;
+
+      let addressValue = container.querySelector(".address-value").innerText;
+      this.address = addressValue;
     },
-    methods: {
-      checkAddress: function (e) {
-        let container = e.target.parentNode;
-
-        let addressValue = container.querySelector('.address-value').innerText;
-        this.address = addressValue;
-      },
-      clearSearch() {
-        this.q = "";
-      },
-      setStreet(street) {
-        this.street = street;
-
-      },
-      setHouse(house) {
-        this.house = house;
-
-      },
-      getAdresses: async function () {
-
-        try {
-          let response = await this.$http.get('https://apitest.burgerpizzoni.ru/api/Address/get?street=' + this.q + '&access_token=' + this.$store.state.authUser.id);
-          return response.data;
-        } catch (e) {
-          this.errors.address.request = "Ошибка при получении адресов";
-
-        }
-      },
-      showAddresses() {
-        this.getAdresses(this.q).then((addresses) => {
-          if (typeof addresses != "undefined") {
-            this.addresses = addresses;
-          }
-        });
+    clearSearch() {
+      this.q = "";
+    },
+    setStreet(street) {
+      this.street = street;
+    },
+    setHouse(house) {
+      this.house = house;
+    },
+    getAdresses: async function() {
+      try {
+        let response = await this.$http.get(
+          "https://apitest.burgerpizzoni.ru/api/Address/get?street=" +
+            this.q +
+            "&access_token=" +
+            this.$store.state.authUser.id
+        );
+        return response.data;
+      } catch (e) {
+        this.errors.address.request = "Ошибка при получении адресов";
       }
     },
-    computed: {
-      fullAddress: function () {
-        return this.street + ',' + this.house;
-      },
-      query: {
-        set: function (newValue) {
-          this.showAddresses();
-          this.q = newValue;
-          if (this.street && this.house) {
-            let addressArr = this.q.split(',');
-            let house = addressArr[1];
-            let street = addressArr[0];
+    showAddresses() {
+      this.getAdresses(this.q).then(addresses => {
+        if (typeof addresses != "undefined") {
+          this.addresses = addresses;
+        }
+      });
+    }
+  },
+  computed: {
+    fullAddress: function() {
+      return this.street + "," + this.house;
+    },
+    query: {
+      set: function(newValue) {
+        this.showAddresses();
+        this.q = newValue;
+        if (this.street && this.house) {
+          let addressArr = this.q.split(",");
+          let house = addressArr[1];
+          let street = addressArr[0];
 
-            if (this.addresses.indexOf(street) < 0) {
-              this.street = '';
-              this.house = '';
-            } else {
-              if (this.addresses[street].houses.indexOf(house) < 0) {
-                this.house = '';
-              }
+          if (this.addresses.indexOf(street) < 0) {
+            this.street = "";
+            this.house = "";
+          } else {
+            if (this.addresses[street].houses.indexOf(house) < 0) {
+              this.house = "";
             }
-            this.$store.commit('setDeliveryInfo', {
+          }
+          this.$store.commit("setDeliveryInfo", {
+            street: this.street,
+            house: this.house
+          });
+        } else {
+          if (this.street) {
+            if (this.addresses.indexOf(this.street) < 0) {
+              this.street = "";
+              this.house = "";
+            }
+          }
+        }
+      },
+      get: function() {
+        if (this.street) {
+          if (this.house) {
+            this.$store.commit("setDeliveryInfo", {
               street: this.street,
               house: this.house
             });
-
+            return this.fullAddress;
           } else {
-            if (this.street) {
-              if (this.addresses.indexOf(this.street) < 0) {
-                this.street = '';
-                this.house = '';
-              }
-            }
+            return this.street;
           }
-        },
-        get: function () {
-          if (this.street) {
-            if (this.house) {
-              this.$store.commit('setDeliveryInfo', {
-                street: this.street,
-                house: this.house
-              });
-              return this.fullAddress;
-            } else {
-              return this.street;
-            }
-          } else {
-            return this.q;
-          }
+        } else {
+          return this.q;
         }
       }
     }
-  };
+  }
+};
 </script>
 
