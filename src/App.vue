@@ -292,9 +292,15 @@
         .get("https://apitest.burgerpizzoni.ru/api/Menu/getMenu")
         .then(response => {
           this.menu = response.data.menu;
-
-          this.ready = true;
+          this.$http.get("https://apitest.burgerpizzoni.ru/api/Menu/getIndexes").then((response)=>{
+            //this.searchIndexes=response.data;
+            this.$http.get('https://apitest.burgerpizzoni.ru/api/Menu/getIndexesTags').then((response)=>{
+                this.tags=response.data;
+                this.ready = true;
+            });
+          });
         });
+
     }
   };
 </script>
