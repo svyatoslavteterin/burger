@@ -251,10 +251,10 @@
           let ids = [];
           if (this.$store.state.q.length > 4) {
             _.forOwn(this.searchIndexes, (dishes, word) => {
-              if (word.indexOf(this.$store.state.q) >= 0) {
-                dishes.forEach(dishId => {
-                  ids.push(dishId);
-                });
+              if (word.toLowerCase().indexOf(this.$store.state.q) >= 0) {
+                //dishes.forEach(dishId => {
+                  ids.push(+dishes.id);
+                //});
               }
             });
 
@@ -293,7 +293,7 @@
         .then(response => {
           this.menu = response.data.menu;
           this.$http.get("https://apitest.burgerpizzoni.ru/api/Menu/getIndexes").then((response)=>{
-            //this.searchIndexes=response.data;
+            this.searchIndexes=response.data;
             this.$http.get('https://apitest.burgerpizzoni.ru/api/Menu/getIndexesTags').then((response)=>{
                 this.tags=response.data;
                 this.ready = true;
