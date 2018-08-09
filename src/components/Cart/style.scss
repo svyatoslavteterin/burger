@@ -55,11 +55,11 @@
   .close {
     width: 21px;
     height: 21px;
-    background: url("img/icons_close_max.png") center no-repeat;
+    background: url("img/icons_close_max.svg") center no-repeat;
     background-size: contain;
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 5px;
+    right: 5px;
     border: none;
     outline: none;
     text-decoration: none;
@@ -81,7 +81,77 @@
 
   .additional-with-order {
     width: 40%;
-    background: #b2b2b2;
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+
+      li {
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        align-items: center;
+
+        .name {
+          color: #b2b2b2;
+          width: calc(100% - 175px);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          margin-right: 10px;
+        }
+
+        .counter-block {
+          display: flex;
+          margin: 0 10px 0 0;
+          align-items: center;
+    
+          .counter {
+            text-align: center;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            align-self: center;
+            padding: 0;
+            background: transparent;
+            border-radius: 50%;
+            border: 1px solid #808080;
+            outline: none;
+            text-decoration: none;
+            box-shadow: none;
+            cursor: pointer;
+    
+            &:hover {
+              background: #ffd70f;
+              border: 1px solid #ffd70f;
+            }
+          }
+    
+          .label-counter {
+            display: inline-block;
+            margin: 2px 0.5rem 0;
+            font-size: 1.1rem;
+            line-height: 1;
+          }
+        }
+
+        .sum {
+          width: 65px;
+          text-align: right;
+          margin-right: 15px;
+        }
+
+        .mod-delete-icon {
+          color: black;
+          background: url("img/icons_close_min.png") center no-repeat;
+          background-size: contain; 
+          cursor: pointer;
+          width: 9px;
+          height: 9px;
+          display: inline-block;
+        }
+      }
+    }
   }
 
   .pic {

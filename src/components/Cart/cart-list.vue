@@ -3,7 +3,7 @@
     <div class="close"></div>
     <div class="main-info">
       <div class="pic">
-        <img src="./img/temp.jpg" alt="">
+        <img :src="getImage" alt="">
       </div><!--pic-->
       <div class="chars">
         <div class="top">
@@ -20,36 +20,44 @@
           <div class="bottom-row">
             <div class="price"><span v-text="getPrice"></span></div>
             <div class="weight"><span v-text="getWeight"></span> г.</div>
-            <div class="counter-block">
-              <button class="counter">−</button>
-              <span class="label-counter">2</span>
-              <button class="counter">+</button>
-            </div>
+            <amountControls
+              v-show="showCounter"
+              :count="count"
+              :showCounter="showCounter"
+              v-on:decrement="decrement"
+              v-on:increment="increment"
+            />
           </div>
         </div>
       </div><!--chars-->
     </div>
     <div class="additional-with-order">
-        <!-- заполнить блок -->
+        <span class="mods-title">Добавлено к заказу</span>
+        <cartMods
+          :mods="data.mods"
+          :dishId="data.id"
+          :type="'include'"
+        />
     </div>
   </li>
 </template>
 <script>
-import dishMods from "@/components/newDishmod";
+import cartMods from "@/components/cartMods";
 import dishModItem from "@/components/newDishmod/item.vue";
+import amountControls from "@/components/amountControls";
 export default {
   name: "CartList",
-  components: { dishMods, dishModItem },
+  components: { cartMods, dishModItem, amountControls },
   props: ["data", "type"],
   methods: {
     increment() {
       this.$store.commit("addEquentity", {
-        value: this.data.dishes[this.activeDish]
+        value: this.data.fullData
       });
     },
     decrement() {
       this.$store.commit("removeEquentity", {
-        value: this.data.dishes[this.activeDish]
+        value: this.data.fullData
       });
     },
     isActiveDish: function(index) {
@@ -69,7 +77,7 @@ export default {
         mods: [],
         idShop: 3,
         position: this.data.ShowOrder,
-        fullData: this.data.dishes[this.activeDish].fullData
+        fullData: this.data.fullData
       };
 
       this.$store.commit("addToCart", { value: dishData });
@@ -104,9 +112,7 @@ export default {
     count: {
       get: function() {
         let count = 0;
-        const dish = this.$store.state.cart.find(
-          p => p.id === this.data.dishes[this.activeDish].id
-        );
+        const dish = this.$store.state.cart.find(p => p.id === this.data.id);
         if (dish) {
           count = dish.count;
         }
@@ -114,17 +120,17 @@ export default {
       },
       addToCart: function() {
         let dishData = {
-          id: this.data.dishes[this.activeDish].id,
-          dishName: this.data.dishes[this.activeDish].dishName,
-          dishShortName: this.data.dishes[this.activeDish].dishShortName,
+          id: this.data.id,
+          dishName: this.data.dishName,
+          dishShortName: this.data.dishShortName,
           dishExtName: this.data.ExternalName,
-          price: this.data.dishes[this.activeDish].Price,
-          outPrice: this.data.dishes[this.activeDish].OutPrice,
+          price: this.data.Price,
+          outPrice: this.data.OutPrice,
           sellType: "COUNT",
           mods: [],
           idShop: 3,
           position: this.data.ShowOrder,
-          fullData: this.data.dishes[this.activeDish].fullData
+          fullData: this.data.fullData
         };
 
         this.$store.commit("addToCart", { value: dishData });
@@ -154,7 +160,7 @@ export default {
     },
     getImage: function() {
       const imageUrl = `https://imgtest.burgerpizzoni.ru/_img/Rest/${
-        this.data.dishes[this.activeDish].fullData.Images[0].ImageName
+        this.data.fullData.Images[0].ImageName
       }`;
       return imageUrl;
     }

@@ -12,7 +12,7 @@
     <div class="drink-title">Желаете напитки?</div>
     <div class="nav-block">
       <Search />
-      <MainMenu />
+      <MainMenu :data="menu" />
     </div>
     <div class="drinks">
       <div class="drink">
@@ -166,7 +166,7 @@ export default {
   name: "Cart",
   components: { CartHead, CartList, MainMenu, Search },
   mounted() {
-    // скрыть мини-корзину тут
+    // document.querySelector(".basket-block").style.display = "none";
   },
   computed: {
     orderDishes() {
@@ -177,6 +177,7 @@ export default {
       return this.$store.getters.getCartSum;
     }
   },
-  methods: {}
+  methods: {},
+  props: ["menu"]
 };
 </script>
