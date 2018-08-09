@@ -143,7 +143,7 @@
     <div class="bonus-block">
       <div class="bonus-wrapper">
         <label>Бонусов на счёте: <span>300</span></label>
-        <button class="finish-order">Использовать всё</button>
+        <button class="finish-order" @click="checkout">Использовать всё</button>
         <input type="text" value="150" class="bonus-input" />
       </div>
       <div class="itog">
@@ -168,6 +168,17 @@ export default {
   mounted() {
     // document.querySelector(".basket-block").style.display = "none";
   },
+  data() {
+    return {
+      houses: [],
+      query: [],
+      addresses: [],
+      street: "",
+      house: "",
+      payment: "CARD",
+      payments: []
+    };
+  },
   computed: {
     orderDishes() {
       console.log("cart:", this.$store.state);
@@ -177,7 +188,140 @@ export default {
       return this.$store.getters.getCartSum;
     }
   },
-  methods: {},
-  props: ["menu"]
+  props: ["menu"],
+  methods: {
+    clear: function() {
+      this.$store.commit("clearCart");
+    },
+    getPaymentTypes: async function() {
+      try {
+        let response = await this.$http.get(
+          "https://apitest.burgerpizzoni.ru/api/Agents/getPayTypes"
+        );
+        return response.data;
+      } catch (e) {
+        this.errors.payment.request = "Ошибка при получении вариантов оплат";
+      }
+    },
+    sendOrder: async function(order) {
+      try {
+        let response = await this.$http.post(
+          "https://apitest.burgerpizzoni.ru/api/Orders/newOrder?access_token=" +
+            this.$store.state.authUser.id,
+          order
+        );
+        return response.data;
+      } catch (e) {
+        this.errors.checkout.request = "Ошибка при чекауте";
+      }
+    },
+    checkout() {
+      let dishes = [];
+      let cartSum = 0;
+      this.$store.state.cart.forEach(item => {
+        let itemPrice = +item.price;
+        if (item.mods.length > 0) {
+          item.mods.forEach(mod => {
+            itemPrice += +mod.summ;
+          });
+        }
+        cartSum += itemPrice * item.count;
+      });
+
+      let user = {
+        Username: this.$store.state.authUser.userInfo.username,
+        id_Mongo: this.$store.state.authUser.id,
+        Bonus: this.$store.state.authUser.userInfo.Bonus,
+        id: this.$store.state.authUser.userId,
+        FirstName: this.$store.state.authUser.userInfo.FirstName,
+        Phone: this.$store.state.authUser.userInfo.Phone,
+        LastName: this.$store.state.authUser.userInfo.Lastname,
+        MiddleName: this.$store.state.authUser.userInfo.MiddleName,
+        Mail: this.$store.state.authUser.userInfo.Mail,
+        PersonalPercentBonus: this.$store.state.authUser.userInfo
+          .PersonalPercentBonus,
+        id_Cause: 0
+      };
+
+      let order = {
+        dishes: dishes,
+        summ: cartSum,
+        user: user,
+        customerName: user.FirstName,
+        status: "checked",
+        address: {
+          Street: this.street,
+          House: this.house,
+          Housing: "2",
+          Structure: "3",
+          Office: "4",
+          Entrance: "5",
+          DoorphoneСode: "6",
+          Floor: "7",
+          Apartment: "8",
+          needOddFrom: "",
+          Comments: "Комментарий к заказу"
+        },
+        bonusByOrder: 97,
+        paymentInfo: {
+          payment: {
+            summ: cartSum,
+            orderSumm: cartSum,
+            bonusSumm: 0,
+            odd: 0,
+            type: this.payment,
+            hybrid: {
+              step: 0,
+              cash: 0,
+              card: {
+                type: "",
+                summ: 0
+              }
+            }
+          }
+        }
+      };
+      this.sendOrder(order).then(response => {
+        let orderId = response;
+
+        if (this.payment == "CARD") {
+          const proxyurl = "https://cors-anywhere.herokuapp.com/";
+          this.$http
+            .get(
+              proxyurl +
+                "https://3dsec.sberbank.ru/payment/rest/register.do?amount=" +
+                cartSum * 100 +
+                "&currency=643&language=ru&orderNumber=" +
+                orderId +
+                "&userName=burgerpizzoni-api&password=burgerpizzoni&pageView=DESKTOP&merchantLogin=burgerpizzoni&returnUrl=https://apitest.burgerpizzoni.ru/api/Acquirings/paymentSuccess"
+            )
+            .then(res => {
+              this.clear();
+              window.location.href = res.data.formUrl;
+            });
+        }
+      });
+    },
+    getAdresses: async function() {
+      try {
+        let response = await this.$http.get(
+          "https://apitest.burgerpizzoni.ru/api/Address/get?street=" +
+            this.query +
+            "&access_token=" +
+            this.$store.state.authUser.id
+        );
+        return response.data;
+      } catch (e) {
+        this.errors.address.request = "Ошибка при получении адресов";
+      }
+    },
+    showAddresses() {
+      this.getAdresses(this.query).then(addresses => {
+        if (typeof addresses != "undefined") {
+          this.addresses = addresses;
+        }
+      });
+    }
+  }
 };
 </script>
