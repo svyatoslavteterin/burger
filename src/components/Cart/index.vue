@@ -18,8 +18,10 @@
       />
     </ol>
     <div class="drink-title">Желаете напитки?</div>
+    <h3 class="">Напитки</h3>
     <!-- Напитки -->
     <cartFood :foods="menu[8].categs"></cartFood>
+    <h3 class="">Соусы</h3>
     <cartFood :foods="menu[5].categs" :showWeight="true"></cartFood>
     <div class="delivery-pay-block">
       <div class="dp-wrapper">
