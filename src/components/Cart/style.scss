@@ -58,7 +58,7 @@
     background: url("img/icons_close_max.svg") center no-repeat;
     background-size: contain;
     position: absolute;
-    top: 5px;
+    top: 10px;
     right: 5px;
     border: none;
     outline: none;
@@ -175,6 +175,7 @@
       .counter {
         width: 26px;
         height: 26px;
+        line-height: 1;
         background: transparent;
         border-radius: 50%;
         border: 1px solid #808080;
@@ -205,6 +206,7 @@
       margin: 0 50px 0 0;
       white-space: nowrap;
       width: 150px;
+      line-height: 1;
       text-align: right;
     }
 
@@ -339,6 +341,7 @@
       .counter {
         width: 26px;
         height: 26px;
+        line-height: 1;
         background: transparent;
         border-radius: 50%;
         border: 1px solid #808080;
