@@ -10,134 +10,29 @@
       />
     </ol>
     <div class="drink-title">Желаете напитки?</div>
-    <div class="nav-block">
-      <Search />
-      <MainMenu :data="menu" />
-    </div>
-    <div class="drinks">
-      <div class="drink">
-        <div class="pic">
-          <img src="./img/drink.jpg" alt="">
-        </div> <!--pic-->
-        <div class="chars">
-          <div class="title">Кока-кола 0</div>
-          <div class="sizes">
-            <button class="btn">300 мл</button>
-            <button class="btn">500 мл</button>
-          </div>
-          <div class="bottom-row">
-            <div class="price"><span>1 950 P</span></div>
-            <div class="counter-block">
-              <button class="counter">−</button>
-              <span class=" label-counter">2</span>
-              <button class="counter" >+</button>
-            </div>
-          </div>
-          <div class="in-additional-order">В корзину</div>
-        </div>
-      </div> <!--drink-->
-      <div class="drink">
-        <div class="pic">
-          <img src="./img/drink.jpg" alt="">
-        </div> <!--pic-->
-        <div class="chars">
-          <div class="title">Кока-кола 0</div>
-          <div class="sizes">
-            <button class="btn">300 мл</button>
-            <button class="btn">500 мл</button>
-          </div>
-          <div class="bottom-row">
-            <div class="price"><span>1 950 P</span></div>
-            <div class="counter-block">
-              <button class="counter">−</button>
-              <span class=" label-counter">2</span>
-              <button class="counter" >+</button>
-            </div>
-          </div>
-          <div class="in-additional-order">В корзину</div>
-        </div>
-      </div> <!--drink-->
-      <div class="drink">
-        <div class="pic">
-          <img src="./img/drink.jpg" alt="">
-        </div> <!--pic-->
-        <div class="chars">
-          <div class="title">Кока-кола 0</div>
-          <div class="sizes">
-            <button class="btn">300 мл</button>
-            <button class="btn">500 мл</button>
-          </div>
-          <div class="bottom-row">
-            <div class="price"><span>1 950 P</span></div>
-            <div class="counter-block">
-              <button class="counter">−</button>
-              <span class=" label-counter">2</span>
-              <button class="counter" >+</button>
-            </div>
-          </div>
-          <div class="in-additional-order">В корзину</div>
-        </div>
-      </div> <!--drink-->
-      <div class="drink">
-        <div class="pic">
-          <img src="./img/drink.jpg" alt="">
-        </div> <!--pic-->
-        <div class="chars">
-          <div class="title">Кока-кола 0</div>
-          <div class="sizes">
-            <button class="btn">300 мл</button>
-            <button class="btn">500 мл</button>
-          </div>
-          <div class="bottom-row">
-            <div class="price"><span>1 950 P</span></div>
-            <div class="counter-block">
-              <button class="counter">−</button>
-              <span class=" label-counter">2</span>
-              <button class="counter" >+</button>
-            </div>
-          </div>
-          <div class="in-additional-order">В корзину</div>
-        </div>
-      </div> <!--drink-->
-      <div class="drink">
-        <div class="pic">
-          <img src="./img/drink.jpg" alt="">
-        </div> <!--pic-->
-        <div class="chars">
-          <div class="title">Кока-кола 0</div>
-          <div class="sizes">
-            <button class="btn">300 мл</button>
-            <button class="btn">500 мл</button>
-          </div>
-          <div class="bottom-row">
-            <div class="price"><span>1 950 P</span></div>
-            <div class="counter-block">
-              <button class="counter">−</button>
-              <span class=" label-counter">2</span>
-              <button class="counter" >+</button>
-            </div>
-          </div>
-          <div class="in-additional-order">В корзину</div>
-        </div>
-      </div> <!--drink-->
-    </div> <!--drinks-->
+    <!-- Напитки -->
+    <cartFood :foods="menu[8].categs"></cartFood>
+    <cartFood :foods="menu[5].categs" :showWeight="true"></cartFood>
     <div class="delivery-pay-block">
       <div class="dp-wrapper">
-        <label for="">Адрес доставки</label>
+        <label @click="getAdresses" for="">Адрес доставки</label>
         <select name="" id="">
           <option value="123">123</option>
           <option value="123">123</option>
         </select>
       </div>
       <div class="dp-wrapper">
-        <label for="">Способ оплаты</label>
-        <select name="" id="">
-          <option value="123">123</option>
-          <option value="123">123</option>
-        </select>
+        <label>Способ оплаты</label>
+        <div class="select-wrapper">
+          <div class="arrow"></div>
+          <div class="select" @click="getPaymentTypes">ieorjg</div>
+          <ul class="options" >
+            <li v-for="payment in getPaymentTypes" :key="`payment-${payment.id}`" v-text="payment.Descr"></li>
+          </ul>
+        </div>
       </div>
       <div class="dp-wrapper">
-        <label class="delivery-free-label">Доставка бесплатная!</label>
+        <label @click="showAddresses" class="delivery-free-label">Доставка бесплатная!</label>
       </div>
     </div> <!--delivery-pay-block-->
     <div class="bonus-block">
@@ -156,16 +51,16 @@
 </section>
 </template>
 <script>
-import MainMenu from "@/components/newMainMenu";
-import Search from "@/components/newSearch";
 import CartHead from "./cart-head.vue";
 import CartList from "./cart-list.vue";
+import cartFood from "@/components/cartFood";
 import "./style.scss";
 
 export default {
   name: "Cart",
-  components: { CartHead, CartList, MainMenu, Search },
+  components: { CartHead, CartList, cartFood },
   mounted() {
+    console.log("props Cart: ", this.$props);
     // document.querySelector(".basket-block").style.display = "none";
   },
   data() {
@@ -188,21 +83,22 @@ export default {
       return this.$store.getters.getCartSum;
     }
   },
-  props: ["menu"],
+  props: ["foods", "menu"],
+  asyncComputed: {
+    getPaymentTypes() {
+      return this.$http
+        .get("https://apitest.burgerpizzoni.ru/api/Agents/getPayTypes")
+        .then(response => response.data)
+        .catch(() => {
+          this.errors.payment.request = "Ошибка при получении вариантов оплат";
+        });
+    }
+  },
   methods: {
     clear: function() {
       this.$store.commit("clearCart");
     },
-    getPaymentTypes: async function() {
-      try {
-        let response = await this.$http.get(
-          "https://apitest.burgerpizzoni.ru/api/Agents/getPayTypes"
-        );
-        return response.data;
-      } catch (e) {
-        this.errors.payment.request = "Ошибка при получении вариантов оплат";
-      }
-    },
+
     sendOrder: async function(order) {
       try {
         let response = await this.$http.post(
@@ -310,6 +206,7 @@ export default {
             "&access_token=" +
             this.$store.state.authUser.id
         );
+        console.log("getAdresses:", response.data);
         return response.data;
       } catch (e) {
         this.errors.address.request = "Ошибка при получении адресов";
@@ -318,6 +215,7 @@ export default {
     showAddresses() {
       this.getAdresses(this.query).then(addresses => {
         if (typeof addresses != "undefined") {
+          console.log(addresses);
           this.addresses = addresses;
         }
       });

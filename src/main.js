@@ -5,6 +5,7 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import currencyFormatter from 'currency-formatter';
+import AsyncComputed from 'vue-async-computed';
 
 // Subscribe to store updates
 store.subscribe((mutation, state) => {
@@ -27,7 +28,7 @@ Vue.use(VueTheMask);
 
 Vue.use(VModal);
 Vue.use(VueCookie);
-
+Vue.use(AsyncComputed)
 
 import axios from "axios";
 

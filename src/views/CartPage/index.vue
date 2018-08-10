@@ -1,16 +1,14 @@
 <template>
-    <cart/>
+    <cart :foods="foods" :menu="menu" />
 </template>
 
 <script>
-// @ is an alias to /src
-import cart from "@/components/Cart";
-
+import cart from "@/components/Cart/index.vue";
 export default {
-  name: "Cart",
+  name: "CartPage",
   components: {
     cart
-  }
-  // props: ["cartItems"]
+  },
+  props: ["foods", "menu"]
 };
 </script>

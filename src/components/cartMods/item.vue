@@ -2,12 +2,12 @@
   <li v-if="type=='include'">
     <span class="name" v-text="data.name"></span>
     <div class="counter-block">
-      <button class="counter" @click.prevent="removeMod()">-</button>
+      <button class="counter" @click.prevent="decModCount()">-</button>
       <span class="label-counter" v-text="data.count"></span>
-      <button class="counter" @click.prevent="addMod()">+</button>
+      <button class="counter" @click.prevent="incModCount()">+</button>
     </div>
     <span class="sum" v-text="data.summ+' ₽'"></span>
-    <span :class="{ 'mod-delete-icon': true, hide:(data.count < 2) }" @click.prevent="decModCount()"></span>
+    <span :class="{ 'mod-delete-icon': true, hide:(data.count < 2) }" @click.prevent="removeMod()"></span>
   </li>
 </template>
 
@@ -42,9 +42,7 @@ export default {
       });
     }
   },
-  created() {
-    console.log("11111111 ", this.data);
-  },
+  created() {},
   data() {
     return {
       modId: this.data.id_Mod ? this.data.id_Mod : this.data.id_Food,
