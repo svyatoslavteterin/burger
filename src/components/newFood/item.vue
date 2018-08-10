@@ -114,7 +114,8 @@
           mods: [],
           idShop: 3,
           position: this.data.ShowOrder,
-          fullData: this.data.dishes[this.activeDish].fullData
+          fullData: this.data.dishes[this.activeDish].fullData,
+          techCardData: this.data.dishes[this.activeDish].techCardData
         };
 
         this.$store.commit("addToCart", {value: dishData});
