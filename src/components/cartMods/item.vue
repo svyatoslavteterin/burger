@@ -6,7 +6,7 @@
       <span class="label-counter" v-text="data.count"></span>
       <button class="counter" @click.prevent="incModCount()">+</button>
     </div>
-    <span class="sum" v-text="data.summ+' ₽'"></span>
+    <span class="sum" v-text="+data.summ+' ₽'"></span>
     <span :class="{ 'mod-delete-icon': true, hide:(data.count < 2) }" @click.prevent="removeMod()"></span>
   </li>
 </template>
