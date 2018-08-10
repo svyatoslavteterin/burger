@@ -41,7 +41,6 @@
         />
     </div>
   </li>
-  <h3 class="" v-if="dopItems == true && data.fromDopSection == true">Добавлено к заказу</h3>
   <li class="cart-item" v-if="dopItems == true && data.fromDopSection == true">
     <div class="close" @click="removeDish"></div>
     <div class="chars chars-dop-item">

@@ -9,6 +9,7 @@
         :data="item"
         :dopItems="false"
       />
+      <h3 class="" v-if="haveDopSection == true">Добавлено к заказу</h3>
       <CartList
         v-for="item in orderDishes"
         :key="item.id"
@@ -74,12 +75,12 @@ export default {
       street: "",
       house: "",
       payment: "CARD",
-      payments: []
+      payments: [],
+      haveDopSection: false
     };
   },
   computed: {
     orderDishes() {
-      console.log("cart:", this.$store.state);
       return this.$store.state.cart;
     },
     userBonuses() {
@@ -97,7 +98,20 @@ export default {
         });
     }
   },
+  updated: function() {
+    this.checkHaveDopSection();
+  },
   methods: {
+    checkHaveDopSection() {
+      for (let i = 0; i < this.orderDishes.length; i++) {
+        console.log('fromDopSec ', this.orderDishes[i].fromDopSection);
+        if (this.orderDishes[i].fromDopSection === true) {
+          return this.haveDopSection = true;
+        }
+      }
+      return this.haveDopSection = false;
+    },
+
     clear: function() {
       this.$store.commit("clearCart");
     },
