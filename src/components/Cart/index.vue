@@ -7,6 +7,13 @@
         v-for="item in orderDishes"
         :key="item.id"
         :data="item"
+        :dopItems="false"
+      />
+      <CartList
+        v-for="item in orderDishes"
+        :key="item.id"
+        :data="item"
+        :dopItems="true"
       />
     </ol>
     <div class="drink-title">Желаете напитки?</div>

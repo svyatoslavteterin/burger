@@ -1,5 +1,6 @@
 <template>
-  <li class="cart-item">
+<div>
+  <li class="cart-item" v-if="dopItems != true && data.fromDopSection != true">
     <div class="close" @click="removeDish"></div>
     <div class="main-info">
       <div class="pic">
@@ -40,6 +41,22 @@
         />
     </div>
   </li>
+  <h3 class="" v-if="dopItems == true && data.fromDopSection == true">Добавлено к заказу</h3>
+  <li class="cart-item" v-if="dopItems == true && data.fromDopSection == true">
+    <div class="close" @click="removeDish"></div>
+    <div class="chars chars-dop-item">
+      <div class="title">{{data.categName}} <span class="size">|&nbsp;{{data.dishName}}</span></div>
+      <amountControls
+        v-show="showCounter"
+        :count="count"
+        :showCounter="showCounter"
+        v-on:decrement="decrement"
+        v-on:increment="increment"
+      />
+      <div class="price" v-text="getPrice"></div>
+    </div><!--chars-->
+  </li>
+</div>
 </template>
 <script>
 import dishMods from "@/components/newDishmod";
@@ -49,7 +66,7 @@ import amountControls from "@/components/amountControls";
 export default {
   name: "CartList",
   components: { cartMods, dishMods, dishModItem, amountControls },
-  props: ["data", "type"],
+  props: ["data", "type", "dopItems"],
   methods: {
     removeDish() {
       this.$store.commit("removeFromCart", this.data.id);
