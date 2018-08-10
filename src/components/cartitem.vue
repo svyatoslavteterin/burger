@@ -7,7 +7,7 @@
                     <img :src="getImage" alt="food" class="img-fluid"/>
                 </div>
                 <div class="col-xs-9 col-md-9">
-                    <div class="cart__item__title">{{data.dishExtName}}</div>
+                    <div class="cart__item__title">{{data.categName}}</div>
                     <div class="cart__item__info">
                         <div class="param">
                             <div class="param__title">Вес:</div>

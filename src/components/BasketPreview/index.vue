@@ -10,7 +10,7 @@
       :data="item"
     />
     <div class="cart-price">
-      Итого: <span>{{$store.getters.getCartSum}} ₽</span>
+      Итого: <span>{{$store.getters.getCartSum}}</span>
     </div>
   </div>  
 </template>

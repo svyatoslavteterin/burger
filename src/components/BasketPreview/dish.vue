@@ -8,7 +8,7 @@
       <div class="item-info">
 
         <div class="item-controls">
-          <div class="item-title">{{ data.dishExtName }}</div>
+          <div class="item-title">{{ data.categName }}</div>
           <div class="controls-counter">
             <button class="" @click.prevent="decrement">-</button>
             <span class="ui-amount-control-value" v-text="getCount" />

@@ -104,6 +104,7 @@
       addToCart: function () {
         let dishData = {
           id: this.data.dishes[this.activeDish].id,
+          categName: this.data.categName,
           dishName: this.data.dishes[this.activeDish].dishName,
           dishShortName: this.data.dishes[this.activeDish].dishShortName,
           dishExtName: this.data.ExternalName,
