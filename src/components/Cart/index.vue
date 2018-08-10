@@ -17,7 +17,7 @@
         :dopItems="true"
       />
     </ol>
-    <div class="drink-title">Желаете напитки?</div>
+    <h3 class="drink-title">Рекомендуем к пицонни:</h3>
     <h3 class="">Напитки</h3>
     <!-- Напитки -->
     <cartFood :foods="menu[8].categs"></cartFood>
