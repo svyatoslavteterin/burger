@@ -104,6 +104,7 @@
       addToCart: function () {
         let dishData = {
           id: this.data.dishes[this.activeDish].id,
+          categName: this.data.categName,
           dishName: this.data.dishes[this.activeDish].dishName,
           dishShortName: this.data.dishes[this.activeDish].dishShortName,
           dishExtName: this.data.ExternalName,
@@ -111,9 +112,11 @@
           outPrice: this.data.dishes[this.activeDish].OutPrice,
           sellType: "COUNT",
           mods: [],
+          excludes:[],
           idShop: 3,
           position: this.data.ShowOrder,
-          fullData: this.data.dishes[this.activeDish].fullData
+          fullData: this.data.dishes[this.activeDish].fullData,
+          techCardData: this.data.dishes[this.activeDish].techCardData
         };
 
         this.$store.commit("addToCart", {value: dishData});

@@ -62,16 +62,19 @@ export default new Vuex.Store({
     addModToDish: function (state, payload) {
       const dish = state.cart.find(p => p.id === payload.id);
       if (dish) {
-        const mod = dish.mods.find(p => p.id === payload.modData.id);
+
+        const mod = dish[payload.modData.modType].find(p => p.id === payload.modData.id);
 
         if (!mod) {
-          dish.mods.push(Object.assign(payload.modData, {
+          dish[payload.modData.modType].push(Object.assign(payload.modData, {
             count: 1,
             summ: payload.modData.price
           }));
         } else {
-          mod.count++;
-          mod.summ = mod.count * mod.price | 0;
+          if (mod.modType === "mods") {
+            mod.count++;
+            mod.summ = mod.count * mod.price | 0;
+          }
         }
       } else {
         alert('Сначала добавьте блюдо в корзину');
@@ -80,11 +83,11 @@ export default new Vuex.Store({
     removeModFromDish: function (state, payload) {
       const dish = state.cart.find(p => p.id === payload.id);
 
-      const mod = dish.mods.find(p => p.id === payload.modId);
+      const mod = dish[payload.modType].find(p => p.id === payload.modId);
 
       if (mod) {
-        let modifiedMods = dish.mods.filter((item) => item.id != payload.modId);
-        dish.mods = modifiedMods;
+        let modifiedMods = dish[payload.modType].filter((item) => item.id != payload.modId);
+        dish[payload.modType] = modifiedMods;
       }
     },
     incModCount: function (state, payload) {
@@ -203,7 +206,7 @@ export default new Vuex.Store({
 
       }
 
-      return currencyFormatter.format(summ, { code: 'RUB',precision:0});
+      return currencyFormatter.format(summ, {code: 'RUB', precision: 0});
     },
   },
   actions: {}

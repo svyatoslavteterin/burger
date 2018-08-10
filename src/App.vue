@@ -239,20 +239,20 @@ export default {
       return this.$store.state.authUser.userInfo.FirstName;
     },
 
-    currentArea: function() {
-      return this.$store.state.area;
-    },
-    foods: function() {
-      if (this.menu[this.$store.state.area]) {
-        let ids = [];
-        if (this.$store.state.q.length > 4) {
-          _.forOwn(this.searchIndexes, (dishes, word) => {
-            if (word.indexOf(this.$store.state.q) >= 0) {
-              dishes.forEach(dishId => {
-                ids.push(dishId);
-              });
-            }
-          });
+      currentArea: function () {
+        return this.$store.state.area;
+      },
+      foods: function () {
+        if (this.menu[this.$store.state.area]) {
+          let ids = [];
+          if (this.$store.state.q.length > 4) {
+            _.forOwn(this.searchIndexes, (dishes, word) => {
+              if (word.toLowerCase().indexOf(this.$store.state.q) >= 0) {
+                //dishes.forEach(dishId => {
+                  ids.push(+dishes.id);
+                //});
+              }
+            });
 
           let dishesIds = _.intersection(ids);
 
@@ -278,18 +278,20 @@ export default {
         return this.menu[this.$store.state.area].categs;
       }
     },
-    cartItems: function() {
-      return this.$store.state.cart;
-    }
   },
 
-  mounted: function() {
+  mounted: function () {
     this.$http
       .get("https://apitest.burgerpizzoni.ru/api/Menu/getMenu")
       .then(response => {
         this.menu = response.data.menu;
-        console.log("menu: ", this.menu);
-        this.ready = true;
+        this.$http.get("https://apitest.burgerpizzoni.ru/api/Menu/getIndexes").then((response)=>{
+          this.searchIndexes=response.data;
+          this.$http.get('https://apitest.burgerpizzoni.ru/api/Menu/getIndexesTags').then((response)=>{
+            this.tags=response.data;
+            this.ready = true;
+          });
+        });
       });
   }
 };
