@@ -112,6 +112,7 @@
           outPrice: this.data.dishes[this.activeDish].OutPrice,
           sellType: "COUNT",
           mods: [],
+          excludes:[],
           idShop: 3,
           position: this.data.ShowOrder,
           fullData: this.data.dishes[this.activeDish].fullData,
