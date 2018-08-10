@@ -1,6 +1,6 @@
 <template>
 <div class="cart-head">
-  <router-link to="/">Меню</router-link>
+  <!-- <router-link to="/">Меню</router-link> -->
   <h1 class="cart-title">Корзина</h1>
   <div class="cart-count">
     В заказе: 
