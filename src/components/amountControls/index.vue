@@ -1,8 +1,7 @@
 <template>
     <div class="counter-block">
         <button class="counter" @click="decrement">−</button>
-        <span class=" label-counter
-        ">{{count}}</span>
+        <span class="label-counter">{{count}}</span>
         <button class="counter" @click="increment">+</button>
     </div>
 </template>

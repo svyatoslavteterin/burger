@@ -1,19 +1,19 @@
 <template>
   <li class="cart-item">
-    <div class="close"></div>
+    <div class="close" @click="removeDish"></div>
     <div class="main-info">
       <div class="pic">
         <img :src="getImage" alt="">
       </div><!--pic-->
       <div class="chars">
         <div class="top">
-          <div class="title">{{data.dishExtName}} <span class="size">|&nbsp;{{data.dishName}}</span></div>
+          <div class="title">{{data.categName}} <span class="size">|&nbsp;{{data.dishName}}</span></div>
           <div class="ingrids">
-            <!-- <dishMods
-              :mods="data.dishes[this.activeDish].techCardData"
-              :dishId="data.dishes[this.activeDish].id"
+            <dishMods
+              :mods="data.techCardData"
+              :dishId="data.id"
               :type="'exclude'"
-            /> -->
+            />
           </div>
         </div>
         <div class="bottom">
@@ -42,32 +42,37 @@
   </li>
 </template>
 <script>
+import dishMods from "@/components/newDishmod";
 import cartMods from "@/components/cartMods";
 import dishModItem from "@/components/newDishmod/item.vue";
 import amountControls from "@/components/amountControls";
 export default {
   name: "CartList",
-  components: { cartMods, dishModItem, amountControls },
+  components: { cartMods, dishMods, dishModItem, amountControls },
   props: ["data", "type"],
   methods: {
+    removeDish() {
+      this.$store.commit("removeFromCart", this.data.id);
+    },
     increment() {
       this.$store.commit("addEquentity", {
-        value: this.data.fullData
+        value: this.data
       });
     },
     decrement() {
       this.$store.commit("removeEquentity", {
-        value: this.data.fullData
+        value: this.data
       });
     },
-    isActiveDish: function(index) {
+    isActiveDish: function (index) {
       if (index == this.activeDish) {
         return true;
       }
     },
-    addToCart: function() {
+    addToCart: function () {
       let dishData = {
         id: this.data.dishes[this.activeDish].id,
+        categName: this.data.categName,
         dishName: this.data.dishes[this.activeDish].dishName,
         dishShortName: this.data.dishes[this.activeDish].dishShortName,
         dishExtName: this.data.ExternalName,
@@ -75,18 +80,20 @@ export default {
         outPrice: this.data.dishes[this.activeDish].OutPrice,
         sellType: "COUNT",
         mods: [],
+        excludes:[],
         idShop: 3,
         position: this.data.ShowOrder,
-        fullData: this.data.fullData
+        fullData: this.data.dishes[this.activeDish].fullData,
+        techCardData: this.data.dishes[this.activeDish].techCardData
       };
 
-      this.$store.commit("addToCart", { value: dishData });
+      this.$store.commit("addToCart", {value: dishData});
 
       if (!Object.keys(this.$store.state.deliveryInfo).length > 0) {
         this.$modal.show("delivery");
       }
     },
-    setActiveDish: function(index) {
+    setActiveDish: function (index) {
       this.activeDish = index;
     }
   },

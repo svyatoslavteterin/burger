@@ -50,9 +50,10 @@ export default {
         return true;
       }
     },
-    addToCart: function() {
+    addToCart: function () {
       let dishData = {
         id: this.data.dishes[this.activeDish].id,
+        categName: this.data.categName,
         dishName: this.data.dishes[this.activeDish].dishName,
         dishShortName: this.data.dishes[this.activeDish].dishShortName,
         dishExtName: this.data.ExternalName,
@@ -60,12 +61,15 @@ export default {
         outPrice: this.data.dishes[this.activeDish].OutPrice,
         sellType: "COUNT",
         mods: [],
+        excludes:[],
         idShop: 3,
         position: this.data.ShowOrder,
-        fullData: this.data.dishes[this.activeDish].fullData
+        fullData: this.data.dishes[this.activeDish].fullData,
+        techCardData: this.data.dishes[this.activeDish].techCardData,
+        fromDopSection: true // если добавлено из доп. разделов корзины
       };
 
-      this.$store.commit("addToCart", { value: dishData });
+      this.$store.commit("addToCart", {value: dishData});
 
       if (!Object.keys(this.$store.state.deliveryInfo).length > 0) {
         this.$modal.show("delivery");

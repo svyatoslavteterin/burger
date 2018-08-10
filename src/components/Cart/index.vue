@@ -16,10 +16,6 @@
     <div class="delivery-pay-block">
       <div class="dp-wrapper">
         <label @click="getAdresses" for="">Адрес доставки</label>
-        <select name="" id="">
-          <option value="123">123</option>
-          <option value="123">123</option>
-        </select>
       </div>
       <div class="dp-wrapper">
         <label>Способ оплаты</label>
