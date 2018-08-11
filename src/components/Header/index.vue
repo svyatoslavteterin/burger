@@ -133,7 +133,7 @@
     },
     computed: {
       getLogin() {
-        if (this.$store.state.authUser){
+        if (Object.keys(this.$store.state.authUser).length>0){
           return 3;
         }else{
           return 1;
