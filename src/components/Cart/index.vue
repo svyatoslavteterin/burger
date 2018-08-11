@@ -43,7 +43,7 @@
     </div> <!--delivery-pay-block-->
     <div class="bonus-block">
       <div class="bonus-wrapper">
-        <label>Бонусов на счёте: <span>300</span></label>
+        <label>Бонусов на счёте: <span v-text="userBonuses"></span></label>
         <button class="finish-order" @click="checkout">Использовать всё</button>
         <input type="text" value="150" class="bonus-input" />
       </div>
@@ -86,7 +86,7 @@ export default {
       return this.$store.state.cart;
     },
     userBonuses() {
-      return this.$store.getters.getCartSum;
+      return this.$store.getters.getUserBonus;
     }
   },
   props: ["foods", "menu"],
