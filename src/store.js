@@ -161,6 +161,9 @@ export default new Vuex.Store({
     }
   },
   getters: {
+    getAuthUser(state) {
+      return state.authUser;
+    },
     getDishSum(state) {
       const {cart} = state;
       let summ = 0;
