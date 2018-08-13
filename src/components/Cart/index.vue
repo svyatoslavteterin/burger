@@ -25,7 +25,8 @@
     <cartFood :foods="menu[5].categs" :showWeight="true"></cartFood>
     <div class="delivery-pay-block">
       <div class="dp-wrapper">
-        <label @click="getAdresses" for="">Адрес доставки</label>
+        <label  for="">Адрес доставки</label>
+        <span v-text="getAdresses"></span>
       </div>
       <div class="dp-wrapper">
         <label>Способ оплаты</label>
@@ -38,7 +39,7 @@
         </div>
       </div>
       <div class="dp-wrapper">
-        <label @click="showAddresses" class="delivery-free-label">Доставка бесплатная!</label>
+        <label  class="delivery-free-label">Доставка бесплатная!</label>
       </div>
     </div> <!--delivery-pay-block-->
     <div class="bonus-block">
@@ -87,6 +88,10 @@ export default {
     },
     userBonuses() {
       return this.$store.getters.getUserBonus;
+    },
+    getAdresses(){
+      let address= this.$store.state.deliveryInfo;
+      return `${address.Street},${address.House} кв ${address.Apartment}`;
     }
   },
   props: ["foods", "menu"],
@@ -217,28 +222,6 @@ export default {
         }
       });
     },
-    getAdresses: async function() {
-      try {
-        let response = await this.$http.get(
-          "https://apitest.burgerpizzoni.ru/api/Address/get?street=" +
-            this.query +
-            "&access_token=" +
-            this.$store.state.authUser.id
-        );
-        console.log("getAdresses:", response.data);
-        return response.data;
-      } catch (e) {
-        this.errors.address.request = "Ошибка при получении адресов";
-      }
-    },
-    showAddresses() {
-      this.getAdresses(this.query).then(addresses => {
-        if (typeof addresses != "undefined") {
-          console.log(addresses);
-          this.addresses = addresses;
-        }
-      });
-    }
   }
 };
 </script>
