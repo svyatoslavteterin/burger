@@ -48,9 +48,9 @@
   justify-content: space-between;
   border: 2px dotted transparent;
 
-  &:hover {
-    border: 2px dotted #b2b2b2;
-  }
+  // &:hover {
+  //   border: 2px dotted #b2b2b2;
+  // }
 
   .close {
     width: 21px;
@@ -81,6 +81,30 @@
 
   .additional-with-order {
     width: 40%;
+    position: relative;
+
+    .dish-sum {
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+      span {
+        font-size: 2rem;
+        font-weight: bold;
+      }
+    }
+
+    .i-add {
+      display: inline;
+      align-self: flex-start;
+      cursor: pointer;
+      text-decoration: none;
+      border-bottom: 2px dotted #808080;
+      font-size: 1.1rem;
+  
+      &:hover {
+        border-bottom: 2px solid #808080;
+      }
+    }
 
     ul {
       list-style-type: none;

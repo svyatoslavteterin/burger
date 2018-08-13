@@ -12,19 +12,25 @@
     height: 316px;
     justify-content: space-between;
 
-    &:hover {
-      border: 2px dotted #808080;
-    }
+    // &:hover {
+    //   border: 2px dotted #808080;
+    // }
 
     &:nth-child(even) {
       flex-direction: row-reverse;
+
+      .bottom {
+        .bottom-row {
+          flex-direction: row-reverse;
+        }
+      }
       .pic {
         img {
           margin: 0 auto 0 0;
         }
 
         .arrow {
-          top: calc(50% - 15px);
+          bottom: 10%;
           left: auto;
           right: -14px;
           transform: scaleX(-1);
@@ -291,8 +297,8 @@
 
       .arrow {
         position: absolute;
-        top: calc(50% - 15px);
-        left: -37px;
+        bottom: 10%;
+        left: 0;
         width: 67px;
         height: 30px;
       }

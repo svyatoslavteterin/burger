@@ -13,76 +13,73 @@
 
 <script>
 export default {
-    name: 'cartModItem',
-    methods: {
-      addMod() {
+  name: "cartModItem",
+  methods: {
+    addMod() {
+      let modData = {
+        id: this.modId,
+        name: this.modName,
+        price: this.data.Price,
+        modType: this.modType
+      };
 
-
-        let modData = {
-          id: this.modId,
-          name: this.modName,
-          price: this.data.Price,
-          modType: this.modType
-        };
-
-        this.$store.commit("addModToDish", {modData: modData, id: this.dishId});
-
-      },
-      removeMod() {
-        this.$store.commit("removeModFromDish", {
-          modId: this.modId,
-          id: this.dishId,
-          modType: this.modType
-        });
-      },
-      incModCount() {
-        this.$store.commit("incModCount", {
-          modId: this.modId,
-          id: this.dishId
-        });
-      },
-      decModCount() {
-        this.$store.commit("decModCount", {
-          modId: this.modId,
-          id: this.dishId
-        });
-      }
+      this.$store.commit("addModToDish", { modData: modData, id: this.dishId });
     },
-    created() {
+    removeMod() {
+      console.log("remove", this);
+      this.$store.commit("removeModFromDish", {
+        modId: this.modId,
+        id: this.dishId,
+        modType: this.modType
+      });
     },
-    data() {
-      return {
-        modId: this.data.id_Mod ? this.data.id_Mod : this.data.id_Food,
-        modName: this.data.ModName ? this.data.ModName : this.data.FoodName,
-        modType: this.data.id_Mod ? 'mods' : 'excludes'
-      }
-
+    incModCount() {
+      console.log("inc", this);
+      this.$store.commit("incModCount", {
+        modId: this.modId,
+        id: this.dishId
+      });
     },
-
-    props: ["data", "dishId", "type"],
-
-    ready: function () {
-    },
-    mounted: function () {
-      if (!this.data.id_Mod) {
-        this.data.id_Mod = this.data.id;
-      }
-    },
-    computed: {
-      getCount: function () {
-        let modCount = 0;
-
-        const dish = this.$store.state.cart.find(p => p.id === this.dishId);
-
-        if (dish) {
-          const mod = dish[this.modType].find(p => p.id === this.modId);
-
-          if (mod) {
-            modCount = mod.count;
-          }
-        }
-        return modCount;
-      }
+    decModCount() {
+      console.log("dec", this);
+      this.$store.commit("decModCount", {
+        modId: this.modId,
+        id: this.dishId
+      });
     }
-  };
+  },
+  created() {},
+  data() {
+    return {
+      modId: this.data.id_Mod ? this.data.id_Mod : this.data.id_Food,
+      modName: this.data.ModName ? this.data.ModName : this.data.FoodName,
+      modType: this.data.id_Mod ? "mods" : "excludes"
+    };
+  },
+
+  props: ["data", "dishId", "type"],
+
+  ready: function() {},
+  mounted: function() {
+    if (!this.data.id_Mod) {
+      this.data.id_Mod = this.data.id;
+    }
+  },
+  computed: {
+    getCount: function() {
+      let modCount = 0;
+
+      const dish = this.$store.state.cart.find(p => p.id === this.dishId);
+
+      if (dish) {
+        const mod = dish[this.modType].find(p => p.id === this.modId);
+
+        if (mod) {
+          modCount = mod.count;
+        }
+      }
+      return modCount;
+    }
+  }
+};
 </script>

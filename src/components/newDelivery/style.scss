@@ -239,8 +239,10 @@
         &~label {
           width: auto;
           height: auto;
-          top: 0;
-          left: 5px;
+          top: -8px;
+          background-color: white;
+          padding: 0 4px;
+          left: 10px;
           font-size: 12px;
           }
         }

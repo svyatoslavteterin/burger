@@ -185,6 +185,7 @@ export default {
         padding: 0 0.75rem;
         border: 1px solid black;
         border-radius: 50px;
+        max-height: 36px;
 
         &:hover {
           background-color: #ffd60f;

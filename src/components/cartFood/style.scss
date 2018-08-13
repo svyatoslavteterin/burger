@@ -24,7 +24,7 @@
         }
 
         .arrow {
-          top: calc(50% - 15px);
+          bottom: 10%;
           left: auto;
           right: -14px;
           transform: scaleX(-1);
@@ -291,8 +291,8 @@
 
       .arrow {
         position: absolute;
-        top: calc(50% - 15px);
-        left: -37px;
+        bottom: 10%;
+        left: 0;
         width: 67px;
         height: 30px;
       }

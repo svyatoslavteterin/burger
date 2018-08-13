@@ -39,6 +39,16 @@
           :dishId="data.id"
           :type="'include'"
         />
+        <a class="i-add" @click.prevent="mods.include = !mods.include">добавить</a>
+        <div class="include-mods">
+          <dishMods
+            v-if="mods.include" 
+            :mods="data.fullData.ModGroups[1].mods"
+            :dishId="data.id"
+            :type="'include'"
+          />
+        </div>
+        <div class="dish-sum">Стоимость блюда: <span>{{getDishSum}} ₽</span></div>
     </div>
   </li>
   <li class="cart-item" v-if="dopItems == true && data.fromDopSection == true">
@@ -80,12 +90,12 @@ export default {
         value: this.data
       });
     },
-    isActiveDish: function (index) {
+    isActiveDish: function(index) {
       if (index == this.activeDish) {
         return true;
       }
     },
-    addToCart: function () {
+    addToCart: function() {
       let dishData = {
         id: this.data.dishes[this.activeDish].id,
         categName: this.data.categName,
@@ -96,20 +106,20 @@ export default {
         outPrice: this.data.dishes[this.activeDish].OutPrice,
         sellType: "COUNT",
         mods: [],
-        excludes:[],
+        excludes: [],
         idShop: 3,
         position: this.data.ShowOrder,
         fullData: this.data.dishes[this.activeDish].fullData,
         techCardData: this.data.dishes[this.activeDish].techCardData
       };
 
-      this.$store.commit("addToCart", {value: dishData});
+      this.$store.commit("addToCart", { value: dishData });
 
       if (!Object.keys(this.$store.state.deliveryInfo).length > 0) {
         this.$modal.show("delivery");
       }
     },
-    setActiveDish: function (index) {
+    setActiveDish: function(index) {
       this.activeDish = index;
     }
   },
@@ -186,6 +196,19 @@ export default {
         this.data.fullData.Images[0].ImageName
       }`;
       return imageUrl;
+    },
+    getDishSum: function() {
+      console.log("0000000000000000000000000", this.data);
+      let dishSum = 0;
+      const dishItem = Number(this.data.count) * parseFloat(this.data.price);
+      let dishMods = 0;
+      for (let i = 0; i < this.data.mods.length; i += 1) {
+        let count = this.data.mods[i].count;
+        let price = this.data.mods[i].price;
+        dishMods += Number(count) * parseFloat(price);
+      }
+      dishSum = dishItem + dishMods;
+      return dishSum;
     }
   }
 };
