@@ -104,10 +104,7 @@ export default {
   position: relative;
   border-bottom: 1px solid lightgray;
   padding-bottom: 15px;
-
-  &:nth-child(2n + 1) {
-    margin-top: 15px;
-  }
+  margin-top: 15px;
 
   .image-wrapper {
     display: flex;
@@ -135,7 +132,7 @@ export default {
       justify-content: space-between;
 
       .item-title {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         color: black;
         font-weight: bold;
       }

@@ -34,7 +34,13 @@
           <div class="arrow"></div>
           <div class="select" @click="getPaymentTypes">ieorjg</div>
           <ul class="options" >
-            <li v-for="payment in getPaymentTypes" :key="`payment-${payment.id}`" v-text="payment.Descr"></li>
+            <li
+              v-for="payment in getPaymentTypes"
+              :key="`payment-${payment.id}`"
+              v-text="payment.Descr"
+              @click="setPayment(payment.Name)"
+            />
+              
           </ul>
         </div>
       </div>
@@ -51,7 +57,7 @@
       <div class="itog">
         <span class="old-price">2956 Р</span>
         <span class="itog-price">2500 P</span>
-        <button class="finish-order">Оформить заказ</button>
+        <button class="finish-order" @click="checkout">Оформить заказ</button>
       </div>
     </div>
   </div> <!--container-->
@@ -89,8 +95,8 @@ export default {
     userBonuses() {
       return this.$store.getters.getUserBonus;
     },
-    getAdresses(){
-      let address= this.$store.state.deliveryInfo;
+    getAdresses() {
+      let address = this.$store.state.deliveryInfo;
       return `${address.Street},${address.House} кв ${address.Apartment}`;
     }
   },
@@ -109,14 +115,18 @@ export default {
     this.checkHaveDopSection();
   },
   methods: {
+    setPayment(paymentName) {
+      this.payment = paymentName;
+      console.log(this.payment);
+    },
     checkHaveDopSection() {
       for (let i = 0; i < this.orderDishes.length; i++) {
-        console.log('fromDopSec ', this.orderDishes[i].fromDopSection);
+        console.log("fromDopSec ", this.orderDishes[i].fromDopSection);
         if (this.orderDishes[i].fromDopSection === true) {
-          return this.haveDopSection = true;
+          return (this.haveDopSection = true);
         }
       }
-      return this.haveDopSection = false;
+      return (this.haveDopSection = false);
     },
 
     clear: function() {
@@ -221,7 +231,7 @@ export default {
             });
         }
       });
-    },
+    }
   }
 };
 </script>
