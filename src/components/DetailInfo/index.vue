@@ -16,14 +16,14 @@
       <img :src="getImage()" alt="">
     </div>
     <div class="scrollbar-wrapper">
-      <VuePerfectScrollbar class="modal-scrollbar" v-once :settings="settings"  v-if="data.dishes">
+      <VuePerfectScrollbar class="modal-scrollbar"  :settings="settings"  v-if="data.dishes">
         <p v-if="data.dishes">
           <span>Состав:</span>
           <dishModItem :key="mod.id_Food" :data="mod" :dishId="data.dishes[activeDish].id" :type="'text'"
                        v-for="mod in data.dishes[activeDish].techCardData" ></dishModItem>
         </p>
-        <p v-if="data.dishes">Описание:
-          <span v-text="data.categDescr"></span>
+        <p>Описание:
+          <span v-text="getDescr"></span>
         </p>
         <div class="empty-gap"></div>
       </VuePerfectScrollbar>
@@ -43,6 +43,7 @@
   export default {
     methods: {
       beforeOpen(event) {
+        debugger
         this.data = event.params.data;
         this.activeDish = event.params.activeDish;
       },
@@ -109,6 +110,11 @@
     mixins: [modalActions],
     mounted() {
 
+    },
+    computed:{
+      getDescr(){
+        return this.data.categDescr;
+      }
     }
   };
 </script>
