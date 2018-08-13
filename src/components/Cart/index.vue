@@ -12,7 +12,7 @@
       <h3 class="" v-if="haveDopSection == true">Добавлено к заказу</h3>
       <CartList
         v-for="item in orderDishes"
-        :key="item.id"
+        :key="item.id+10000"
         :data="item"
         :dopItems="true"
       />
