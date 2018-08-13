@@ -43,7 +43,6 @@
   export default {
     methods: {
       beforeOpen(event) {
-        debugger
         this.data = event.params.data;
         this.activeDish = event.params.activeDish;
       },
