@@ -45,7 +45,7 @@
 
       <div class="small-inputs-wrapper">
         <div class="small-wrapper">
-          <input class="small-input" type="text" required>
+          <input class="small-input lab-1" type="text" required>
           <label for="">Подъезд</label>
         </div>
         <div class="small-wrapper">
@@ -63,22 +63,35 @@
       </div>
 
       <div class="recieve-code-wrapper">
+        <div class="auth-button">Авторизоваться</div>
+          <div class="">
+            <input type='checkbox' class='ios8-switch ios8-switch-lg' id='checkbox-3'>
+            <label for='checkbox-3'></label>
+          </div>
+        <div class="reg-button">Зарегистрироваться</div>
+      </div>
+      <div class="recieve-code-wrapper">
         <div class="small-wrapper phone-wrapper">
-          <input class="small-input phone-input" type="text" required>
-          <label for="">Номер телефона в любом виде</label>
+          <input class="small-input2" 
+          type="text" 
+          placeholder="Номер телефона в любом формате" 
+          required>
         </div>
-        <button class="phone-btn">Получить код</button>
-      </div>
-
-      <div class="send-code-wrapper">
-        <div class="small-wrapper code-wrapper">
-          <input class="small-input phone-input code-input" type="text" required>
-          <label for="">Код из СМС</label>
+        <div class="small-wrapper phone-wrapper">
+          <input
+            class="small-input2-error" 
+            type="password"
+            placeholder="Пароль"
+          required>
+          <img src="./img/icons_incorrect.svg" class="icons_incorrect">
         </div>
-        <button class="phone-btn code-btn" @click="okDelivery = !okDelivery">ОК</button>
       </div>
-      <div class="send-link-again-wrapper">
-        <a class="send-again-link" href="#">Отправить код еще раз</a>
+      <div class="recieve-code-wrapper" style="justify-content: flex-end;">
+        <div class="error-mess">Неверный пароль</div>
+        <div class="send-again-link">Напомнить?</div>
+      </div>
+      <div class="recieve-code-wrapper" style="justify-content: center;">
+        <div class="send-button">Отправить</div>
       </div>
 
       <div v-if="okDelivery" class="thank-you-message">
