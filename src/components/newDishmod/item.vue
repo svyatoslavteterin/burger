@@ -17,7 +17,8 @@
     <span class="mod-return-icon" v-if="getCount" @click.prevent="removeMod"></span>
   </div>
   <li v-else-if="type=='text'">
-    <span v-text="data.name"></span> ,
+    <span v-text="data.name" v-if="data.name">,</span>
+    <span v-text="data.FoodName" v-if="data.FoodName">,</span>
   </li>
   <li v-else-if="type=='all'">
     <button @click="removeMod()" class="mod-delete">x</button>
