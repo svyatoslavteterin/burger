@@ -209,10 +209,14 @@ export default new Vuex.Store({
       return currencyFormatter.format(summ, {code: 'RUB', precision: 0});
     },
 
-    getUserBonus(state){
-      const {authUser}=state;
+    getUserBonus(state) {
+      const {authUser} = state;
+      let bonus = 0;
+      if (Object.keys(authUser).length > 0) {
+        bonus = authUser.userInfo.Bonus;
+      }
 
-      return authUser.userInfo.Bonus;
+      return bonus;
     }
   },
   actions: {}

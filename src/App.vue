@@ -3,7 +3,7 @@
     <headerModule/>
     <transition>
       <keep-alive>
-        <router-view :menu="menu" :tags="tags" :foods="foods" :cartItems="cartItems"/>
+        <router-view :menu="menu" :tags="tags" :foods="foods" />
       </keep-alive>
     </transition>
 
@@ -225,16 +225,7 @@ export default {
   },
   created: function() {},
   computed: {
-    checkLogin: function() {
-      if (
-        Object.keys(this.$store.state.authUser).length === 0 &&
-        this.$store.state.authUser.constructor === Object
-      ) {
-        return 0;
-      } else {
-        return 1;
-      }
-    },
+
     userInfo: function() {
       return this.$store.state.authUser.userInfo.FirstName;
     },

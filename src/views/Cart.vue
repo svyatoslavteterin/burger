@@ -11,6 +11,5 @@ export default {
   components: {
     Cart
   }
-  // props: ["cartItems"]
 };
 </script>
