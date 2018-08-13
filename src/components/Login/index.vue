@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-body">
+  <div class="modal-body" v-if="template==='default'">
     <form
       id="auth-form"
       @submit.prevent="auth"
@@ -50,6 +50,35 @@
     <RestorePass v-if="showRestore === true"/>
 
   </div>
+  <div v-else-if="template==='small'">
+    <div class="recieve-code-wrapper">
+      <div class="auth-button">Авторизоваться</div>
+      <div class="">
+        <input type='checkbox' class='ios8-switch ios8-switch-lg' id='checkbox-3'>
+        <label for='checkbox-3'></label>
+      </div>
+      <div class="reg-button">Зарегистрироваться</div>
+    </div>
+    <div class="recieve-code-wrapper" >
+      <div class="small-wrapper phone-wrapper">
+        <input class="small-input2"
+               type="text"
+               placeholder="Номер телефона в любом формате"
+               required>
+      </div>
+      <div class="small-wrapper phone-wrapper" >
+        <input
+          class="small-input2"
+          type="password"
+          placeholder="Пароль"
+          required>
+      </div>
+    </div>
+    <div class="recieve-code-wrapper" style="justify-content: flex-end;" >
+      <div class="send-again-link"  @click.prevent="showRestore = true">Напомнить?</div>
+      <RestorePass v-if="showRestore === true"/>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -59,6 +88,12 @@
   export default {
     name: "Login",
     components: {RestorePass, Spinner},
+    props:{
+      template:{
+        default:'default',
+        type:String
+      }
+    },
     data() {
       return {
         phone: "",
@@ -67,6 +102,9 @@
         spinner: false,
         errors: []
       };
+    },
+    mounted(){
+
     },
     methods: {
       async auth() {

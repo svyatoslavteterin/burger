@@ -28,69 +28,9 @@
     <div v-if="activeTab == 1" class="modal-wrapper delivery">
       <div class="hello-message">Введите ваш адрес и мы сообщим, входит ли он в зону доставки</div>
 
-      <div class="search-wrapper">
-        <input class="search-input" type="text" v-model="query" placeholder="Адрес доставки" required>
-        <button class="search-btn"></button>
-        <button class="clear-btn" @click="clearSearch"></button>
-        <ul class="result" v-if="!this.deliveryInfo.Street">
-          <li v-for="(street,index) in this.addresses" @click="setStreet(street.street)" :key="index"><span
-            v-text="street.street"></span></li>
-        </ul>
-        <ul class="result" v-if="this.deliveryInfo.Street && !this.deliveryInfo.House">
-          <li v-for="(house,index) in this.addresses[this.deliveryInfo.Street].houses"
-              :key="index"><span v-text="deliveryInfo.Street+','+house.house" @click="setHouse(house.house)"></span>
-          </li>
-        </ul>
+      <Address />
 
-      </div>
-
-      <div class="small-inputs-wrapper">
-        <div class="small-wrapper">
-          <input class="small-input lab-1" type="text" required v-model="deliveryInfo.Entrance">
-          <label for="">Подъезд</label>
-        </div>
-        <div class="small-wrapper">
-          <input class="small-input" type="text" required v-model="deliveryInfo.Floor">
-          <label for="">Этаж</label>
-        </div>
-        <div class="small-wrapper">
-          <input class="small-input" type="text" required v-model="deliveryInfo.Apartment">
-          <label for="">Квартира</label>
-        </div>
-        <div class="small-wrapper">
-          <input class="small-input" type="text" required v-model="deliveryInfo.DoorphoneСode">
-          <label for="">Домофон</label>
-        </div>
-      </div>
-
-      <div class="recieve-code-wrapper" v-if="!this.$store.getters.getAuthUser.id">
-        <div class="auth-button">Авторизоваться</div>
-        <div class="">
-          <input type='checkbox' class='ios8-switch ios8-switch-lg' id='checkbox-3'>
-          <label for='checkbox-3'></label>
-        </div>
-        <div class="reg-button">Зарегистрироваться</div>
-      </div>
-      <div class="recieve-code-wrapper" v-if="!this.$store.getters.getAuthUser.id">
-        <div class="small-wrapper phone-wrapper">
-          <input class="small-input2"
-                 type="text"
-                 placeholder="Номер телефона в любом формате"
-                 required>
-        </div>
-        <div class="small-wrapper phone-wrapper" v-if="!this.$store.getters.getAuthUser.id">
-          <input
-            class="small-input2-error"
-            type="password"
-            placeholder="Пароль"
-            required>
-          <img src="./img/icons_incorrect.svg" class="icons_incorrect">
-        </div>
-      </div>
-      <div class="recieve-code-wrapper" style="justify-content: flex-end;" v-if="!this.$store.getters.getAuthUser.id">
-        <div class="error-mess">Неверный пароль</div>
-        <div class="send-again-link">Напомнить?</div>
-      </div>
+      <Login v-if="!this.$store.getters.getAuthUser.id"  :template="'small'"/>
       <div class="recieve-code-wrapper" style="justify-content: center;">
         <div class="send-button" @click="saveDelivery">Сохранить</div>
       </div>
@@ -174,10 +114,12 @@
 <script>
   import VuePerfectScrollbar from "vue-perfect-scrollbar";
   import modalActions from "@/mixins/modalActions";
+  import Login from "@/components/Login";
+  import Address from "@/components/address-component/";
   import "./style.scss";
 
   export default {
-    components: {VuePerfectScrollbar},
+    components: {VuePerfectScrollbar,Login,Address},
     mixins: [modalActions],
     data() {
       return {
