@@ -26,21 +26,32 @@
     <div class="delivery-pay-block">
       <div class="dp-wrapper">
         <label  for="">Адрес доставки</label>
+        <div class="select-wrapper">
+          <div class="arrow"></div>
+          <div class="select" @click="showAddresses = !showAddresses">доставка</div>
+          <ul class="options" v-if="showAddresses">
+            <li
+              v-for="address in addressesList"
+              :key="`payment-${address.id}`"
+              v-text="address.Street"
+              @click="setPayment(payment.Name)"
+            />
+          </ul>
+        </div>
         <span v-text="getAdresses"></span>
       </div>
       <div class="dp-wrapper">
         <label>Способ оплаты</label>
         <div class="select-wrapper">
           <div class="arrow"></div>
-          <div class="select" @click="getPaymentTypes">ieorjg</div>
-          <ul class="options" >
+          <div class="select" @click="showPayments = !showPayments">{{getPaymentTypes[paymentIndex].Descr}}</div>
+          <ul class="options" v-if="showPayments">
             <li
-              v-for="payment in getPaymentTypes"
+              v-for="(payment, index) in getPaymentTypes"
               :key="`payment-${payment.id}`"
               v-text="payment.Descr"
-              @click="setPayment(payment.Name)"
+              @click="setPayment(payment.Name, index)"
             />
-              
           </ul>
         </div>
       </div>
@@ -55,8 +66,8 @@
         <input type="text" value="150" class="bonus-input" />
       </div>
       <div class="itog">
-        <span class="old-price">2956 Р</span>
-        <span class="itog-price">2500 P</span>
+        <!-- <span class="old-price">2956 Р</span> -->
+        <span class="itog-price" v-text="this.$store.getters.getCartSum"></span>
         <button class="finish-order" @click="checkout">Оформить заказ</button>
       </div>
     </div>
@@ -73,7 +84,6 @@ export default {
   name: "Cart",
   components: { CartHead, CartList, cartFood },
   mounted() {
-    console.log("props Cart: ", this.$props);
     // document.querySelector(".basket-block").style.display = "none";
   },
   data() {
@@ -84,7 +94,12 @@ export default {
       street: "",
       house: "",
       payment: "CARD",
-      payments: [],
+      paymentIndex: 0,
+      showPayments: false,
+      showAddresses: false,
+      selectedAddress: {},
+      addressesList: this.$store.state.authUser.addressList || [],
+      payments: this.getPaymentTypes,
       haveDopSection: false
     };
   },
@@ -97,7 +112,11 @@ export default {
     },
     getAdresses() {
       let address = this.$store.state.deliveryInfo;
-      return `${address.Street},${address.House} кв ${address.Apartment}`;
+      if (Object.keys(address).length === 0 && address.constructor === Object) {
+        return false;
+      } else {
+        return `${address.Street},${address.House} кв ${address.Apartment}`;
+      }
     }
   },
   props: ["foods", "menu"],
@@ -115,8 +134,10 @@ export default {
     this.checkHaveDopSection();
   },
   methods: {
-    setPayment(paymentName) {
+    setPayment(paymentName, index) {
       this.payment = paymentName;
+      this.paymentIndex = index;
+      this.showPayments = false;
       console.log(this.payment);
     },
     checkHaveDopSection() {
@@ -180,17 +201,17 @@ export default {
         customerName: user.FirstName,
         status: "checked",
         address: {
-          Street: this.street,
-          House: this.house,
-          Housing: "2",
-          Structure: "3",
-          Office: "4",
-          Entrance: "5",
-          DoorphoneСode: "6",
-          Floor: "7",
-          Apartment: "8",
+          Street: this.selectedAddress.Street,
+          House: this.selectedAddress.House,
+          Housing: this.selectedAddress.Housing,
+          Structure: this.selectedAddress.Structure,
+          Office: this.selectedAddress.Office,
+          Entrance: this.selectedAddress.Entrance,
+          DoorphoneСode: this.selectedAddress.DoorphoneСode,
+          Floor: this.selectedAddress.Floor,
+          Apartment: this.selectedAddress.Apartment,
           needOddFrom: "",
-          Comments: "Комментарий к заказу"
+          Comments: ""
         },
         bonusByOrder: 97,
         paymentInfo: {
