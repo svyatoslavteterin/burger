@@ -157,6 +157,7 @@ export default {
   data() {
     return {
       modalSearchAddress: true,
+      addresses:[],
       selectedStreet: {},
       findingHouses: [],
       fullAddr: {
@@ -173,11 +174,6 @@ export default {
         Comments: ""
       }
     };
-  },
-  computed: {
-    addresses() {
-      return this.getAddresses();
-    }
   },
   methods: {
     toggleSearchAddress() {
@@ -204,17 +200,21 @@ export default {
         };
       }
     },
-    searchAddress() {
+    async searchAddress() {
       if (!this.fullAddr.Street.length) {
-        // this.$store.dispatch(namesActions.clearSearchAddress);
+         this.addresses=[];
       }
       if (this.fullAddr.Street.length < 3) return;
-      //this.$store.dispatch(namesActions.searchAddress, this.fullAddr.Street);
+     // this.$store.dispatch('searchAddress', this.fullAddr.Street);
+        this.addresses=await this.getAddresses(this.fullAddr.Street);
     },
-    getAddresses: async function() {
+    getAddresses: async function(street) {
+      let response = await this.$http.get(
+        "https://apitest.burgerpizzoni.ru/api/Address/get?street=" + street
+      );
       try {
         let response = await this.$http.get(
-          "https://apitest.burgerpizzoni.ru/api/Address/get?street=" + this.q
+          "https://apitest.burgerpizzoni.ru/api/Address/get?street=" + street
         );
         return response.data;
       } catch (e) {
@@ -274,7 +274,7 @@ export default {
     },
     saveAddress() {
       this.modalSearchAddress = !this.modalSearchAddress;
-      // this.$store.dispatch(namesActions.saveAddress, this.fullAddr);
+      this.$store.commit("setDeliveryInfo", this.fullAddr);
     }
   }
 };
