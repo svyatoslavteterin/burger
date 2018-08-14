@@ -206,9 +206,12 @@ export default {
       }
       if (this.fullAddr.Street.length < 3) return;
      // this.$store.dispatch('searchAddress', this.fullAddr.Street);
-        this.addresses=this.getAddresses(this.fullAddr.Street);
+        this.addresses=await this.getAddresses(this.fullAddr.Street);
     },
     getAddresses: async function(street) {
+      let response = await this.$http.get(
+        "https://apitest.burgerpizzoni.ru/api/Address/get?street=" + street
+      );
       try {
         let response = await this.$http.get(
           "https://apitest.burgerpizzoni.ru/api/Address/get?street=" + street
