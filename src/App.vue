@@ -15,10 +15,6 @@
   </div>
 </template>
 
-<style lang="scss">
-@import "@/assets/scss/app.scss";
-</style>
-
 
 <script>
 import _ from "lodash";
