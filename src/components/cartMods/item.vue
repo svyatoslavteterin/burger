@@ -51,9 +51,9 @@ export default {
   created() {},
   data() {
     return {
-      modId: this.data.id_Mod ? this.data.id_Mod : this.data.id_Food,
+      modId: this.data.id,
       modName: this.data.ModName ? this.data.ModName : this.data.FoodName,
-      modType: this.data.id_Mod ? "mods" : "excludes"
+      modType: this.data.id ? "mods" : "excludes"
     };
   },
 
