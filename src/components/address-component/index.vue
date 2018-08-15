@@ -233,6 +233,7 @@ export default {
       this.fullAddr.Street = Street;
       this.selectedStreet = address;
       //this.$store.dispatch(namesActions.clearSearchAddress);
+        this.addresses = [];
       setTimeout(() => {
         this.$refs.houseInput.focus();
       }, 1000);
