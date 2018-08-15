@@ -30,6 +30,7 @@ import DetailInfo from "@/components/DetailInfo";
 import Delivery from "@/components/newDelivery";
 
 export default {
+  name:'App',
   beforeCreate() {
     this.$store.commit("initialiseStore");
   },
@@ -258,7 +259,7 @@ export default {
             });
           });
 
-          let dishesIds = _.union(ids);
+          let dishesIds = _.uniq(ids);
           if (dishesIds.length > 0) {
             return this.menu[this.$store.state.area].categs.filter(
               item => dishesIds.indexOf(+item.id) >= 0

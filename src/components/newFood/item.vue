@@ -11,7 +11,6 @@
                   :dishId="data.dishes[this.activeDish].id" :type="'exclude'"></dishMods>
       </div>
       <a class="i-add" @click.prevent="mods.include = !mods.include">добавить</a>
-      <a class="i-more" @click.prevent="mods.expanded = !mods.expanded">развернуть</a>
       <div class="include-mods">
 
         <dishMods v-if="mods.include" :mods="data.dishes[this.activeDish].ModGroups[1].mods"
@@ -42,11 +41,10 @@
         </div>
         <a class="i-add" @click.prevent="mods.include = !mods.include"
            v-if="data.dishes[this.activeDish].ModGroups[1]">добавить</a>
-        <a class="i-more"
-           v-if="data.dishes[this.activeDish].ModGroups[3]">развернуть</a>
-        <div class="include-mods">
+
+        <div class="include-mods" >
           <dishMods v-if="mods.include" :mods="data.dishes[this.activeDish].ModGroups[1].mods"
-                    :dishId="data.dishes[this.activeDish].id" :type="'include'"></dishMods>
+                    :dishId="data.dishes[this.activeDish].id" :type="'include'" v-on:hide="mods.include = !mods.include" ></dishMods>
         </div>
 
       </div>
@@ -146,6 +144,7 @@
     ready: function () {
     },
     mounted: function () {
+
     },
     computed: {
       getClass: function () {
