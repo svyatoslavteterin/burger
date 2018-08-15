@@ -1,7 +1,6 @@
 <template>
 <div>
   <li class="cart-item">
-    <div class="close" @click="removeDish"></div>
     <div class="main-info">
       <div class="pic">
         <img :src="getImage" alt="">
@@ -33,22 +32,23 @@
       </div><!--chars-->
     </div>
     <div class="additional-with-order">
-        <span class="mods-title">Добавлено к заказу</span>
-        <cartMods
-          :mods="data.mods"
+      <div class="close" @click="removeDish"></div>
+      <span class="mods-title">Добавлено к заказу</span>
+      <cartMods
+        :mods="data.mods"
+        :dishId="data.id"
+        :type="'include'"
+      />
+      <a class="i-add" @click.prevent="mods.include = !mods.include">добавить</a>
+      <div class="include-mods">
+        <dishMods
+          v-if="mods.include"
+          :mods="data.fullData.ModGroups[1].mods"
           :dishId="data.id"
           :type="'include'"
         />
-        <a class="i-add" @click.prevent="mods.include = !mods.include">добавить</a>
-        <div class="include-mods">
-          <dishMods
-            v-if="mods.include" 
-            :mods="data.fullData.ModGroups[1].mods"
-            :dishId="data.id"
-            :type="'include'"
-          />
-        </div>
-        <div class="dish-sum">Стоимость блюда: <span>{{getDishSum}} ₽</span></div>
+      </div>
+      <div class="dish-sum">Стоимость блюда: <span>{{getDishSum}} ₽</span></div>
     </div>
   </li>
 </div>

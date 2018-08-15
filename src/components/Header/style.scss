@@ -166,9 +166,12 @@
   top: 50px;
   background: white;
   padding: 20px;
+  z-index: 3;
 
   &:hover {
     display: flex;
+    background: white;
+    z-index: 3;
   }
 }
 .basket-block-food-block{

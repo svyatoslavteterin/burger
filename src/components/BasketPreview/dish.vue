@@ -8,7 +8,7 @@
       <div class="item-info">
 
         <div class="item-controls">
-          <div class="item-title">{{ data.categName }}</div>
+          <div class="item-title">{{ data.categName }} <span class="size">|&nbsp;{{data.dishName}}</span></div>
           <div class="controls-counter">
             <button class="" @click.prevent="decrement">-</button>
             <span class="ui-amount-control-value" v-text="getCount" />
@@ -135,6 +135,12 @@ export default {
         font-size: 1.3rem;
         color: black;
         font-weight: bold;
+
+        span {
+          font-weight: normal;
+          color: #b2b2b2;
+          text-align: right;
+        }
       }
 
       .controls-counter {
