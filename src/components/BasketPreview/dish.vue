@@ -156,7 +156,6 @@ export default {
           display: flex;
           justify-content: center;
           align-items: center;
-          padding-top: 5px;
           border: 1px solid black;
           border-radius: 100%;
           width: 1.25rem;

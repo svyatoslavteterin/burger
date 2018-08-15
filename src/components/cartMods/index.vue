@@ -2,6 +2,7 @@
   <div v-if="type=='include'">
     <ul class="mods">
       <dishModItem
+        v-if="mod.count"
         :key="`CartModItem-${mod.id}`"
         :data="mod"
         :dishId="dishId"

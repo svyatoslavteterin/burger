@@ -5,16 +5,8 @@
     <ol class=cart-block>
       <CartList
         v-for="item in orderDishes"
-        :key="item.id"
+        :key="`CartListItem-${item.id}`"
         :data="item"
-        :dopItems="false"
-      />
-      <h3 class="" v-if="haveDopSection == true">Добавлено к заказу</h3>
-      <CartList
-        v-for="item in orderDishes"
-        :key="item.id+10000"
-        :data="item"
-        :dopItems="true"
       />
     </ol>
     <h3 class="drink-title">Рекомендуем к пицонни:</h3>
@@ -105,7 +97,7 @@ export default {
   },
   computed: {
     orderDishes() {
-      return this.$store.state.cart;
+      return this.$store.getters.getCart;
     },
     userBonuses() {
       return this.$store.getters.getUserBonus;
