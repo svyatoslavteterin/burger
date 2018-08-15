@@ -237,7 +237,7 @@ export default {
       foods: function () {
         if (this.menu[this.$store.state.area]) {
           let ids = [];
-          if (this.$store.state.q.length > 4) {
+          if (this.$store.state.q.length >= 3) {
             _.forOwn(this.searchIndexes, (dishes, word) => {
               if (word.toLowerCase().indexOf(this.$store.state.q) >= 0) {
                 //dishes.forEach(dishId => {
