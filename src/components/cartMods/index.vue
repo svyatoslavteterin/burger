@@ -2,7 +2,7 @@
   <div v-if="type=='include'">
     <ul class="mods">
       <dishModItem
-        :key="mod.id_Mod"
+        :key="`CartModItem-${mod.id}`"
         :data="mod"
         :dishId="dishId"
         :type="'include'"
