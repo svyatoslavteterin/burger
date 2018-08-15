@@ -1,6 +1,6 @@
 <template>
 <div>
-  <li class="cart-item" v-if="dopItems != true && data.fromDopSection != true">
+  <li class="cart-item">
     <div class="close" @click="removeDish"></div>
     <div class="main-info">
       <div class="pic">
@@ -50,20 +50,6 @@
         </div>
         <div class="dish-sum">Стоимость блюда: <span>{{getDishSum}} ₽</span></div>
     </div>
-  </li>
-  <li class="cart-item" v-if="dopItems == true && data.fromDopSection == true">
-    <div class="close" @click="removeDish"></div>
-    <div class="chars chars-dop-item">
-      <div class="title">{{data.categName}} <span class="size">|&nbsp;{{data.dishName}}</span></div>
-      <amountControls
-        v-show="showCounter"
-        :count="count"
-        :showCounter="showCounter"
-        v-on:decrement="decrement"
-        v-on:increment="increment"
-      />
-      <div class="price" v-text="getPrice"></div>
-    </div><!--chars-->
   </li>
 </div>
 </template>

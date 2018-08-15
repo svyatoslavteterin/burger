@@ -37,14 +37,15 @@ export default {
       console.log("inc", this);
       this.$store.commit("incModCount", {
         modId: this.modId,
-        id: this.dishId
+        id: this.dishId,
+        modType: this.modType
       });
     },
     decModCount() {
-      console.log("dec", this);
       this.$store.commit("decModCount", {
         modId: this.modId,
-        id: this.dishId
+        id: this.dishId,
+        modType: this.modType
       });
     }
   },
@@ -53,7 +54,8 @@ export default {
     return {
       modId: this.data.id,
       modName: this.data.ModName ? this.data.ModName : this.data.FoodName,
-      modType: this.data.id ? "mods" : "excludes"
+      modType: this.data.id ? "mods" : "excludes",
+      count: this.data.count
     };
   },
 

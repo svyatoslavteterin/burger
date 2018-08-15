@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from "axios";
+import { remove as _remove } from 'lodash';
 import currencyFormatter from 'currency-formatter';
 
 Vue.use(Vuex);
@@ -109,9 +110,17 @@ export default new Vuex.Store({
       const mod = dish.mods.find(p => p.id === payload.modId);
 
       if (mod) {
-        if (mod.count > 0) {
+        if (mod.count > 1) {
           mod.count--;
           mod.summ = mod.count * mod.price | 0;
+        } else {
+          mod.count--;
+          // console.log("2987283720397402938473029847");
+          // console.log(dish.mods, mod.id);
+          _remove(dish.mods, (item) => {
+            console.log(item.id === mod.id);
+            return item.id === mod.id
+          });
         }
       }
     },
@@ -165,7 +174,7 @@ export default new Vuex.Store({
       return state.authUser;
     },
     getDishSum(state) {
-      const {cart} = state;
+      const { cart } = state;
       let summ = 0;
 
       if (cart.length > 0) {
@@ -177,7 +186,7 @@ export default new Vuex.Store({
     },
 
     getModsSum(state) {
-      const {cart} = state;
+      const { cart } = state;
       let summ = {};
 
       if (cart.length > 0) {
@@ -194,7 +203,7 @@ export default new Vuex.Store({
       return summ;
     },
     getCartSum(state) {
-      const {cart} = state;
+      const { cart } = state;
       let summ = 0;
 
       if (cart.length > 0) {
@@ -209,17 +218,20 @@ export default new Vuex.Store({
 
       }
 
-      return currencyFormatter.format(summ, {code: 'RUB', precision: 0});
+      return currencyFormatter.format(summ, { code: 'RUB', precision: 0 });
     },
 
     getUserBonus(state) {
-      const {authUser} = state;
+      const { authUser } = state;
       let bonus = 0;
       if (Object.keys(authUser).length > 0) {
         bonus = authUser.userInfo.Bonus;
       }
 
       return bonus;
+    },
+    getCart(state) {
+      return state.cart;
     }
   },
   actions: {}
