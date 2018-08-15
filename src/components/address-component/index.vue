@@ -143,7 +143,7 @@
     </div>
 
     <div class="modal-search-address__buttons">
-      <button class="send-button save-delivery-address" v-show="fullAddr.Street && fullAddr.House" @click="saveAddress()">Сохранить</button>
+      <button class="send-button save-delivery-address" v-show="fullAddr.Street && fullAddr.House" @click="saveAddress()">Сохранить Адрес</button>
     </div>
   </div>
 </template>
@@ -151,6 +151,7 @@
 
 <script>
 import "./style.scss";
+import _ from "lodash";
 
 export default {
   name: "SearchAddress",
@@ -239,7 +240,7 @@ export default {
     searchHouse(e) {
       const { value } = e.target;
       this.findingHouses = [];
-      this.selectedStreet.houses.forEach(house => {
+      _.forOwn(this.selectedStreet.houses,(house)=>{
         // eslint-disable-line
         if (house.house.split(" ")[0].includes(value)) {
           return this.findingHouses.push(house);
@@ -275,6 +276,7 @@ export default {
     saveAddress() {
       this.modalSearchAddress = !this.modalSearchAddress;
       this.$store.commit("setDeliveryInfo", this.fullAddr);
+      this.$modal.hide('delivery');
     }
   }
 };
