@@ -14,7 +14,7 @@
       <div class="include-mods">
 
         <dishMods v-if="mods.include" :mods="data.dishes[this.activeDish].ModGroups[1].mods"
-                  :dishId="data.dishes[this.activeDish].id"></dishMods>
+                  :dishId="data.dishes[this.activeDish].id" :type="'include'" v-on:hide="mods.include = !mods.include" ></dishMods>
       </div>
       <div class="bottom">
         <Dishes :dishes="this.data.dishes" v-if="this.data.dishes.length>1" :activeDish="this.activeDish"
