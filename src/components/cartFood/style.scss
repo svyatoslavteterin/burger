@@ -17,18 +17,13 @@
     }
 
     &:nth-child(even) {
+
       flex-direction: row-reverse;
       .pic {
         img {
           margin: 0 auto 0 0;
         }
 
-        .arrow {
-          bottom: 4%;
-          left: auto;
-          right: -14px;
-          transform: scale(-1, -1);
-        }
       }
     }
   }
@@ -288,21 +283,9 @@
         font-size: 14px;
         font-weight: bold;
       }
-
-      .arrow {
-        position: absolute;
-        bottom: 10%;
-        left: 0;
-        width: 67px;
-        height: 30px;
-      }
     }
 
     &:hover {
-      .arrow {
-        background: url("img/icons_arrow.png") center center no-repeat;
-        background-size: contain;
-      }
       .detail {
         opacity: 1;
       }

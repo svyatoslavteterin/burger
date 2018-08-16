@@ -7,7 +7,6 @@
         <router-link to="/">
           <img src="./img/logo.svg" alt="logo" class="logo"/>
         </router-link>
-        <a href="#city-select" class="select-city-link">Санкт Петербург</a>
       </div>
       <div class="header-center-block">
         <div class="number-block">

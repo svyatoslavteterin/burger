@@ -22,9 +22,12 @@
   text-transform: uppercase;
 }
 
-#mainnavbar nav ul li.active a,#mainnavbar nav ul li a:hover {
+#mainnavbar nav ul li.active a {
   border-bottom: 2px solid #ffd70f;
   font-weight: bold;
+}
+#mainnavbar nav ul li a:hover {
+  border-bottom: 2px solid #ffd70f;
 }
 
 #mainnavbar.fixed {

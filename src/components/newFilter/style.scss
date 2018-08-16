@@ -55,6 +55,12 @@
     color: black
   }
 
+  &:hover {
+    a {
+      border-bottom: 2px solid #ffd70f;
+    }
+  }
+
   a {
     color: black;
 

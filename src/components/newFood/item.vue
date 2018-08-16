@@ -21,7 +21,7 @@
                 v-on:setActiveDish="setActiveDish"></Dishes>
         <div class="bottom-row">
           <div class="price"><span v-text="getPrice"></span></div>
-          <div class="weight"><span v-text="getWeight"></span> г.</div>
+          <div class="weight"><span v-text="getWeight"></span> г</div>
           <button class="in-basket" v-show="!showCounter" @click="addToCart">
             В корзину
           </button>
@@ -53,7 +53,7 @@
                 v-on:setActiveDish="setActiveDish"></Dishes>
         <div class="bottom-row">
           <div class="price"><span v-text="getPrice"></span></div>
-          <div class="weight"><span v-text="getWeight"></span> г.</div>
+          <div class="weight"><span v-text="getWeight"></span> г</div>
           <button class="in-basket" v-show="!showCounter" @click="addToCart">В корзину</button>
 
           <amountControls v-show="showCounter" :count="count" :showCounter="showCounter"
@@ -63,7 +63,6 @@
     </div><!--chars-->
     <div class="pic" @click="showInfo">
       <div class="detail">
-        <div class="arrow"></div>
         <div class="detail-img"></div>
         <div class="detail-text">подробнее</div>
       </div>

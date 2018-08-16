@@ -19,7 +19,7 @@
         <div class="bottom">
           <div class="bottom-row">
             <div class="price"><span v-text="getPrice"></span></div>
-            <div class="weight"><span v-text="getWeight"></span> г.</div>
+            <div class="weight"><span v-text="getWeight"></span> г</div>
             <amountControls
               v-show="showCounter"
               :count="count"
@@ -39,12 +39,13 @@
         :dishId="data.id"
         :type="'include'"
       />
-      <a class="i-add" @click.prevent="mods.include = !mods.include">добавить</a>
+      <a v-if="haveMods" class="i-add" @click.prevent="mods.include = !mods.include">добавить</a>
       <div class="include-mods">
         <dishMods
           v-if="mods.include"
           :mods="data.fullData.ModGroups[1].mods"
           :dishId="data.id"
+           v-on:hide="mods.include = !mods.include"
           :type="'include'"
         />
       </div>
@@ -62,6 +63,15 @@ export default {
   name: "CartList",
   components: { cartMods, dishMods, dishModItem, amountControls },
   props: ["data", "type", "dopItems"],
+  data() {
+    return {
+      activeDish: 0,
+      mods: {
+        include: false,
+        exclude: false
+      }
+    };
+  },
   methods: {
     removeDish() {
       this.$store.commit("removeFromCart", this.data.id);
@@ -110,18 +120,13 @@ export default {
     }
   },
   created() {},
-  data() {
-    return {
-      activeDish: 0,
-      mods: {
-        include: false,
-        exclude: false
-      }
-    };
-  },
   ready: function() {},
   mounted: function() {},
   computed: {
+    haveMods(){
+      // если есть группы с модификаторами, то показываем кнопку добавить (модификаторы)
+      return (this.data.fullData.ModGroups.length > 0) ? true : false;
+    },
     getClass: function() {
       return "mo " + this.classKey + "-mo";
     },

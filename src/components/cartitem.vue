@@ -11,7 +11,7 @@
                     <div class="cart__item__info">
                         <div class="param">
                             <div class="param__title">Вес:</div>
-                            <div class="param__value">{{data.fullData.ExitMass}} г.</div>
+                            <div class="param__value">{{data.fullData.ExitMass}} г</div>
                         </div>
                         <div class="param">
                             <div class="param__title">Размер:</div>

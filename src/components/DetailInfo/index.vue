@@ -8,27 +8,12 @@
     v-cloak
     @before-open="beforeOpen"
   >
-    <div class="modal-header-info">
+    <div class="modal-header-info" @click="$modal.hide('info')">
       <div class="info-title" v-if="data.dishes" v-text="data.categName"></div>
       <button @click="$modal.hide('info')" class="info-modal-close"></button>
     </div>
-    <div class="info-modal-pic" v-if="data.dishes">
+    <div class="info-modal-pic" v-if="data.dishes" @click="$modal.hide('info')">
       <img :src="getImage()" alt="">
-    </div>
-    <div class="scrollbar-wrapper">
-      <VuePerfectScrollbar class="modal-scrollbar"  :settings="settings"  v-if="data.dishes">
-        <p v-if="data.dishes">
-          <span>Состав:</span>
-          <dishModItem :key="mod.id_Food" :data="mod" :dishId="data.dishes[activeDish].id" :type="'text'"
-                       v-for="mod in data.dishes[activeDish].techCardData" ></dishModItem>
-        </p>
-        <p>Описание:
-          <span v-text="getDescr"></span>
-        </p>
-        <div class="empty-gap"></div>
-      </VuePerfectScrollbar>
-
-      <div class="fade-out-block"></div>
     </div>
   </modal>
 </template>

@@ -3,13 +3,12 @@
     <div :class="{dishmod: true, 'right-side': rightSide}" v-show="okButton===false">
       <div class="modal-header">
         <button class="info-modal-close" @click="hide">OK</button>
-        <div class="info-yellow-block">Добавлено</div>
         <div class="info-title">
-                <span v-if="this.$store.getters.getModsSum[dishId]">
-                +
-                <span v-text="this.$store.getters.getModsSum[dishId]"></span>
-                ₽
-                    </span>
+          <span v-if="this.$store.getters.getModsSum[dishId]">
+            +
+            <span v-text="+this.$store.getters.getModsSum[dishId]"></span>
+            ₽
+          </span>
         </div>
       </div>
       <div class="scrollbar-wrapper">
@@ -42,8 +41,8 @@ import "./style.scss";
 
 export default {
   mounted() {
-    console.log(this.$el);
-    const test = this.$el.clientWidth + this.$el.getBoundingClientRect().left;
+    const test = this.$el.querySelector(".dishmod").getBoundingClientRect().right;
+    console.log(test, window.innerWidth);
     if (test > window.innerWidth) {
       this.rightSide = true;
     }

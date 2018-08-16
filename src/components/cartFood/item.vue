@@ -4,16 +4,22 @@
     <img :src="getImage" alt="">
   </div> <!--pic-->
   <div class="chars">
-    <div class="title">{{data.categName}} <span v-text="`${getWeight} г.`" v-if="showWeight == true"></span> </div>
-    <Dishes
-      :dishes="this.data.dishes"
-      v-if="this.data.dishes.length > 1"
-      :activeDish="this.activeDish"
-      v-on:setActiveDish="setActiveDish"
-    />
+    <div class="title">{{data.categName}}</div>
+
     <div class="bottom-row">
-      <div class="price"><span v-text="getPrice"></span></div>
-      <div class="in-additional-order" @click="addToCart">Добавить</div>
+      <Dishes
+        :dishes="this.data.dishes"
+        v-if="this.data.dishes.length > 1"
+        :activeDish="this.activeDish"
+        v-on:setActiveDish="setActiveDish"
+      />
+      <div class="cart-price-wrap">
+        <div class="price-wrapper">
+          <span class="price" v-text="getPrice"></span>
+          <span class="weight" v-text="`${getWeight} г`" v-if="showWeight == true"></span>
+        </div>
+        <div class="in-additional-order" @click="addToCart">Добавить</div>
+      </div>
     </div>
     
   </div>

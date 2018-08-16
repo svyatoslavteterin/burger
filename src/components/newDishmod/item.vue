@@ -2,7 +2,7 @@
   <li v-if="type=='include'">
     <div class="mod-item">
       <span class="mod-name" v-text="data.ModName"></span>
-      <span class="mod-price">+<span v-text="data.Price"></span>₽</span>
+      <span class="mod-price"><span v-text="+data.Price"></span>₽</span>
     </div>
     <div class="mod-actions">
       <button class="counter" @click.prevent="decModCount()">–</button>
