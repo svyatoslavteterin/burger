@@ -61,7 +61,7 @@
         <input
           class="small-input"
           type="text"
-          fullAddr.Housing
+          v-model="fullAddr.Housing"
           required
         />
         <label for="">Корпус</label>
@@ -71,7 +71,7 @@
         <input
           class="small-input"
           type="text"
-          fullAddr.Structure
+          v-model="fullAddr.Structure"
           required
         />
         <label for="">Строение</label>
@@ -81,7 +81,7 @@
         <input
           class="small-input"
           type="text"
-          fullAddr.Office
+          v-model="fullAddr.Office"
           required
         />
         <label for="">Офис</label>
@@ -94,7 +94,7 @@
         <input
           class="small-input"
           type="text"
-          fullAddr.Entrance
+          v-model="fullAddr.Entrance"
           required
         />
         <label for="">Подъезд</label>
@@ -104,7 +104,7 @@
         <input
           class="small-input"
           type="text"
-          fullAddr.DoorphoneСode
+          v-model="fullAddr.DoorphoneСode"
           required
         />
         <label for="">Домофон</label>
@@ -114,7 +114,7 @@
         <input
           class="small-input"
           type="text"
-          fullAddr.Floor
+          v-model="fullAddr.Floor"
           required
         />
         <label for="">Этаж</label>
@@ -124,7 +124,7 @@
         <input
           class="small-input"
           type="text"
-          fullAddr.Apartment
+          v-model="fullAddr.Apartment"
           required
         />
         <label for="">Квартира</label>
@@ -136,56 +136,34 @@
       <input
         class="small-input"
         type="text"
-        fullAddr.needOddFrom
+        v-model="fullAddr.needOddFrom"
         required
       />
       <label for="">Дать сдачу с купюры</label>
     </div>
 
     <div class="modal-search-address__buttons">
-      <button class="send-button save-delivery-address" v-show="fullAddr.Street && fullAddr.House" @click="saveAddress()">Сохранить</button>
+      <button class="send-button save-delivery-address" v-show="fullAddr.Street && fullAddr.House"
+              @click="saveAddress()">Сохранить Адрес
+      </button>
     </div>
   </div>
 </template>
 
 
 <script>
-import "./style.scss";
+  import "./style.scss";
+  import _ from "lodash";
 
-export default {
-  name: "SearchAddress",
-  data() {
-    return {
-      modalSearchAddress: true,
-      addresses:[],
-      selectedStreet: {},
-      findingHouses: [],
-      fullAddr: {
-        Street: "",
-        House: "",
-        Housing: "",
-        Structure: "",
-        Office: "",
-        Entrance: "",
-        DoorphoneСode: "",
-        Floor: "",
-        Apartment: "",
-        needOddFrom: "",
-        Comments: ""
-      }
-    };
-  },
-  methods: {
-    toggleSearchAddress() {
-      this.modalSearchAddress = !this.modalSearchAddress;
-      if (this.modalSearchAddress) {
-        setTimeout(() => {
-          this.$refs.searchAddressInput.focus();
-        }, 100);
-      } else {
-        //this.$store.dispatch(namesActions.clearSearchAddress);
-        this.inputAddress = "";
-        this.fullAddr = {
+  export default {
+    name: "SearchAddress",
+    data() {
+      return {
+        modalSearchAddress: true,
+        addresses: [],
+        selectedStreet: {},
+        findingHouses: [],
+        fullAddr: {
           Street: "",
           House: "",
           Housing: "",
@@ -197,245 +175,285 @@ export default {
           Apartment: "",
           needOddFrom: "",
           Comments: ""
-        };
-      }
+        }
+      };
     },
-    async searchAddress() {
-      if (!this.fullAddr.Street.length) {
-         this.addresses=[];
-      }
-      if (this.fullAddr.Street.length < 3) return;
-     // this.$store.dispatch('searchAddress', this.fullAddr.Street);
-        this.addresses=await this.getAddresses(this.fullAddr.Street);
-    },
-    getAddresses: async function(street) {
-      let response = await this.$http.get(
-        "https://apitest.burgerpizzoni.ru/api/Address/get?street=" + street
-      );
-      try {
+    methods: {
+      toggleSearchAddress() {
+        this.modalSearchAddress = !this.modalSearchAddress;
+        if (this.modalSearchAddress) {
+          setTimeout(() => {
+            this.$refs.searchAddressInput.focus();
+          }, 100);
+        } else {
+          //this.$store.dispatch(namesActions.clearSearchAddress);
+          this.inputAddress = "";
+          this.fullAddr = {
+            Street: "",
+            House: "",
+            Housing: "",
+            Structure: "",
+            Office: "",
+            Entrance: "",
+            DoorphoneСode: "",
+            Floor: "",
+            Apartment: "",
+            needOddFrom: "",
+            Comments: ""
+          };
+        }
+      },
+      async searchAddress() {
+        if (!this.fullAddr.Street.length) {
+          this.addresses = [];
+          this.fullAddr = {
+            Street: "",
+            House: "",
+            Housing: "",
+            Structure: "",
+            Office: "",
+            Entrance: "",
+            DoorphoneСode: "",
+            Floor: "",
+            Apartment: "",
+            needOddFrom: "",
+            Comments: ""
+          };
+        }
+        if (this.fullAddr.Street.length < 3) return;
+        // this.$store.dispatch('searchAddress', this.fullAddr.Street);
+        this.addresses = await this.getAddresses(this.fullAddr.Street);
+      },
+      getAddresses: async function (street) {
         let response = await this.$http.get(
           "https://apitest.burgerpizzoni.ru/api/Address/get?street=" + street
         );
-        return response.data;
-      } catch (e) {
-        this.errors.address.request = "Ошибка при получении адресов";
-      }
-    },
-    selectStreet(address) {
-      let Street = address.street;
-      const isStreetPrefix = new RegExp("^[Уу]лица", "i");
-      if (isStreetPrefix.test(Street)) {
-        const myRegexp = new RegExp("^[Уу]лица\\s([0-9а-яА-Я\\W]+)");
-        Street = myRegexp.exec(Street)[1];
-      }
-
-      this.fullAddr.Street = Street;
-      this.selectedStreet = address;
-      //this.$store.dispatch(namesActions.clearSearchAddress);
-      setTimeout(() => {
-        this.$refs.houseInput.focus();
-      }, 1000);
-    },
-    searchHouse(e) {
-      const { value } = e.target;
-      this.findingHouses = [];
-      this.selectedStreet.houses.forEach(house => {
-        // eslint-disable-line
-        if (house.house.split(" ")[0].includes(value)) {
-          return this.findingHouses.push(house);
+        try {
+          let response = await this.$http.get(
+            "https://apitest.burgerpizzoni.ru/api/Address/get?street=" + street
+          );
+          return response.data;
+        } catch (e) {
+          this.errors.address.request = "Ошибка при получении адресов";
         }
-      });
-    },
-    selectHouse(house) {
-      const House = house.split(" ")[0];
-      let Housing = "";
-      let Structure = "";
+      },
+      selectStreet(address) {
+        let Street = address.street;
+        const isStreetPrefix = new RegExp("^[Уу]лица", "i");
+        if (isStreetPrefix.test(Street)) {
+          const myRegexp = new RegExp("^[Уу]лица\\s([0-9а-яА-Я\\W]+)");
+          Street = myRegexp.exec(Street)[1];
+        }
 
-      const isHousing = new RegExp(".*к{1}[0-9а-яА-Я]+", "i");
-      if (isHousing.test(house)) {
-        const myRegexp = new RegExp(".*(к{1}[0-9а-яА-Я]+)");
-        Housing = myRegexp.exec(house)[1].replace("к", "");
+        this.fullAddr.Street = Street;
+        this.selectedStreet = address;
+        this.addresses = [];
+        setTimeout(() => {
+          this.$refs.houseInput.focus();
+        }, 1000);
+      },
+      searchHouse(e) {
+        const {value} = e.target;
+        this.findingHouses = [];
+        _.forOwn(this.selectedStreet.houses, (house) => {
+          // eslint-disable-line
+          if (house.house.split(" ")[0].includes(value)) {
+            return this.findingHouses.push(house);
+          }
+        });
+      },
+      selectHouse(house) {
+
+        const House = house.split(" ")[0];
+        let Housing = "";
+        let Structure = "";
+
+        const isHousing = new RegExp(".*к{1}[0-9а-яА-Я]+", "i");
+        if (isHousing.test(house)) {
+          const myRegexp = new RegExp(".*(к{1}[0-9а-яА-Я]+)");
+          Housing = myRegexp.exec(house)[1].replace("к", "");
+        }
+
+        const isStructure = new RegExp(".*с{1}[0-9а-яА-Я]+", "i");
+        if (isStructure.test(house)) {
+          const myRegexp = new RegExp(".*с{1}([0-9а-яА-Я]+)");
+          Structure = myRegexp.exec(house)[1];
+        }
+
+        this.findingHouses = [];
+
+        this.fullAddr = {
+          ...this.fullAddr,
+          House,
+          Housing,
+          Structure
+        };
+      },
+      saveAddress() {
+        this.modalSearchAddress = !this.modalSearchAddress;
+        this.$store.commit("setDeliveryInfo", this.fullAddr);
+        this.$modal.hide('delivery');
       }
-
-      const isStructure = new RegExp(".*с{1}[0-9а-яА-Я]+", "i");
-      if (isStructure.test(house)) {
-        const myRegexp = new RegExp(".*с{1}([0-9а-яА-Я]+)");
-        Structure = myRegexp.exec(house)[1];
-      }
-
-      this.findingHouses = [];
-
-      this.fullAddr = {
-        ...this.fullAddr,
-        House,
-        Housing,
-        Structure
-      };
-    },
-    saveAddress() {
-      this.modalSearchAddress = !this.modalSearchAddress;
-      this.$store.commit("setDeliveryInfo", this.fullAddr);
     }
-  }
-};
+  };
 </script>
 
 <style lang="scss" scoped>
-.modal-search-address__wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba($color: #000000, $alpha: 0.75);
+  .modal-search-address__wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba($color: #000000, $alpha: 0.75);
 
-  .modal-search-address {
-    position: relative;
-    width: 90%;
-    min-height: 15vh;
-    margin: 7vh auto 0;
-    padding: 1.5vh 3vw;
+    .modal-search-address {
+      position: relative;
+      width: 90%;
+      min-height: 15vh;
+      margin: 7vh auto 0;
+      padding: 1.5vh 3vw;
 
-    overflow: hidden;
+      overflow: hidden;
 
-    input {
-      display: block;
-      width: 100%;
-      font-size: 3.5vh;
-      padding: 0.175vh 0;
-      margin: 0 auto;
-      border: none;
+      input {
+        display: block;
+        width: 100%;
+        font-size: 3.5vh;
+        padding: 0.175vh 0;
+        margin: 0 auto;
+        border: none;
 
-      background-color: transparent;
-      text-transform: capitalize;
+        background-color: transparent;
+        text-transform: capitalize;
 
-      &::placeholder {
-        font-size: 3.75vh;
-        text-transform: none;
-      }
-
-      &:focus {
-        outline: none;
-      }
-    }
-
-    .list-container {
-      position: absolute;
-      height: 0;
-      top: 2.75vh;
-      width: 100%;
-      margin: 0;
-      overflow-y: auto;
-      z-index: 999;
-
-      &.expand {
-        height: 35vh;
-        margin: 1vh 0;
-
-        &.houses-list {
-          height: 22vh;
-        }
-      }
-    }
-
-    ul {
-      margin: 0;
-      padding: 0;
-      list-style-type: none;
-      transition: all 0.2s linear;
-
-      li {
-        position: relative;
-        font-size: 2.75vh;
-        top: 0;
-        padding: 1.25vh 2vw;
-        line-height: 1;
-        transition: all 0.25s;
-
-        &:nth-child(even) {
+        &::placeholder {
+          font-size: 3.75vh;
+          text-transform: none;
         }
 
-        &.list-enter {
-          opacity: 0;
-          transform: translateX(-50px);
+        &:focus {
+          outline: none;
         }
+      }
 
-        &.list-leave-to {
-          opacity: 0;
-          transform: translateX(-50px);
+      .list-container {
+        position: absolute;
+        height: 0;
+        top: 2.75vh;
+        width: 100%;
+        margin: 0;
+        overflow-y: auto;
+        z-index: 999;
+
+        &.expand {
+          height: 35vh;
+          margin: 1vh 0;
+
+          &.houses-list {
+            height: 22vh;
+          }
+        }
+      }
+
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        transition: all 0.2s linear;
+
+        li {
+          position: relative;
+          font-size: 2.75vh;
+          top: 0;
+          padding: 1.25vh 2vw;
+          line-height: 1;
+          transition: all 0.25s;
+
+          &:nth-child(even) {
+          }
+
+          &.list-enter {
+            opacity: 0;
+            transform: translateX(-50px);
+          }
+
+          &.list-leave-to {
+            opacity: 0;
+            transform: translateX(-50px);
+          }
         }
       }
     }
   }
-}
 
-.address-options {
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: space-between;
-  position: relative;
-
-  & .address-options__title {
-    display: block !important;
-    width: 100%;
-    font-size: 2.5vh;
-    margin-bottom: 1.5vh;
-    text-align: center !important;
-  }
-
-  & > div {
+  .address-options {
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: column nowrap;
     justify-content: space-between;
     position: relative;
-    width: 100%;
-    margin-bottom: 1vh;
 
-    &.address-options__street {
-      & input {
-        padding-left: 7vh;
-        text-align: left;
-      }
-    }
-
-    & span {
-      position: absolute;
-      left: 0.5vh;
-      font-size: 1.75vh !important;
-      bottom: 0.25vh;
-      opacity: 0.75;
+    & .address-options__title {
+      display: block !important;
+      width: 100%;
+      font-size: 2.5vh;
+      margin-bottom: 1.5vh;
+      text-align: center !important;
     }
 
     & > div {
-      width: 48%;
-      margin-bottom: 1vh;
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
       position: relative;
-    }
-
-    & input {
       width: 100%;
-      position: relative;
+      margin-bottom: 1vh;
+
+      &.address-options__street {
+        & input {
+          padding-left: 7vh;
+          text-align: left;
+        }
+      }
+
+      & span {
+        position: absolute;
+        left: 0.5vh;
+        font-size: 1.75vh !important;
+        bottom: 0.25vh;
+        opacity: 0.75;
+      }
+
+      & > div {
+        width: 48%;
+        margin-bottom: 1vh;
+        position: relative;
+      }
+
+      & input {
+        width: 100%;
+        position: relative;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        font-size: 2.5vh !important;
+        line-height: 1;
+        padding: 2vh 0.5vh 0.25vh;
+        text-align: right;
+      }
+    }
+
+    & textarea {
       background-color: transparent;
-      border: none;
+      line-height: 1.15;
       outline: none;
-      font-size: 2.5vh !important;
-      line-height: 1;
-      padding: 2vh 0.5vh 0.25vh;
-      text-align: right;
+      width: 100%;
+      margin: 1.5vh 0;
+      padding: 0.5vh;
+      font-size: 1.75vh;
+      height: 10vh !important;
     }
   }
-
-  & textarea {
-    background-color: transparent;
-    line-height: 1.15;
-    outline: none;
-    width: 100%;
-    margin: 1.5vh 0;
-    padding: 0.5vh;
-    font-size: 1.75vh;
-    height: 10vh !important;
-  }
-}
 </style>
 
 

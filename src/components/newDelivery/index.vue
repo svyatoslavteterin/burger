@@ -31,9 +31,6 @@
       <Address />
 
       <Login v-if="!this.$store.getters.getAuthUser.id"  :template="'small'"/>
-      <div class="recieve-code-wrapper" style="justify-content: center;">
-        <div class="send-button" @click="saveDelivery">Сохранить</div>
-      </div>
 
       <div v-if="okDelivery" class="thank-you-message">
         <p>Спасибо!</p>
@@ -147,10 +144,7 @@
       };
     },
     methods: {
-      saveDelivery(){
-        this.$store.commit("setDeliveryInfo", this.deliveryInfo);
-        this.$modal.hide('delivery');
-      },
+
       checkAddress: function (e) {
         let container = e.target.parentNode;
 

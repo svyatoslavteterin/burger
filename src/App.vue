@@ -15,10 +15,6 @@
   </div>
 </template>
 
-<style lang="scss">
-@import "@/assets/scss/app.scss";
-</style>
-
 
 <script>
 import _ from "lodash";
@@ -30,6 +26,7 @@ import DetailInfo from "@/components/DetailInfo";
 import Delivery from "@/components/newDelivery";
 
 export default {
+  name:'App',
   beforeCreate() {
     this.$store.commit("initialiseStore");
   },
@@ -236,7 +233,7 @@ export default {
       foods: function () {
         if (this.menu[this.$store.state.area]) {
           let ids = [];
-          if (this.$store.state.q.length > 4) {
+          if (this.$store.state.q.length >= 3) {
             _.forOwn(this.searchIndexes, (dishes, word) => {
               if (word.toLowerCase().indexOf(this.$store.state.q) >= 0) {
                 //dishes.forEach(dishId => {
@@ -258,7 +255,7 @@ export default {
             });
           });
 
-          let dishesIds = _.union(ids);
+          let dishesIds = _.uniq(ids);
           if (dishesIds.length > 0) {
             return this.menu[this.$store.state.area].categs.filter(
               item => dishesIds.indexOf(+item.id) >= 0

@@ -1,8 +1,8 @@
 <template>
-  <div v-if="type=='include'">
-    <div :class="{dishmod: true, 'right-side': rightSide}" v-show="!okButton">
+  <div v-if="type=='include'" v-click-outside="hide">
+    <div :class="{dishmod: true, 'right-side': rightSide}" v-show="okButton===false">
       <div class="modal-header">
-        <button class="info-modal-close" @click="okButton = !okButton">OK</button>
+        <button class="info-modal-close" @click="hide">OK</button>
         <div class="info-yellow-block">Добавлено</div>
         <div class="info-title">
                 <span v-if="this.$store.getters.getModsSum[dishId]">
@@ -37,6 +37,7 @@
 <script>
 import VuePerfectScrollbar from "vue-perfect-scrollbar";
 import dishModItem from "./item.vue";
+import ClickOutside from 'vue-click-outside'
 import "./style.scss";
 
 export default {
@@ -46,9 +47,18 @@ export default {
     if (test > window.innerWidth) {
       this.rightSide = true;
     }
+    this.popupItem = this.$el;
+  },
+  directives: {
+    ClickOutside
   },
 
   components: { VuePerfectScrollbar, dishModItem },
+  methods:{
+    hide(){
+      this.$emit('hide');
+    }
+  },
   data() {
     return {
       settings: {

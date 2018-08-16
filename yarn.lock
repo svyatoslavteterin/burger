@@ -7184,6 +7184,10 @@ vue-async-computed@^3.4.1:
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/vue-async-computed/-/vue-async-computed-3.4.1.tgz#b3923c177b38ab80cb767bbc09cca3dbbb25dd48"
 
+vue-click-outside@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/vue-click-outside/-/vue-click-outside-1.0.7.tgz#cdd2b1605e3c4944784e1794eae4a12a0f700bd6"
+
 vue-cookie@^1.1.4:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/vue-cookie/-/vue-cookie-1.1.4.tgz#b8b46d112bda9f93a2f47017c2ed5282d2064fda"
