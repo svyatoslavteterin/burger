@@ -55,7 +55,7 @@
       <div class="bonus-wrapper">
         <label>Бонусов на счёте: <span v-text="userBonuses"></span></label>
         <button class="finish-order" @click="checkout">Использовать всё</button>
-        <input type="text" value="150" class="bonus-input" />
+        <input type="text" v-model.number="userBonus" @keyup="checkMaxBonus" class="bonus-input" />
       </div>
       <div class="itog">
         <!-- <span class="old-price">2956 Р</span> -->
@@ -92,7 +92,8 @@ export default {
       selectedAddress: {},
       addressesList: this.$store.state.authUser.addressList || [],
       payments: this.getPaymentTypes,
-      haveDopSection: false
+      haveDopSection: false,
+      userBonus: this.$store.getters.getUserBonus || 0
     };
   },
   computed: {
@@ -103,7 +104,6 @@ export default {
       return this.$store.getters.getUserBonus;
     },
     getAdresses() {
-      console.log("128731982346890127398012730981730", this.$store.state.authUser.userInfo.addressList);
       let address = this.$store.state.deliveryInfo;
       if (Object.keys(address).length === 0 && address.constructor === Object) {
         return false;
@@ -127,6 +127,12 @@ export default {
     this.checkHaveDopSection();
   },
   methods: {
+    checkMaxBonus() {
+      console.log("bonuses", this.userBonus, this.userBonuses);
+      return this.userBonus > this.userBonuses
+        ? (this.userBonus = this.userBonuses)
+        : true;
+    },
     setPayment(paymentName, index) {
       this.payment = paymentName;
       this.paymentIndex = index;
@@ -135,7 +141,6 @@ export default {
     },
     checkHaveDopSection() {
       for (let i = 0; i < this.orderDishes.length; i++) {
-        console.log("fromDopSec ", this.orderDishes[i].fromDopSection);
         if (this.orderDishes[i].fromDopSection === true) {
           return (this.haveDopSection = true);
         }
