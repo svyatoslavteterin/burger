@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="search-wrapper">
+    <div class="delivery-search-wrapper">
       <input
         class="search-input lab-1"
         type="text"
@@ -11,7 +11,7 @@
       />
       <label for="">Улица</label>
       <transition-group
-        class="list-container"
+        class="list-container result"
         name="list"
         tag="ul"
         :class="{'expand': addresses.length}"
@@ -43,6 +43,7 @@
           tag="ul"
           :class="{
             'list-container': true,
+            'result': true,
             'houses-list': true,
             'expand': findingHouses.length
           }"

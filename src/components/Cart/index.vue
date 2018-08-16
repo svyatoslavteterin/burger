@@ -103,6 +103,7 @@ export default {
       return this.$store.getters.getUserBonus;
     },
     getAdresses() {
+      console.log("128731982346890127398012730981730", this.$store.state.authUser.userInfo.addressList);
       let address = this.$store.state.deliveryInfo;
       if (Object.keys(address).length === 0 && address.constructor === Object) {
         return false;
