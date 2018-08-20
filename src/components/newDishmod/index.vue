@@ -36,28 +36,30 @@
 <script>
   import VuePerfectScrollbar from "vue-perfect-scrollbar";
   import dishModItem from "./item.vue";
-  import ClickOutside from 'vue-click-outside'
+  import ClickOutside from "vue-click-outside";
   import "./style.scss";
 
   export default {
     mounted() {
-      if (this.type === "include") {
-        this.popupItem = this.$el;
-        const test = this.$el.querySelector(".dishmod").getBoundingClientRect().right;
-        console.log(test, window.innerWidth);
-        if (test > window.innerWidth) {
-          this.rightSide = true;
-        }
+      if (!this.type !== "include") return;
+      const { right } = this.$el
+        .querySelector(".dishmod")
+        .getBoundingClientRect();
+
+      console.log(right, window.innerWidth);
+      if (right > window.innerWidth) {
+        this.rightSide = true;
       }
+      this.popupItem = this.$el;
     },
     directives: {
       ClickOutside
     },
 
-    components: {VuePerfectScrollbar, dishModItem},
+    components: { VuePerfectScrollbar, dishModItem },
     methods: {
       hide() {
-        this.$emit('hide');
+        this.$emit("hide");
       }
     },
     data() {
@@ -72,4 +74,6 @@
     props: ["mods", "dishId", "type"]
   };
 </script>
+
+
 
