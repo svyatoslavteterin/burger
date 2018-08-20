@@ -42,12 +42,8 @@
 </template>
 
 <script>
-import dishmod from "@/components/dishmod.vue";
-
 export default {
-  components: {
-    dishmod
-  },
+
   methods: {
     removeDish() {
       this.$store.commit("removeFromCart", this.data.id);

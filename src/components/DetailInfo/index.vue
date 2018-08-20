@@ -31,7 +31,7 @@
         this.data = event.params.data;
         this.activeDish = event.params.activeDish;
       },
-      openedModal(event) {
+      openedModal() {
         this.getColor();
       },
       getImage: function () {

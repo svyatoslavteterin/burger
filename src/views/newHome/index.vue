@@ -1,6 +1,6 @@
 <template>
   <div>
-    <MainOffer :menu="menu"></MainOffer>
+    <MainOffer :menu="menu" v-if="menu.length>0"></MainOffer>
     <section id="mainnavbar">
       <div class="container">
         <div class="row v-middle">

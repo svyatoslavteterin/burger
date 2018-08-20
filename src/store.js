@@ -26,9 +26,8 @@ export default new Vuex.Store({
         this.replaceState(
           Object.assign(state, store)
         );
-        if (store.authUser) {
-          axios.get('https://apitest.burgerpizzoni.ru/api/Profiles/getByToken?tokenId=' + store.authUser.id).then((response) => {
-
+        if (store.authUser.id) {
+          axios.get('https://apitest.burgerpizzoni.ru/api/Profiles/getByToken?tokenId=' + store.authUser.id).then(() => {
 
           }).catch((error) => {
             store.authUser = {};
@@ -36,6 +35,7 @@ export default new Vuex.Store({
               Object.assign(state, store)
             );
             localStorage.setItem('store', JSON.stringify(store));
+            console.log(error);
           });
         }
 
