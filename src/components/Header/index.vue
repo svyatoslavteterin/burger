@@ -70,24 +70,21 @@
       };
     },
     computed: {
-      checkLogin: function() {
-        if (
-          Object.keys(this.$store.state.authUser).length === 0 &&
-          this.$store.state.authUser.constructor === Object
-        ) {
+      checkLogin: function () {
+        if (this.$store.state.authUser) {
+          return 1;
+        } else {
           return 0;
+        }
+      },
+      getLogin() {
+        if (Object.keys(this.$store.state.authUser).length > 0) {
+          return 3;
         } else {
           return 1;
         }
       },
-      getLogin() {
-        if (Object.keys(this.$store.state.authUser).length>0){
-          return 3;
-        }else{
-          return 1;
-        }
-      },
-      getAuthUser(){
+      getAuthUser() {
         return this.$store.state.authUser;
       }
     }
