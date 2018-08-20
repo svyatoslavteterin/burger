@@ -56,7 +56,7 @@ export default {
         return true;
       }
     },
-    addToCart: function () {
+    addToCart: function() {
       let dishData = {
         id: this.data.dishes[this.activeDish].id,
         categName: this.data.categName,
@@ -67,7 +67,7 @@ export default {
         outPrice: this.data.dishes[this.activeDish].OutPrice,
         sellType: "COUNT",
         mods: [],
-        excludes:[],
+        excludes: [],
         idShop: 3,
         position: this.data.ShowOrder,
         fullData: this.data.dishes[this.activeDish].fullData,
@@ -75,7 +75,7 @@ export default {
         fromDopSection: true // если добавлено из доп. разделов корзины
       };
 
-      this.$store.commit("addToCart", {value: dishData});
+      this.$store.commit("addToCart", { value: dishData });
 
       if (!Object.keys(this.$store.state.deliveryInfo).length > 0) {
         this.$modal.show("delivery");

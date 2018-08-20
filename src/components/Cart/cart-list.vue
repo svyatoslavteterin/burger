@@ -123,9 +123,9 @@ export default {
   ready: function() {},
   mounted: function() {},
   computed: {
-    haveMods(){
+    haveMods() {
       // если есть группы с модификаторами, то показываем кнопку добавить (модификаторы)
-      return (this.data.fullData.ModGroups.length > 0) ? true : false;
+      return this.data.fullData.ModGroups.length > 0 ? true : false;
     },
     getClass: function() {
       return "mo " + this.classKey + "-mo";
@@ -183,6 +183,7 @@ export default {
       }
     },
     getImage: function() {
+      console.log(this.data.fullData.Images[0].ImageName);
       const imageUrl = `https://imgtest.burgerpizzoni.ru/_img/Rest/${
         this.data.fullData.Images[0].ImageName
       }`;

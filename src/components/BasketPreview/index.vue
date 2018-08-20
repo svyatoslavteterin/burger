@@ -23,7 +23,6 @@ export default {
   components: { CartItem },
   computed: {
     cartItems() {
-      console.log(this.$store.state.cart);
       return this.$store.state.cart;
     }
   }

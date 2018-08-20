@@ -57,7 +57,7 @@
         <button class="finish-order" @click="checkout">Использовать всё</button>
         <input type="text" v-model.number="userBonus" @keyup="checkMaxBonus" class="bonus-input" />
       </div>
-      <div class="itog" v-if="userAuthorized === false">
+      <div class="itog" v-if="userAuthorized">
         <!-- <span class="old-price">2956 Р</span> -->
         <span class="itog-price" v-text="this.$store.getters.getCartSum"></span>
         <button class="finish-order" @click="checkout">Оформить заказ</button>
@@ -98,6 +98,11 @@ export default {
     };
   },
   computed: {
+    userAuthorized() {
+      const user = this.$store.state.authUser;
+      console.log(user);
+      return Object.keys(user).length ? true : false;
+    },
     orderDishes() {
       return this.$store.getters.getCart;
     },
@@ -128,10 +133,6 @@ export default {
     this.checkHaveDopSection();
   },
   methods: {
-    userAuthorized() {
-      const user = this.$store.state.authUser;
-      return user.length !== undefined ? true : false;
-    },
     checkMaxBonus() {
       console.log("bonuses", this.userBonus, this.userBonuses);
       return this.userBonus > this.userBonuses
