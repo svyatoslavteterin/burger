@@ -34,40 +34,42 @@
 </template>
 
 <script>
-import VuePerfectScrollbar from "vue-perfect-scrollbar";
-import dishModItem from "./item.vue";
-import ClickOutside from 'vue-click-outside'
-import "./style.scss";
+  import VuePerfectScrollbar from "vue-perfect-scrollbar";
+  import dishModItem from "./item.vue";
+  import ClickOutside from 'vue-click-outside'
+  import "./style.scss";
 
-export default {
-  mounted() {
-    const test = this.$el.querySelector(".dishmod").getBoundingClientRect().right;
-    console.log(test, window.innerWidth);
-    if (test > window.innerWidth) {
-      this.rightSide = true;
-    }
-    this.popupItem = this.$el;
-  },
-  directives: {
-    ClickOutside
-  },
+  export default {
+    mounted() {
+      if (this.type === "include") {
+        this.popupItem = this.$el;
+        const test = this.$el.querySelector(".dishmod").getBoundingClientRect().right;
+        console.log(test, window.innerWidth);
+        if (test > window.innerWidth) {
+          this.rightSide = true;
+        }
+      }
+    },
+    directives: {
+      ClickOutside
+    },
 
-  components: { VuePerfectScrollbar, dishModItem },
-  methods:{
-    hide(){
-      this.$emit('hide');
-    }
-  },
-  data() {
-    return {
-      settings: {
-        maxScrollbarLength: 60
-      },
-      okButton: false,
-      rightSide: false
-    };
-  },
-  props: ["mods", "dishId", "type"]
-};
+    components: {VuePerfectScrollbar, dishModItem},
+    methods: {
+      hide() {
+        this.$emit('hide');
+      }
+    },
+    data() {
+      return {
+        settings: {
+          maxScrollbarLength: 60
+        },
+        okButton: false,
+        rightSide: false
+      };
+    },
+    props: ["mods", "dishId", "type"]
+  };
 </script>
 
