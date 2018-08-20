@@ -30,7 +30,6 @@
 
       <Address />
 
-      <Login v-if="!this.$store.getters.getAuthUser.id"  :template="'small'"/>
 
       <div v-if="okDelivery" class="thank-you-message">
         <p>Спасибо!</p>
