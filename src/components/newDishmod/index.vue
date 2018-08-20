@@ -41,7 +41,7 @@
 
   export default {
     mounted() {
-      if (!this.type !== "include") return;
+      if (this.type !== "include") return;
       const { right } = this.$el
         .querySelector(".dishmod")
         .getBoundingClientRect();
