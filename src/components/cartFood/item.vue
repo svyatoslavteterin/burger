@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import dishMods from "@/components/newDishmod";
-import dishModItem from "@/components/newDishmod/item.vue";
+import dishMods from "@/components/Dishmod";
+import dishModItem from "@/components/Dishmod/item.vue";
 import amountControls from "@/components/amountControls";
 import Dishes from "@/components/Dishes";
 

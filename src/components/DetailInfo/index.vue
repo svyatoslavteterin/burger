@@ -20,8 +20,8 @@
 <script>
   import VuePerfectScrollbar from "vue-perfect-scrollbar";
   import modalActions from "@/mixins/modalActions";
-  import dishMods from "@/components/newDishmod";
-  import dishModItem from "@/components/newDishmod/item.vue";
+  import dishMods from "@/components/Dishmod";
+  import dishModItem from "@/components/Dishmod/item.vue";
   import FastAverageColor from "fast-average-color";
   import "./style.scss";
 

@@ -37,9 +37,9 @@
 
 <script>
     // @ is an alias to /src
-    import MainMenu from "@/components/newMainMenu";
-    import filters from "@/components/newFilter";
-    import search from "@/components/newSearch";
+    import MainMenu from "@/components/MainMenu";
+    import filters from "@/components/Filter";
+    import search from "@/components/Search";
 
     export default {
         name: "PaymentPage",

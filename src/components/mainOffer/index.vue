@@ -8,7 +8,7 @@
 </template>
 <script>
   import "./style.scss";
-  import foodItem from "@/components/newFood/item.vue";
+  import foodItem from "@/components/Food/item.vue";
 
   export default {
     components: {

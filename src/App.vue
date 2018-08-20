@@ -23,7 +23,7 @@
   import footerModule from "@/components/Footer";
   import Auth from "@/components/Auth";
   import DetailInfo from "@/components/DetailInfo";
-  import Delivery from "@/components/newDelivery";
+  import Delivery from "@/components/Delivery";
 
   export default {
     name: 'App',

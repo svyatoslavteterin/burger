@@ -34,11 +34,11 @@
 
 <script>
   // @ is an alias to /src
-  import MainMenu from "@/components/newMainMenu";
-  import filters from "@/components/newFilter";
-  import Foods from "@/components/newFood";
+  import MainMenu from "@/components/MainMenu";
+  import filters from "@/components/Filter";
+  import Foods from "@/components/Food";
   import MainOffer from "@/components/mainOffer";
-  import search from "@/components/newSearch";
+  import search from "@/components/Search";
 
   export default {
     name: "home",
