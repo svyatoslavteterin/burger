@@ -3,6 +3,7 @@
     name="auth"
     class="auth"
     height="auto"
+    :classes="`v--modal fixed-height--modal`"
     @opened="openedModal"
     @closed="closedModal"
     adaptive
@@ -56,6 +57,6 @@ export default {
       q: ""
     };
   },
-  methods: { }
+  methods: {}
 };
 </script>
