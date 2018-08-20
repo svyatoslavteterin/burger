@@ -20,17 +20,18 @@
         <label  for="">Адрес доставки</label>
         <div class="select-wrapper">
           <div class="arrow"></div>
-          <div class="select" @click="showAddresses = !showAddresses">доставка</div>
+          <div class="select" @click="showAddresses = !showAddresses" v-text="beautyAddress">доставка</div>
           <ul class="options" v-if="showAddresses">
+            <li><b>Доставка</b></li>
             <li
-              v-for="address in addressesList"
+              v-for="address in getAdresses"
               :key="`payment-${address.id}`"
-              v-text="address.Street"
-              @click="setPayment(payment.Name)"
+              v-text="displayAddress(address)"
+              @click="setAddress(address)"
             />
+            <li><b>Самовывоз</b></li>
           </ul>
         </div>
-        <span v-text="getAdresses"></span>
       </div>
       <div class="dp-wrapper">
         <label>Способ оплаты</label>
@@ -94,13 +95,13 @@ export default {
       addressesList: this.$store.state.authUser.addressList || [],
       payments: this.getPaymentTypes,
       haveDopSection: false,
-      userBonus: this.$store.getters.getUserBonus || 0
+      userBonus: this.$store.getters.getUserBonus || 0,
+      beautyAddress: "Доставка"
     };
   },
   computed: {
     userAuthorized() {
       const user = this.$store.state.authUser;
-      console.log(user);
       return Object.keys(user).length ? true : false;
     },
     orderDishes() {
@@ -110,13 +111,13 @@ export default {
       return this.$store.getters.getUserBonus;
     },
     getAdresses() {
-      let address = this.$store.state.deliveryInfo;
-      if (Object.keys(address).length === 0 && address.constructor === Object) {
-        return false;
-      } else {
-        return `${address.Street},${address.House} кв ${address.Apartment}`;
+      let savedAddresses = this.$store.state.authUser.userInfo.addressList;
+      let deliveryAddress = this.$store.state.deliveryInfo;
+      if (Object.keys(deliveryAddress).length !== 0 && deliveryAddress.constructor === Object){
+        savedAddresses.unshift(deliveryAddress);
       }
-    }
+      return savedAddresses;
+    },
   },
   props: ["foods", "menu"],
   asyncComputed: {
@@ -134,7 +135,6 @@ export default {
   },
   methods: {
     checkMaxBonus() {
-      console.log("bonuses", this.userBonus, this.userBonuses);
       return this.userBonus > this.userBonuses
         ? (this.userBonus = this.userBonuses)
         : true;
@@ -143,7 +143,11 @@ export default {
       this.payment = paymentName;
       this.paymentIndex = index;
       this.showPayments = false;
-      console.log(this.payment);
+    },
+    setAddress(address){
+      this.selectedAddress = address;
+      this.showAddresses = false;
+      this.beautyAddress = this.displayAddress(address);
     },
     checkHaveDopSection() {
       for (let i = 0; i < this.orderDishes.length; i++) {
@@ -153,7 +157,55 @@ export default {
       }
       return (this.haveDopSection = false);
     },
-
+    displayAddress(address){
+      let beautyAddress = "";
+      for (const key in address) {
+          switch(key) {
+            case "Street":
+              if (address[key] != ""){
+                beautyAddress += address[key] + " ";
+              }
+              break;
+            case "House":
+              if (address[key] != ""){
+                beautyAddress += "д." + address[key] + " ";
+              }
+              break;
+            case "Housing":
+              if (address[key] != ""){
+                beautyAddress += "корп." + address[key] + " ";
+              }
+              break;
+            case "Structure":
+              if (address[key] != ""){
+                beautyAddress += "стр." + address[key] + " ";
+              }
+              break;
+            case "Office":
+              if (address[key] != ""){
+                beautyAddress += "оф." + address[key] + " ";
+              }
+              break;
+            case "Entrance":
+              if (address[key] != ""){
+                beautyAddress += "под." + address[key] + " ";
+              }
+              break;
+            case "Floor":
+              if (address[key] != ""){
+                beautyAddress += "э." + address[key] + " ";
+              }
+              break;
+            case "Apartment":
+              if (address[key] != ""){
+                beautyAddress += "кв." + address[key] + " ";
+              }
+              break;
+            default: break;
+        }
+      }
+          return beautyAddress;
+    },
     clear: function() {
       this.$store.commit("clearCart");
     },
