@@ -94,7 +94,12 @@
         const dish = this.$store.state.cart.find(p => p.id === this.dishId);
 
         if (dish) {
-          const mod = dish[this.modType].find(p => p.id === this.modId);
+          let mod = {};
+          if (this.modType) {
+            mod = dish[this.modType].find(p => p.id === this.modId);
+          } else {
+            mod = dish.mods.find(p => p.id === this.modId);
+          }
 
           if (mod) {
             modCount = mod.count;
