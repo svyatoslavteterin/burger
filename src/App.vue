@@ -257,9 +257,18 @@ export default {
 
           let dishesIds = _.uniq(ids);
           if (dishesIds.length > 0) {
-            return this.menu[this.$store.state.area].categs.filter(
+              const foodArr = [];
+              this.menu[this.$store.state.area].categs.forEach((food) => {
+                food.dishes.forEach((dish) => {
+                  if (dishesIds.includes(+dish.id)) {
+                    foodArr.push(food);
+                  }
+                });
+              });
+              return foodArr;
+              /*return this.menu[this.$store.state.area].categs.filter(
               item => dishesIds.indexOf(+item.id) >= 0
-            );
+              );*/
           }
         }
 
