@@ -83,11 +83,13 @@ export default {
     },
 
     getImage: function() {
-      const imageUrl = `https://imgtest.burgerpizzoni.ru/_img/Rest/${
-        this.data.fullData.Images[0].ImageName
-      }`;
-
-      return imageUrl;
+      if(this.data.fullData.Images){
+        const imageUrl = `https://imgtest.burgerpizzoni.ru/_img/Rest/${
+          this.data.fullData.Images[0].ImageName
+        }`;
+        return imageUrl;
+      }
+      return '';
     }
   }
 };

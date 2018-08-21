@@ -21,22 +21,28 @@
         <div class="select-wrapper">
           <div class="arrow"></div>
           <div class="select" @click="showAddresses = !showAddresses" v-text="beautyAddress">доставка</div>
-          <ul class="options" v-if="showAddresses">
+          <ul class="options" v-if="showAddresses" >
             <li><b>Доставка</b></li>
             <li
               v-for="address in getAdresses"
-              :key="`payment-${address.id}`"
+              :key="`address-${address.id}`"
               v-text="displayAddress(address)"
               @click="setAddress(address)"
             />
             <li><b>Самовывоз</b></li>
+            <li
+              v-for="selfAddress in getSelfAddresses"
+              :key="`selfAddress-${selfAddress.id}`"
+              v-text="displayAddress(selfAddress)"
+              @click="setAddress(selfAddress)"
+            />
           </ul>
         </div>
       </div>
       <div class="dp-wrapper">
         <label>Способ оплаты</label>
         <div class="select-wrapper">
-          <div class="arrow"></div>
+          <div class="arrow" @click="showPayments = !showPayments"></div>
           <div class="select" @click="showPayments = !showPayments">{{getPaymentTypes[paymentIndex].Descr}}</div>
           <ul class="options" v-if="showPayments">
             <li
@@ -74,6 +80,7 @@
 import CartHead from "./cart-head.vue";
 import CartList from "./cart-list.vue";
 import cartFood from "@/components/cartFood";
+import ClickOutside from "vue-click-outside";
 import "./style.scss";
 
 export default {
@@ -99,6 +106,9 @@ export default {
       beautyAddress: "Доставка"
     };
   },
+  directives: {
+    ClickOutside
+  },
   computed: {
     userAuthorized() {
       const user = this.$store.state.authUser;
@@ -111,19 +121,35 @@ export default {
       return this.$store.getters.getUserBonus;
     },
     getAdresses() {
-      let savedAddresses = this.$store.state.authUser.userInfo.addressList;
+      let savedAddresses = [];
       let deliveryAddress = this.$store.state.deliveryInfo;
-      if (Object.keys(deliveryAddress).length !== 0 && deliveryAddress.constructor === Object){
+      if (this.$store.state.authUser.userInfo.addressList.length !== 0 && this.$store.state.authUser !== undefined) {
+        savedAddresses = this.$store.state.authUser.userInfo.addressList;
+      }
+      if (Object.keys(deliveryAddress).length !== 0 && deliveryAddress.constructor === Object) {
         savedAddresses.unshift(deliveryAddress);
       }
       return savedAddresses;
     },
+    getSelfAddresses(){
+      let test =  this.getSelfDeliveryAddresses;
+      console.log('test', test);
+      return test;
+    }
   },
   props: ["foods", "menu"],
   asyncComputed: {
     getPaymentTypes() {
       return this.$http
         .get("https://apitest.burgerpizzoni.ru/api/Agents/getPayTypes")
+        .then(response => response.data)
+        .catch(() => {
+          this.errors.payment.request = "Ошибка при получении вариантов оплат";
+        });
+    },
+    getSelfDeliveryAddresses() {
+      return this.$http
+        .get("https://apitest.burgerpizzoni.ru/api/Address/getSelfDeliveryAddresses")
         .then(response => response.data)
         .catch(() => {
           this.errors.payment.request = "Ошибка при получении вариантов оплат";
@@ -144,7 +170,7 @@ export default {
       this.paymentIndex = index;
       this.showPayments = false;
     },
-    setAddress(address){
+    setAddress(address) {
       this.selectedAddress = address;
       this.showAddresses = false;
       this.beautyAddress = this.displayAddress(address);
@@ -157,54 +183,55 @@ export default {
       }
       return (this.haveDopSection = false);
     },
-    displayAddress(address){
+    displayAddress(address) {
       let beautyAddress = "";
       for (const key in address) {
-          switch(key) {
-            case "Street":
-              if (address[key] != ""){
-                beautyAddress += address[key] + " ";
-              }
-              break;
-            case "House":
-              if (address[key] != ""){
-                beautyAddress += "д." + address[key] + " ";
-              }
-              break;
-            case "Housing":
-              if (address[key] != ""){
-                beautyAddress += "корп." + address[key] + " ";
-              }
-              break;
-            case "Structure":
-              if (address[key] != ""){
-                beautyAddress += "стр." + address[key] + " ";
-              }
-              break;
-            case "Office":
-              if (address[key] != ""){
-                beautyAddress += "оф." + address[key] + " ";
-              }
-              break;
-            case "Entrance":
-              if (address[key] != ""){
-                beautyAddress += "под." + address[key] + " ";
-              }
-              break;
-            case "Floor":
-              if (address[key] != ""){
-                beautyAddress += "э." + address[key] + " ";
-              }
-              break;
-            case "Apartment":
-              if (address[key] != ""){
-                beautyAddress += "кв." + address[key] + " ";
-              }
-              break;
-            default: break;
+        switch (key) {
+          case "Street":
+            if (address[key] != "") {
+              beautyAddress += address[key] + " ";
+            }
+            break;
+          case "House":
+            if (address[key] != "") {
+              beautyAddress += "д." + address[key] + " ";
+            }
+            break;
+          case "Housing":
+            if (address[key] != "") {
+              beautyAddress += "корп." + address[key] + " ";
+            }
+            break;
+          case "Structure":
+            if (address[key] != "") {
+              beautyAddress += "стр." + address[key] + " ";
+            }
+            break;
+          case "Office":
+            if (address[key] != "") {
+              beautyAddress += "оф." + address[key] + " ";
+            }
+            break;
+          case "Entrance":
+            if (address[key] != "") {
+              beautyAddress += "под." + address[key] + " ";
+            }
+            break;
+          case "Floor":
+            if (address[key] != "") {
+              beautyAddress += "э." + address[key] + " ";
+            }
+            break;
+          case "Apartment":
+            if (address[key] != "") {
+              beautyAddress += "кв." + address[key] + " ";
+            }
+            break;
+          default:
+            break;
         }
       }
-          return beautyAddress;
+      return beautyAddress;
     },
     clear: function() {
       this.$store.commit("clearCart");
@@ -266,8 +293,8 @@ export default {
           DoorphoneСode: this.selectedAddress.DoorphoneСode,
           Floor: this.selectedAddress.Floor,
           Apartment: this.selectedAddress.Apartment,
-          needOddFrom: "",
-          Comments: ""
+          needOddFrom: this.selectedAddress.needOddFrom || '',
+          Comments: this.selectedAddress.Comments || ''
         },
         bonusByOrder: 97,
         paymentInfo: {
@@ -306,6 +333,8 @@ export default {
               this.clear();
               window.location.href = res.data.formUrl;
             });
+        }else{
+          window.location.href = "https://apitest.burgerpizzoni.ru/api/Acquirings/paymentSuccess?orderNumber=" + orderId + "amount=" + cartSum * 100;
         }
       });
     }
