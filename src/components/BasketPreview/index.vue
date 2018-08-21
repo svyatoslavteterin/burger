@@ -21,11 +21,7 @@ export default {
   components: { CartItem },
   computed: {
     cartItems() {
-<<<<<<< HEAD
-      return this.$store.state.cart;
-=======
       return this.$store.state.cart.filter(item => item.count);
->>>>>>> 19727493b7a39df2768f0fc6d2b2ae7f50078667
     }
   }
 };
