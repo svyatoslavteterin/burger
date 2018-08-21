@@ -7,7 +7,8 @@
     "build": "vue-cli-service build",
     "build-dev": "vue-cli-service build --dest public --mode development",
     "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit"
+    "test:unit": "vue-cli-service test:unit",
+    "deploy:develop": "node ./deployModule/ --server bp --module demo"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -16,6 +17,8 @@
     "fast-average-color": "^4.0.1",
     "jquery": "^3.3.1",
     "lodash": "^4.17.10",
+    "node-cmd": "^3.0.0",
+    "optimist": "^0.6.1",
     "popper.js": "^1.14.4",
     "read-pkg": "^4.0.1",
     "register-service-worker": "^1.0.0",

@@ -7,14 +7,24 @@
     <div class="chars">
       <div class="title">{{data.categName}}</div>
       <div class="ingrids" v-if="data.dishes[this.activeDish].techCardData">
-        <dishMods :mods="data.dishes[this.activeDish].techCardData"
-                  :dishId="data.dishes[this.activeDish].id" :type="'exclude'"></dishMods>
+        <dishMods
+          :mods="data.dishes[this.activeDish].techCardData"
+          :dishId="data.dishes[this.activeDish].id"
+          :dish="dishDataConstructor"
+          :type="'exclude'"
+        ></dishMods>
       </div>
       <a class="i-add" @click.prevent="mods.include = !mods.include">добавить</a>
       <div class="include-mods">
 
-        <dishMods v-if="mods.include" :mods="data.dishes[this.activeDish].ModGroups[1].mods"
-                  :dishId="data.dishes[this.activeDish].id" :type="'include'" v-on:hide="mods.include = !mods.include" ></dishMods>
+        <dishMods 
+          v-if="mods.include" 
+          :mods="data.dishes[this.activeDish].ModGroups[1].mods"
+          :dishId="data.dishes[this.activeDish].id"
+          :dish="dishDataConstructor"
+          :type="'include'"
+          v-on:hide="mods.include = !mods.include"
+        ></dishMods>
       </div>
       <div class="bottom">
         <Dishes :dishes="this.data.dishes" v-if="this.data.dishes.length>1" :activeDish="this.activeDish"
@@ -36,8 +46,12 @@
       <div class="top">
         <div class="title">{{data.categName}}</div>
         <div class="ingrids" v-if="data.dishes[this.activeDish].techCardData">
-          <dishMods :mods="data.dishes[this.activeDish].techCardData"
-                    :dishId="data.dishes[this.activeDish].id" :type="'exclude'"></dishMods>
+          <dishMods
+            :mods="data.dishes[this.activeDish].techCardData"
+            :dishId="data.dishes[this.activeDish].id"
+            :dish="dishDataConstructor"
+            :type="'exclude'"
+          ></dishMods>
         </div>
         <a 
           class="i-add" @click.prevent="mods.include = !mods.include"
@@ -51,6 +65,7 @@
             v-if="mods.include"
             :mods="data.dishes[this.activeDish].ModGroups[1].mods"
             :dishId="data.dishes[this.activeDish].id" 
+            :dish="dishDataConstructor"
             :type="'include'" 
             v-on:hide="mods.include = !mods.include"
           ></dishMods>
@@ -88,6 +103,34 @@ import Dishes from "@/components/Dishes";
 
 export default {
   components: { dishMods, amountControls, Dishes, dishModItem },
+  props: ["data", "type", "classKey"],
+  data() {
+    const dishDataConstructor = {
+        id: this.data.dishes[0].id,
+        categName: this.data.categName,
+        dishName: this.data.dishes[0].dishName,
+        dishShortName: this.data.dishes[0].dishShortName,
+        dishExtName: this.data.ExternalName,
+        price: this.data.dishes[0].Price,
+        outPrice: this.data.dishes[0].OutPrice,
+        sellType: "COUNT",
+        mods: [],
+        excludes: [],
+        idShop: 3,
+        position: this.data.ShowOrder,
+        fullData: this.data.dishes[0].fullData,
+        techCardData: this.data.dishes[0].techCardData
+      };
+    return {
+      activeDish: 0,
+      dishDataConstructor,
+      mods: {
+        include: false,
+        exclude: false
+      }
+    };
+  },
+
   methods: {
     showInfo() {
       this.$modal.show("info", {
@@ -111,24 +154,24 @@ export default {
       }
     },
     addToCart: function() {
-      let dishData = {
-        id: this.data.dishes[this.activeDish].id,
-        categName: this.data.categName,
-        dishName: this.data.dishes[this.activeDish].dishName,
-        dishShortName: this.data.dishes[this.activeDish].dishShortName,
-        dishExtName: this.data.ExternalName,
-        price: this.data.dishes[this.activeDish].Price,
-        outPrice: this.data.dishes[this.activeDish].OutPrice,
-        sellType: "COUNT",
-        mods: [],
-        excludes: [],
-        idShop: 3,
-        position: this.data.ShowOrder,
-        fullData: this.data.dishes[this.activeDish].fullData,
-        techCardData: this.data.dishes[this.activeDish].techCardData
-      };
+      // let dishData = {
+      //   id: this.data.dishes[this.activeDish].id,
+      //   categName: this.data.categName,
+      //   dishName: this.data.dishes[this.activeDish].dishName,
+      //   dishShortName: this.data.dishes[this.activeDish].dishShortName,
+      //   dishExtName: this.data.ExternalName,
+      //   price: this.data.dishes[this.activeDish].Price,
+      //   outPrice: this.data.dishes[this.activeDish].OutPrice,
+      //   sellType: "COUNT",
+      //   mods: [],
+      //   excludes: [],
+      //   idShop: 3,
+      //   position: this.data.ShowOrder,
+      //   fullData: this.data.dishes[this.activeDish].fullData,
+      //   techCardData: this.data.dishes[this.activeDish].techCardData
+      // };
 
-      this.$store.commit("addToCart", { value: dishData });
+      this.$store.commit("addToCart", { value: this.dishDataConstructor });
 
       if (!Object.keys(this.$store.state.deliveryInfo).length > 0) {
         this.$modal.show("delivery");
@@ -138,21 +181,6 @@ export default {
       this.activeDish = index;
     }
   },
-  created() {},
-  data() {
-    return {
-      activeDish: 0,
-      mods: {
-        include: false,
-        exclude: false
-      }
-    };
-  },
-
-  props: ["data", "type", "classKey"],
-
-  ready: function() {},
-  mounted: function() {},
   computed: {
     getClass: function() {
       return "mo " + this.classKey + "-mo";

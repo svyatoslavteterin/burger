@@ -14,8 +14,14 @@
       <div class="scrollbar-wrapper">
         <VuePerfectScrollbar class="modal-scrollbar" v-once :settings="settings">
           <ul class="mods">
-            <dishModItem :key="mod.id_Mod" :data="mod" :dishId="dishId" :type="'include'"
-                         v-for="(mod) in mods"></dishModItem>
+            <dishModItem
+              v-for="(mod) in mods"
+              :key="mod.id_Mod"
+              :data="mod"
+              :dishId="dishId"
+              :dish="dish"
+              :type="'include'"
+            ></dishModItem>
           </ul>
         </VuePerfectScrollbar>
 
@@ -24,12 +30,24 @@
     </div>
   </div>
   <div v-else-if="type=='exclude'">
-    <dishModItem :key="mod.id_Mod" :data="mod" :dishId="dishId" :type="'exclude'"
-                 v-for="(mod) in mods"></dishModItem>
+    <dishModItem
+      v-for="(mod) in mods"
+      :key="mod.id_Mod"
+      :data="mod"
+      :dishId="dishId"
+      :dish="dish"
+      :type="'exclude'"
+    ></dishModItem>
   </div>
   <div v-else-if="type=='text'">
-    <dishModItem :key="mod.id_Mod" :data="mod" :dishId="dishId" :type="'text'"
-                 v-for="(mod) in mods"></dishModItem>
+    <dishModItem
+      v-for="(mod) in mods"
+      :key="mod.id_Mod"
+      :data="mod"
+      :dishId="dishId"
+      :dish="dish"
+      :type="'text'"
+    ></dishModItem>
   </div>
 </template>
 
@@ -71,7 +89,7 @@
         rightSide: false
       };
     },
-    props: ["mods", "dishId", "type"]
+    props: ["mods", "dishId", "type", 'dish']
   };
 </script>
 
