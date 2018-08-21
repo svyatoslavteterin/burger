@@ -70,7 +70,7 @@
         <button class="finish-order" @click="checkout">Оформить заказ</button>
       </div>
       <div class="itog" v-else>
-        <button class="finish-order" @click.prevent="$modal.show('auth')">Авторизоваться</button>
+        <button class="finish-order" @click.prevent="$modal.show('auth')">Войти и оформить</button>
       </div>
     </div>
   </div> <!--container-->
@@ -123,12 +123,13 @@ export default {
     getAdresses() {
       let savedAddresses = [];
       let deliveryAddress = this.$store.state.deliveryInfo;
-      if (this.$store.state.authUser.userInfo.addressList.length !== 0 && this.$store.state.authUser !== undefined) {
+      if (Object.keys(this.$store.state.authUser).length !== 0 && this.$store.state.authUser.constructor === Object) {
         savedAddresses = this.$store.state.authUser.userInfo.addressList;
       }
       if (Object.keys(deliveryAddress).length !== 0 && deliveryAddress.constructor === Object) {
         savedAddresses.unshift(deliveryAddress);
       }
+      console.log(savedAddresses);
       return savedAddresses;
     },
     getSelfAddresses(){
