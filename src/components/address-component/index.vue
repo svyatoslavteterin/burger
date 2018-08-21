@@ -133,15 +133,7 @@
 
     </div>
 
-    <div class="need-for-odds-wrapper ">
-      <input
-        class="small-input"
-        type="text"
-        v-model="fullAddr.needOddFrom"
-        required
-      />
-      <label for="">Дать сдачу с купюры</label>
-    </div>
+    
 
     <div class="modal-search-address__buttons">
       <button class="send-button save-delivery-address" v-show="fullAddr.Street && fullAddr.House"
