@@ -1,8 +1,6 @@
 <template>
-  <div class="basket-block" v-if="$store.getters.getCartSum">
-    <div class="floating-top-block">
-      0
-    </div>
+  <div class="basket-block" v-if="cartItems.length">
+    <div class="floating-top-block" v-text="'0'" />
     <div class="triangle"></div>
     <CartItem
       v-for="item in cartItems"
@@ -23,8 +21,7 @@ export default {
   components: { CartItem },
   computed: {
     cartItems() {
-      console.log(this.$store.state.cart);
-      return this.$store.state.cart;
+      return this.$store.state.cart.filter(item => item.count);
     }
   }
 };

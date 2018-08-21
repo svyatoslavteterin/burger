@@ -78,7 +78,14 @@ export default new Vuex.Store({
           }
         }
       } else {
-        alert('Сначала добавьте блюдо в корзину');
+        state.cart.push({
+          ...payload.dish,
+          count: 0,
+          [payload.modData.modType]: [{
+            ...payload.modData,
+            count: 1
+          }]
+        });
       }
     },
     removeModFromDish: function (state, payload) {
@@ -101,7 +108,14 @@ export default new Vuex.Store({
           mod.summ = mod.count * mod.price | 0;
         }
       } else {
-        alert('Сначала добавьте блюдо в корзину');
+        state.cart.push({
+          ...payload.dish,
+          count: 0,
+          [payload.modData.modType]: [{
+            ...payload.modData,
+            count: 1
+          }]
+        });
       }
     },
     decModCount: function (state, payload) {
@@ -136,12 +150,9 @@ export default new Vuex.Store({
     },
 
     addEquentity: function (state, payload) {
-
       const dish = state.cart.find(p => p.id === payload.value.id);
 
       dish.count++;
-
-
     },
     removeEquentity: function (state, payload) {
       const dish = state.cart.find(p => p.id === payload.value.id);
@@ -215,7 +226,6 @@ export default new Vuex.Store({
             });
           }
         });
-
       }
 
       return currencyFormatter.format(summ, { code: 'RUB', precision: 0 });
@@ -234,6 +244,4 @@ export default new Vuex.Store({
       return state.cart;
     }
   },
-  actions: {}
-
 });

@@ -35,8 +35,6 @@
     name: 'dishModItem',
     methods: {
       addMod() {
-
-
         let modData = {
           id: this.modId,
           name: this.modName,
@@ -44,7 +42,11 @@
           modType: this.modType
         };
 
-        this.$store.commit("addModToDish", {modData: modData, id: this.dishId});
+        this.$store.commit("addModToDish", { 
+          modData, 
+          id: this.dishId, 
+          dish: this.dish 
+        });
 
       },
       removeMod() {
@@ -57,7 +59,8 @@
       incModCount() {
         this.$store.commit("incModCount", {
           modId: this.modId,
-          id: this.dishId
+          id: this.dishId,
+          dish: this.dish
         });
       },
       decModCount() {
@@ -78,10 +81,8 @@
 
     },
 
-    props: ["data", "dishId", "type"],
+    props: ["data", "dishId", "type", 'dish'],
 
-    ready: function () {
-    },
     mounted: function () {
       if (!this.data.id_Mod) {
         this.data.id_Mod = this.data.id;
