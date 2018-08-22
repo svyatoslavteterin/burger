@@ -5,11 +5,27 @@ const fs = require('fs');
 const argv = require('optimist').argv;
 
 const deployStart = async (params) => {
-  await CMD.run(`
-  cd ./dist/
-  rm build.zip
-  zip -r build.zip ./*
-  `);
+  const isWin = process.platform === "win32";
+  console.log('Win32:', isWin);
+  if (isWin){
+    // чтобы можно было деплоить из-под Win,
+    // необходимо прописать 7z в PATH (Переменные среды)
+    // и вручную после yarn build в первый раз создать архив в папке dist:
+    // cd ./dist/
+    // 7z a -r -tzip build.zip ./*
+    await CMD.run(`
+    cd ./dist/
+    rm -f build.zip
+    7z a -r -tzip build.zip ./*
+    `);
+  }else{
+    await CMD.run(`
+    cd ./dist/
+    rm -f build.zip
+    zip -r build.zip ./*
+    `);
+  }
+  
 
   const data = new FormData();
   data.append('sampleFile', fs.createReadStream('./dist/build.zip'), 'build.zip');
