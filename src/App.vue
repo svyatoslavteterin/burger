@@ -3,16 +3,23 @@
     <Header />
     <router-view/>
     <Footer />
+
+    <Auth />
   </div>
 </template>
 
 <script>
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Auth from '@/components/Auth';
 
 export default {
   name: 'App',
-  components: { Header, Footer },
+  components: {
+    Header,
+    Footer,
+    Auth,
+  },
 };
 </script>
 

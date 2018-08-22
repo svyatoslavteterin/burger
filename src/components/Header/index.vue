@@ -21,7 +21,14 @@
       </div>
 
       <div class="cart-info__user">
-        <button class="login">войти</button>
+        <button
+          v-if="!user"
+          class="login"
+          @click="$modal.show('auth')"
+        >
+          войти
+        </button>
+        <span v-else>{{user.FirstName}}</span>
       </div>
     </div>
 
@@ -38,6 +45,9 @@ export default {
   computed: {
     cartSumm() {
       return this.$store.getters.cartSumm;
+    },
+    user() {
+      return this.$store.getters.user;
     },
   },
 };
