@@ -164,16 +164,16 @@ export default {
             if (!response.data.error) {
               this.getAuthUser(credentials).then(authUser => {
                 console.log(authUser);
-                if (typeof authUser != "undefined") {
+                if (authUser) {
                   this.$store.commit("setAuthUser", { value: authUser });
                   this.$cookie.set("authUser", JSON.stringify(authUser), 1);
-                  this.$modal.hide("register");
+                  this.$modal.hide("auth");
                 } else {
                   this.getAuthUser(credentials).then(authUser => {
-                    if (typeof authUser != "undefined") {
+                    if (authUser) {
                       this.$store.commit("setAuthUser", { value: authUser });
                       this.$cookie.set("authUser", JSON.stringify(authUser), 1);
-                      this.$modal.hide("register");
+                      this.$modal.hide("auth");
                     }
                   });
                 }
@@ -219,6 +219,16 @@ export default {
       if (this.errors.length) return false;
 
       return true;
+    },
+    async getAuthUser(credentials) {
+      try {
+        const response = await this.$http.post("http://apitest.burgerpizzoni.ru/api/Profiles/login", credentials);
+        this.spinner = false;
+        return response.data
+      } catch (e) {
+        this.spinner = false;
+        this.errors.push("Неверные данные для входа");
+      }
     }
   }
 };
