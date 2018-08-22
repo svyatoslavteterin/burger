@@ -118,9 +118,11 @@
         };
 
         const authUser = await this.getAuthUser(credentials);
-        this.$store.commit("setAuthUser", {value: authUser});
-        this.$cookie.set("authUser", JSON.stringify(authUser), 1);
-        this.$modal.hide("auth");
+        if (authUser && Object.keys(authUser).length>0) {
+          this.$store.commit("setAuthUser", {value: authUser});
+          this.$cookie.set("authUser", JSON.stringify(authUser), 1);
+          this.$modal.hide("auth");
+        }
 
       },
       async getAuthUser(credentials) {

@@ -26,7 +26,7 @@ export default new Vuex.Store({
         this.replaceState(
           Object.assign(state, store)
         );
-        if (store.authUser.id) {
+        if (store.authUser && store.authUser.id) {
           axios.get('https://apitest.burgerpizzoni.ru/api/Profiles/getByToken?tokenId=' + store.authUser.id).then(() => {
 
           }).catch((error) => {
@@ -234,7 +234,8 @@ export default new Vuex.Store({
     getUserBonus(state) {
       const { authUser } = state;
       let bonus = 0;
-      if (Object.keys(authUser).length > 0) {
+
+      if (authUser && Object.keys(authUser).length > 0) {
         bonus = authUser.userInfo.Bonus;
       }
 

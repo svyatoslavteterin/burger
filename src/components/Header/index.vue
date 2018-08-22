@@ -78,7 +78,7 @@
         }
       },
       getLogin() {
-        if (Object.keys(this.$store.state.authUser).length > 0) {
+        if (this.$store.state.authUser && Object.keys(this.$store.state.authUser).length > 0) {
           return 3;
         } else {
           return 1;
