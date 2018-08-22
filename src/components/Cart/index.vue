@@ -124,15 +124,17 @@ export default {
       return this.$store.getters.getUserBonus;
     },
     getAdresses() {
+      const { authUser, deliveryInfo } = this.$store.state;
       let savedAddresses = [];
-      let deliveryAddress = this.$store.state.deliveryInfo;
-      if (Object.keys(this.$store.state.authUser).length !== 0 && this.$store.state.authUser.constructor === Object) {
-        savedAddresses = this.$store.state.authUser.userInfo.addressList;
+      const deliveryAddress = deliveryInfo;
+      const isUser = Object.keys(authUser).length;
+      if (isUser) {
+        savedAddresses = authUser.userInfo.addressList;
       }
-      if (Object.keys(deliveryAddress).length !== 0 && deliveryAddress.constructor === Object) {
+      if (Object.keys(deliveryAddress).length) {
         savedAddresses.unshift(deliveryAddress);
       }
-      console.log(savedAddresses);
+      console.log('*******************', savedAddresses);
       return savedAddresses;
     },
     getSelfAddresses(){
