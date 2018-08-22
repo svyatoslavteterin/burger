@@ -1,43 +1,22 @@
-'use strict';
-
 import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import store from './store';
-import currencyFormatter from 'currency-formatter';
-import AsyncComputed from 'vue-async-computed';
 
-// Subscribe to store updates
-store.subscribe((mutation, state) => {
-  // Store the state object as a JSON string
-  localStorage.setItem('store', JSON.stringify(state));
+Vue.config.productionTip = false;
+
+Vue.filter('Rub', (value) => {
+  const valueRub = parseInt(value, 10);
+  const IconRub = '&nbsp;&#8381;';
+  return valueRub + IconRub;
 });
 
-
-var VueCookie = require('vue-cookie');
-import VueTheMask from 'vue-the-mask';
-
-
-import VModal from 'vue-js-modal';
-
-
-import './registerServiceWorker';
-
-
-Vue.use(VueTheMask);
-
-Vue.use(VModal);
-Vue.use(VueCookie);
-Vue.use(AsyncComputed)
-
-import axios from "axios";
-
-Vue.prototype.$http = axios;
-
-Vue.prototype.$currencyFormatter = currencyFormatter;
+// store.subscribe((mutation, state) => {
+//   localStorage.setItem('store', JSON.stringify(state));
+// });
 
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
 }).$mount('#app');

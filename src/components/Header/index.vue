@@ -1,93 +1,130 @@
 <template>
-  <header class="header">
-    <!-- use the modal component, pass in the prop -->
-    <div class="header-center">
-      <div class="header-left-block">
 
-        <router-link to="/">
-          <img src="./img/logo.svg" alt="logo" class="logo"/>
-        </router-link>
+  <header>
+
+    <router-link to="/" class="logo">
+      <img src="@/assets/images/logo.svg" alt="Burger&Pizzoni">
+    </router-link>
+
+    <a class="phone" href="tel:8(800)250-80-70">
+      <b>8&nbsp;(800)&nbsp;250-80-70</b>
+      <br>
+      <span>звонок бесплатный</span>
+    </a>
+
+    <div class="cart-info" >
+      <span class="cart-info__summ" v-html="$options.filters.Rub(cartSumm)" />
+
+      <div class="cart-info__preview">
+        <router-link to="/cart" class="cart-info__preview__link">корзина</router-link>
+        <CartPreview v-if="cartSumm" />
       </div>
-      <div class="header-center-block">
-        <div class="number-block">
-          <div class="number">8(800) 250-80-70</div>
-          <div class="number2">ЗВОНОК БЕСПЛАТНЫЙ</div>
-        </div>
-      </div>
-      <div v-if="getLogin == 1" class="header-right-block1">
-        <div class="price_block">
-          <div class="price"><span v-text="this.$store.getters.getCartSum"></span></div>
-        </div>
-        <div class="basket-wrapper">
-          <router-link to="/cart" class="basket">Корзина</router-link>
-          <BasketPreview/>
-        </div>
-        <a href="#" @click.prevent="$modal.show('auth')" class="sign_in">Войти</a>
-      </div>
-      <div v-if="getLogin == 2" class="header-right-block2">
-        <div class="hello-block">
-          <div class="hello-block-text">Здравствуйте, Вячеслав</div>
-          <a href="#" class="hello-block-text2">это не я</a>
-        </div>
-        <input class="password-input" type="password" placeholder="Пароль"/>
-        <a href="#" v-if="!checkLogin" @click.prevent="login = 3" class="basket">Войти</a>
-      </div>
-      <div v-if="getLogin == 3" class="header-right-block3">
-        <div class="price_block">
-          <div class="price"><span v-text="this.$store.getters.getCartSum"></span></div>
-        </div>
-        <div class="basket-wrapper">
-          <router-link to="/cart" class="basket">Корзина</router-link>
-          <BasketPreview/>
-        </div>
-        <div class="person-info-block">
-          <img src="./img/person.png" alt="avatar" class="avatar"/>
-          <div class="person-info-block-texts">
-            <div class="person-info-block-name" v-text="getAuthUser.userInfo.FirstName"></div>
-            <div class="person-info-block-text">доп. инфо</div>
-          </div>
-          <img src="./img/icons_exit.svg" alt="exit" class="exit" href="#" v-if="!checkLogin"
-               @click.prevent="login = 1"/>
-        </div>
+
+      <div class="cart-info__user">
+        <button class="login">войти</button>
       </div>
     </div>
-  </header>
-</template>
-<script>
-  import "./style.scss";
-  import BasketPreview from "@/components/BasketPreview";
 
-  export default {
-    components: {BasketPreview},
-    data() {
-      return {
-        login: 1,
-        basket: false,
-        mods: {
-          include: false,
-          exclude: false
-        }
-      };
+  </header>
+
+</template>
+
+<script>
+import CartPreview from '@/components/CartPreview';
+
+export default {
+  name: 'Header',
+  components: { CartPreview },
+  computed: {
+    cartSumm() {
+      return this.$store.getters.cartSumm;
     },
-    computed: {
-      checkLogin: function () {
-        if (this.$store.state.authUser) {
-          return 1;
-        } else {
-          return 0;
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+header {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 80vw;
+  padding: 0.25vw 10vw 0.125vw;
+  background-color: white;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  z-index: 3;
+
+  .logo {
+    width: 27%;
+  }
+
+  .phone {
+    text-decoration: none !important;
+    color: black;
+
+    b {
+      font-size: 1.8rem;
+    }
+
+    span {
+      width: 100%;
+      display: block;
+      text-align: center;
+      text-transform: uppercase;
+    }
+  }
+
+  .cart-info {
+    width: 27%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+
+    &__summ {
+      font-size: 1.7rem;
+      width: 100%;
+      text-align: center;
+    }
+
+    &__preview {
+      position: relative;
+
+      &:hover {
+        & > div {
+          display: flex;
         }
-      },
-      getLogin() {
-        if (this.$store.state.authUser && Object.keys(this.$store.state.authUser).length > 0) {
-          return 3;
-        } else {
-          return 1;
-        }
-      },
-      getAuthUser() {
-        return this.$store.state.authUser;
+      }
+
+      &__link {
+        font-size: 1.1rem;
+        background: #ffd60f;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: black;
+        padding: 0.95rem 1.4rem;
+        font-weight: bold;
+        border-radius: 7px;
+        margin-left: 0.75rem;
       }
     }
-  };
-</script>
+
+    &__user {
+      margin-left: 2.5rem;
+
+      .login {
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: none;
+        outline: none;
+        border: none;
+        border-bottom: 2px solid #ffd60f;
+        cursor: pointer;
+      }
+    }
+  }
+}
+</style>
 
