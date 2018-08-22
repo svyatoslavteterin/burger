@@ -15,14 +15,15 @@
     <cartFood :foods="menu[8].categs"></cartFood>
     <h3 class="">Соусы</h3>
     <cartFood :foods="menu[5].categs" :showWeight="true"></cartFood>
+
     <div class="delivery-pay-block">
       <div class="dp-wrapper">
         <label  for="">Адрес доставки</label>
         <div class="select-wrapper">
           <div class="arrow"></div>
-          <div class="select" @click="showAddresses = !showAddresses" v-text="beautyAddress">доставка</div>
+          <div class="select" @click="showAddresses = !showAddresses" v-text="beautyAddress"></div>
           <ul class="options" v-if="showAddresses" >
-            <li><b>Доставка</b></li>
+            <li v-if="getAdresses.length > 0"><b>Доставка</b></li>
             <li
               v-for="address in getAdresses"
               :key="`address-${address.id}`"
@@ -38,6 +39,7 @@
             />
           </ul>
         </div>
+        <button v-if="getAdresses.length <= 0" class="add-delivery" @click="$modal.show('delivery')">Выберите адрес</button>
       </div>
       <div class="dp-wrapper">
         <label>Способ оплаты</label>
@@ -80,12 +82,13 @@
 import CartHead from "./cart-head.vue";
 import CartList from "./cart-list.vue";
 import cartFood from "@/components/cartFood";
+import Delivery from "@/components/Delivery";
 import ClickOutside from "vue-click-outside";
 import "./style.scss";
 
 export default {
   name: "Cart",
-  components: { CartHead, CartList, cartFood },
+  components: { CartHead, CartList, cartFood, Delivery },
   mounted() {},
   data() {
     return {
@@ -103,7 +106,7 @@ export default {
       payments: this.getPaymentTypes,
       haveDopSection: false,
       userBonus: this.$store.getters.getUserBonus || 0,
-      beautyAddress: "Доставка"
+      beautyAddress: "Адрес доставки"
     };
   },
   directives: {

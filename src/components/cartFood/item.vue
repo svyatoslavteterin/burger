@@ -18,7 +18,9 @@
           <span class="price" v-text="getPrice"></span>
           <span class="weight" v-text="`${getWeight} г`" v-if="showWeight == true"></span>
         </div>
-        <div class="in-additional-order" @click="addToCart">Добавить</div>
+        <div class="in-additional-order" v-show="!showCounter" @click="addToCart">Добавить</div>
+        <amountControls v-show="showCounter" :count="count" :showCounter="showCounter"
+                          v-on:decrement="decrement" v-on:increment="increment"></amountControls>
       </div>
     </div>
     

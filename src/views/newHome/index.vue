@@ -49,6 +49,27 @@
       filters,
       search
     },
-    props: ["menu", "tags", "foods"]
+    props: ["menu", "tags", "foods"],
+    data() {
+      return {
+        menuEl: '',
+      }
+    },
+    mounted() {
+      this.menuEl = document.getElementById("mainnavbar");
+      window.addEventListener('scroll', this.setFixed);
+    },
+    destroyed () {
+      window.removeEventListener('scroll', this.setFixed);
+    },
+    methods: {
+      setFixed: function() {
+        if (window.pageYOffset > this.menuEl.offsetTop) {
+          this.menuEl.classList.add("fixed");
+        } else {
+          this.menuEl.classList.remove("fixed");
+        }
+      }
+    }
   };
 </script>

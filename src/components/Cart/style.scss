@@ -585,6 +585,22 @@
   width: 100%;
   margin-bottom: 25px;
 
+  .add-delivery {
+    position: relative;
+    outline: 0;
+    border: 2px solid #ffd70f;
+    border-radius: 4px;
+    text-align: center;
+    max-height: 41px;
+    text-transform: uppercase;
+    color: black;
+    background: #ffd70f;
+    padding: 9px 25px 6px;
+    margin: 0 0 10px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
   .dp-wrapper {
     width: 30%;
 
