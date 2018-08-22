@@ -257,6 +257,9 @@ export default {
       let dishes = [];
       let cartSum = 0;
       this.$store.state.cart.forEach(item => {
+        let itemWOFullData = item;
+        delete itemWOFullData.fullData;
+        dishes.push(itemWOFullData);
         let itemPrice = +item.price;
         if (item.mods.length > 0) {
           item.mods.forEach(mod => {
