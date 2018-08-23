@@ -1,17 +1,25 @@
 <template>
   <div v-click-outside="hide">
     <div :class="{ dishmod: true, 'right-side': rightSide }" v-show="okButton===false">
+      <div class="dishmod-arrow shadow"></div>
       <div class="modal-header">
         <button class="info-modal-close" @click="hide">OK</button>
         <div class="info-title">
+          Добавить
           <span
             v-if="getModsSumm"
             v-html="`+ ${$options.filters.Rub(getModsSumm)}`"
           />
         </div>
       </div>
+      <div class="modal-border"></div>
       <div class="scrollbar-wrapper">
-        <VuePerfectScrollbar class="modal-scrollbar" v-once :settings="settings">
+        <VuePerfectScrollbar
+          v-once
+          class="modal-scrollbar"
+          :settings="settings"
+          @ps-scroll-y="scrollY"
+        >
           <ul class="mods">
             <dishModItem
               v-for="(mod) in mods"
@@ -21,8 +29,8 @@
             ></dishModItem>
           </ul>
         </VuePerfectScrollbar>
-
-        <!-- <div class="fade-out-block"></div> -->
+        <div class="fade-out-block-top hide"></div>
+        <div class="fade-out-block-bottom"></div>
       </div>
     </div>
   </div>
@@ -43,18 +51,18 @@ export default {
       },
       okButton: false,
       rightSide: false,
+      innerWidth: 0,
     };
   },
   directives: {
     ClickOutside,
   },
+  beforeMount() {
+    this.innerWidth = window.innerWidth;
+  },
   mounted() {
-    const { right } = this.$el
-      .querySelector('.dishmod')
-      .getBoundingClientRect();
-
-    console.log(right, window.innerWidth);
-    if (right > window.innerWidth) {
+    const { right } = this.$el.querySelector('.dishmod').getBoundingClientRect();
+    if (right > this.innerWidth) {
       this.rightSide = true;
     }
     this.popupItem = this.$el;
@@ -75,11 +83,25 @@ export default {
     hide() {
       this.$emit('hide');
     },
+    scrollY(e) {
+      const fadeBlockTop = document.querySelector('.fade-out-block-top');
+      const fadeBlockBottom = document.querySelector('.fade-out-block-bottom');
+      if (e.target.scrollTop <= 5) {
+        fadeBlockTop.classList.add('hide');
+      } else {
+        fadeBlockTop.classList.remove('hide');
+      }
+      if (e.target.scrollTop >= 440) {
+        fadeBlockBottom.classList.add('hide');
+      } else {
+        fadeBlockBottom.classList.remove('hide');
+      }
+    },
   },
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import './_styles.scss';
 </style>
 
