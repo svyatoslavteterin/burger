@@ -20,6 +20,20 @@
         </span>
       </div>
 
+      <a
+        class="i-add" @click.prevent="mods.include = !mods.include"
+        v-if="categ.dishes[currentOption].ModGroups[1]"
+      >
+        добавить
+      </a>
+
+      <Mods
+        v-if="mods.include"
+        :mods="categ.dishes[currentOption].ModGroups[1].mods"
+        :dishId="categ.dishes[currentOption].id"
+        :type="'include'"
+      />
+
       <div v-if="categ.dishes.length > 1" class="dish-info__variants">
         <button
           v-for="(dish, i) in categ.dishes"
@@ -66,10 +80,12 @@
 
 <script>
 import { actions as cartActions } from '@/modules/cart';
+import Mods from '@/components/Mods';
 import findIndex from 'lodash/findIndex';
 
 export default {
   name: 'Dish',
+  components: { Mods },
   props: {
     categ: Object,
     headdish: Boolean,
@@ -78,6 +94,9 @@ export default {
   data() {
     return {
       currentOption: 0,
+      mods: {
+        include: false,
+      },
     };
   },
   computed: {
@@ -113,6 +132,7 @@ export default {
     addDishToCart(dish) {
       dish.count = 1;
       dish.categName = this.categ.categName;
+      console.log(dish);
       this.$store.dispatch(cartActions.addDishToCart, dish);
     },
     plusDish(dish) {
@@ -120,6 +140,9 @@ export default {
     },
     minusDish(dish) {
       dish.count -= 1;
+      if (!dish.count) {
+        this.$store.dispatch(cartActions.removeDishFromCart, dish);
+      }
     },
   },
 };

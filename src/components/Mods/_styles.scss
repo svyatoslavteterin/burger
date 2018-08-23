@@ -1,0 +1,187 @@
+.dishmod {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 440px;
+  height: 390px;
+  background: white;
+  font-size: 14px;
+  z-index: 2;
+
+  &.right-side {
+    right: 0;
+    left: auto;
+  }
+
+  .modal-header {
+    position: relative;
+    background: black;
+    padding: 0;
+    height: 48px;
+    border-bottom: 0;
+    display: flex;
+    justify-content: flex-start;
+  
+    .info-yellow-block {
+      background: #e6e6e6;
+      padding: 10px;
+      display: block;
+      height: 100%;
+      color: black;
+      text-transform: uppercase;
+      font-size: 21px;
+    }
+
+    .info-title {
+      display: block;
+      color: white;
+      font-size: 21px;
+      font-weight: bold;
+      padding: 10px;
+      margin-left: 15%;
+      width: 30%;
+      height: 100%;
+      overflow: hidden;
+
+      span {
+        font-size: 17px;
+      }
+    }
+  
+    .info-modal-close {
+      width: 34px;
+      height: 34px;
+      background: #ffd70f;
+      border-radius: 50%;
+      position: absolute;
+      padding-top: 5px;
+      font-size: 16px;
+      top: 7px;
+      opacity: 1;
+      right: 7px;
+      border: none;
+      outline: none;
+      text-decoration: none;
+      box-shadow: none;
+      cursor: pointer;
+      transition: all .2s ease-in-out;
+  
+    }
+  }
+  
+  .info-modal-pic {
+    width: 100%;
+    max-height: 540px;
+    img {
+      width: 100%;
+      object-fit: contain;
+  
+    }
+  }
+  
+  .scrollbar-wrapper {
+    padding: 10px;
+    position: relative;
+
+    ul.mods {
+      position: relative;
+      padding: 0;
+      list-style-type: none;
+      display: block;
+      padding-right: 15px;
+    }
+    
+    li {
+      display: flex;
+      justify-content: space-between !important;
+      flex-wrap: nowrap;
+    }
+
+    .mod-item {
+      width: calc(100% - 75px);
+      border-bottom: 1px dotted #808080; /* Необязателен. Здесь задается толщина, тип и цвет точек */
+      position: relative;
+      padding: 0;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px; /* Необязателен. Задается для установки расстояния между блоками li */
+
+      .mod-name {
+        position :relative;
+        margin-right: 7em; /* Задается чтобы текст не заходил на номера страниц */
+        padding-right: 2px
+      }
+
+      .mod-price {
+        position :relative;
+      }
+
+      .mod-name,
+      .mod-price {
+        bottom: -5px;
+        background-color: #FFF; /* Это необходимо, чтобы перекрыть точки фоном */
+        margin: 0;
+      }
+    }
+
+    .mod-actions {
+      display: flex;
+      justify-content: space-between;
+      align-content: center;
+      align-items: center;
+      width: 66px;
+
+      .counter {
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        align-content: center;
+        padding: 0;
+        background: transparent;
+        border-radius: 50%;
+        border: 1px solid #808080;
+        outline: none;
+        text-decoration: none;
+        box-shadow: none;
+        cursor: pointer;
+
+        &:hover {
+          background: #ffd70f;
+          border: 1px solid #ffd70f;
+        }
+      }
+
+      .label-counter {
+        display: inline-block;
+        margin: 2px 0.5rem 0;
+        font-size: 1rem;
+        line-height: 1;
+      }
+    }
+
+  }
+  
+  .modal-scrollbar {
+    width: 100%;
+    max-height: 300px; 
+  }
+  
+  .empty-gap {
+    height: 15px;
+  }
+  
+  // .fade-out-block {
+  //   height:50px;
+  //   width:100%;
+  //   position:absolute;
+  //   top: 10px;
+  //   background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) 90%);
+  //   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(95%,rgba(255,255,255,1)));
+  //   background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 90%);
+  //   background: -o-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 90%);
+  //   background: -ms-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 90%);
+  //   background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 90%);
+  //   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 );
+  // }
+}
+

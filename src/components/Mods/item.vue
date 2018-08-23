@@ -1,0 +1,33 @@
+<template>
+  <li >
+    <div class="mod-item">
+      <span class="mod-name" v-text="mod.ModName"></span>
+      <span class="mod-price"><span v-text="+mod.Price"></span>₽</span>
+    </div>
+    <div class="mod-actions">
+      <button class="counter" @click.prevent="minusMod()">–</button>
+      <span class="label-counter">
+        <span v-text="mod.count" />
+      </span>
+      <button class="counter" @click.prevent="plusMod()">+</button>
+    </div>
+  </li>
+</template>
+
+<script>
+export default {
+  name: 'dishModItem',
+  props: ['mod', 'dishId', 'type', 'dish'],
+  computed: {
+
+  },
+  methods: {
+    plusMod() {
+      this.mod.count += 1;
+    },
+    minusMod() {
+      this.mod.count -= 1;
+    },
+  },
+};
+</script>

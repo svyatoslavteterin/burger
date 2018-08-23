@@ -110,7 +110,7 @@ export default {
   methods: {
     login() {
       this.errors = [];
-      // this.spinner = true;
+      this.spinner = true;
       const { phone, password } = this;
 
       const credentials = {
@@ -118,11 +118,15 @@ export default {
         password,
       };
 
-      console.log(credentials);
-
       this.$store.dispatch(userActions.login, credentials)
-        .then(() => {
-          this.$modal.hide('auth');
+        .then((res) => {
+          if (res) {
+            this.$modal.hide('auth');
+            this.spinner = false;
+            return;
+          }
+          this.errors.push('Неверные данные для входа');
+          this.spinner = false;
         });
     },
   },
