@@ -12,13 +12,19 @@
           v-text="area.areasName"
           :class="{'active': activeArea === i}"
           @click="activeArea = i"
+
         />
       </ul>
     </div>
 
-    <ul class="categ-items">
+    <ul
+      v-for="(area, i) in menu"
+      :key="area.id"
+      class="categ-items"
+      v-show="activeArea === i"
+    >
       <Dish
-        v-for="categ in menu[activeArea].categs"
+        v-for="categ in area.categs"
         :key="`dish-${categ.categName}`"
         :categ="categ"
       />
@@ -42,6 +48,10 @@ export default {
       activeArea: 2,
     };
   },
+  // watch() {
+  //   const nav = document.querySelector('.menu-header__categ-names');
+  //   console.log(nav);
+  // },
   computed: {
     filterDishes() {
       return this.$store.getters.filterDishes;

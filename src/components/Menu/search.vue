@@ -70,6 +70,7 @@ export default {
         outline: none;
         border: none;
         box-shadow: none;
+        user-select: none;
         cursor: pointer;
       }
 
@@ -95,6 +96,7 @@ export default {
           margin-top: 0.65rem;
           text-transform: uppercase;
           background: transparent;
+          user-select: none;
           cursor: pointer;
           border-bottom: 2px solid transparent;
 

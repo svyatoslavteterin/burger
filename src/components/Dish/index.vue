@@ -1,6 +1,9 @@
 <template>
   <div
-    :class="{'dish': true, 'head-dish': headdish}"
+    :class="{
+      'dish': true,
+      'head-dish': headdish,
+    }"
     v-if="showDish()"
   >
 
@@ -108,12 +111,17 @@ export default {
         return `.${this.customImg}`;
       }
 
-      const imgName = this.categ
-        .dishes[this.currentOption]
-        .fullData
-        .Images[0]
-        .ImageName;
-      return `https://imgtest.burgerpizzoni.ru/_img/Rest/${imgName}`;
+      try {
+        const imgName = this.categ
+          .dishes[this.currentOption]
+          .fullData
+          .Images[0]
+          .ImageName;
+
+        return `https://imgtest.burgerpizzoni.ru/_img/Rest/${imgName}`;
+      } catch (error) {
+        return 'https://imgtest.burgerpizzoni.ru/_img/Rest/2575_empty.png';
+      }
     },
     currentDish() {
       return this.categ.dishes[this.currentOption];
@@ -149,6 +157,16 @@ export default {
         this.$store.dispatch(cartActions.removeDishFromCart, dish);
       }
     },
+    showVaraint(dish) {
+      if (!this.filterDishes.length || this.headdish) return true;
+      const res = this.filterDishes.filter(tag => String(tag) === dish.id);
+
+      if (res.length) {
+        return true;
+      }
+
+      return false;
+    },
     showDish() {
       if (!this.filterDishes.length || this.headdish) return true;
 
@@ -164,16 +182,6 @@ export default {
       if (count >= this.categ.dishes.length) {
         return true;
       }
-      return false;
-    },
-    showVaraint(dish) {
-      if (!this.filterDishes.length || this.headdish) return true;
-      const res = this.filterDishes.filter(tag => String(tag) === dish.id);
-
-      if (res.length) {
-        return true;
-      }
-
       return false;
     },
   },
