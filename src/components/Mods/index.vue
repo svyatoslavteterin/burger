@@ -4,11 +4,10 @@
       <div class="modal-header">
         <button class="info-modal-close" @click="hide">OK</button>
         <div class="info-title">
-          <!-- <span v-if="this.$store.getters.getModsSum[dishId]"> -->
-            +
-            <!-- <span v-text="+this.$store.getters.getModsSum[dishId]"></span> -->
-            ₽
-          <!-- </span> -->
+          <span
+            v-if="getModsSumm"
+            v-html="`+ ${$options.filters.Rub(getModsSumm)}`"
+          />
         </div>
       </div>
       <div class="scrollbar-wrapper">
@@ -59,6 +58,18 @@ export default {
       this.rightSide = true;
     }
     this.popupItem = this.$el;
+  },
+  computed: {
+    getModsSumm() {
+      let summ = 0;
+      const len = this.mods.length;
+      for (let i = 0; i < len; i += 1) {
+        if (this.mods[i].count) {
+          summ += this.mods[i].Price * this.mods[i].count;
+        }
+      }
+      return summ;
+    },
   },
   methods: {
     hide() {
