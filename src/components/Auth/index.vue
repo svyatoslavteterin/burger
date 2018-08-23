@@ -56,7 +56,9 @@ export default {
       q: '',
     };
   },
-  methods: {},
+  mounted() {
+    this.activeTab = 1;
+  },
 };
 </script>
 

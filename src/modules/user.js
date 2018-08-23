@@ -2,7 +2,8 @@ import UserApi from '@/api/User';
 
 export const actions = {
   login: 'modules/actions/login',
-  registration: 'modules/actions/registration',
+  regStep1: 'modules/actions/regStep1',
+  regStep2: 'modules/actions/regStep2',
 };
 
 const mutations = {
@@ -19,10 +20,16 @@ export default {
       const user = await User.login(credentials);
       commit(mutations.SET_USER, user);
     },
-    async [actions.registration]({ commit }, credentials) {
+    async [actions.regStep1](ctx, credentials) {
       const User = new UserApi();
-      const user = await User.registration(credentials);
-      commit(mutations.SET_USER, user);
+      const data = await User.regStep1(credentials);
+      return data;
+    },
+    async [actions.regStep2]({ commit }, credentials) {
+      const User = new UserApi();
+      const data = await User.regStep2(credentials);
+      commit(mutations.SET_USER, data);
+      return data;
     },
   },
   mutations: {

@@ -84,11 +84,11 @@
 <script>
 import { actions as userActions } from '@/modules/user';
 // import RestorePass from '@/components/RestorePass';
-// import Spinner from '@/components/Spinner';
+import Spinner from '@/components/Spinner';
 
 export default {
   name: 'Login',
-  // components: { RestorePass, Spinner },
+  components: { Spinner },
   props: {
     template: {
       default: 'default',

@@ -20,8 +20,8 @@
             <input
               :class="{
                 'auth-input': true,
-                'filled-input': phone.length === 15,
-                'error-input': phone.length < 15 && phone
+                'filled-input': phone.length === 18,
+                'error-input': phone.length < 18 && phone
               }"
               type="text"
               placeholder="Телефон"
@@ -93,11 +93,12 @@
 </template>
 
 <script>
-// import Spinner from '@/components/Spinner';
+import { actions as userActions } from '@/modules/user';
+import Spinner from '@/components/Spinner';
 
 export default {
   name: 'Registration',
-  // components: { Spinner },
+  components: { Spinner },
   data() {
     return {
       regStep: 1,
@@ -118,26 +119,21 @@ export default {
         this.spinner = true;
         const { name, phone, password } = this;
 
-        const data = {
+        const credentials = {
           name,
-          phone: phone.replace(/-/g, ''),
+          phone: phone.replace(/\D/g, ''),
           password,
         };
 
-        this.$http
-          .post('http://apitest.burgerpizzoni.ru/api/Profiles/regStep1', data)
-          .then((response) => {
-            if (!response.data.error) {
+        this.$store.dispatch(userActions.regStep1, credentials)
+          .then((res) => {
+            if (!res.error) {
               this.regStep = 2;
               this.spinner = false;
             } else {
               this.spinner = false;
-              this.errors.push(response.data.error.message);
+              this.errors.push(res.data.error.message);
             }
-          })
-          .catch((error) => {
-            this.spinner = false;
-            console.log(error);
           });
       }
     },
@@ -147,43 +143,20 @@ export default {
       if (isValid) {
         const { code, phone, password } = this;
 
-        const data = {
-          code,
-          phone,
-          password,
-        };
-
         const credentials = {
-          username: phone.replace(/-/g, ''),
+          code,
+          phone: phone.replace(/\D/g, ''),
           password,
         };
 
-        this.$http
-          .post('http://apitest.burgerpizzoni.ru/api/Profiles/regStep2', data)
-          .then((response) => {
-            if (!response.data.error) {
-              this.getAuthUser(credentials).then((authUser) => {
-                console.log(authUser);
-                if (authUser) {
-                  this.$store.commit('setAuthUser', { value: authUser });
-                  this.$cookie.set('authUser', JSON.stringify(authUser), 1);
-                  this.$modal.hide('auth');
-                } else {
-                  this.getAuthUser(credentials).then((authUser) => {
-                    if (authUser) {
-                      this.$store.commit('setAuthUser', { value: authUser });
-                      this.$cookie.set('authUser', JSON.stringify(authUser), 1);
-                      this.$modal.hide('auth');
-                    }
-                  });
-                }
-              });
+        this.$store.dispatch(userActions.regStep2, credentials)
+          .then((res) => {
+            console.log('step 2', res);
+            if (!res.error) {
+              this.$modal.hide('auth');
             } else {
-              this.errors.push(response.data.error.message);
+              this.errors.push('Неверный код подтверждения');
             }
-          })
-          .catch((error) => {
-            console.log(error);
           });
       }
     },
@@ -221,16 +194,6 @@ export default {
       if (this.errors.length) return false;
 
       return true;
-    },
-    async getAuthUser(credentials) {
-      try {
-        const response = await this.$http.post('http://apitest.burgerpizzoni.ru/api/Profiles/login', credentials);
-        this.spinner = false;
-        return response.data;
-      } catch (e) {
-        this.spinner = false;
-        this.errors.push('Неверные данные для входа');
-      }
     },
   },
 };

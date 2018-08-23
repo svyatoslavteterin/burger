@@ -7,7 +7,11 @@ export default class Menu extends Model {
     return this.postRequest(`${this.plural}/login`, credentials);
   }
 
-  registration(credentials) {
-    return this.postRequest(`${this.plural}/registration`, credentials);
+  regStep1(credentials) {
+    return this.postRequest(`${this.plural}/regStep1`, credentials);
+  }
+
+  regStep2(credentials) {
+    return this.postRequest(`${this.plural}/regStep2`, credentials);
   }
 }
