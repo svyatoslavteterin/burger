@@ -77,7 +77,7 @@ export default {
         width: 150px;
         position: absolute;
         left: 0;
-        top: 1.85rem;
+        top: 2rem;
         border-radius: 0 0 10px 10px;
         border: 2px solid #ffd70f;
         background: #fff;
