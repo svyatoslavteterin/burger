@@ -29,8 +29,6 @@
 
     &__techcard {
       margin-top: 0.25rem;
-      margin-bottom: auto;
-      height: 7.85rem;
 
       span {
         color: #808080;
@@ -74,6 +72,10 @@
       &:hover {
         border-bottom: 2px solid #808080;
       }
+    }
+
+    .include-mods {
+      position: relative;
     }
   
     &__variants {
