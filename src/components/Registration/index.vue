@@ -180,7 +180,7 @@ export default {
         if (password.length < 6) {
           this.errors.push('Длина пароля меньше 6 символов');
         }
-        if (password != passwordConfirm) {
+        if (password !== passwordConfirm) {
           this.errors.push('Пароли не совпадают');
         }
       }
