@@ -125,6 +125,7 @@ export default {
             this.spinner = false;
             return;
           }
+          console.log(res);
           this.errors.push('Неверные данные для входа');
           this.spinner = false;
         });

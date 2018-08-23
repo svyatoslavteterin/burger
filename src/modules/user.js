@@ -18,10 +18,12 @@ export default {
     async [actions.login]({ commit }, credentials) {
       const User = new UserApi();
       const user = await User.login(credentials);
+      console.log('user cart', user);
       if (!user) {
         return false;
       }
-      return commit(mutations.SET_USER, user);
+      commit(mutations.SET_USER, user);
+      return true;
     },
     async [actions.regStep1](ctx, credentials) {
       const User = new UserApi();
