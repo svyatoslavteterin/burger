@@ -53,7 +53,6 @@ export default {
       .querySelector('.dishmod')
       .getBoundingClientRect();
 
-    console.log(right, window.innerWidth);
     if (right > window.innerWidth) {
       this.rightSide = true;
     }

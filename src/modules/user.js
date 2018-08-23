@@ -18,7 +18,6 @@ export default {
     async [actions.login]({ commit }, credentials) {
       const User = new UserApi();
       const user = await User.login(credentials);
-      console.log('user cart', user);
       if (!user) {
         return false;
       }
@@ -33,7 +32,6 @@ export default {
     async [actions.regStep2]({ dispatch }, credentials) {
       const User = new UserApi();
       const data = await User.regStep2(credentials);
-      console.log('DATA', data);
       if (data) {
         const userCred = {
           username: credentials.phone,
@@ -49,7 +47,6 @@ export default {
   mutations: {
     [mutations.SET_USER](state, user) {
       state.user = user.userInfo;
-      console.log(state.user);
     },
   },
   getters: {

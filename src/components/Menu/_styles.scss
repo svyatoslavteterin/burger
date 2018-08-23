@@ -3,21 +3,28 @@
   padding: 0 10vw;
   margin: 0 auto;
 
-  .categ-names {
-    margin: 0 auto;
+  .menu-header {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
 
-    li {
-      font-size: 1.5rem;
-      color: black;
-      text-transform: uppercase;
-      cursor: pointer;
-
-      &.active {
-        font-weight: bold;
-        border-bottom: 2px solid #ffd70f;
+    &__categ-names {
+      margin-bottom: 2rem !important;
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+  
+      li {
+        font-size: 1.5rem;
+        margin: 0 0.5rem;
+        color: black;
+        text-transform: uppercase;
+        cursor: pointer;
+  
+        &.active {
+          font-weight: bold;
+          border-bottom: 2px solid #ffd70f;
+        }
       }
     }
   }

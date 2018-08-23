@@ -60,7 +60,6 @@ export default {
   },
   methods: {
     removeDish(dish) {
-      console.log(dish);
       this.$store.dispatch(cartActions.removeDishFromCart, dish);
     },
     plusDish(dish) {

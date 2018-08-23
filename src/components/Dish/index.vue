@@ -1,5 +1,8 @@
 <template>
-  <div :class="{'dish': true, 'head-dish': headdish}">
+  <div
+    :class="{'dish': true, 'head-dish': headdish}"
+    v-if="showDish()"
+  >
 
     <div class="dish-info">
       <span class="dish-info__name" v-text="categ.categName" />
@@ -39,6 +42,7 @@
         <button
           v-for="(dish, i) in categ.dishes"
           :key="dish.id"
+          v-if="showVaraint(dish)"
           v-text="dish.dishName"
           :class="{
             '': true,
@@ -114,6 +118,9 @@ export default {
     currentDish() {
       return this.categ.dishes[this.currentOption];
     },
+    filterDishes() {
+      return this.$store.getters.filterDishes;
+    },
   },
   methods: {
     excludeMod(dish, item) {
@@ -131,7 +138,6 @@ export default {
     addDishToCart(dish) {
       dish.count = 1;
       dish.categName = this.categ.categName;
-      console.log(dish);
       this.$store.dispatch(cartActions.addDishToCart, dish);
     },
     plusDish(dish) {
@@ -142,6 +148,33 @@ export default {
       if (!dish.count) {
         this.$store.dispatch(cartActions.removeDishFromCart, dish);
       }
+    },
+    showDish() {
+      if (!this.filterDishes.length || this.headdish) return true;
+
+      let count = 0;
+
+      this.categ.dishes.forEach((dish) => {
+        const a = this.filterDishes.filter(tag => String(tag) === dish.id);
+        if (a.length) {
+          count += 1;
+        }
+      });
+
+      if (count >= this.categ.dishes.length) {
+        return true;
+      }
+      return false;
+    },
+    showVaraint(dish) {
+      if (!this.filterDishes.length || this.headdish) return true;
+      const res = this.filterDishes.filter(tag => String(tag) === dish.id);
+
+      if (res.length) {
+        return true;
+      }
+
+      return false;
     },
   },
 };

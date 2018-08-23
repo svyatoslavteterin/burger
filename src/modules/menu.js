@@ -13,7 +13,7 @@ export default {
   state: {
     menu: [],
     menuIndexes: {},
-    menuIndexesTags: {},
+    menuIndexesTags: [],
   },
   actions: {
     [actions.getMenu]({ commit }) {
@@ -31,7 +31,6 @@ export default {
   },
   mutations: {
     [mutations.SET_MENU](state, { menu, menuIndexes, menuIndexesTags }) {
-      console.log(menu);
       state.menu = menu;
       state.menuIndexes = menuIndexes;
       state.menuIndexesTags = menuIndexesTags;
@@ -40,6 +39,12 @@ export default {
   getters: {
     menu(state) {
       return state.menu;
+    },
+    menuIndexes(state) {
+      return state.menuIndexes;
+    },
+    menuIndexesTags(state) {
+      return state.menuIndexesTags;
     },
   },
 };

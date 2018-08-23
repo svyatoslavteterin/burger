@@ -151,7 +151,6 @@ export default {
 
         this.$store.dispatch(userActions.regStep2, credentials)
           .then((res) => {
-            console.log('step 2', res);
             if (!res.error) {
               this.$modal.hide('auth');
             } else {
