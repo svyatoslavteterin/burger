@@ -1,8 +1,8 @@
 <template>
-  <div v-click-outside="$emit('hide')">
+  <div v-click-outside="hide">
     <div :class="{ dishmod: true, 'right-side': rightSide }" v-show="okButton===false">
       <div class="modal-header">
-        <button class="info-modal-close" @click="$emit('hide')">OK</button>
+        <button class="info-modal-close" @click="hide">OK</button>
         <div class="info-title">
           <!-- <span v-if="this.$store.getters.getModsSum[dishId]"> -->
             +
@@ -18,9 +18,7 @@
               v-for="(mod) in mods"
               :key="mod.id_Mod"
               :mod="mod"
-              :dishId="dishId"
               :dish="dish"
-              :type="'include'"
             ></dishModItem>
           </ul>
         </VuePerfectScrollbar>
@@ -37,8 +35,21 @@ import ClickOutside from 'vue-click-outside';
 import dishModItem from './item.vue';
 
 export default {
+  components: { VuePerfectScrollbar, dishModItem },
+  props: ['mods', 'dishId', 'type', 'dish'],
+  data() {
+    return {
+      settings: {
+        maxScrollbarLength: 60,
+      },
+      okButton: false,
+      rightSide: false,
+    };
+  },
+  directives: {
+    ClickOutside,
+  },
   mounted() {
-    if (this.type !== 'include') return;
     const { right } = this.$el
       .querySelector('.dishmod')
       .getBoundingClientRect();
@@ -49,20 +60,11 @@ export default {
     }
     this.popupItem = this.$el;
   },
-  directives: {
-    ClickOutside,
+  methods: {
+    hide() {
+      this.$emit('hide');
+    },
   },
-  components: { VuePerfectScrollbar, dishModItem },
-  data() {
-    return {
-      settings: {
-        maxScrollbarLength: 60,
-      },
-      okButton: false,
-      rightSide: false,
-    };
-  },
-  props: ['mods', 'dishId', 'type', 'dish'],
 };
 </script>
 

@@ -17,7 +17,7 @@
 <script>
 export default {
   name: 'dishModItem',
-  props: ['mod', 'dishId', 'type', 'dish'],
+  props: ['mod', 'dish'],
   computed: {
 
   },

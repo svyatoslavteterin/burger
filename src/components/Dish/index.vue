@@ -21,17 +21,18 @@
       </div>
 
       <a
-        class="i-add" @click.prevent="mods.include = !mods.include"
+        class="i-add"
+        @click.prevent="showMods = !showMods"
         v-if="categ.dishes[currentOption].ModGroups[1]"
       >
         добавить
       </a>
 
       <Mods
-        v-if="mods.include"
+        v-if="showMods"
         :mods="categ.dishes[currentOption].ModGroups[1].mods"
         :dishId="categ.dishes[currentOption].id"
-        :type="'include'"
+        @hide="showMods = !showMods"
       />
 
       <div v-if="categ.dishes.length > 1" class="dish-info__variants">
@@ -94,9 +95,7 @@ export default {
   data() {
     return {
       currentOption: 0,
-      mods: {
-        include: false,
-      },
+      showMods: false,
     };
   },
   computed: {

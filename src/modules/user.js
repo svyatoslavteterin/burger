@@ -30,10 +30,19 @@ export default {
       const data = await User.regStep1(credentials);
       return data;
     },
-    async [actions.regStep2]({ commit }, credentials) {
+    async [actions.regStep2]({ dispatch }, credentials) {
       const User = new UserApi();
       const data = await User.regStep2(credentials);
-      commit(mutations.SET_USER, data);
+      console.log('DATA', data);
+      if (data) {
+        const userCred = {
+          username: credentials.phone,
+          password: credentials.password,
+        };
+        setTimeout(() => {
+          dispatch(actions.login, userCred);
+        }, 1500);
+      }
       return data;
     },
   },

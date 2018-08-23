@@ -127,12 +127,12 @@ export default {
 
         this.$store.dispatch(userActions.regStep1, credentials)
           .then((res) => {
-            if (!res.error) {
+            if (res && !res.error) {
               this.regStep = 2;
               this.spinner = false;
             } else {
               this.spinner = false;
-              this.errors.push(res.data.error.message);
+              this.errors.push('Пользователь уже зарегистрирован');
             }
           });
       }

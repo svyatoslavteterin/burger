@@ -17,6 +17,6 @@ export default class Model {
   postRequest(url, options) {
     return axios.post(`${this.apiUrl}/${url}`, options)
       .then(result => result.data)
-      .catch(error => error.data);
+      .catch(error => error);
   }
 }

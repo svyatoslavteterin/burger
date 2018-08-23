@@ -28,7 +28,7 @@
         >
           войти
         </button>
-        <span v-else>{{user.FirstName}}</span>
+        <span class="cart-info__user__name" v-else>{{user.FirstName}}</span>
       </div>
     </div>
 
@@ -122,6 +122,11 @@ header {
 
     &__user {
       margin-left: 2.5rem;
+
+      &__name {
+        font-size: 1.25rem;
+        text-transform: uppercase;
+      }
 
       .login {
         font-size: 1.2rem;

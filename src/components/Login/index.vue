@@ -120,12 +120,11 @@ export default {
 
       this.$store.dispatch(userActions.login, credentials)
         .then((res) => {
-          if (res) {
+          if (res && !res.error) {
             this.$modal.hide('auth');
             this.spinner = false;
             return;
           }
-          console.log(res);
           this.errors.push('Неверные данные для входа');
           this.spinner = false;
         });
