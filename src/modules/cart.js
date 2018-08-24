@@ -1,6 +1,5 @@
 import findIndex from 'lodash/findIndex';
 import forOwn from 'lodash/forOwn';
-import { __values } from 'tslib';
 
 export const actions = {
   addDishToCart: 'modules/actions/addDishToCart',
