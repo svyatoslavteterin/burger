@@ -14,14 +14,17 @@
             </span>
           </div>
         </div> <!--cart-head-->
+        <Cart />
       </div> <!--container-->
     </section>
   </main>
 </template>
 
 <script>
+import Cart from '@/components/Cart';
 export default {
-  name: 'Cart',
+  name: 'CartPage',
+  components: { Cart },
   computed: {
     // количество позиций в корзине
     countItems() {
