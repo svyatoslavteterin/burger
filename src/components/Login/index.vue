@@ -36,7 +36,7 @@
         <ul class="error-list">
           <li v-for="error in errors" :key="error" v-html="error"/>
         </ul>
-        <a class="restore-pass-link" href="#" @click.prevent="showRestore = true">Забыли пароль?</a>
+        <a class="restore-pass-link" href="#" @click.prevent="showRestore = !showRestore">Забыли пароль?</a>
       </div>
 
 
@@ -47,7 +47,7 @@
 
     </form>
 
-    <RestorePass v-if="showRestore === true"/>
+    <RestorePassword v-if="showRestore"/>
 
   </div>
   <div v-else-if="template==='small'">
@@ -83,12 +83,12 @@
 
 <script>
 import { actions as userActions } from '@/modules/user';
-// import RestorePass from '@/components/RestorePass';
+import RestorePassword from '@/components/RestorePassword';
 import Spinner from '@/components/Spinner';
 
 export default {
   name: 'Login',
-  components: { Spinner },
+  components: { Spinner, RestorePassword },
   props: {
     template: {
       default: 'default',
