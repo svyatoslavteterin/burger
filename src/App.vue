@@ -57,6 +57,10 @@ main {
   margin-bottom: auto;
 }
 
+button {
+  user-select: none !important;
+}
+
 @for $i from 0 through 10 {
   @media screen and (min-width: #{1000 + 100 * $i}px) {
     html, body {
