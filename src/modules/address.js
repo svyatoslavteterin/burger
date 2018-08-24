@@ -1,13 +1,17 @@
+import AddressApi from '@/api/Address';
+
 export const actions = {
-  searchAddress: 'modules/names/searchAddress',
-  clearSearchAddress: 'modules/names/clearSearchAddress',
-  saveAddress: 'modules/names/saveAddress'
+  searchAddress: 'modules/address/searchAddress',
+  clearSearchAddress: 'modules/address/clearSearchAddress',
+  saveAddress: 'modules/address/saveAddress',
+  getSelfDeliveryAddresses: 'modules/address/getSelfDeliveryAddresses'
 };
 
 export const mutations = {
-  SET_ADDRESSES: 'modules/names/SET_ADDRESSES',
-  REMOVE_ADDRESSES: 'modules/names/REMOVE_ADDRESSES',
-  SAVE_ADDRESS: 'modules/names/SAVE_ADDRESS'
+  SET_ADDRESSES: 'modules/address/SET_ADDRESSES',
+  SET_PICKUP_ADDRESSES: 'modules/address/SET_PICKUP_ADDRESSES',
+  REMOVE_ADDRESSES: 'modules/address/REMOVE_ADDRESSES',
+  SAVE_ADDRESS: 'modules/address/SAVE_ADDRESS'
 };
 
 export default {
@@ -27,6 +31,11 @@ export default {
     },
     [actions.saveAddress]({ commit }, fullAddr) {
       commit(mutations.SAVE_ADDRESS, fullAddr);
+    },
+    async [actions.getSelfDeliveryAddresses]() {
+      const Address = new AddressApi();
+      const addresses = await Address.getSelfDeliveryAddresses();
+      return addresses;
     }
   },
   mutations: {

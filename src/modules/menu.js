@@ -2,11 +2,11 @@ import MenuApi from '@/api/Menu';
 import axios from 'axios';
 
 export const actions = {
-  getMenu: 'modules/actions/getMenu',
+  getMenu: 'modules/menu/getMenu',
 };
 
 const mutations = {
-  SET_MENU: 'modules/mutations/SET_MENU',
+  SET_MENU: 'modules/menu/SET_MENU',
 };
 
 export default {

@@ -2,15 +2,15 @@ import findIndex from 'lodash/findIndex';
 import forOwn from 'lodash/forOwn';
 
 export const actions = {
-  addDishToCart: 'modules/actions/addDishToCart',
-  removeDishFromCart: 'modules/actions/removeDishFromCart',
-  toggleFilter: 'modules/actions/toggleFilter',
+  addDishToCart: 'modules/cart/addDishToCart',
+  removeDishFromCart: 'modules/cart/removeDishFromCart',
+  toggleFilter: 'modules/cart/toggleFilter',
 };
 
 const mutations = {
-  ADD_DISH: 'modules/actions/ADD_DISH',
-  REMOVE_DISH: 'modules/actions/REMOVE_DISH',
-  TOGGLE_FILTER: 'modules/actions/TOGGLE_FILTER',
+  ADD_DISH: 'modules/cart/ADD_DISH',
+  REMOVE_DISH: 'modules/cart/REMOVE_DISH',
+  TOGGLE_FILTER: 'modules/cart/TOGGLE_FILTER',
 };
 
 export default {
