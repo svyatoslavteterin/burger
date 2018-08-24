@@ -111,6 +111,11 @@ export default {
       this.count = i;
       this.lazyLoad = [];
       this.lazyLoad.push(this.activeArea);
+      const { stub } = this.$refs;
+      const { top } = stub.getBoundingClientRect();
+      if (top < 0) {
+        window.scrollTo(0, stub.offsetTop - 20);
+      }
     },
   },
 };
