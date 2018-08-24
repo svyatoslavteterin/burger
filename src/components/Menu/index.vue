@@ -1,8 +1,13 @@
 <template>
   <section class="menu">
 
-    <div class="menu-header">
-
+    <div
+      :class="{
+        'menu-header': true,
+        'top': menuFloat
+      }"
+      ref="menuHeader"
+    >
       <Search />
 
       <div class="menu-header__categ-names">
@@ -14,15 +19,15 @@
           @click="changeArea(i)"
         />
       </div>
-
     </div>
+    <div v-show="menuFloat" ref="stub" class="stub" />
 
     <ul
       v-for="(area, i) in menu"
       :key="area.id"
+      v-show="activeArea === i || lazyLoad.includes(i)"
       class="categ-items"
       ref="dishesList"
-      v-show="activeArea === i || lazyLoad.includes(i)"
       :style="{'order': lazyLoad.includes(i) ? lazyLoad.indexOf(i) + 1 : 0}"
     >
       <Dish
@@ -49,7 +54,9 @@ export default {
     return {
       activeArea: 2,
       lazyLoad: [],
-      listener: null,
+      areaListener: null,
+      menuNavListener: null,
+      menuFloat: false,
       count: 0,
     };
   },
@@ -58,7 +65,7 @@ export default {
     this.count = this.activeArea;
     this.lazyLoad.push(this.activeArea);
 
-    this.listener = window.addEventListener('scroll', () => {
+    this.areaListener = window.addEventListener('scroll', () => {
       const { bottom } = list[this.count].getBoundingClientRect();
       if (bottom < 800) {
         if (this.lazyLoad.length >= list.length) {
@@ -71,11 +78,27 @@ export default {
         this.count += 1;
       }
     });
+
+    const { menuHeader, stub } = this.$refs;
+
+    this.menuNavListener = window.addEventListener('scroll', () => {
+      const { top: topHeader } = menuHeader.getBoundingClientRect();
+      const { top: topStub } = stub.getBoundingClientRect();
+
+      if (topHeader <= 16 && !this.menuFloat) {
+        this.menuFloat = true;
+      }
+
+      if (topStub > 16 && this.menuFloat) {
+        this.menuFloat = false;
+      }
+    });
   },
   beforeDestroy() {
-    console.log('destroy');
-    removeEventListener('scroll', this.listener);
-    this.listener = null;
+    removeEventListener('scroll', this.areaListener);
+    this.areaListener = null;
+    removeEventListener('scroll', this.menuNavListener);
+    this.menuNavListener = null;
   },
   computed: {
     filterDishes() {

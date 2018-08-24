@@ -4,14 +4,36 @@
   max-width: 80vw;
   padding: 0 10vw;
   margin: 0 auto;
-
+  
+  .stub {
+    width: 100%;
+    height: 4rem;
+    background: transparent;
+  }
+  
   .menu-header {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem !important;
+
+    &.top {
+      position: fixed;
+      width: 80vw;
+      padding: 1rem 10vw;
+      top: 0;
+      left: 0;
+      background: white;
+      z-index: 20;
+      border-bottom: 2px solid #ffd70f;
+
+      .menu-header__categ-names {
+        margin: 0 !important;
+      }
+    }
 
     &__categ-names {
-      margin-bottom: 2rem !important;
       display: flex;
       flex-flow: row nowrap;
       justify-content: space-between;
@@ -26,6 +48,7 @@
         outline: none;
         cursor: pointer;
         user-select: none;
+        border-bottom: 2px solid transparent;
   
         &.active {
           font-weight: bold;
