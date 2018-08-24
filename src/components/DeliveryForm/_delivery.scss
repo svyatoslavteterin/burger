@@ -26,10 +26,12 @@
     box-sizing : border-box;
     border-radius: 6px;
     font-size: 14px;
+
     &:focus{
       font-weight: normal;
       border: 1px solid #ffd70f;
       outline: 0;
+
       &~.result {
         display: block;
       }
@@ -38,6 +40,7 @@
       outline: 0;
       border: 1px solid #ffd70f;
       text-align: center;
+
       &~label {
         width: auto;
         height: auto;
@@ -48,6 +51,7 @@
         font-size: 12px;
       }
     }
+
     &::placeholder {
       color: #b2b2b2;
     }
@@ -65,7 +69,7 @@
     box-sizing : border-box;
     list-style-type: none;
     border-radius: 0 0 6px 6px;
-    border: 1px solid #ffd70f;
+    // border: 1px solid #ffd70f;
     border-top: none;
     padding: 0;
     z-index: 1;
@@ -118,7 +122,7 @@
     font-size: 14px;
     list-style-type: none;
     border-radius: 0 0 6px 6px;
-    border: 1px solid #ffd70f;
+    // border: 1px solid #ffd70f;
     border-top: none;
     padding: 0;
     z-index: 1;
