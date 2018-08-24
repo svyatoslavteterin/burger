@@ -14,12 +14,16 @@
       flex-flow: row nowrap;
       justify-content: space-between;
   
-      li {
+      button {
         font-size: 1.5rem;
         margin: 0 0.5rem;
         color: black;
         text-transform: uppercase;
+        background: transparent;
+        border: none;
+        outline: none;
         cursor: pointer;
+        user-select: none;
   
         &.active {
           font-weight: bold;

@@ -5,16 +5,16 @@
 
       <Search />
 
-      <ul class="menu-header__categ-names">
-        <li
+      <div class="menu-header__categ-names">
+        <button
           v-for="(area, i) in menu"
           :key="area.areasName"
           v-text="area.areasName"
           :class="{'active': activeArea === i}"
           @click="activeArea = i"
-
         />
-      </ul>
+      </div>
+
     </div>
 
     <ul
@@ -48,10 +48,6 @@ export default {
       activeArea: 2,
     };
   },
-  // watch() {
-  //   const nav = document.querySelector('.menu-header__categ-names');
-  //   console.log(nav);
-  // },
   computed: {
     filterDishes() {
       return this.$store.getters.filterDishes;
