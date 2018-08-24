@@ -33,13 +33,14 @@
       >
         добавить
       </a>
-
-      <Mods
-        v-if="showMods"
-        :mods="categ.dishes[currentOption].ModGroups[1].mods"
-        :dishId="categ.dishes[currentOption].id"
-        @hide="showMods = !showMods"
-      />
+      <div class="include-mods">
+        <Mods
+          v-if="showMods"
+          :mods="categ.dishes[currentOption].ModGroups[1].mods"
+          :dishId="categ.dishes[currentOption].id"
+          @hide="showMods = !showMods"
+        />
+      </div>
 
       <div v-if="categ.dishes.length > 1" class="dish-info__variants">
         <button

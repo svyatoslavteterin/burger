@@ -1,7 +1,7 @@
 <template>
-  <li >
+  <li>
     <div class="mod-item">
-      <span class="mod-name" v-text="mod.ModName"></span>
+      <span :class="{'mod-name': true, 'bold': mod.count > 0}" v-text="mod.ModName"></span>
       <span class="mod-price"><span v-text="+mod.Price"></span>₽</span>
     </div>
     <div class="mod-actions">

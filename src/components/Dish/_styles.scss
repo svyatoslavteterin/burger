@@ -29,8 +29,6 @@
 
     &__techcard {
       margin-top: 0.25rem;
-      margin-bottom: auto;
-      height: 7.85rem;
 
       span {
         color: #808080;
@@ -61,6 +59,23 @@
           }
         }
       }
+    }
+
+    .i-add {
+      display: inline;
+      align-self: flex-start;
+      cursor: pointer;
+      text-decoration: none;
+      border-bottom: 2px dotted #808080;
+      font-size: 1.1rem;
+  
+      &:hover {
+        border-bottom: 2px solid #808080;
+      }
+    }
+
+    .include-mods {
+      position: relative;
     }
   
     &__variants {
