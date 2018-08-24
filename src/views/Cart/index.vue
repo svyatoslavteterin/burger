@@ -7,10 +7,10 @@
           <h1 class="cart-title">Корзина</h1>
           <div class="cart-count">
             В заказе:
-            <span v-text="`${countCart} ${pluralize(countItems, "блюдо", "блюда", "блюд") }`" />
+            <span v-text="`${countCart}`" />
           </div>
         </div> <!--cart-head-->
-        <Cart />
+        <CartList />
       </div> <!--container-->
     </section>
   </main>
@@ -26,9 +26,6 @@ export default {
     countCart() {
       return this.$store.getters.cart.length;
     },
-    pluralize() {
-      return 'блюдо'
-    }
   },
 };
 </script>
