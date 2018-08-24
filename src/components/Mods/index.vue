@@ -1,7 +1,7 @@
 <template>
   <div v-click-outside="hide">
+    <div class="dishmod-arrow"></div>
     <div :class="{ dishmod: true, 'right-side': rightSide }" v-show="okButton===false">
-      <div class="dishmod-arrow shadow"></div>
       <div class="modal-header">
         <button class="info-modal-close" @click="hide">OK</button>
         <div class="info-title">
