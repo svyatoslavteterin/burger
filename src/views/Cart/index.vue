@@ -7,11 +7,7 @@
           <h1 class="cart-title">Корзина</h1>
           <div class="cart-count">
             В заказе:
-            <span>
-              1 блюдо
-              <!-- {{ countItems }} блюда -->
-              <!-- {{ pluralize(countItems, "блюдо", "блюда", "блюд") }} -->
-            </span>
+            <span v-text="`${countCart} ${pluralize(countItems, "блюдо", "блюда", "блюд") }`" />
           </div>
         </div> <!--cart-head-->
         <Cart />
@@ -21,14 +17,18 @@
 </template>
 
 <script>
-import Cart from '@/components/Cart';
+import CartList from '@/components/CartList';
+
 export default {
-  name: 'CartPage',
-  components: { Cart },
+  name: 'Cart',
+  components: { CartList },
   computed: {
-    // количество позиций в корзине
-    countItems() {
+    countCart() {
+      return this.$store.getters.cart.length;
     },
+    pluralize() {
+      return 'блюдо'
+    }
   },
 };
 </script>

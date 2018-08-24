@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home';
-import CartPage from './views/CartPage';
+import Cart from './views/Cart';
 
 Vue.use(Router);
 
@@ -16,8 +16,8 @@ export default new Router({
     },
     {
       path: '/cart',
-      name: 'CartPage',
-      component: CartPage,
+      name: 'Cart',
+      component: Cart,
     },
   ],
 });

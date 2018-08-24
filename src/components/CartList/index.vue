@@ -89,7 +89,7 @@ import Delivery from "@/components/DeliveryForm";
 // import ClickOutside from "vue-click-outside";
 
 export default {
-  name: "Cart",
+  name: "CartList",
   components: { Dish, Delivery },
   data() {
     return {
@@ -119,7 +119,9 @@ export default {
     },
     getDrinks() {
       const { menu } = this.$store.getters;
+      console.log(menu);
       if (menu[8]) {
+        console.log(menu[8]);
         return menu[8].categs;
       }
       return false
