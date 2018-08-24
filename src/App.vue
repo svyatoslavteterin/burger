@@ -5,6 +5,7 @@
     <Footer />
 
     <Auth />
+    <DeliveryForm />
   </div>
 </template>
 
@@ -12,6 +13,7 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Auth from '@/components/Auth';
+import DeliveryForm from '@/components/DeliveryForm';
 
 export default {
   name: 'App',
@@ -19,6 +21,7 @@ export default {
     Header,
     Footer,
     Auth,
+    DeliveryForm,
   },
 };
 </script>

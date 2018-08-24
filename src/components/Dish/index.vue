@@ -130,6 +130,9 @@ export default {
     filterDishes() {
       return this.$store.getters.filterDishes;
     },
+    user() {
+      return this.$store.getters.user;
+    },
   },
   methods: {
     excludeMod(dish, item) {
@@ -148,6 +151,9 @@ export default {
       dish.count = 1;
       dish.categName = this.categ.categName;
       this.$store.dispatch(cartActions.addDishToCart, dish);
+      if (!this.user) {
+        this.$modal.show('delivery');
+      }
     },
     plusDish(dish) {
       dish.count += 1;
