@@ -295,6 +295,8 @@
 </script>
 
 <style lang="scss" scoped>
+@import './_delivery.scss';
+
   .modal-search-address__wrapper {
     position: absolute;
     top: 0;

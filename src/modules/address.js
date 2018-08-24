@@ -4,19 +4,21 @@ export const actions = {
   searchAddress: 'modules/address/searchAddress',
   clearSearchAddress: 'modules/address/clearSearchAddress',
   saveAddress: 'modules/address/saveAddress',
-  getSelfDeliveryAddresses: 'modules/address/getSelfDeliveryAddresses'
+  getSelfDeliveryAddresses: 'modules/address/getSelfDeliveryAddresses',
+  setPickupAddress: 'modules/address/setPickupAddress',
 };
 
 export const mutations = {
   SET_ADDRESSES: 'modules/address/SET_ADDRESSES',
   SET_PICKUP_ADDRESSES: 'modules/address/SET_PICKUP_ADDRESSES',
   REMOVE_ADDRESSES: 'modules/address/REMOVE_ADDRESSES',
-  SAVE_ADDRESS: 'modules/address/SAVE_ADDRESS'
+  SAVE_ADDRESS: 'modules/address/SAVE_ADDRESS',
 };
 
 export default {
   state: {
     addresses: [],
+    pickupAddress: {},
     fullAddr: {}
   },
   actions: {
@@ -36,6 +38,9 @@ export default {
       const Address = new AddressApi();
       const addresses = await Address.getSelfDeliveryAddresses();
       return addresses;
+    },
+    [actions.setPickupAddress]({ commit }, address) {
+      commit(mutations.SET_PICKUP_ADDRESSES, address);
     }
   },
   mutations: {
@@ -46,6 +51,9 @@ export default {
         addresses[key].houses = houses;
         return addresses[key];
       });
+    },
+    [mutations.SET_PICKUP_ADDRESSES](state, address) {
+      state.pickupAddress = address;
     },
     [mutations.REMOVE_ADDRESSES](state) {
       state.addresses = [];
@@ -61,6 +69,9 @@ export default {
     },
     addressBeforeLogin(state) {
       return state.fullAddr;
+    },
+    pickupAddress(state) {
+      return state.pickupAddress;
     }
   }
 };

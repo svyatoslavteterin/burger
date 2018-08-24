@@ -4,31 +4,30 @@
     <div class="hello-message">Выберите ближайший к вам филиал</div>
     
     <div class="addresses-wrapper">
-      <VuePerfectScrollbar class="modal-scrollbar" v-once>
-          <div class="radio-container">
-            <label class="rb-container"><span class="address-value">Мира, 71</span>
-              <span class="work-time">08:00 – 18:00, Открыто</span>
-              <input type="radio" checked="checked" name="radio" @click="selectAddress('test')">
-              <span class="checkmark"></span>
-            </label>
-          </div>
-
+      <Spinner v-if="!addresses.length" />
+      <VuePerfectScrollbar v-if="addresses.length" class="modal-scrollbar" v-once>
           <div
-            v-for="address in addresses" 
-            :key="address.Street" 
+            v-for="addr in addresses" 
+            :key="addr.Street" 
             class="radio-container"
           >
             <label class="rb-container">
-              <span class="address-value">{{address.Street}}</span>
+              <span class="address-value">{{addr.Name}}</span>
+              <br>
+              <span class="address-value">{{addr.Street}}</span>
               <span class="work-time">08:00 – 18:00, Открыто</span>
-              <input type="radio" checked="checked" name="radio" @click="selectAddress(address)">
+              <input 
+                type="radio" 
+                :checked="isChecked(addr)"
+                @click="address = addr"
+              >
               <span class="checkmark"></span>
             </label>
           </div>
       </VuePerfectScrollbar>
     </div>
     
-    <button class="selfdelivery-btn">Сохранить</button>
+    <button class="selfdelivery-btn" @click="setPickupAddress">Сохранить</button>
 
     <!-- <div v-if="okSelfDelivery" class="thank-you-message">
         <p>Спасибо!</p>
@@ -44,27 +43,55 @@
 
 <script>
 import VuePerfectScrollbar from 'vue-perfect-scrollbar';
+import Spinner from '@/components/Spinner';
 import { actions as addressActions } from '@/modules/address';
 
 export default {
   name: 'Pickup',
-  components: { VuePerfectScrollbar },
+  components: { 
+    VuePerfectScrollbar,
+    Spinner
+  },
   data() {
     return {
-      addresses: []
+      addresses: [],
+      address: {}
     }
   },
   mounted() {
     this.$store.dispatch(addressActions.getSelfDeliveryAddresses)
       .then(res => {
-        console.log(res)
         this.addresses = res;
-      })
+      });
+
+    if (this.pickupAddress.Street) {
+      this.address = this.pickupAddress;
+    } 
+  },
+  computed: {
+    pickupAddress() {
+      return this.$store.getters.pickupAddress;
+    }
+  },
+  updated() {
+    console.log(this.address);
   },
   methods: {
-    selectAddress(address) {
-      console.log(address);
-    }
+    isChecked(addr) {
+      if (addr.Street === this.address.Street)  {
+        return true;
+      }
+      return false;
+    },
+    setPickupAddress() {
+      if (this.address.Street) {
+        this.$store.dispatch(
+          addressActions.setPickupAddress, 
+          this.address
+        );
+      }
+      this.$modal.hide('delivery');
+    },
   }
 }
 </script>

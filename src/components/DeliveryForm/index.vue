@@ -35,7 +35,7 @@
     <div v-if="activeTab === 1" class="modal-wrapper delivery">
 
       <div class="hello-message">Введите ваш адрес и мы сообщим, входит ли он в зону доставки</div>
-      <Address />
+      <Delivery />
 
       <div v-if="okDelivery" class="thank-you-message">
         <p>Спасибо!</p>
@@ -56,7 +56,7 @@
 import VuePerfectScrollbar from 'vue-perfect-scrollbar';
 import modalActions from '@/mixins/modalActions';
 import Login from '@/components/Login';
-import Address from '@/components/address-component';
+import Delivery from './delivery';
 import Pickup from './pickup';
 import './style.scss';
 
@@ -65,7 +65,7 @@ export default {
   components: {
     VuePerfectScrollbar,
     Login,
-    Address,
+    Delivery,
     Pickup
   },
   mixins: [modalActions],
