@@ -12,13 +12,19 @@
     <!-- Напитки -->
     <Dish
       v-if="getDrinks"
-      :categ="getDrinks"
+      v-for="categ in getDrinks"
+      :key="`dish-${categ.categName}`"
+      :categ="categ"
+      :fromCart="true"
+
     />
-    {{getDrinks}}
     <h3 class="">Соусы</h3>
     <Dish
       v-if="getSauces"
-      :categ="getSauces"
+      v-for="categ in getSauces"
+      :key="`dish-${categ.categName}`"
+      :categ="categ"
+      :fromCart="true"
     />
 
     <!-- <div class="delivery-pay-block">
