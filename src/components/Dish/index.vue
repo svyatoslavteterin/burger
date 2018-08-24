@@ -3,6 +3,7 @@
     :class="{
       'dish': true,
       'head-dish': headdish,
+      'from-cart': fromCart,
     }"
     v-if="showDish()"
   >
@@ -12,6 +13,7 @@
 
       <div class="dish-info__techcard">
         <span
+          v-if="!fromCart"
           v-for="(exMod, i) in currentDish.techCardData"
           :key="`techCardData-${exMod.FoodName}-${categ.id}-${i}`"
           :class="{
@@ -99,6 +101,7 @@ export default {
     categ: Object,
     headdish: Boolean,
     customImg: String,
+    fromCart: Boolean,
   },
   data() {
     return {
