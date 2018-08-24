@@ -61,6 +61,11 @@ button, a {
   user-select: none !important;
 }
 
+button {
+  border: none;
+  outline: none;
+}
+
 @for $i from 0 through 10 {
   @media screen and (min-width: #{1000 + 100 * $i}px) {
     html, body {

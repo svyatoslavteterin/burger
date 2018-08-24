@@ -1,15 +1,15 @@
 import UserApi from '@/api/User';
 
 export const actions = {
-  login: 'modules/actions/login',
-  regStep1: 'modules/actions/regStep1',
-  regStep2: 'modules/actions/regStep2',
-  resetPass: 'modules/actions/resetPass',
-  checkCode: 'modules/actions/checkCode',
+  login: 'modules/user/login',
+  regStep1: 'modules/user/regStep1',
+  regStep2: 'modules/user/regStep2',
+  resetPass: 'modules/user/resetPass',
+  checkCode: 'modules/user/checkCode',
 };
 
 const mutations = {
-  SET_USER: 'modules/actions/SET_USER',
+  SET_USER: 'modules/user/SET_USER',
 };
 
 export default {

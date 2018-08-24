@@ -11,25 +11,31 @@
   >
     <div class="modal-header">
       <button @click="$modal.hide('delivery')" class="info-modal-close"></button>
+
       <div class="info-yellow-block">Способ покупки</div>
-      <div
+
+      <button
+        :class="{
+          'tab-name': true, 
+          'active': activeTab == 1 
+        }"
         @click="activeTab = 1"
-        :class="{'tab-name': true, 'active': activeTab == 1 }"
-      >
-        Доставка
-      </div>
-      <div
+        v-text="'Доставка'"
+      />
+      <button
+        :class="{
+          'tab-name': true, 
+          'active': activeTab == 2 
+        }"
         @click="activeTab = 2"
-        :class="{'tab-name': true, 'active': activeTab == 2 }"
-      >
-        Самовывоз
-      </div>
+        v-text="'Самовывоз'"
+      />
     </div>
-    <div v-if="activeTab == 1" class="modal-wrapper delivery">
+
+    <div v-if="activeTab === 1" class="modal-wrapper delivery">
+
       <div class="hello-message">Введите ваш адрес и мы сообщим, входит ли он в зону доставки</div>
-
-      <Address />
-
+      <Delivery />
 
       <div v-if="okDelivery" class="thank-you-message">
         <p>Спасибо!</p>
@@ -42,81 +48,26 @@
 
     </div> <!--modal-wrapper-->
 
-    <div v-if="activeTab == 2" class="modal-wrapper">
-      <div class="hello-message">Выберите ближайший к вам филиал</div>
-      <div class="addresses-wrapper">
-        <VuePerfectScrollbar class="modal-scrollbar" v-once :settings="settings">
-          <div class="radio-container">
-            <label class="rb-container"><span class="address-value">Мира, 71</span>
-              <span class="work-time">08:00 – 18:00, Открыто</span>
-              <input type="radio" checked="checked" name="radio" @click="checkAddress">
-              <span class="checkmark"></span>
-            </label>
-            <label class="rb-container"><span class="address-value">Рябиновый, 16</span>
-              <span class="work-time">Круглосуточно</span>
-              <input type="radio" name="radio" @click="checkAddress">
-              <span class="checkmark"></span>
-            </label>
+    <Pickup v-if="activeTab === 2" />
 
-            <label class="rb-container"><span class="address-value">Бульвар Ленина, 2</span>
-              <span class="work-time">08:00 – 18:00, Открыто</span>
-              <input type="radio" name="radio" @click="checkAddress">
-              <span class="checkmark"></span>
-            </label>
-            <label class="rb-container"><span class="address-value">Рудакова, 52А</span>
-              <span class="work-time">Круглосуточно</span>
-              <input type="radio" name="radio" @click="checkAddress">
-              <span class="checkmark"></span>
-            </label>
-
-            <label class="rb-container"><span class="address-value">Приморский бульвар, 101</span>
-              <span class="work-time">08:00 – 18:00, Открыто</span>
-              <input type="radio" name="radio" @click="checkAddress">
-              <span class="checkmark"></span>
-            </label>
-            <label class="rb-container"><span class="address-value">Приморский бульвар, 110</span>
-              <span class="work-time">Круглосуточно</span>
-              <input type="radio" name="radio" @click="checkAddress">
-              <span class="checkmark"></span>
-            </label>
-
-            <label class="rb-container"><span class="address-value">Победы, 40</span>
-              <span class="work-time">08:00 – 18:00, Открыто</span>
-              <input type="radio" name="radio" @click="checkAddress">
-              <span class="checkmark"></span>
-            </label>
-            <label class="rb-container"><span class="address-value">Космосольская, 2</span>
-              <span class="work-time">Круглосуточно</span>
-              <input type="radio" name="radio" @click="checkAddress">
-              <span class="checkmark"></span>
-            </label>
-          </div>
-        </VuePerfectScrollbar>
-      </div>
-      <button class="selfdelivery-btn" @click="okSelfDelivery = !okSelfDelivery">ОК</button>
-
-      <div v-if="okSelfDelivery" class="thank-you-message">
-        <p>Спасибо!</p>
-        <p>Вы успешно оформили заказ для самовывоза.</p>
-        <p>Нажмите ОК, если Вы заберёте его по адресу:</p>
-        <p class="address">г. Санкт-Петербург, ул. Петрозаводская 13, кв. 48, подъезд 14, этаж 21</p>
-        <p>Заказ будет готов через 30 минут</p>
-        <button @click="okSelfDelivery = !okSelfDelivery">ОК</button>
-      </div>
-
-    </div>
   </modal>
 </template>
 <script>
 import VuePerfectScrollbar from 'vue-perfect-scrollbar';
 import modalActions from '@/mixins/modalActions';
 import Login from '@/components/Login';
-import Address from '@/components/address-component';
+import Delivery from './delivery';
+import Pickup from './pickup';
 import './style.scss';
 
 export default {
   name: 'DeliveryForm',
-  components: { VuePerfectScrollbar, Login, Address },
+  components: {
+    VuePerfectScrollbar,
+    Login,
+    Delivery,
+    Pickup
+  },
   mixins: [modalActions],
   data() {
     return {

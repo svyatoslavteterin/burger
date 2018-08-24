@@ -136,8 +136,12 @@
     
 
     <div class="modal-search-address__buttons">
-      <button class="send-button save-delivery-address" v-show="fullAddr.Street && fullAddr.House"
-              @click="saveAddress()">Сохранить Адрес
+      <button 
+        class="send-button save-delivery-address"
+        v-show="fullAddr.Street && fullAddr.House"
+        @click="saveAddress()"
+      >
+        Сохранить Адрес
       </button>
     </div>
   </div>
@@ -154,6 +158,7 @@
       return {
         modalSearchAddress: true,
         addresses: [],
+        errors: [],
         selectedStreet: {},
         findingHouses: [],
         fullAddr: {
@@ -224,7 +229,8 @@
           );
           return response.data;
         } catch (e) {
-          this.errors.address.request = "Ошибка при получении адресов";
+          console.log(e);
+          this.errors.push("Ошибка при получении адресов");
         }
       },
       selectStreet(address) {
@@ -289,6 +295,8 @@
 </script>
 
 <style lang="scss" scoped>
+@import './_delivery.scss';
+
   .modal-search-address__wrapper {
     position: absolute;
     top: 0;
