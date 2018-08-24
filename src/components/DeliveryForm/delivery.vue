@@ -149,6 +149,7 @@
 
 
 <script>
+import { actions as addressActions } from '@/modules/address'
   import "./style.scss";
   import _ from "lodash";
 
@@ -156,9 +157,8 @@
     name: "SearchAddress",
     data() {
       return {
-        modalSearchAddress: true,
-        addresses: [],
         errors: [],
+        addresses: [],
         selectedStreet: {},
         findingHouses: [],
         fullAddr: {
@@ -177,61 +177,12 @@
       };
     },
     methods: {
-      toggleSearchAddress() {
-        this.modalSearchAddress = !this.modalSearchAddress;
-        if (this.modalSearchAddress) {
-          setTimeout(() => {
-            this.$refs.searchAddressInput.focus();
-          }, 100);
-        } else {
-          //this.$store.dispatch(namesActions.clearSearchAddress);
-          this.inputAddress = "";
-          this.fullAddr = {
-            Street: "",
-            House: "",
-            Housing: "",
-            Structure: "",
-            Office: "",
-            Entrance: "",
-            DoorphoneСode: "",
-            Floor: "",
-            Apartment: "",
-            needOddFrom: "",
-            Comments: ""
-          };
-        }
-      },
-      async searchAddress() {
-        if (!this.fullAddr.Street.length) {
-          this.addresses = [];
-          this.fullAddr = {
-            Street: "",
-            House: "",
-            Housing: "",
-            Structure: "",
-            Office: "",
-            Entrance: "",
-            DoorphoneСode: "",
-            Floor: "",
-            Apartment: "",
-            needOddFrom: "",
-            Comments: ""
-          };
-        }
+      searchAddress() {
         if (this.fullAddr.Street.length < 3) return;
-        // this.$store.dispatch('searchAddress', this.fullAddr.Street);
-        this.addresses = await this.getAddresses(this.fullAddr.Street);
-      },
-      getAddresses: async function (street) {
-        try {
-          let response = await this.$http.get(
-            "https://apitest.burgerpizzoni.ru/api/Address/get?street=" + street
-          );
-          return response.data;
-        } catch (e) {
-          console.log(e);
-          this.errors.push("Ошибка при получении адресов");
-        }
+        this.$store.dispatch(addressActions.searchAddress, this.fullAddr.Street)
+          .then(res => {
+            this.addresses = res;
+          })
       },
       selectStreet(address) {
         let Street = address.street;
@@ -244,9 +195,6 @@
         this.fullAddr.Street = Street;
         this.selectedStreet = address;
         this.addresses = [];
-        setTimeout(() => {
-          this.$refs.houseInput.focus();
-        }, 1000);
       },
       searchHouse(e) {
         const {value} = e.target;
@@ -259,7 +207,6 @@
         });
       },
       selectHouse(house) {
-
         const House = house.split(" ")[0];
         let Housing = "";
         let Structure = "";
@@ -286,8 +233,7 @@
         };
       },
       saveAddress() {
-        this.modalSearchAddress = !this.modalSearchAddress;
-        this.$store.commit("setDeliveryInfo", this.fullAddr);
+        this.$store.dispatch(addressActions.saveAddress, this.fullAddr);
         this.$modal.hide('delivery');
       }
     }

@@ -4,7 +4,7 @@ export default class Address extends Model {
   plural='/Address';
 
   getAddressByStreet(street) {
-    return this.getRequest(`${this.plural}/getAddressByStreet`, street);
+    return this.getRequest(`${this.plural}/get`, { street });
   }
 
   getSelfDeliveryAddresses() {
