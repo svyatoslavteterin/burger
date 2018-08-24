@@ -57,7 +57,7 @@ main {
   margin-bottom: auto;
 }
 
-button {
+button, a {
   user-select: none !important;
 }
 
