@@ -5,7 +5,12 @@
     
     <div class="addresses-wrapper">
       <Spinner v-if="!addresses.length" />
-      <VuePerfectScrollbar v-if="addresses.length" class="modal-scrollbar" v-once>
+      <VuePerfectScrollbar
+        v-once
+        class="modal-scrollbar"
+        v-if="addresses.length"
+        :settings="settings"
+      >
           <div
             v-for="addr in addresses" 
             :key="addr.Street" 
@@ -20,6 +25,7 @@
                 type="radio" 
                 :checked="isChecked(addr)"
                 @click="address = addr"
+                name="pickup"
               >
               <span class="checkmark"></span>
             </label>
@@ -54,6 +60,10 @@ export default {
   },
   data() {
     return {
+      settings: {
+        maxScrollbarLength: 60,
+        suppressScrollY: true,
+      },
       addresses: [],
       address: {}
     }
