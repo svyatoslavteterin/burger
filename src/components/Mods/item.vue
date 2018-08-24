@@ -26,6 +26,7 @@ export default {
       this.mod.count += 1;
     },
     minusMod() {
+      if (!this.mod.count) return; 
       this.mod.count -= 1;
     },
   },

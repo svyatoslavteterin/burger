@@ -26,6 +26,13 @@
         </span>
       </div>
 
+      <div>
+        <span
+          v-for="mod in getAddedMods"
+          :key="mod.ModName"
+        >{{mod.ModName}}</span>
+      </div>
+
       <a
         class="i-add"
         @click.prevent="showMods = !showMods"
@@ -62,6 +69,7 @@
           v-html="$options.filters.Rub(+currentDish.Price)"
         />
         <span
+          v-if="currentDish.fullData.ExitMass"
           class="variant-weight"
           v-text="`${currentDish.fullData.ExitMass} г`"
         />
@@ -126,6 +134,13 @@ export default {
     },
     currentDish() {
       return this.categ.dishes[this.currentOption];
+    },
+    getAddedMods() {
+      if (!this.categ.dishes[this.currentOption].ModGroups[1]) return;
+
+      const { mods } = this.categ.dishes[this.currentOption].ModGroups[1];
+      const sorted = mods.filter(item => item.count);
+      return sorted;
     },
     filterDishes() {
       return this.$store.getters.filterDishes;
