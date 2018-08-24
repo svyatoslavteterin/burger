@@ -4,6 +4,8 @@ export const actions = {
   login: 'modules/actions/login',
   regStep1: 'modules/actions/regStep1',
   regStep2: 'modules/actions/regStep2',
+  resetPass: 'modules/actions/resetPass',
+  checkCode: 'modules/actions/checkCode',
 };
 
 const mutations = {
@@ -41,6 +43,16 @@ export default {
           dispatch(actions.login, userCred);
         }, 1500);
       }
+      return data;
+    },
+    async [actions.resetPass](ctx, phone) {
+      const User = new UserApi();
+      const data = await User.resetPass(phone);
+      return data;
+    },
+    async [actions.checkCode](ctx, credentials) {
+      const User = new UserApi();
+      const data = await User.checkCodeResetPassword(credentials);
       return data;
     },
   },

@@ -11,7 +11,7 @@
           :key="area.areasName"
           v-text="area.areasName"
           :class="{'active': activeArea === i}"
-          @click="activeArea = i"
+          @click="changeArea(i)"
         />
       </div>
 
@@ -21,7 +21,9 @@
       v-for="(area, i) in menu"
       :key="area.id"
       class="categ-items"
-      v-show="activeArea === i"
+      ref="dishesList"
+      v-show="activeArea === i || lazyLoad.includes(i)"
+      :style="{'order': lazyLoad.includes(i) ? lazyLoad.indexOf(i) + 1 : 0}"
     >
       <Dish
         v-for="categ in area.categs"
@@ -46,11 +48,46 @@ export default {
   data() {
     return {
       activeArea: 2,
+      lazyLoad: [],
+      listener: null,
+      count: 0,
     };
+  },
+  mounted() {
+    const list = this.$refs.dishesList;
+    this.count = this.activeArea;
+    this.lazyLoad.push(this.activeArea);
+
+    this.listener = window.addEventListener('scroll', () => {
+      const { bottom } = list[this.count].getBoundingClientRect();
+      if (bottom < 800) {
+        if (this.lazyLoad.length >= list.length) {
+          return;
+        }
+        if (this.count >= list.length - 1) {
+          this.count = -1;
+        }
+        this.lazyLoad.push(this.count + 1);
+        this.count += 1;
+      }
+    });
+  },
+  beforeDestroy() {
+    console.log('destroy');
+    removeEventListener('scroll', this.listener);
+    this.listener = null;
   },
   computed: {
     filterDishes() {
       return this.$store.getters.filterDishes;
+    },
+  },
+  methods: {
+    changeArea(i) {
+      this.activeArea = i;
+      this.count = i;
+      this.lazyLoad = [];
+      this.lazyLoad.push(this.activeArea);
     },
   },
 };
