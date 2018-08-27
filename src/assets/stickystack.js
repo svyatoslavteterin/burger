@@ -1,4 +1,3 @@
-import throttle from 'lodash/throttle';
 
 export default function StickyStack(options) {
 
@@ -66,7 +65,7 @@ export default function StickyStack(options) {
 		document.head.append(style);
 	}
 	
-
+	const fontSize = +window.getComputedStyle(document.body).fontSize.replace(/\D/g, '');
 	let sectionsInfo = [];
 	buildSectionsInfo()
 
@@ -74,6 +73,11 @@ export default function StickyStack(options) {
 	 * Helper function which builds the array sectionsInfo[] 
 	 * which keeps track of all the section elements
 	 */
+
+	window.addEventListener('resize', () => {
+		buildSectionsInfo()
+	});
+
 
 	function buildSectionsInfo() {
 		let runningHeightCounter = 0;
@@ -119,11 +123,13 @@ export default function StickyStack(options) {
 		}
 	}
 
+	// Call calculation on window scroll
+	window.addEventListener('scroll', () => {
+		calculateLayout()
+	});
 	
 	// Let's wtire calculate positions for set stickies...
-	const calculateLayout = function() {
-		// const fontSize = +window.getComputedStyle(document.body).fontSize.replace(/\D/g, '');
-		// const windowScrollPos = window.pageYOffset + (fontSize * 4);
+	 function calculateLayout() {
 		const windowScrollPos = window.pageYOffset;
 		let counter = 0;
 
@@ -133,7 +139,7 @@ export default function StickyStack(options) {
 					counter += 1;
 				}
 			} else {
-				if (windowScrollPos >= sectionsInfo[i][0]) {
+				if (windowScrollPos >= sectionsInfo[i][0] - fontSize * 4) {
 					counter += 1;
 				}
 			}
@@ -141,14 +147,6 @@ export default function StickyStack(options) {
 			setStickies(counter);
 		}
 	}
-
-	// ...and throttle it 
-	const throttledCalculation = throttle(calculateLayout, 100);
-
-	// Call calculation on window scroll
-	window.addEventListener('scroll', () => {
-		throttledCalculation();
-	});
 
 	function setStickies(howMany) {
 		// Step 1:  Calculate how much padding the parent container should get

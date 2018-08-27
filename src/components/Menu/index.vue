@@ -26,6 +26,7 @@
       <ul
         v-for="(area, i) in menu"
         :key="area.id"
+        v-if="lazyLoad.includes(i)"
         :id="`l-${i}`"
         ref="dishesList"
         :class="{
@@ -60,9 +61,9 @@
 </template>
 
 <script>
+import throttle from 'lodash/throttle'
 import Dish from '@/components/Dish';
 import StickyStack from '@/assets/stickystack.js'
-// import StickyStack from '@/assets/jquery.stickystack.min.js'
 import Search from './search';
 
 export default {
@@ -81,39 +82,19 @@ export default {
       count: 0,
     };
   },
-  mounted() {
+  updated() {
     StickyStack({
       container: this.$refs.container,
       childClass: 'categ-items'
     });
-    // setTimeout(() => {
-    //   $('.content-container').stickyStack({
-    //     containerElement: '.content-container',
-    //     stackingElement: 'ul',
-    //     boxShadow: '0 0 0 0 rgba(0, 0, 0, 0)'
-    //   });
-    // }, 3000)
-    console.log(this);
-    const list = this.$refs.dishesList;
-    this.count = this.activeArea;
-    this.lazyLoad.push(this.activeArea);
 
+    const throttledCounter = throttle(this.listCounter, 250);
     this.areaListener = window.addEventListener('scroll', () => {
-      const { bottom, top } = list[this.count].getBoundingClientRect();
-
-      if (bottom < 800) {
-        if (this.lazyLoad.length >= list.length) {
-          return;
-        }
-
-        if (this.count >= list.length - 1) {
-          return;
-        }
-
-        this.lazyLoad.push(this.count + 1);
-        this.count += 1;
-      }
+      throttledCounter();
     });
+  },
+  mounted() {
+    this.lazyLoad.push(this.activeArea);
 
     const { menuHeader, stub } = this.$refs;
 
@@ -142,6 +123,30 @@ export default {
     },
   },
   methods: {
+    listCounter() {
+        const list = this.$refs.dishesList;
+        this.count = this.activeArea;
+        const { bottom, top } = list[this.count].getBoundingClientRect();
+
+        console.log(bottom);
+
+        if (bottom < 1000) {
+          // if (this.lazyLoad.length >= list.length) {
+          //   console.log(this.lazyLoad);
+          //   console.log(1);
+          //   return;
+          // }
+
+          // if (this.count >= list.length - 1) {
+          //   console.log(2);
+          //   return;
+          // }
+
+          // console.log(3);
+          this.lazyLoad.push(this.count + 1);
+          this.count += 1;
+        }
+    },
     changeArea(i) {
       this.activeArea = i;
 
