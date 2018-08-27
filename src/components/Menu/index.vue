@@ -22,26 +22,47 @@
     </div>
     <div v-show="menuFloat" ref="stub" class="stub" />
 
-    <ul
+    <div class="content-container" ref="container">
+      <ul
+        v-for="(area, i) in menu"
+        :key="area.id"
+        :id="`l-${i}`"
+        ref="dishesList"
+        :class="{
+          'categ-items': true,
+        }"
+      >
+        <Dish
+          v-for="categ in area.categs"
+          :key="`dish-${categ.categName}`"
+          :categ="categ"
+        />
+      </ul>
+    </div>
+
+    <!-- <ul
       v-for="(area, i) in menu"
-      :key="area.id"
-      v-show="activeArea === i || lazyLoad.includes(i)"
-      class="categ-items"
-      ref="dishesList"
-      :style="{'order': lazyLoad.includes(i) ? lazyLoad.indexOf(i) + 1 : 0}"
+      :key="`d-${area.id}`"
+      :id="`d-${i}`"
+      v-show="!lazy
+    //   container: this.$refs.container,
+    //   childType: 'ul'
+    // });Load.includes(i)"
+      ref="dishesList2"
+      :style="{
+        'height': '150px'
+      }"
     >
-      <Dish
-        v-for="categ in area.categs"
-        :key="`dish-${categ.categName}`"
-        :categ="categ"
-      />
-    </ul>
+      {{area.areaName}}
+    </ul> -->
 
   </section>
 </template>
 
 <script>
 import Dish from '@/components/Dish';
+import StickyStack from '@/assets/stickystack.js'
+// import StickyStack from '@/assets/jquery.stickystack.min.js'
 import Search from './search';
 
 export default {
@@ -52,7 +73,7 @@ export default {
   components: { Dish, Search },
   data() {
     return {
-      activeArea: 2,
+      activeArea: 0,
       lazyLoad: [],
       areaListener: null,
       menuNavListener: null,
@@ -61,19 +82,34 @@ export default {
     };
   },
   mounted() {
+    StickyStack({
+      container: this.$refs.container,
+      childClass: 'categ-items'
+    });
+    // setTimeout(() => {
+    //   $('.content-container').stickyStack({
+    //     containerElement: '.content-container',
+    //     stackingElement: 'ul',
+    //     boxShadow: '0 0 0 0 rgba(0, 0, 0, 0)'
+    //   });
+    // }, 3000)
+    console.log(this);
     const list = this.$refs.dishesList;
     this.count = this.activeArea;
     this.lazyLoad.push(this.activeArea);
 
     this.areaListener = window.addEventListener('scroll', () => {
-      const { bottom } = list[this.count].getBoundingClientRect();
+      const { bottom, top } = list[this.count].getBoundingClientRect();
+
       if (bottom < 800) {
         if (this.lazyLoad.length >= list.length) {
           return;
         }
+
         if (this.count >= list.length - 1) {
-          this.count = -1;
+          return;
         }
+
         this.lazyLoad.push(this.count + 1);
         this.count += 1;
       }
@@ -108,14 +144,18 @@ export default {
   methods: {
     changeArea(i) {
       this.activeArea = i;
-      this.count = i;
-      this.lazyLoad = [];
-      this.lazyLoad.push(this.activeArea);
-      const { stub } = this.$refs;
-      const { top } = stub.getBoundingClientRect();
-      if (top < 0) {
-        window.scrollTo(0, stub.offsetTop - 20);
-      }
+
+      const list = document.querySelector(`#l-${i}`);
+      const list2 = document.querySelector(`#d-${i}`);
+
+      const timer = setInterval(() => {
+        const height = list.offsetTop || list2.offsetTop;
+        if (list.getBoundingClientRect().top < 51 && list.getBoundingClientRect().top > 49) {
+          clearInterval(timer);
+          return;
+        }
+        window.scrollTo(0, height - 50);
+      }, 50)
     },
   },
 };

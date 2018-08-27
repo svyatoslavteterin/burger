@@ -1,3 +1,4 @@
+import '@/assets/jquery.stickystack.min.js';
 import Vue from 'vue';
 import VModal from 'vue-js-modal';
 import VueMask from 'v-mask';

@@ -7,7 +7,8 @@
   
   .stub {
     width: 100%;
-    height: 4rem;
+    height: 2.5rem;
+    padding-bottom: 4rem;
     background: transparent;
   }
   
@@ -16,7 +17,7 @@
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2rem !important;
+    margin-bottom: 4rem !important;
 
     &.top {
       position: fixed;
@@ -60,7 +61,14 @@
 
   .categ-items {
     display: flex;
+    opacity: 1;
     flex-flow: row wrap;
-    width: 100%;
+    max-width: 80vw;
+    transition: all 0.33s linear;
+    background-color: white;
+    
+    &.visible {
+      opacity: 1;
+    }
   }
 }
