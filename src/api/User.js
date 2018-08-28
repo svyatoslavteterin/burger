@@ -1,7 +1,7 @@
 import Model from './Model';
 
 export default class Menu extends Model {
-  plural='/Profiles';
+  plural='Profiles';
 
   login(credentials) {
     return this.postRequest(`${this.plural}/login`, credentials);
