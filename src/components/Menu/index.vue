@@ -23,16 +23,17 @@
     <div v-show="menuFloat" ref="stub" class="stub" />
 
     <div class="content-container" ref="container">
+        <!-- v-if="lazyLoad.includes(i)" -->
       <ul
         v-for="(area, i) in menu"
         :key="area.id"
-        v-if="lazyLoad.includes(i)"
         :id="`l-${i}`"
         ref="dishesList"
         :class="{
           'categ-items': true,
         }"
       >
+        <span class="categ-items__title">{{ area.areasName }}</span>
         <Dish
           v-for="categ in area.categs"
           :key="`dish-${categ.categName}`"
@@ -82,20 +83,14 @@ export default {
       count: 0,
     };
   },
-  updated() {
+  mounted() {
+    this.lazyLoad.push(this.activeArea);
+    this.listCounter();
+
     StickyStack({
       container: this.$refs.container,
       childClass: 'categ-items'
     });
-
-    const throttledCounter = throttle(this.listCounter, 250);
-    this.areaListener = window.addEventListener('scroll', () => {
-      throttledCounter();
-    });
-  },
-  mounted() {
-    this.lazyLoad.push(this.activeArea);
-
     const { menuHeader, stub } = this.$refs;
 
     this.menuNavListener = window.addEventListener('scroll', () => {
@@ -124,43 +119,53 @@ export default {
   },
   methods: {
     listCounter() {
+      
+      const counter = () => {
         const list = this.$refs.dishesList;
-        this.count = this.activeArea;
+        const count = this.activeArea;
+
+        if (!list || !list[this.activeArea]) {
+          return;
+        }
+
         const { bottom, top } = list[this.count].getBoundingClientRect();
 
-        console.log(bottom);
-
-        if (bottom < 1000) {
-          // if (this.lazyLoad.length >= list.length) {
-          //   console.log(this.lazyLoad);
-          //   console.log(1);
-          //   return;
-          // }
-
-          // if (this.count >= list.length - 1) {
-          //   console.log(2);
-          //   return;
-          // }
-
-          // console.log(3);
-          this.lazyLoad.push(this.count + 1);
-          this.count += 1;
+        if (bottom < 1200) {
+            this.activeArea += 1;
+            this.lazyLoad.push(this.count + 1);
+            this.count += 1;
+          }
         }
+        
+        this.areaListener = window.addEventListener('scroll', () => {
+          counter();
+
+          if (this.lazyLoad.length >= this.$refs.dishesList.length) {
+            removeEventListener('scroll', this.areaListener);
+          }
+        });
     },
     changeArea(i) {
       this.activeArea = i;
 
-      const list = document.querySelector(`#l-${i}`);
-      const list2 = document.querySelector(`#d-${i}`);
+      // const list = document.querySelector(`#l-${i}`);
+      // const list2 = document.querySelector(`#d-${i}`);
 
-      const timer = setInterval(() => {
-        const height = list.offsetTop || list2.offsetTop;
-        if (list.getBoundingClientRect().top < 51 && list.getBoundingClientRect().top > 49) {
-          clearInterval(timer);
-          return;
-        }
-        window.scrollTo(0, height - 50);
-      }, 50)
+      // const timer = setInterval(() => {
+      //   const height = list.offsetTop || list2.offsetTop;
+      //   if (list.getBoundingClientRect().top < 51 && list.getBoundingClientRect().top > 49) {
+      //     clearInterval(timer);
+      //     return;
+      //   }
+      //   window.scrollTo(0, height - 50);
+      // }, 50)
+
+      const list = this.$refs.dishesList;
+      
+      window.scrollTo({
+        top: list[i].getAttribute('data-scrollto') - list[i].getAttribute('data-height' / 2),
+        behavior: "smooth"
+      });
     },
   },
 };

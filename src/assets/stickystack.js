@@ -7,7 +7,7 @@ export default function StickyStack(options) {
 	 * they mounted to the DOM
 	 */
 
-	if (!options.container.children.length) {
+	if (!options.container || !options.container.children.length) {
 		setTimeout(() => {
 			StickyStack(options);
 		}, 500);
@@ -29,7 +29,6 @@ export default function StickyStack(options) {
 	 * Insert the styles for the selected items
 	 */
 
-
 	if (!document.querySelector('#sticky-stack-styles')) {
 		const styles = `
 		.${options.childClass} {
@@ -46,7 +45,7 @@ export default function StickyStack(options) {
 			z-index: 0;
 		}
 
-		.${options.childClass}.stuck + ${options.childClass}:not(.stuck) {
+		.${options.childClass}.stuck + .${options.childClass}:not(.stuck) {
 			-webkit-box-shadow: 0 -3px 20px rgba(0, 0, 0, 0.25);
 			box-shadow: 0 -3px 20px rgba(0, 0, 0, 0.25);
 		}
@@ -129,17 +128,18 @@ export default function StickyStack(options) {
 	});
 	
 	// Let's wtire calculate positions for set stickies...
-	 function calculateLayout() {
+	function calculateLayout() {
 		const windowScrollPos = window.pageYOffset;
 		let counter = 0;
 
 		for (let i = 0; i < sections.length; i += 1) {
 			if (sections[i].getAttribute('data-offset') !== '0') {
 				if (windowScrollPos >= sectionsInfo[i][2] + sectionsInfo[i][0]) {
+					console.log(sectionsInfo[i][2] + sectionsInfo[i][0])
 					counter += 1;
 				}
 			} else {
-				if (windowScrollPos >= sectionsInfo[i][0] - fontSize * 4) {
+				if (windowScrollPos >= sectionsInfo[i][0] - (fontSize * 4)) {
 					counter += 1;
 				}
 			}

@@ -10,10 +10,10 @@ export default class Model {
     };
 
     return axios.get(`${this.apiUrl}/${url}`, options)
-      .then(result => result.data)
-      .catch(error => error);
+    .then(result => result.data)
+    .catch(error => error);
   }
-
+  
   postRequest(url, options) {
     return axios.post(`${this.apiUrl}/${url}`, options)
       .then(result => result.data)

@@ -1,7 +1,6 @@
 .menu {
   display: flex;
   flex-flow: column nowrap;
-  max-width: 80vw;
   margin: 0 auto;
   
   .stub {
@@ -17,6 +16,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 4rem !important;
+    padding: 0 10vw;
 
     &.top {
       position: fixed;
@@ -62,10 +62,21 @@
     display: flex;
     opacity: 1;
     flex-flow: row wrap;
-    max-width: 80vw;
+    padding: 0 10vw 4rem;
+    // min-height: 100vh;
+    margin: 0 auto;
     transition: all 0.33s linear;
     background-color: white;
-    
+
+    &__title {
+      display: block;
+      width: 100%;
+      font-size: 5rem;
+      padding: 2.5rem 0;
+      text-align: center;
+      font-weight: bold;
+    }
+
     &.visible {
       opacity: 1;
     }
