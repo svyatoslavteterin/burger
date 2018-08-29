@@ -18,6 +18,7 @@ export default {
     cart: [],
     filters: {},
     filterDishes: [],
+    order: {}
   },
   actions: {
     [actions.addDishToCart]({ commit }, dish) {

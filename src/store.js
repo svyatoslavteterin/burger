@@ -5,6 +5,7 @@ import menu from '@/modules/menu';
 import cart from '@/modules/cart';
 import user from '@/modules/user';
 import address from '@/modules/address';
+import payment from '@/modules/payment';
 
 Vue.use(Vuex);
 
@@ -13,7 +14,8 @@ export default new Vuex.Store({
     menu,
     cart,
     user,
-    address
+    address,
+    payment
   ],
 });
  

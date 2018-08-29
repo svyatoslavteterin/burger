@@ -38,7 +38,7 @@
       <a
         class="i-add"
         @click.prevent="showMods = !showMods"
-        v-if="categ.dishes[currentOption].ModGroups[1]"
+        v-if="categ.dishes[currentOption].ModGroups[1] && !fromCart"
       >
         добавить
       </a>
@@ -51,40 +51,42 @@
         />
       </div>
 
-      <div v-if="categ.dishes.length > 1" class="dish-info__variants">
-        <button
-          v-for="(dish, i) in categ.dishes"
-          :key="dish.id"
-          v-if="showVaraint(dish)"
-          v-text="dish.dishName"
-          :class="{
-            '': true,
-            'active': currentOption === i
-          }"
-          @click="currentOption = i"
-        />
-      </div>
-
-      <div class="dish-info__variant-info">
-        <span
-          class="variant-price"
-          v-html="$options.filters.Rub(+currentDish.Price)"
-        />
-        <span
-          v-if="currentDish.fullData.ExitMass"
-          class="variant-weight"
-          v-text="`${currentDish.fullData.ExitMass} г`"
-        />
-        <div v-if="!currentDish.count">
+      <div class="bottom-row">
+        <div v-if="categ.dishes.length > 1" class="dish-info__variants">
           <button
-            @click="addDishToCart(currentDish)"
-            v-text="'В корзину'"
+            v-for="(dish, i) in categ.dishes"
+            :key="dish.id"
+            v-if="showVaraint(dish)"
+            v-text="dish.dishName"
+            :class="{
+              '': true,
+              'active': currentOption === i
+            }"
+            @click="currentOption = i"
           />
         </div>
-        <div v-else class='counter'>
-          <button @click="minusDish(currentDish)" v-text="'-'"/>
-          <span v-text="currentDish.count" />
-          <button @click="plusDish(currentDish)" v-text="'+'"/>
+
+        <div class="dish-info__variant-info">
+          <span
+            class="variant-price"
+            v-html="$options.filters.Rub(+currentDish.Price)"
+          />
+          <span
+            v-if="currentDish.fullData.ExitMass && !fromCart"
+            class="variant-weight"
+            v-text="`${currentDish.fullData.ExitMass} г`"
+          />
+          <div v-if="!currentDish.count">
+            <button
+              @click="addDishToCart(currentDish)"
+              v-text="'В корзину'"
+            />
+          </div>
+          <div v-else class='counter'>
+            <button @click="minusDish(currentDish)" v-text="'-'"/>
+            <span v-text="currentDish.count" />
+            <button @click="plusDish(currentDish)" v-text="'+'"/>
+          </div>
         </div>
       </div>
     </div>
