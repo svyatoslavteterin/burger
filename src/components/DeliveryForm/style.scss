@@ -1,0 +1,527 @@
+.with-overflow-off {
+  overflow: visible !important; 
+}
+.delivery {
+  .modal-header {
+    display: flex;
+    justify-content: flex-start;
+    position: relative;
+    background: black;
+    padding: 0;
+    height: 48px;
+    border-bottom: 0;
+    .info-yellow-block {
+      background: #e6e6e6;
+      padding: 10px;
+      display: block;
+      width: 222px;
+      color: black;
+      font-size: 21px;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    .tab-name {
+      cursor: pointer;
+      display: block;
+      color: white;
+      background: black;
+      font-size: 21px;
+      padding: 10px;
+      overflow: hidden;
+      &.active {
+        color: black;
+        background: white;
+      }
+    }
+    .info-modal-close {
+      width: 21px;
+      height: 21px;
+      background: url("img/icons_close_max.png") center no-repeat;
+      background-size: contain;
+      position: absolute;
+      top: 14px;
+      right: 10px;
+      border: none;
+      outline: none;
+      text-decoration: none;
+      box-shadow: none;
+      opacity: .5;
+      cursor: pointer;
+      transition: all .2s ease-in-out;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+  .info-modal-pic {
+    width: 100%;
+    max-height: 540px;
+    img {
+      width: 100%;
+      object-fit: contain;
+    }
+  } 
+  // КОНЕЦ Шапка модального окна
+  .modal-wrapper {
+    padding: 30px;
+    position: relative; 
+
+    &.delivery {
+      padding: 17px 30px 16px;
+    }
+
+    //Доставка
+    .hello-message {
+      color: black;
+      width: 100%;
+      text-align: center;
+      font-size: 17px;
+      margin-bottom: 15px;
+    }
+    .search-wrapper {
+      position: relative;
+
+      .search-input {
+        text-transform: uppercase;
+        border: 1px solid #b2b2b2;
+        padding: 9px 8px 6px;
+        width: 100%;
+        box-sizing : border-box;
+        height: auto;
+        margin-bottom: 15px;
+        border-radius: 6px;
+        font-size: 14px;
+        &:focus{
+          font-weight: normal;
+          border: 1px solid #ffd70f;
+          outline: 0;
+        }
+        &:valid {
+          border: 1px solid #ffd70f;
+          outline: 0;
+          font-weight: bold;
+
+          &~.search-btn {
+            background: url('img/icons_zoom_black.svg') center no-repeat;
+            background-size: contain;
+            padding-top: 10px;
+          }
+
+          &~.clear-btn {
+            opacity: 1;
+          }
+          &~.result {
+            display: block;
+          }
+
+        }
+        &::placeholder {
+          color: #b2b2b2;
+        }
+      }
+
+      .search-btn {
+        position: absolute;
+        top: 6px;
+        right: 8px;
+        width: 20px;
+        height: 20px;
+        padding: 0;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        background: url('img/icons_zoom.svg') center no-repeat;
+        background-size: contain;
+      }
+
+      .clear-btn {
+        position: absolute;
+        opacity: 0;
+        top: 12px;
+        right: 35px;
+        width: 10px;
+        height: 10px;
+        padding: 0;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        background: url('img/icons_close_min.png') center no-repeat;
+        background-size: contain;
+      }
+
+      .result {
+        position: absolute;
+        display: none;
+        top: 29px;
+        left: 0;
+        width: 100%;
+        background: white;
+        box-sizing : border-box;
+        text-transform: uppercase;
+        font-size: 14px;
+        list-style-type: none;
+        border-radius: 0 0 6px 6px;
+        border: 1px solid #ffd70f;
+        border-top: none;
+        padding: 0;
+        z-index: 9999;
+
+        li {
+          margin-bottom: 3px;
+          cursor: pointer;
+          padding: 2px 0 2px 8px;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+
+          &:hover {
+            background: #f7f7f7;
+          }
+        }
+
+        span {
+          font-size: 12px;
+          color: #808080;
+          text-transform: none;
+        }
+      }
+    }
+    
+    .small-inputs-wrapper {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+    .small-wrapper {
+      position: relative;
+      width: 23%;
+      label {
+        position: absolute;
+        top: 25%;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        font-size: 13px;
+        text-align: center;
+        transition: all 0.05s linear 0s;
+        color: #b2b2b2;
+        text-transform: uppercase;
+        pointer-events: none;
+      }
+    }
+    .icons_incorrect{
+      position: absolute;
+      right: 10px;
+      top: 7px;
+    }
+    .phone-wrapper{
+      width: 48%;
+    }
+    .small-input {
+      position: relative;
+      text-transform: uppercase;
+      border: 1px solid #b2b2b2;
+      box-sizing : border-box;
+      padding: 6px 8px 3px;
+      border-radius: 6px;
+      font-size: 20px;
+      width: 100%;
+      &:focus{
+        font-weight: normal;
+        border: 1px solid #ffd70f;
+        outline: 0;
+      }
+      &:valid {
+        outline: 0;
+        border: 1px solid #ffd70f;
+        text-align: center;
+        &~label {
+          width: auto;
+          height: auto;
+          top: -8px;
+          background-color: white;
+          padding: 0 4px;
+          left: 10px;
+          font-size: 12px;
+          }
+        }
+      }
+      .error-mess{
+        color: #EE232B;
+        font-size: 17px;
+        margin-right: 19px;
+      }
+      .small-input2 {
+        position: relative;
+        text-transform: uppercase;
+        border: 1px solid #b2b2b2;
+        padding: 9px 8px 6px;
+        border-radius: 6px;
+        font-size: 12px;
+        width: 100%;
+        &:focus{
+          font-weight: normal;
+          border: 1px solid #ffd70f;
+          outline: 0;
+        }
+        &:valid {
+          outline: 0;
+          border: 1px solid #ffd70f;
+          font-weight: bold;
+          &~label {
+            width: auto;
+            height: auto;
+            top: 0;
+            left: 5px;
+            font-size: 12px;
+            }
+          }
+        }
+        .small-input2-error{
+          position: relative;
+          text-transform: uppercase;
+          padding: 9px 8px 6px;
+          border-radius: 6px;
+          font-size: 12px;
+          width: 100%;
+          font-weight: normal;
+          border: 1px solid #EE232B;
+          outline: 0;
+          &:valid {
+            font-weight: bold;
+          }
+        }
+    .recieve-code-wrapper {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+    input[type="checkbox"].ios8-switch {
+      position: absolute;
+      margin: 8px 0 0 16px;    
+      }
+      input[type="checkbox"].ios8-switch + label {
+          position: relative;
+          padding: 5px 0 0 50px;
+          line-height: 2.0em;
+          cursor: pointer;
+      }
+      input[type="checkbox"].ios8-switch + label:before {
+          content: "";
+          position: absolute;
+          display: block;
+          left: -7px;
+          top: -4px;
+          width: 65px; /* x*5 */
+          height: 40px; /* x*3 */
+          border-radius: 30px; /* x*2 */
+          background: #fff;
+          border: 2px solid #ffd70f;
+          -webkit-transition: all 0.3s;
+          transition: all 0.3s;
+      }
+      input[type="checkbox"].ios8-switch + label:after {
+          content: "";
+          position: absolute;
+          display: block;
+          left: -1px;
+          top: 1px;
+          width: 30px; /* x*3 */
+          height: 30px; /* x*3 */
+          border-radius: 100%; /* x*2 */
+          background: #fff;
+          border: 1px solid #AFAFAF;
+          -webkit-transition: all 0.3s;
+          transition: all 0.3s;
+      }
+      input[type="checkbox"].ios8-switch + label:hover:after {
+          box-shadow: 0 0 5px rgba(0,0,0,0.3);
+      }
+      input[type="checkbox"].ios8-switch:checked + label:after {
+          margin-left: 25px;
+      }
+      input[type="checkbox"].ios8-switch:checked + label:before {
+          background: #ffd70f;
+      }
+    .auth-button{
+      background-color: #ffd70f;
+      padding: 8px 0px 8px 0px;
+      border-radius: 5px;
+      text-transform: uppercase;
+      text-align: center;
+      width: 41%;
+      cursor: pointer;
+    }
+    .auth-button:hover{
+      color: #007bff;
+    }
+    .reg-button{
+      background-color: #C0C0C0;
+      padding: 8px 0px 8px 0px;
+      border-radius: 5px;
+      text-transform: uppercase;
+      width: 41%;
+      text-align: center;
+      color: white;
+      cursor: pointer;
+    }
+    .reg-button:hover{
+      color: #007bff;
+    }
+    .send-button{
+      background-color: #ffd70f;
+      padding: 10px 30px 10px 30px;
+      border-radius: 5px;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+    .send-code-wrapper {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+    .code-wrapper,
+    .code-btn {
+      width: 25%;
+    }
+    .send-link-again-wrapper {
+      width: 100%;
+      text-align: center;
+    }
+    .send-again-link {
+      color: #808080;
+      font-size: 17px;
+      text-decoration: underline;
+      cursor: pointer;
+      &:hover {
+        color: black;
+      }
+      &:focus {
+        outline: 0;
+      }
+    } // Конец Доставка
+    // Самовывоз
+    .addresses-wrapper {
+      height: 200px;
+      .modal-scrollbar {
+        max-height: 200px;
+      }
+    }
+    .radio-container {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      justify-content: flex-start;
+    }
+    /* Customize the label (the container) */
+    .rb-container {
+      display: block;
+      position: relative;
+      padding-left: 35px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      font-size: 18px;
+      width: 50%;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    .rb-container .work-time {
+      display: block;
+      font-size: 12px;
+      color: #808080;
+    }
+    /* Hide the browser's default radio button */
+    .rb-container input {
+      position: absolute;
+      opacity: 0;
+    }
+    /* Create a custom radio button */
+    .checkmark {
+      position: absolute;
+      top: 2px;
+      left: 0;
+      height: 23px;
+      width: 23px;
+      background: transparent;
+      border-radius: 50%;
+      border: 1px solid #b2b2b2;
+    }
+    /* On mouse-over, add a grey background color */
+    .rb-container:hover input~.checkmark {
+      border: 1px solid #808080;
+    }
+    /* When the radio button is checked, add a blue background */
+    .rb-container input:checked~.checkmark {
+      background-color: #ffffff;
+      border: 1px solid #808080;
+    }
+    /* Create the indicator (the dot/circle - hidden when not checked) */
+    .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+    /* Show the indicator (dot/circle) when checked */
+    .rb-container input:checked~.checkmark:after {
+      display: block;
+    }
+    /* Style the indicator (dot/circle) */
+    .rb-container .checkmark:after {
+      top: 4px;
+      left: 4px;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: #ffd70f;
+    }
+    .selfdelivery-btn {
+      display: block;
+      background: #ffd70f;
+      color: black;
+      text-align: center;
+      border-radius: 6px;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 9px 50px 7px;
+      margin: 16px auto 0;
+    } // Конец Самовывоз
+    .thank-you-message {
+      background: white;
+      padding: 50px 30px 30px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      p {
+        color: black;
+        width: 100%;
+        text-align: center;
+        font-size: 18px;
+        margin-bottom: 7px;
+      }
+      .address {
+        margin-bottom: 25px;
+      }
+      button {
+        display: block;
+        background: #ffd70f;
+        color: black;
+        text-align: center;
+        border-radius: 6px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 9px 50px 7px;
+        margin: 30px auto 0;
+      }
+    }
+  }
+}

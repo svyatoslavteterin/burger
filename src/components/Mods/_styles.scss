@@ -1,0 +1,379 @@
+.dishmod-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: 16px;
+  left: 7%;
+  box-sizing: border-box;
+  border: 10px solid black;
+  border-color: white white transparent transparent;
+  transform-origin: 0 0;
+  transform: rotate(-45deg);
+  box-shadow: 1px -2px 2px 0 #CCC;
+  z-index: 99;
+}
+
+.dishmod {
+  position: absolute;
+  top: 15px;
+  left: 0;
+  width: 440px;
+  height: 369px;
+  background: white;
+  font-size: 14px;
+  z-index: 98 !important;
+  box-shadow: 0 0 5px #CCC;
+  z-index: 1;
+
+  &.right-side {
+    right: 0;
+    left: auto;
+  }
+
+  .modal-header {
+    position: relative;
+    padding: 0;
+    height: 48px;
+    border-bottom: 0;
+    display: flex;
+    justify-content: flex-start;
+  
+    .info-yellow-block {
+      padding: 10px;
+      display: block;
+      height: 100%;
+      text-transform: uppercase;
+      font-size: 21px;
+    }
+
+    .info-title {
+      display: block;
+      color: black;
+      font-size: 21px;
+      padding: 10px;
+      width: 70%;
+      height: 100%;
+      line-height: 30px;
+      overflow: hidden;
+      box-sizing: border-box;
+      text-transform: uppercase;
+
+      span {
+        margin: 0 0 0 1.5rem;
+        color: black;
+        font-size: 0.9rem;
+        font-weight: bold;
+      }
+    }
+  
+    .info-modal-close {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      position: absolute;
+      background: white;
+      font-size: 16px;
+      top: 7px;
+      opacity: 1;
+      right: 7px;
+      line-height: 1;
+      border: 1px solid black;
+      outline: none;
+      text-decoration: none;
+      box-shadow: none;
+      cursor: pointer;
+      transition: all .2s ease-in-out;
+
+      &:hover {
+        background: #ffd70f;
+        border: 1px solid #ffd70f;
+      }
+    }
+  }
+
+  .modal-border {
+    width: 96%;
+    height: 1px;
+    background: black;
+    margin: 0 auto;
+  }
+  
+  .info-modal-pic {
+    width: 100%;
+    max-height: 540px;
+    img {
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+  
+  .scrollbar-wrapper {
+    padding: 10px;
+    position: relative;
+
+    ul.mods {
+      position: relative;
+      padding: 0;
+      list-style-type: none;
+      display: block;
+      padding-right: 15px;
+    }
+    
+    li {
+      position: relative;
+      display: flex;
+      justify-content: space-between !important;
+      flex-wrap: nowrap;
+    }
+
+    .mod-item {
+      width: calc(100% - 95px);
+      border-bottom: 1px dotted #808080; /* Необязателен. Здесь задается толщина, тип и цвет точек */
+      position: relative;
+      padding: 0;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px; /* Необязателен. Задается для установки расстояния между блоками li */
+
+      .mod-name {
+        position :relative;
+        margin-right: 7em; /* Задается чтобы текст не заходил на номера страниц */
+        padding-right: 2px;
+        height: 18px;
+
+        &.bold {
+          font-weight: bold;
+        }
+      }
+
+      .mod-price {
+        position :relative;
+      }
+
+      .mod-name,
+      .mod-price {
+        bottom: -5px;
+        background-color: #FFF; /* Это необходимо, чтобы перекрыть точки фоном */
+        margin: 0;
+      }
+    }
+
+    .mod-actions {
+      display: flex;
+      justify-content: space-between;
+      align-content: center;
+      align-items: center;
+      width: 86px;
+
+      .counter {
+        width: 20px;
+        height: 20px;
+        align-content: center;
+        padding: 0;
+        background: transparent;
+        border-radius: 50%;
+        border: 1px solid #808080;
+        outline: none;
+        text-decoration: none;
+        box-shadow: none;
+        cursor: pointer;
+
+        &:hover {
+          background: #ffd70f;
+          border: 1px solid #ffd70f;
+        }
+      }
+
+      .label-counter {
+        display: inline-block;
+        margin: 2px 0.5rem 0;
+        font-size: 1rem;
+        line-height: 1;
+        width: 28px;
+        text-align: center;
+      }
+    }
+
+  }
+  
+  .modal-scrollbar {
+    width: 100%;
+    max-height: 300px; 
+  }
+  
+  .empty-gap {
+    height: 15px;
+  }
+  .fade-out-block-top,
+  .fade-out-block-bottom {
+    position:absolute;
+    margin: 0 auto 0 0;
+    transition: all .1s linear;
+    width: calc(100% - 30px);
+    height: 50px;
+    opacity: 1;
+
+    &.hide {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
+  .fade-out-block-top {
+    top: 10px;
+    background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
+    background: -o-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
+    background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
+    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=0 );
+  }
+  
+  .fade-out-block-bottom {
+    bottom: 10px;
+    background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+    background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+    background: -o-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+    background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 );
+  }
+}
+
+/* Переопределение стилей для Perfect Scrollbar */
+
+.ps.ps--active-x>.ps__scrollbar-x-rail,
+.ps.ps--active-y>.ps__scrollbar-y-rail {
+	display: block;
+	background-color: transparent
+}
+
+.ps.ps--in-scrolling.ps--x>.ps__scrollbar-x-rail {
+	background-color: #b2b2b2;
+	opacity: 1
+}
+
+.ps.ps--in-scrolling.ps--x>.ps__scrollbar-x-rail>.ps__scrollbar-x {
+	background-color: #b2b2b2;
+	height: 6px
+}
+
+.ps.ps--in-scrolling.ps--y>.ps__scrollbar-y-rail {
+	background-color: #b2b2b2;
+	opacity: 1
+}
+
+.ps.ps--in-scrolling.ps--y>.ps__scrollbar-y-rail>.ps__scrollbar-y {
+	background-color: black;
+	width: 6px
+}
+
+.ps>.ps__scrollbar-x-rail {
+	position: absolute;
+	opacity: 0;
+	transition: background-color .2s linear, opacity .2s linear;
+	bottom: 0;
+	height: 6px
+}
+
+.ps>.ps__scrollbar-x-rail>.ps__scrollbar-x {
+	position: absolute;
+	background-color: black;
+	border-radius: 6px;
+	transition: background-color .2s linear, height .2s linear, width .2s ease-in-out, border-radius .2s ease-in-out;
+	bottom: 0px;
+	height: 6px
+}
+
+.ps>.ps__scrollbar-x-rail:active>.ps__scrollbar-x,
+.ps>.ps__scrollbar-x-rail:hover>.ps__scrollbar-x {
+	height: 6px
+}
+
+.ps>.ps__scrollbar-y-rail {
+	position: absolute;
+	opacity: 0;
+	transition: background-color .2s linear, opacity .2s linear;
+	right: 0;
+	width: 6px
+}
+
+.ps>.ps__scrollbar-y-rail>.ps__scrollbar-y {
+	position: absolute;
+	background-color: black;
+	border-radius: 6px;
+	transition: background-color .2s linear, height .2s linear, width .2s ease-in-out, border-radius .2s ease-in-out;
+	right: 0;
+	width: 6px
+}
+
+.ps>.ps__scrollbar-y-rail:active>.ps__scrollbar-y,
+.ps>.ps__scrollbar-y-rail:hover>.ps__scrollbar-y {
+	width: 6px
+}
+
+.ps:hover.ps--in-scrolling.ps--x>.ps__scrollbar-x-rail {
+	background-color: #b2b2b2;
+	opacity: 1
+}
+
+.ps:hover.ps--in-scrolling.ps--x>.ps__scrollbar-x-rail>.ps__scrollbar-x {
+	background-color: black;
+	height: 6px
+}
+
+.ps:hover.ps--in-scrolling.ps--y>.ps__scrollbar-y-rail {
+	background-color: #b2b2b2;
+	opacity: 1
+}
+
+.ps:hover.ps--in-scrolling.ps--y>.ps__scrollbar-y-rail>.ps__scrollbar-y {
+	background-color: black;
+	width: 6px
+}
+
+.ps:hover>.ps__scrollbar-x-rail,
+.ps:hover>.ps__scrollbar-y-rail {
+	opacity: 1
+}
+
+.ps:hover>.ps__scrollbar-x-rail:hover {
+	background-color: #b2b2b2;
+	opacity: 1
+}
+
+.ps:hover>.ps__scrollbar-x-rail:hover>.ps__scrollbar-x {
+	background-color: black
+}
+
+.ps:hover>.ps__scrollbar-y-rail:hover {
+	background-color: #b2b2b2;
+	opacity: 1
+}
+
+.ps:hover>.ps__scrollbar-y-rail:hover>.ps__scrollbar-y {
+	background-color: black
+}
+
+.ps > .ps__scrollbar-x-rail,
+.ps > .ps__scrollbar-y-rail {
+  opacity: 1;
+  width: 6px;
+  background-color: #b2b2b2 !important;
+  border-radius: 6px;
+  &:hover {
+    width: 6px;
+    >.ps__scrollbar-y {
+      right: 0;
+      opacity: 1;
+      background-color: black;
+      width: 6px;
+    }
+  }
+}
+
+.ps:hover>.ps__scrollbar-x-rail, .ps:hover>.ps__scrollbar-y-rail {
+  opacity: 1;
+}
+
+/* Конец переопределения стилей для Perfect Scrollbar */
